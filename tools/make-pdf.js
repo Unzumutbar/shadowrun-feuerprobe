@@ -25,8 +25,9 @@ const profile = path.join(os.tmpdir(), 'feuerprobe-pdf-profile');
 
 const all = ['mercer', 'chamaeleon', 'kessel', 'zephyr', 'bastion', 'fizz', 'stille', 'ravn'];
 const args = process.argv.slice(2);
+const onlyPlans = args.includes('plans');   // node tools/make-pdf.js plans  → nur die Plan-PDFs
 const langs = args.filter((a) => a === 'de' || a === 'en');
-const ids = args.filter((a) => a !== 'de' && a !== 'en');
+const ids = args.filter((a) => a !== 'de' && a !== 'en' && a !== 'plans');
 const jobsLang = langs.length ? langs : ['de', 'en'];
 const jobsId = ids.length ? ids : ['alle', ...all];
 const names = {
@@ -40,6 +41,7 @@ const sleep = (ms) => { const end = Date.now() + ms; while (Date.now() < end) { 
 for (const lang of jobsLang) {
   const outDir = path.join(__dirname, '..', 'docs', 'pdf', lang);
   fs.mkdirSync(outDir, { recursive: true });
+  if (onlyPlans) break;
   for (const id of jobsId) {
     const file = path.join(outDir, id === 'alle' ? names[lang].all : names[lang].one(id));
     const target = url + '?lang=' + lang + (id === 'alle' ? '' : '#' + id);
@@ -55,6 +57,30 @@ for (const lang of jobsLang) {
     while (!fs.existsSync(file) && waited < 30000) { sleep(500); waited += 500; }
     const ok = fs.existsSync(file) && fs.statSync(file).size > 1000;
     console.log((ok ? 'PDF: ' : 'FEHLER: ') + path.relative(process.cwd(), file) + (ok ? ' (' + Math.round(fs.statSync(file).size / 1024) + ' KB)' : ' exit ' + r.status + ' ' + String(r.stderr || '').slice(0, 200)));
+  }
+}
+// Pläne: SL- und Spielerversion je Sprache (Druckansicht der Plan-Seite)
+const plansPage = path.join(__dirname, '..', 'docs', 'meridian-spire-plaene.html');
+const plansUrl = 'file:///' + plansPage.replace(/\\/g, '/');
+const planNames = { de: { gm: 'plaene-sl.pdf', player: 'plaene-spieler.pdf' }, en: { gm: 'plans-gm.pdf', player: 'plans-players.pdf' } };
+if (fs.existsSync(plansPage) && !ids.length) {
+  for (const lang of jobsLang) {
+    const outDir = path.join(__dirname, '..', 'docs', 'pdf', lang);
+    for (const variant of ['gm', 'player']) {
+      const file = path.join(outDir, planNames[lang][variant]);
+      if (fs.existsSync(file)) fs.unlinkSync(file);
+      const r = spawnSync(exe, [
+        '--headless=new', '--disable-gpu', '--no-first-run', '--no-default-browser-check',
+        '--disable-extensions', '--disable-background-networking', '--disable-crash-reporter',
+        '--user-data-dir=' + profile + '-plan-' + lang + '-' + variant,
+        '--run-all-compositor-stages-before-draw', '--virtual-time-budget=15000',
+        '--no-pdf-header-footer', '--print-to-pdf=' + file, plansUrl + '?print=' + variant + '&lang=' + lang,
+      ], { stdio: 'pipe', timeout: 180000 });
+      let waited = 0;
+      while (!fs.existsSync(file) && waited < 40000) { sleep(500); waited += 500; }
+      const ok = fs.existsSync(file) && fs.statSync(file).size > 1000;
+      console.log((ok ? 'PDF: ' : 'FEHLER: ') + path.relative(process.cwd(), file) + (ok ? ' (' + Math.round(fs.statSync(file).size / 1024) + ' KB)' : ' exit ' + r.status));
+    }
   }
 }
 for (const d of fs.readdirSync(os.tmpdir())) { if (d.startsWith('feuerprobe-pdf-profile')) { try { fs.rmSync(path.join(os.tmpdir(), d), { recursive: true, force: true }); } catch (e) { /* egal */ } } }

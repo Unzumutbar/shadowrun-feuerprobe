@@ -2,14 +2,15 @@
 <header class="top">
   <div>
     <div class="eyebrow">Shadowrun · Feuerprobe · Runners in the Shadows</div>
-    <h1>Meridian Spire<small>Pläne für Tiefgarage, Penthouse, Dach und Tresorgeschoss · Seattle 2080</small></h1>
+    <h1>Meridian Spire<small id="subtitle">Pläne für Tiefgarage, Penthouse, Dach und Tresorgeschoss · Seattle 2080</small></h1>
   </div>
   <div class="controls">
     <div class="seg" role="tablist" id="tabs" aria-label="Ebene wählen"></div>
     <div class="tog">
+      <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
       <button id="btnGM" class="gmtog" aria-pressed="true" type="button"><span class="dot"></span>SL-Ansicht</button>
       <button id="btnRoutes" aria-pressed="true" type="button"><span class="dot"></span>Wege einblenden</button>
-      <button id="btnPrint" type="button"><span class="dot"></span>Alle Pläne drucken</button>
+      <button id="btnPrint" type="button"><span class="dot"></span>Druckansicht</button>
     </div>
   </div>
 </header>
@@ -21,5 +22,14 @@
   </section>
   <aside class="key" id="key"></aside>
 </main>
-<div id="sheets"></div>
+<div id="printview" hidden>
+  <div class="ptoolbar">
+    <span class="seg2" role="group"><button type="button" id="pvGm" aria-pressed="true">SL-Pläne</button><button type="button" id="pvPlayer" aria-pressed="false">Spielerpläne</button></span>
+    <button type="button" class="primary" id="btnPrintNow">Drucken</button>
+    <button type="button" id="btnBack">Zurück zu den Plänen</button>
+    <p class="hint" id="pvHint"></p>
+  </div>
+  <div id="psheets"></div>
+</div>
+<p class="fine" id="fine"></p>
 </div>

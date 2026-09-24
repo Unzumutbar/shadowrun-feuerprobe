@@ -13,7 +13,7 @@ const pages = [
     name: 'meridian-spire-plaene',
     dir: 'src/plaene',
     html: ['p1_head.html', 'p2_body.html'],
-    js: ['p3_render.js', 'p4_111.js', 'p5_112.js', 'p6_dach.js', 'p7_110.js', 'p8_garage.js', 'p9_schnitt.js', 'p10_app.js'],
+    js: ['p3_render.js', 'p4_111.js', 'p5_112.js', 'p6_dach.js', 'p7_110.js', 'p8_garage.js', 'p9_schnitt.js', 'p11_en_dict.js', 'p12_en_111_112.js', 'p13_en_dach_110.js', 'p14_en_garage_schnitt.js', 'p10_app.js'],
   },
   {
     name: 'feuerprobe-runner',
