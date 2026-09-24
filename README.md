@@ -26,6 +26,14 @@ Nach Änderungen an den Quellteilen:
 node build.js
 ```
 
+Wer die Seiten über einen lokalen Server ansehen möchte (zum Beispiel für die Browser-Vorschau in Claude Code):
+
+```bash
+node tools/serve.js
+```
+
+Die Runner sind bewusst ohne Vornamen und Geschlecht geschrieben: Der große Titel ist nur der Straßenname, Name und Pronomen tragen die Spielenden oben im Bogen selbst ein.
+
 ## Pläne anpassen
 
 Jede Ebene ist eine Datei in `src/plaene/` (`p4_111.js`, `p5_112.js`, `p6_dach.js`, `p7_110.js`, `p8_garage.js`, `p9_schnitt.js`). Räume, Türen, Möbel, Sensoren, Personen, Wege und Marker sind Daten in Metern (1 Einheit = 1 m, Plattenmaß 46 × 34 m). Einträge mit `gm:true` erscheinen nur in der SL-Ansicht. Der Renderer in `p3_render.js` zeichnet daraus das SVG.

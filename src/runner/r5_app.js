@@ -28,8 +28,9 @@ function renderDossier(R){
   const kv=(rows)=>`<dl class="kv">${rows.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
   return `<article class="dossier" id="${R.id}" style="--pb:var(--pb-${R.color})">
   <div class="dhead">
-    <div class="name">${esc(R.street)}<small>${esc(R.name)} · ${esc(R.pbDesc)}</small></div>
+    <div class="name">${esc(R.street)}<small>${esc(R.pbDesc)}</small></div>
     <div class="badges"><span class="badge pb">${esc(R.pb)}</span><span class="badge">${esc(R.meta)}</span><span class="badge">${esc(R.idnShort)}</span></div>
+    <div class="ident"><label for="${R.id}-name">Name</label><input type="text" id="${R.id}-name" data-k="name" value="${esc(s.name||'')}" placeholder="frei wählbar · „${esc(R.street)}“ ist nur der Straßenname"><label for="${R.id}-pron">Pronomen</label><input type="text" id="${R.id}-pron" data-k="pron" value="${esc(s.pron||'')}" placeholder="sie · er · dey · …"></div>
     <p class="role"><b>Rolle im Run:</b> ${R.role}</p>
   </div>
   <div class="dbody">
@@ -78,8 +79,9 @@ function renderAll(){
 function bind(){
   document.querySelectorAll('.box').forEach(b=>b.addEventListener('click',()=>{const id=b.closest('.dossier').id,s=st(id);const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on?'true':'false');if(b.dataset.k==='edge')s.edge[+b.dataset.i]=on;else s.armor[b.dataset.i]=on;save();}));
   document.querySelectorAll('.harm input').forEach(i=>i.addEventListener('input',()=>{const id=i.closest('.dossier').id,s=st(id);s.harm=s.harm||{};s.harm[i.dataset.i]=i.value;save();}));
+  document.querySelectorAll('.ident input').forEach(i=>i.addEventListener('input',()=>{const id=i.closest('.dossier').id,s=st(id);s[i.dataset.k]=i.value;save();}));
   document.querySelectorAll('.loadsel input').forEach(r=>r.addEventListener('change',()=>{const id=r.closest('.dossier').id,s=st(id);s.load=r.value;r.closest('.loadsel').querySelectorAll('label').forEach(l=>l.classList.toggle('on',l.contains(r)));save();}));
-  document.querySelectorAll('[data-reset]').forEach(b=>b.addEventListener('click',()=>{delete saved[b.dataset.reset];save();const R=RUNNERS.find(r=>r.id===b.dataset.reset);const el=document.getElementById(R.id);el.outerHTML=renderDossier(R);bind();}));
+  document.querySelectorAll('[data-reset]').forEach(b=>b.addEventListener('click',()=>{const old=saved[b.dataset.reset]||{};delete saved[b.dataset.reset];const fresh=st(b.dataset.reset);fresh.name=old.name||'';fresh.pron=old.pron||'';save();const R=RUNNERS.find(r=>r.id===b.dataset.reset);const el=document.getElementById(R.id);el.outerHTML=renderDossier(R);bind();}));
 }
 (function boot(){
   let gm=true;try{const v=localStorage.getItem('fp-runner-gm');if(v!==null)gm=v==='1';}catch(e){}
