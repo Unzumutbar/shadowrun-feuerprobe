@@ -12,10 +12,11 @@ Eine kleine Crew soll während einer Gala im 112-stöckigen **Meridian Spire** e
 | `docs/meridian-spire-plaene.html` | Interaktive Pläne: Schnitt, Tiefgarage P2, Ebene 111 (Gala), Ebene 112 (Lounge & Suite), Dach, Ebene 110 (Tresorgeschoss). SL-/Spieleransicht, Wege-Overlay, nummerierte Orte mit SL-Notizen, Deutsch/Englisch. Die Druckansicht liefert SL-Pläne (Kartenblatt plus Notizblatt je Ebene) oder Spielerpläne (nur Kartenblatt), A4 quer. |
 | `docs/feuerprobe-runner.html` | Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten, Spieltipps für den Turm und Welt-Einblicken. Klickbare Edge-, Harm- und Load-Tracker. Mit SL-Notizen. |
 | `docs/feuerprobe-runner-bogen.html` | Dieselben Runner als Spielerbögen zum Austeilen: ein Runner pro A4, ohne SL-Notizen, mit Schreiblinien für Straßenname, Name und Pronomen sowie Kästchen für Edge, Harm, Karma, Load und Nuyen. |
+| `docs/feuerprobe-leitfaden.html` | SL-Leitfaden: führt Schritt für Schritt durch den Run (Einstieg, Johnson, Recherche, Zugang, Party, Ebene 110, Tresor und Koffer, Flucht, Enthüllung, Payoff), dazu Werkzeuge und Schnellreferenz. Kurzbiographien von Mr. Johnson, Dr. Venn, Kade und Veyrath mit Porträt-Platzhaltern (eigenes Bild per Klick einfügen, bleibt im Browser). Klickbare Alert Clock, Payoff-Rechner, abhakbare Kapitel, Deutsch/Englisch, Druckansicht A4. |
 | `docs/pdf/de/`, `docs/pdf/en/` | Fertige PDFs: Spielerbögen (`feuerprobe-runner-alle.pdf` und `bogen-<runner>.pdf`; englisch `feuerprobe-runners-all.pdf`, `sheet-<runner>.pdf`) sowie die Pläne als SL-Version (`plaene-sl.pdf` / `plans-gm.pdf`) und Spielerversion (`plaene-spieler.pdf` / `plans-players.pdf`). |
 | `docs/index.html` | Startseite (DE/EN umschaltbar) mit Links auf alle Seiten und PDFs; die Sprachwahl wird an die verlinkten Seiten weitergegeben. |
 | `docs/artifact/` | Dieselben Seiten als Fragment ohne `<html>`-Gerüst, wie claude.ai-Artifacts sie erwarten. |
-| `src/` | Quellteile beider Seiten (Stylesheet, Gerüst, Renderer, Daten pro Ebene bzw. pro Runner). |
+| `src/` | Quellteile aller Seiten (Stylesheet, Gerüst, Renderer, Daten pro Ebene, pro Runner bzw. pro Sprache beim Leitfaden). |
 | `build.js` | Fügt die Quellteile zu den Seiten in `docs/` zusammen. |
 
 ## Benutzen
@@ -36,7 +37,7 @@ node tools/serve.js
 
 Die Runner sind bewusst ohne Vornamen und Geschlecht geschrieben: Der große Titel ist nur der Straßenname, Name und Pronomen tragen die Spielenden oben im Bogen selbst ein. Auf den Spielerbögen ist auch der Straßenname eine Schreiblinie; der Vorschlag steht klein daneben.
 
-**Deutsch und Englisch.** Pläne, Dossiers und Spielerbögen haben oben einen Umschalter DE/EN. Bei den Plänen liegen die kurzen Beschriftungen als Wörterbuch in `src/plaene/p11_en_dict.js` (deutscher Text → englischer Text; fehlt ein Eintrag, bleibt der deutsche Text stehen), die langen Texte nach Ebene und Nummer in `p12`–`p14`. Dossiers und Spielerbögen Die deutschen Texte sind die Basis (`r3_data_a.js`, `r4_data_b.js`), die englischen liegen als Übersetzungsschicht daneben (`r3b_en_a.js`, `r4b_en_b.js`) und werden beim Umschalten über die Basis gelegt. Wer eine Datei direkt öffnet, kann die Sprache auch per `?lang=en` vorgeben; so erzeugt auch `tools/make-pdf.js` die englischen PDFs.
+**Deutsch und Englisch.** Pläne, Dossiers, Spielerbögen und Leitfaden haben oben einen Umschalter DE/EN. Bei den Plänen liegen die kurzen Beschriftungen als Wörterbuch in `src/plaene/p11_en_dict.js` (deutscher Text → englischer Text; fehlt ein Eintrag, bleibt der deutsche Text stehen), die langen Texte nach Ebene und Nummer in `p12`–`p14`. Bei Dossiers und Spielerbögen sind die deutschen Texte sind die Basis (`r3_data_a.js`, `r4_data_b.js`), die englischen liegen als Übersetzungsschicht daneben (`r3b_en_a.js`, `r4b_en_b.js`) und werden beim Umschalten über die Basis gelegt. Der Leitfaden hält beide Sprachen vollständig in `src/leitfaden/l3_de.js` und `l4_en.js`. Wer eine Datei direkt öffnet, kann die Sprache auch per `?lang=en` vorgeben; so erzeugt auch `tools/make-pdf.js` die englischen PDFs.
 
 PDFs der Spielerbögen erzeugt (mit installiertem Edge oder Chrome):
 

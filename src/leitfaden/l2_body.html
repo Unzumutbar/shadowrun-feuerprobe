@@ -1,0 +1,32 @@
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow" id="eyebrow">Shadowrun · Feuerprobe · Runners in the Shadows</div>
+    <h1><span id="title">SL-Leitfaden</span><small id="subtitle"></small></h1>
+  </div>
+  <div class="tog">
+    <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
+    <a id="lnkPlans" href="meridian-spire-plaene.html"></a>
+    <a id="lnkRunner" href="feuerprobe-runner.html"></a>
+    <button type="button" id="btnPrint"></button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="side">
+    <nav class="panel steps" aria-label="Kapitel"><h3 id="navH"></h3><ol id="nav"></ol><div class="prog"><i id="progBar"></i></div></nav>
+    <section class="panel" id="alertPanel"><h3 id="alertH"></h3>
+      <div class="clock">
+        <svg viewBox="0 0 100 100" id="clockSvg" role="img"></svg>
+        <div><div class="lvl"><span id="alertN">0</span>/6<small id="alertName"></small></div><div class="st" id="alertDesc"></div></div>
+      </div>
+      <div class="clockbtns"><button class="mini" id="alertMinus">−1</button><button class="mini" id="alertPlus">+1</button><button class="mini" id="alertReset"></button></div>
+    </section>
+    <section class="panel calc" id="calcPanel"><h3 id="calcH"></h3><div id="calcBody"></div></section>
+  </aside>
+  <div class="main" id="main"></div>
+</div>
+
+<p class="fine" id="fine"></p>
+</div>
+<a href="#top" class="toplink" id="toplink">↑</a>

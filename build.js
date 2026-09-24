@@ -4,6 +4,7 @@
 //   docs/meridian-spire-plaene.html   eigenständige Seite (im Browser öffnen)
 //   docs/feuerprobe-runner.html       eigenständige Seite
 //   docs/feuerprobe-runner-bogen.html Spielerbögen, ein Runner pro A4 (PDFs: node tools/make-pdf.js)
+//   docs/feuerprobe-leitfaden.html    SL-Leitfaden durch den Run mit NPC-Dossiers
 //   docs/artifact/*.html              Fragment ohne <html>/<head>/<body> für claude.ai-Artifacts
 const fs = require('fs');
 const path = require('path');
@@ -27,6 +28,13 @@ const pages = [
     dir: 'src/bogen',
     html: ['b1_head.html', 'b2_body.html'],
     js: ['../runner/r3_data_a.js', '../runner/r4_data_b.js', '../runner/r3b_en_a.js', '../runner/r4b_en_b.js', 'b3_app.js'],
+  },
+  {
+    // SL-Leitfaden: Ablauf des Runs, NPCs mit Porträt-Platzhaltern, Alert Clock, Payoff-Rechner
+    name: 'feuerprobe-leitfaden',
+    dir: 'src/leitfaden',
+    html: ['l1_head.html', 'l2_body.html'],
+    js: ['l3_de.js', 'l4_en.js', 'l5_app.js'],
   },
 ];
 

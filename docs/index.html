@@ -37,6 +37,7 @@ p.fine{font-size:12.5px;color:var(--muted);margin-top:32px}
 <a class="card" id="lnkPlans" href="meridian-spire-plaene.html"><b data-t="plansT"></b><span data-t="plansD"></span></a>
 <a class="card" id="lnkRunner" href="feuerprobe-runner.html"><b data-t="runnerT"></b><span data-t="runnerD"></span></a>
 <a class="card" id="lnkSheets" href="feuerprobe-runner-bogen.html"><b data-t="sheetsT"></b><span data-t="sheetsD"></span></a>
+<a class="card" id="lnkGuide" href="feuerprobe-leitfaden.html"><b data-t="guideT"></b><span data-t="guideD"></span></a>
 <a class="card" href="../oneshot/Shadowrun_Feuerprobe_OneShot_v5.md"><b data-t="oneshotT"></b><span data-t="oneshotD"></span></a>
 <h2 data-t="pdfH"></h2>
 <ul class="pdfs" id="pdfs"></ul>
@@ -48,6 +49,7 @@ const T={
   plansT:'Meridian Spire Pläne',plansD:'Schnitt, Tiefgarage, Ebene 111 und 112, Dach, Tresorgeschoss 110. SL- und Spieleransicht, Wege, Spielsituationen, Druckansicht für SL- und Spielerpläne.',
   runnerT:'Feuerprobe Runner',runnerD:'Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten und Welt-Einblicken. Mit SL-Notizen.',
   sheetsT:'Spielerbögen',sheetsD:'Dieselben Runner als Bogen zum Austeilen, ein Runner pro A4, ohne SL-Notizen. Straßenname, Name und Pronomen frei wählbar.',
+  guideT:'SL-Leitfaden',guideD:'Führt die Spielleitung Schritt für Schritt durch den Run: Briefing, Party, Tresorgeschoss, Enthüllung, Payoff. Mit NPC-Kurzbiographien und Porträt-Platzhaltern, Alert Clock und Payoff-Rechner.',
   oneshotT:'Das Abenteuer',oneshotD:'Briefing, Gala, Tresorgeschoss, Alert Clock, Enthüllung und Payoff als Markdown (nur auf Deutsch).',
   pdfH:'Fertige PDFs',fine:'Fan-Material für den privaten Spieltisch. Runners in the Shadows ist ein Spiel von Mark Cleveland Massengale; Shadowrun ist eine Marke von The Topps Company / Catalyst Game Labs.',
   pdfs:[['Pläne, SL-Version','de/plaene-sl.pdf'],['Pläne, Spielerversion','de/plaene-spieler.pdf'],['Alle acht Spielerbögen','de/feuerprobe-runner-alle.pdf'],['Einzelbögen','de/bogen-mercer.pdf|Mercer','de/bogen-chamaeleon.pdf|Chamäleon','de/bogen-kessel.pdf|Kessel','de/bogen-zephyr.pdf|Zephyr','de/bogen-bastion.pdf|Bastion','de/bogen-fizz.pdf|Fizz','de/bogen-stille.pdf|Stille','de/bogen-ravn.pdf|Ravn']]},
@@ -55,6 +57,7 @@ const T={
   plansT:'Meridian Spire Plans',plansD:'Section, parking garage, levels 111 and 112, roof, vault level 110. GM and player view, routes, play situations, print view for GM and player plans.',
   runnerT:'Feuerprobe Runners',runnerD:'Eight pregenerated runners with stats, abilities, gear, contacts and insights into the world. With GM notes.',
   sheetsT:'Player sheets',sheetsD:'The same runners as handout sheets, one runner per A4 page, without GM notes. Street name, name and pronouns free to choose.',
+  guideT:'GM Guide',guideD:'Walks the GM through the run step by step: briefing, party, vault level, reveal, payoff. With NPC bios and portrait placeholders, alert clock and payoff calculator.',
   oneshotT:'The adventure',oneshotD:'Briefing, gala, vault level, Alert clock, reveal and payoff as Markdown (German only).',
   pdfH:'Ready-made PDFs',fine:'Fan material for the private gaming table. Runners in the Shadows is a game by Mark Cleveland Massengale; Shadowrun is a trademark of The Topps Company / Catalyst Game Labs.',
   pdfs:[['Plans, GM version','en/plans-gm.pdf'],['Plans, player version','en/plans-players.pdf'],['All eight player sheets','en/feuerprobe-runners-all.pdf'],['Single sheets','en/sheet-mercer.pdf|Mercer','en/sheet-chamaeleon.pdf|Chameleon','en/sheet-kessel.pdf|Kessel','en/sheet-zephyr.pdf|Zephyr','en/sheet-bastion.pdf|Bastion','en/sheet-fizz.pdf|Fizz','en/sheet-stille.pdf|Hush','en/sheet-ravn.pdf|Ravn']]},
@@ -64,7 +67,7 @@ try{const q=new URLSearchParams(location.search).get('lang');const v=localStorag
 function render(){
   const t=T[lang];document.documentElement.lang=lang;
   document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=t[el.dataset.t]||'';});
-  ['lnkPlans','lnkRunner','lnkSheets'].forEach(id=>{const a=document.getElementById(id);a.href=a.href.split('?')[0]+'?lang='+lang;});
+  ['lnkPlans','lnkRunner','lnkSheets','lnkGuide'].forEach(id=>{const a=document.getElementById(id);a.href=a.href.split('?')[0]+'?lang='+lang;});
   document.getElementById('pdfs').innerHTML=t.pdfs.map(row=>{const [label,...links]=row;return `<li><span>${label}</span>${links.map(l=>{const [f,n]=l.split('|');return `<a href="pdf/${f}">${n||f.split('/').pop()}</a>`;}).join('')}</li>`;}).join('');
   document.getElementById('langDE').setAttribute('aria-pressed',lang==='de');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en');
 }

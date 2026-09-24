@@ -1,0 +1,914 @@
+<title>Feuerprobe SL-Leitfaden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#E4E8EC; --surface:#FBFBFC; --surface-2:#F0F2F5; --ink:#161C26; --ink-2:#3C4756; --muted:#66717F; --line:#CBD1D8; --line-2:#AEB7C1;
+  --accent:#0F7B86; --accent-soft:rgba(15,123,134,.12); --gm:#8A3FB3; --gm-soft:rgba(138,63,179,.08);
+  --warn:#B3382C; --warn-soft:rgba(179,56,44,.09); --gold:#A8720A; --gold-soft:rgba(168,114,10,.1);
+  --alert0:#2C8452; --alert1:#A8720A; --alert2:#C96A0B; --alert3:#B3382C;
+  --box:#FBFBFC; --shadow:0 1px 2px rgba(20,28,40,.08),0 10px 28px rgba(20,28,40,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0D1218; --surface:#151B23; --surface-2:#1B222C; --ink:#E7EBF0; --ink-2:#C4CCD6; --muted:#8E9AA9; --line:#293441; --line-2:#3B4756;
+    --accent:#3FC1CC; --accent-soft:rgba(63,193,204,.16); --gm:#CD85FF; --gm-soft:rgba(205,133,255,.1);
+    --warn:#F0716A; --warn-soft:rgba(240,113,106,.12); --gold:#E9BC3F; --gold-soft:rgba(233,188,63,.12);
+    --alert0:#5AD08A; --alert1:#E9BC3F; --alert2:#FFAB45; --alert3:#F0716A;
+    --box:#1B222C; --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0D1218; --surface:#151B23; --surface-2:#1B222C; --ink:#E7EBF0; --ink-2:#C4CCD6; --muted:#8E9AA9; --line:#293441; --line-2:#3B4756;
+  --accent:#3FC1CC; --accent-soft:rgba(63,193,204,.16); --gm:#CD85FF; --gm-soft:rgba(205,133,255,.1);
+  --warn:#F0716A; --warn-soft:rgba(240,113,106,.12); --gold:#E9BC3F; --gold-soft:rgba(233,188,63,.12);
+  --alert0:#5AD08A; --alert1:#E9BC3F; --alert2:#FFAB45; --alert3:#F0716A;
+  --box:#1B222C; --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1360px;margin:0 auto;padding-block:20px 56px;padding-inline:16px}
+h1,h2,h3,h4{font-family:"Barlow Condensed","Arial Narrow",sans-serif;text-wrap:balance;margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+header.top{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between;padding-block:4px 18px;border-bottom:1px solid var(--line)}
+header.top h1{font-size:clamp(34px,5vw,50px);line-height:.95;font-weight:700}
+header.top h1 small{display:block;font-size:.42em;font-weight:500;color:var(--ink-2);letter-spacing:.04em;margin-top:6px}
+.tog{display:flex;flex-wrap:wrap;gap:8px}
+.tog button,.tog a{appearance:none;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:500 13px/1 "IBM Plex Sans",sans-serif;padding:8px 12px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.tog .langs{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
+.tog .langs button{border:0;border-radius:0;padding:8px 13px;font-weight:600;letter-spacing:.04em}
+.tog .langs button+button{border-left:1px solid var(--line-2)}
+.tog .langs button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* layout: sidebar + content */
+.layout{display:grid;gap:24px;margin-top:22px;align-items:start}
+@media (min-width:1040px){.layout{grid-template-columns:272px minmax(0,1fr)}.side{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto;padding-right:4px}}
+.side{display:grid;gap:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px}
+.panel h3{font:600 11.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.panel h3 span{font-weight:400;letter-spacing:.02em;text-transform:none}
+nav.steps ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+nav.steps a{display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink-2);font-size:13.5px}
+nav.steps a:hover{background:var(--surface-2)}
+nav.steps a.cur{background:var(--accent-soft);color:var(--ink)}
+nav.steps .n{font:700 13px "Barlow Condensed",sans-serif;letter-spacing:.04em;color:var(--accent);text-align:center;border:1px solid var(--line-2);border-radius:6px;padding:1px 0;width:24px}
+nav.steps a.done .n{background:var(--accent);color:#fff;border-color:var(--accent)}
+nav.steps .t{font:500 10.5px "IBM Plex Mono",monospace;color:var(--muted);white-space:nowrap}
+nav.steps li.sep{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
+.prog{height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden;margin-top:10px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+
+/* alert clock */
+.clock{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center}
+.clock svg{width:96px;height:96px;display:block}
+.clock .seg{fill:var(--surface-2);stroke:var(--surface);stroke-width:2;cursor:pointer;transition:fill .15s}
+.clock .seg.on{fill:var(--alertcol,var(--warn))}
+.clock .seg:hover{filter:brightness(1.08)}
+.clock .lvl{font:700 24px/1 "Barlow Condensed",sans-serif}
+.clock .lvl small{display:block;font:500 11px "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.clock .st{font-size:12.5px;color:var(--ink-2);margin-top:6px}
+.clock .st b{color:var(--ink)}
+.clockbtns{display:flex;gap:6px;margin-top:10px}
+.mini{appearance:none;border:1px solid var(--line-2);background:var(--box);color:var(--ink);font:500 12px "IBM Plex Sans",sans-serif;padding:5px 10px;border-radius:999px;cursor:pointer}
+.mini:hover{background:var(--surface-2)}
+
+/* payoff calculator */
+.calc label{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--ink-2);padding:4px 0}
+.calc input{margin:3px 0 0;accent-color:var(--accent)}
+.calc .out{margin-top:10px;border-top:1px solid var(--line);padding-top:10px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:baseline}
+.calc .out b{font:700 30px/1 "Barlow Condensed",sans-serif;color:var(--gold)}
+.calc .out span{font-size:12.5px;color:var(--ink-2)}
+.calc .verdict{grid-column:1/-1;font-size:12.5px;padding:6px 9px;border-radius:7px;background:var(--surface-2)}
+.calc .verdict.good{background:color-mix(in srgb,var(--alert0) 14%,transparent)}
+.calc .verdict.mid{background:color-mix(in srgb,var(--alert1) 16%,transparent)}
+.calc .verdict.bad{background:var(--warn-soft)}
+
+/* content */
+.main{display:grid;gap:22px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px 22px}
+.chap{scroll-margin-top:16px}
+.chap>header{display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:start;margin-bottom:14px}
+.chap>header .num{font:600 11.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.chap>header h2{font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1.02}
+.chap>header .lead{grid-column:1;color:var(--ink-2);max-width:78ch;margin-top:6px;font-size:14.5px}
+.chap>header .meta{display:flex;flex-direction:column;gap:6px;align-items:flex-end;grid-row:1/3}
+.chap .time{font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+.done{display:inline-flex;align-items:center;gap:6px;font:500 12.5px "IBM Plex Sans",sans-serif;border:1px solid var(--line-2);border-radius:999px;padding:5px 10px;cursor:pointer;background:var(--box);color:var(--ink)}
+.done input{margin:0;accent-color:var(--accent)}
+.done.on{border-color:var(--accent);background:var(--accent-soft)}
+.chap h3{font:600 12px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px}
+.chap h3:first-child{margin-top:0}
+.chap h4{font:700 17px "Barlow Condensed",sans-serif;letter-spacing:.01em;margin:12px 0 4px}
+.chap p{margin:0 0 10px;max-width:78ch;color:var(--ink-2)}
+.chap p b,.chap li b,.chap td b{color:var(--ink);font-weight:600}
+.chap ul,.chap ol{margin:0 0 10px;padding-left:20px;color:var(--ink-2);display:grid;gap:4px;max-width:78ch}
+.chap li::marker{color:var(--accent)}
+.chap ol li::marker{font-weight:600;color:var(--ink)}
+.q{margin:10px 0 12px;padding:12px 16px;border-left:3px solid var(--accent);background:var(--surface-2);border-radius:0 10px 10px 0;font-style:italic;color:var(--ink);max-width:78ch}
+.q.sys{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.04em;border-color:var(--line-2)}
+.note{margin:10px 0 12px;padding:11px 14px;border-radius:0 10px 10px 0;border-left:3px solid var(--accent);background:var(--accent-soft);font-size:13.5px;color:var(--ink);max-width:78ch}
+.note.gm{border-color:var(--gm);background:var(--gm-soft)}
+.note.warn{border-color:var(--warn);background:var(--warn-soft)}
+.note.gold{border-color:var(--gold);background:var(--gold-soft)}
+.note h5{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;margin:0 0 4px;color:var(--accent)}
+.note.gm h5{color:var(--gm)}.note.warn h5{color:var(--warn)}.note.gold h5{color:var(--gold)}
+.note p:last-child,.note ul:last-child{margin-bottom:0}
+.grid{display:grid;gap:12px;margin:8px 0 12px}
+@media (min-width:760px){.grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}}
+.tile{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--surface)}
+.tile h4{margin:0 0 6px;font-size:17px}
+.tile h4 small{display:block;font:500 11px "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.tile p,.tile ul{font-size:13.5px;margin-bottom:6px}
+.tile p:last-child,.tile ul:last-child{margin-bottom:0}
+.tile .pro,.tile .con{padding-left:18px}
+.tile .pro li::marker{content:"+ ";color:var(--alert0)}
+.tile .con li::marker{content:"− ";color:var(--warn)}
+.tile .fb{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px;margin-top:8px}
+.tile .fb b{color:var(--ink-2)}
+table.tb{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 12px}
+table.tb th{text-align:left;font:600 11px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line-2)}
+table.tb td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+table.tb td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+table.tb td.r{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:12.5px;white-space:nowrap}
+details.qa{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--surface)}
+details.qa summary{cursor:pointer;padding:10px 14px;font:600 15px "IBM Plex Sans",sans-serif;color:var(--ink);list-style:none;display:flex;gap:10px;align-items:baseline}
+details.qa summary::before{content:"?";font:700 13px "Barlow Condensed",sans-serif;color:var(--accent);border:1px solid var(--accent);border-radius:6px;width:20px;height:20px;display:inline-grid;place-items:center;flex:none}
+details.qa[open] summary{border-bottom:1px solid var(--line)}
+details.qa .a{padding:10px 14px 4px 44px}
+.stages{display:grid;gap:8px;margin:8px 0 12px}
+@media (min-width:760px){.stages{grid-template-columns:repeat(4,1fr)}}
+.stage{border:1px solid var(--line);border-top:5px solid var(--sc);border-radius:10px;padding:10px 12px;font-size:13px}
+.stage b{display:block;font:700 18px/1 "Barlow Condensed",sans-serif;color:var(--ink);margin-bottom:2px}
+.stage i{display:block;font:500 11px "IBM Plex Mono",monospace;letter-spacing:.06em;color:var(--sc);font-style:normal;margin-bottom:6px}
+.stage ul{padding-left:16px;font-size:12.5px;gap:2px;margin:0}
+.deals{list-style:none;padding:0;display:grid;gap:8px}
+.deals li{border:1px dashed var(--line-2);border-radius:10px;padding:9px 12px;font-size:13.5px;color:var(--ink)}
+.deals li::before{content:"⚖ ";color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.chip{font:500 12px "IBM Plex Mono",monospace;padding:4px 9px;border-radius:6px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-2)}
+.chip.k{border-color:var(--accent);color:var(--accent)}
+
+/* NPCs */
+.npcs{display:grid;gap:14px;margin:6px 0 4px}
+@media (min-width:760px){.npcs{grid-template-columns:1fr 1fr}}
+.npc{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;display:grid;grid-template-columns:132px 1fr;box-shadow:var(--shadow)}
+@media (max-width:480px){.npc{grid-template-columns:1fr}}
+.npc .por{position:relative;background:var(--surface-2);border-right:1px solid var(--line);min-height:176px;display:grid;place-items:center;overflow:hidden}
+@media (max-width:480px){.npc .por{border-right:0;border-bottom:1px solid var(--line);min-height:200px}}
+.npc .por svg{width:100%;height:100%;position:absolute;inset:0;color:var(--line-2)}
+.npc .por img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.npc .por .lbl{position:absolute;left:0;right:0;bottom:0;text-align:center;font:500 10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px 4px;background:linear-gradient(transparent,var(--surface-2))}
+.npc .por .pick{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.npc .por .rm{position:absolute;top:6px;right:6px;border:0;background:rgba(0,0,0,.55);color:#fff;font:600 11px/1 "IBM Plex Sans",sans-serif;padding:4px 7px;border-radius:999px;cursor:pointer;display:none}
+.npc .por.has .rm{display:block}
+.npc .por.has .lbl{display:none}
+.npc .por.has svg{display:none}
+.npc .info{padding:14px 16px 16px;min-width:0}
+.npc .nm{font:700 26px/1 "Barlow Condensed",sans-serif;letter-spacing:.01em}
+.npc .rl{font-size:13px;color:var(--ink-2);margin:4px 0 8px}
+.npc .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.npc .tags span{font:500 10.5px "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border:1px solid var(--line);border-radius:5px;color:var(--muted)}
+.npc .tags span.k{border-color:var(--gold);color:var(--gold)}
+.npc p{font-size:13.5px;margin:0 0 8px;max-width:none}
+.npc h5{font:600 10.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:10px 0 4px}
+.npc ul{font-size:13px;margin:0;padding-left:18px;gap:2px}
+.npc .sec{border-left:3px solid var(--gm);background:var(--gm-soft);padding:7px 10px;border-radius:0 8px 8px 0;font-size:13px;margin-top:10px;color:var(--ink)}
+.npc .sec h5{color:var(--gm);margin:0 0 3px}
+.npc .say{font-style:italic;color:var(--ink);font-size:13px;border-top:1px dashed var(--line);padding-top:8px;margin-top:10px}
+
+/* quick reference */
+.qr{display:grid;gap:12px}
+@media (min-width:760px){.qr{grid-template-columns:1fr 1fr}}
+.qr .tile ul{padding-left:16px}
+.qr .tile li{font-size:13px}
+
+.fine{font-size:12.5px;color:var(--muted);margin-top:22px;max-width:90ch}
+.fine a{color:var(--accent)}
+.toplink{position:fixed;right:14px;bottom:14px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 12px;font:500 12.5px "IBM Plex Sans",sans-serif;text-decoration:none;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .2s}
+.toplink.show{opacity:1;pointer-events:auto}
+
+@media print{
+  @page{size:A4;margin:11mm}
+  body{background:#fff;font-size:11.5px}
+  .tog,.side,.toplink,.done,.npc .por .rm{display:none!important}
+  .wrap{max-width:none;padding:0}
+  .layout{display:block;margin-top:10px}
+  .main{gap:10px}
+  .card{box-shadow:none;border-color:#bbb;break-inside:avoid;padding:12px 14px}
+  .card.long{break-inside:auto}
+  .chap>header h2{font-size:22px}
+  .npc{break-inside:avoid;box-shadow:none}
+  .npcs{grid-template-columns:1fr 1fr}
+  .grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}
+  .stages{grid-template-columns:repeat(4,1fr)}
+  details.qa{break-inside:avoid}
+  details.qa summary::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .note,.q,.stage,.tile,.npc .por,.npc .sec{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{color:inherit;text-decoration:none}
+}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow" id="eyebrow">Shadowrun · Feuerprobe · Runners in the Shadows</div>
+    <h1><span id="title">SL-Leitfaden</span><small id="subtitle"></small></h1>
+  </div>
+  <div class="tog">
+    <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
+    <a id="lnkPlans" href="meridian-spire-plaene.html"></a>
+    <a id="lnkRunner" href="feuerprobe-runner.html"></a>
+    <button type="button" id="btnPrint"></button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="side">
+    <nav class="panel steps" aria-label="Kapitel"><h3 id="navH"></h3><ol id="nav"></ol><div class="prog"><i id="progBar"></i></div></nav>
+    <section class="panel" id="alertPanel"><h3 id="alertH"></h3>
+      <div class="clock">
+        <svg viewBox="0 0 100 100" id="clockSvg" role="img"></svg>
+        <div><div class="lvl"><span id="alertN">0</span>/6<small id="alertName"></small></div><div class="st" id="alertDesc"></div></div>
+      </div>
+      <div class="clockbtns"><button class="mini" id="alertMinus">−1</button><button class="mini" id="alertPlus">+1</button><button class="mini" id="alertReset"></button></div>
+    </section>
+    <section class="panel calc" id="calcPanel"><h3 id="calcH"></h3><div id="calcBody"></div></section>
+  </aside>
+  <div class="main" id="main"></div>
+</div>
+
+<p class="fine" id="fine"></p>
+</div>
+<a href="#top" class="toplink" id="toplink">↑</a>
+
+<script>
+/* ---------- SL-Leitfaden: deutsche Daten ---------- */
+const GUIDE_DE={
+ ui:{title:'SL-Leitfaden',subtitle:'Der Run „Feuerprobe“ Schritt für Schritt · Seattle 2080 · Meridian Spire',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
+  plans:'Pläne des Meridian Spire',runner:'Runner & Bögen',print:'Drucken',nav:'Ablauf',navDone:'erledigt',doneLbl:'Abschnitt erledigt',
+  alert:'Alert Clock',alertSub:'Segmente anklicken',alertReset:'zurück',alertNames:['Routine','Routine','Verdacht','Verdacht','Aktiver Alarm','Aktiver Alarm','Lockdown'],
+  alertDesc:['Systeme werten Auffälligkeiten als Event-Abweichung. Drohnen patrouillieren nach Muster.','Systeme werten Auffälligkeiten als Event-Abweichung. Drohnen patrouillieren nach Muster.','Kameras gleichen gezielter ab, Türen verlangen erneut Berechtigung, Personal wird diskret befragt.','Kameras gleichen gezielter ab, Türen verlangen erneut Berechtigung, Personal wird diskret befragt.','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge umgeleitet, erfasste Runner werden verfolgt.','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge umgeleitet, erfasste Runner werden verfolgt.','Fluchtwege verriegelt, externe Response verständigt. Eskalation, kein Scheitern.'],
+  calc:'Payoff-Rechner',calcChecks:[['open','Koffer wurde geöffnet (auch fachgerecht)'],['loot','Zusätzliche Beute oder Schaden an der Sammlung'],['venn','Dr. Venn verletzt'],['harm','Gäste oder Personal verletzt oder getötet'],['gore','Wahllose Tötungen trotz Anweisung']],
+  calcNuyen:'Nuyen',calcBase:'Auszahlung nach Alert {a}',calcHarm:'Personenschaden zählt mindestens wie High Alert',calcLootCut:'Schaden an der Sammlung senkt die Auszahlung weiter',
+  verdictGood:'Ideale Kandidaten. Veyrath meldet sich wieder.',verdictMid:'Brauchbar, aber riskant. Folgeauftrag möglich, aber nicht sicher.',verdictBad:'Nicht geeignet. Vertragsbruch oder Gier; Veyrath zieht sich zurück.',
+  portrait:'Porträt · klicken zum Einfügen',portraitRm:'entfernen',
+  fine:'Fan-Material für den privaten Spieltisch. <i>Runners in the Shadows</i> ist ein Forged-in-the-Dark-Spiel von Mark Cleveland Massengale; <i>Shadowrun</i> ist eine Marke von The Topps Company / Catalyst Game Labs. Meridian Spire, Vesperline Collections, Dr. Amara Venn, Dorian Kade, Veyrath und das lebende Vault-Gewebe sind Eigenkreationen dieses Oneshots. Porträts, die du hier einfügst, bleiben nur in deinem Browser gespeichert.'},
+
+ npcs:[
+  {id:'johnson',name:'Mr. Johnson',role:'Vermittler · das Gesicht des Auftrags',tags:['Mensch','Anthrazit-Anzug','Papiernotizbuch'],kind:'person',
+   bio:'Ein ruhiger Profi, der für Veyrath die Kontakte in die Schatten hält. Er erscheint pünktlich, sitzt bereits in der Privatsphäre-Nische, wenn die Crew eintrifft, und schreibt während des gesamten Gesprächs mit einem Stift in ein echtes Papiernotizbuch. Kein sichtbares Kommlink, keine Drohung, kein Theater. Johnson hält Absprachen ein und erwartet dasselbe.',
+   look:['Anthrazitfarbener Maßanzug, keine Insignien','Höflich, sachlich, nie hektisch','Trinkt seinen Soykaf tatsächlich aus'],
+   play:['Nennt „ungeöffnet“ sachlich als eine Bedingung unter mehreren, betont es nicht.','Feilscht nach dem Run nicht über vereinbarte Bedingungen.','Beantwortet Fragen zum Auftraggeber mit „Mein Klient legt Wert auf Diskretion.“'],
+   secret:'Arbeitet direkt für Veyrath und weiß, dass der Run eine Feuerprobe ist. Er verrät es nicht, lügt aber auch nicht plump: Wer ihn scharf beobachtet, merkt, dass er die Crew studiert wie Bewerber.',
+   say:'„Der Koffer wird geschlossen übergeben. Alles andere im Raum interessiert meinen Klienten nicht, und es sollte auch euch nicht interessieren.“'},
+  {id:'venn',name:'Dr. Amara Venn',role:'Leitende Kuratorin der Vesperline Collections · biometrischer Schlüssel',tags:['Ork','Mitte 40','Linkes Auge = Biometrie'],kind:'person',key:true,
+   bio:'Kunsthistorikerin und Sicherheitskuratorin. Sie verantwortet Auswahl, Provenienz und physische Übergabe der wertvollsten Stücke und ist eine der wenigen Personen, deren Augenscan der Tresor akzeptiert. Venn hält die meisten Gäste für Leute mit zu viel Geld und zu wenig Ahnung; ernsthaftes Interesse an einem Werk gewinnt sofort ihre Aufmerksamkeit. Sie will den Abend ohne Zwischenfall beenden und danach nach Hause.',
+   look:['Groß, schlank, sehr aufrechte Haltung, rasierter Kopf','Polierte silberne Kappen auf beiden Hauern','Linkes Auge bernsteinfarben und natürlich; rechtes Auge schwarzes Cyberauge ohne Iris','Dunkelgrüner, streng geschnittener Abendanzug, goldene Federbrosche'],
+   play:['Hält sich meist in der Galerie auf, zieht sich gelegentlich in den Wintergarten zurück.','Kann Gäste zu einer privaten Besichtigung anmelden und bis zur Schleuse begleiten.','Besitzt die Vault-Keycard nicht und kann den Tresor nicht allein öffnen.','Darf laut Auftrag nicht verletzt werden. Entführung ist möglich, aber auffällig.'],
+   secret:'Weiß nichts von der Feuerprobe. Ihr Misstrauen ist eine gute Consequence: Sie stellt Rückfragen, holt Kade dazu oder kündigt ihren Aufbruch an, wenn die Party zu lange dauert.',
+   say:'„Sie sehen das Stück tatsächlich an, nicht das Preisschild. Das ist heute Abend selten. Kommen Sie, ich zeige Ihnen, warum es hier hängt.“'},
+  {id:'kade',name:'Dorian Kade',role:'Sicherheitschef der Gala · kennt den Weg zur Keycard',tags:['Mensch','Cyberarme','Augmentierte Reflexe'],kind:'person',
+   bio:'Leitet die Sicherheit des Abends und will vor allem eines: keinen sichtbaren Zwischenfall vor den VIPs. Kade ist höflich, ruhig und ausgesprochen aufmerksam. Er trägt die Vault-Keycard nicht selbst, weiß aber genau, wo sie in der schwarzen Kassette im Eventbüro liegt und wie eine legitime Entnahme protokolliert wird. Er autorisiert die Ausgabe oder bestimmt jemanden dafür.',
+   look:['Eleganter dunkler Maßanzug über zwei makellos verchromten Cyberarmen','Kleine, fast unmerkliche Zuckungen in Händen, Schultern und Blick','Diskret mit einer Pistole bewaffnet'],
+   play:['Informationsquelle, Hindernis oder Gelegenheit, nie zwingendes Zwischenziel.','Bittet höflich um Identifikation, statt zu drohen.','Reagiert auf Alert: bei Verdacht fragt er nach, bei aktivem Alarm hält er Gäste aus gefährdeten Bereichen fern.'],
+   secret:'Ahnt nichts vom Test. Wer ihm eine plausible Erklärung liefert, kann Alert senken; wer ihn täuscht, bekommt einen Gegner mit sehr schnellen Reflexen.',
+   say:'„Ich habe niemanden mit Ihrer Beschreibung auf der Liste. Das muss nichts heißen. Helfen Sie mir, es zu klären, bevor jemand anderes es tut.“'},
+  {id:'veyrath',name:'Veyrath',role:'Erwachsener Drache · Eigentümer und eigentlicher Auftraggeber',tags:['Drache','Sammler','Kein Gegner'],kind:'dragon',
+   bio:'Ein zurückhaltender, außerordentlich vermögender Sammler, der lieber durch Mittelsleute handelt, als öffentlich aufzutreten. Ihm gehören Penthouse, Tresor, Sammlung und Aktenkoffer; hinter Vesperline Collections und mehreren Briefkastenfirmen steht er. Veyrath betrachtet Runner als potenziell wertvolle Spezialisten und sucht eine kleine Crew für spätere Aufgaben. Was ihn interessiert, ist Verlässlichkeit, wenn Gier, Angst und Improvisation kollidieren.',
+   look:['Erscheint erst bei der Enthüllung: ein gewaltiger Schatten, Flügel im Regen','Spricht direkt in die Gedanken der Runner','Bleibt außer Reichweite, blockiert nichts, greift nicht an'],
+   play:['Rettet die Crew nicht und behindert sie nicht. Das Gebäude ist das Hindernis, nicht er.','Bewertet am Ende: Disziplin, Kreativität, Teamwork, Eskalationskontrolle.','Misst seinem Eigentum mehr Wert bei als metamenschlichem Leben. Das ist bewusst unangenehm.','Wird nie zur Kampfbegegnung. Schießt jemand auf ihn, beendet er den Kontakt.'],
+   secret:'Hat für diese Nacht eine schwierige, aber realistisch nutzbare Schwachstelle im Event Mode zugelassen. Sammlung, Gäste, Personal und Sicherheit sind echt. Gelingt der Crew eine außergewöhnliche Recherche, darf sie das vorher erfahren; die Enthüllung wird dann zur Bestätigung.',
+   say:'„Nennt mich Veyrath. Der Turm ist mein. Der Tresor ist mein. Und der Koffer, den ihr gerade gestohlen habt, ebenfalls.“'},
+ ],
+
+ chapters:[
+  {id:'blick',num:'Auf einen Blick',title:'Was hier wirklich passiert',time:'vor der Sitzung',
+   lead:'Ein Oneshot für 3–4 Spieler:innen, drei bis vier Stunden, Seattle 2080. Die Crew soll während einer Gala einen Aktenkoffer aus einem privaten Tresorgeschoss stehlen. Was sie nicht weiß: Der Tresor gehört dem Auftraggeber.',
+   blocks:[
+    ['tiles',3,[
+      {h:'Der Auftrag',sub:'öffentlich',ul:['Schwarzen Aktenkoffer aus dem Tresor unter dem Penthouse holen, während der Gala','Koffer <b>ungeöffnet</b> übergeben, sonst <b>nichts</b> mitnehmen','Dr. Amara Venn nicht verletzen, Tote vermeiden','Zugang: physische Vault-Keycard + Augenscan von Venn']},
+      {h:'Die Wahrheit',sub:'nur SL',ul:['Penthouse, Tresor, Sammlung und Koffer gehören dem Drachen <b>Veyrath</b>','Mr. Johnson arbeitet für Veyrath; der Run ist eine <b>Feuerprobe</b>','Kein rivalisierender Drache, kein fremder Besitzer, kein versteckter Twist dahinter','Veyrath greift nicht ein und rettet nicht']},
+      {h:'Was geprüft wird',sub:'Bewertungsmaßstab',ul:['Anweisungen verstehen und ernst nehmen','Ungewöhnliche Probleme selbst lösen','Unter Druck nicht sofort eskalieren','Nicht alles stehlen, nur weil es geht','Als Team arbeiten']}]],
+    ['h3','Zeitplan für 3–4 Stunden'],
+    ['table',['Abschnitt','Richtwert'],[['Charakterwahl + Kurzintro Shadowrun/RitS','15–25 Min.'],['Treffen mit Mr. Johnson','10–15 Min.'],['Gather Information + Plan','10–20 Min.'],['Zugang und Party','45–70 Min.'],['Tresorgeschoss','45–70 Min.'],['Flucht + Enthüllung','20–35 Min.'],['Puffer','20–30 Min.']],[1]],
+    ['p','Wurden die Charaktere vorher gewählt, bleibt deutlich mehr Zeit für die Mission. Die Kapitel links folgen dem Ablauf am Tisch; hake sie ab, wenn du weiter bist. Die Alert Clock und der Payoff-Rechner begleiten dich durch den ganzen Run.'],
+    ['note','gm','Leitlinien',
+     '<ul><li>Kein Playbook und keine einzelne Action ist Pflicht.</li><li>Keycard und Augenscan sind Probleme, keine vorgegebenen Rätsel.</li><li>Veyrath testet die Crew, manipuliert aber kein Würfelergebnis und wird nie zur Kampfbegegnung.</li><li>Voller Alert ist Eskalation, kein automatisches Scheitern. Consequences erzeugen neue Situationen.</li><li>Kompetente Runner brauchen für Routine keinen Roll. Gute Ideen dürfen vorbereitete Szenen umgehen.</li><li>Wenn die Runner die Wahrheit über den Auftraggeber verdienen, verrate sie.</li><li>Für 3–4 Stunden gilt: Spielbarkeit vor Vollständigkeit.</li></ul>'],
+    ['h3','Wichtige Personen'],
+    ['npcs']]},
+
+  {id:'einstieg',num:'Schritt 1',title:'Einstieg am Tisch',time:'15–25 Min.',
+   lead:'Charaktere wählen, dann Welt und Regeln in wenigen Minuten. Mehr braucht niemand vor dem ersten Wurf.',
+   blocks:[
+    ['h3','Shadowrun in fünf Sätzen'],
+    ['p','Seattle 2080 ist eine Stadt gewaltiger Konzerne, extremer Unterschiede, allgegenwärtiger Vernetzung und realer Magie. Menschen und Metamenschen leben zwischen AR-Werbung, Cyberware, Drohnen, Geistern und privatisierter Sicherheit. <b>Shadowrunner</b> erledigen inoffizielle Aufträge für Leute, die nicht mit einer Tat in Verbindung gebracht werden wollen; deshalb heißt der Auftraggeber <b>Mr. Johnson</b>.'],
+    ['ul',['Ihr seid kompetente Berufskriminelle und dürft euch riskante Dinge zutrauen.','Die Welt ist voller Technik, Matrix und Magie.','Ein guter Plan hilft, aber niemand plant jede Eventualität vor.','Wenn etwas schiefgeht, entsteht eine neue Komplikation statt eines Game Over.']],
+    ['h3','RitS in fünf Minuten'],
+    ['tiles',2,[
+      {h:'Action Roll',sub:'Fiction first',p:'Erst beschreibt die Spielerin, was ihr Runner tut und will. Nur wenn etwas Gefährliches auf dem Spiel steht, wird gewürfelt: so viele W6 wie das Action Rating, der höchste zählt.',ul:['<b>6</b> voller Erfolg · <b>4/5</b> Erfolg mit Consequence · <b>1–3</b> schlecht plus Consequence','Mehrere 6en: Critical','Vorher klären: <b>Position</b> (Controlled / Risky / Desperate) und <b>Effect</b> (Limited / Standard / Great)','Actions sind keine Wissensfertigkeiten; sie folgen dem, was die Figur tatsächlich tut']},
+      {h:'Edge & Flashbacks',sub:'Reserve und Vorbereitung',ul:['<b>2 Edge</b>: sich pushen, +1d oder mehr leisten','<b>1 Edge</b>: einem Teammitglied assistieren, +1d','<b>Resistance Roll</b> mildert eine Consequence; funktioniert immer, der Wurf bestimmt die Edge-Kosten','<b>Flashback</b>: mitten im Run erklären, was man vorbereitet hatte. Je aufwendiger, desto mehr Edge']}]],
+    ['h3','Plan und Engagement'],
+    ['p','Die Gruppe wählt nur einen groben Plan und nennt das erforderliche Detail. Danach folgt der <b>Engagement Roll</b>, und du schneidest direkt zur ersten interessanten Situation.'],
+    ['chips',['Assault · Point of attack','Deception · Method','Social · Connection','Stealth · Entry point','Supernatural · Power / method','Transport · Route & means']],
+    ['note','warn','Wichtig','Lass die Gruppe nicht eine Stunde lang hypothetische Sicherheitsmaßnahmen durchplanen. Sobald Plan und Detail stehen, beginnt der Run. Alles Weitere sind Flashbacks.']]},
+
+  {id:'johnson',num:'Schritt 2',title:'Treffen mit Mr. Johnson',time:'10–15 Min.',
+   lead:'Ruhig, professionell, ohne Falle. Der Auftrag wird klar formuliert, die Bedingungen sachlich genannt. Hier legst du den Maßstab, an dem die Crew später gemessen wird.',
+   blocks:[
+    ['h3','Empfohlener Treffpunkt: „Raincheck“'],
+    ['p','Ein rund um die Uhr geöffnetes Soykaf-Diner auf einer mittleren Etage eines gemischt genutzten Hochhauses. Regen läuft in breiten Bahnen über die Panoramascheiben. Die meisten Tische sind leer; draußen warten Lieferdrohnen an einer Ladeschiene. Johnson sitzt bereits in einer halbtransparenten Privatsphäre-Nische, anthrazitfarbener Maßanzug, echtes Papiernotizbuch statt Kommlink.'],
+    ['tiles',3,[
+      {h:'Späte Fähre',sub:'Alternative',p:'Johnson steigt an einer Haltestelle zu, setzt sich zehn Minuten neben die Crew und verschwindet am nächsten Anleger in der Menge.'},
+      {h:'Parkdeck über den Wolken',sub:'Alternative',p:'Ein fast leeres automatisiertes Parkhaus in den oberen Etagen eines Büroturms. Wind und Regen peitschen durch offene Seiten, autonome Fahrzeuge fahren wortlos ein und aus.'},
+      {h:'Private Matrix-Lounge',sub:'Alternative',p:'Ein gemieteter virtueller Besprechungsraum. Für einen ersten Shadowrun-Abend ist die physische Variante besser: Die Spieler:innen lernen erst die reale Sechste Welt kennen.'}]],
+    ['h3','Das Briefing'],
+    ['tiles',2,[
+      {h:'Auftrag',sub:'so sagt es Johnson',p:'Beschafft während der heutigen Gala einen bestimmten Aktenkoffer aus dem privaten Tresor unterhalb des Penthouses des Meridian Spire. Johnson liefert ein aktuelles Foto von Dr. Venn und die genaue Beschreibung des Koffers.'},
+      {h:'Bedingungen',sub:'Vertrag',ul:['Der Koffer wird <b>ungeöffnet</b> übergeben.','Es wird <b>nichts anderes</b> aus dem Tresor entwendet.','Dr. Amara Venn wird <b>nicht verletzt</b>.','Kein Wetwork. Vermeidbare Todesfälle sind ausdrücklich unerwünscht.','Wie die Crew vorgeht, entscheidet sie selbst.']},
+      {h:'Bekannte Zugangsfaktoren',sub:'zwei Schlüssel',ol:['Eine physische Vault-Keycard, die sich während der Gala irgendwo im Penthouse befindet.','Der biometrische Augenscan von Dr. Amara Venn.']},
+      {h:'Bezahlung',sub:'Empfehlung 6 Nuyen',p:'Ein ernsthafter, professioneller Run. 4 Nuyen für einen kleineren Tutorial-Charakter, 8 nur, wenn schon im Briefing ein außergewöhnlich reicher Auftraggeber durchscheinen soll. Bezahlt wird bei vertragsgemäßer Übergabe; Johnson feilscht danach nicht.'}]],
+    ['note','gm','Nicht ankündigen','Johnson nennt „ungeöffnet“ sachlich als eine Bedingung unter mehreren und betont das Wort nicht. Der versteckte Manipulationsschutz wird im Briefing nicht angedeutet. Wer den Koffer später aus eigener Initiative untersucht, kann Hinweise entdecken.'],
+    ['h4','Was Johnson nicht sagt'],
+    ['ul',['Dass Penthouse, Tresor und Koffer Veyrath selbst gehören.','Dass Veyrath der eigentliche Auftraggeber hinter ihm ist.','Dass der Auftrag ein Test ist.','Dass die Sicherheitskonfiguration absichtlich eine Chance lässt.']],
+    ['p','Verdienen sich die Runner diese Informationen durch glaubwürdige Recherche, halte sie nicht künstlich zurück.']]},
+
+  {id:'info',num:'Schritt 3',title:'Gather Information',time:'10–20 Min.',
+   lead:'Ein oder zwei gezielte Fragen pro Spieler:in reichen. Die Gruppe braucht nur genug, um Plan und Detail festzulegen.',
+   blocks:[
+    ['qa',[
+      {q:'Wann ist die Sicherheit am schwächsten?',a:'<p>Während des <b>Event Mode</b>. Zwischen Mitternacht und Ende der Gala sind beide Zugangsfaktoren gleichzeitig vor Ort. Danach verschwindet die Keycard wieder aus dem Gebäude, und der Tresor geht in strengeren Lockdown.</p>'},
+      {q:'Wo befindet sich die Keycard?',a:'<p>Im Servicebereich gibt es ein kleines, nicht öffentliches <b>Eventbüro</b>, in dem während der Gala sensible Veranstaltungsausrüstung verwahrt wird.</p><p><b>Bei besonders gutem Ergebnis:</b> Die Karte liegt dort in einer schwarzen Schlüsselkassette; Entnahme und Rückgabe werden protokolliert.</p>'},
+      {q:'Wie komme ich an Dr. Venn heran?',a:'<p>Venn hält sich meist in der Nähe der ausgestellten Stücke auf und erklärt ernsthaft interessierten Gästen bereitwillig Details. Sie zieht sich gelegentlich in einen ruhigeren <b>Wintergarten</b> zurück, um dem Smalltalk zu entkommen.</p>'},
+      {q:'Welche Ausrüstung fällt auf?',a:'<p>Gäste dürfen leichte persönliche Ausrüstung tragen. Große Waffen, schwere Rüstung und offensichtliche Operationsausrüstung sind im Glasaufzug kaum plausibel und werden am Empfang zum Problem. <b>Servicepersonal</b> kann wesentlich sperrigere Kisten und Werkzeuge mitführen.</p>'},
+      {q:'Gibt es einen alternativen Zugang?',a:'<p>An der Außenfassade läuft ein automatisiertes Wartungssystem mit einer kleinen Reinigungs- und Inspektionsgondel. Sie kann nahe dem Penthouse an einer technischen Schleuse andocken.</p>'},
+      {q:'Was erwartet uns unter dem Penthouse?',a:'<p>Das Tresorgeschoss ist normalerweise unbemannt. Es arbeitet mit Sensoren, Schleusen und autonomen Sicherheitsdrohnen.</p>'},
+      {q:'Was ist das für ein Gebäude?',a:'<p>Die Eigentumsstruktur endet hinter mehreren undurchsichtigen Holdings. Vesperline Collections ist nur die sichtbare Verwaltung.</p><p><b>Bei außergewöhnlicher Recherche:</b> Hinter der Struktur steht der Drache <b>Veyrath</b>, und das Penthouse samt Tresor gehört ihm. Die spätere Enthüllung funktioniert trotzdem: Sie wird vom Twist zur Bestätigung, dass ein Drache die Crew beim Einbruch in sein eigenes Eigentum prüft.</p>'}]],
+    ['note','','Pacing-Hebel','Wenn die Gruppe zu lange diskutiert, frage nur: Welchen Plan? Welches Detail? Welches Load? Dann Engagement Roll und Schnitt.']]},
+
+  {id:'plan',num:'Schritt 4',title:'Plan, Engagement und Zugang',time:'Übergang',
+   lead:'Sobald Plan und Detail stehen, folgt der Engagement Roll und der Schnitt zur ersten ernsthaften Situation. Diese Zugänge sind Angebote, keine Lösungen.',
+   blocks:[
+    ['table',['Plan','Mögliches Detail'],[['Social','Eine echte Einladung über einen Kontakt'],['Deception','Cateringcrew mit gefälschter Schichtzuweisung'],['Stealth','Wartungsschleuse an der Fassade'],['Transport','Absprung vom Flugzeug auf das Dach'],['Supernatural','Eine konkrete magische Methode der Runner'],['Assault','Technischer Zugangspunkt, den die Crew mit Gewalt nimmt']]],
+    ['p','Ein schlechtes Engagement heißt nicht, dass die Planung dumm war. Es heißt nur, dass die erste Situation bereits gefährlich ist.'],
+    ['h3','Mögliche Zugänge'],
+    ['tiles',2,[
+      {h:'Als Gäste über den Glasaufzug',sub:'Social · Deception',pro:['Nach dem Eintritt geringe Aufmerksamkeit','Direkter Kontakt zu Dr. Venn','Ideal für Beobachtung und Täuschung'],con:['Einladung und Identität müssen plausibel sein','Sperrige Ausrüstung fällt auf','Der Aufzug protokolliert Ankünfte'],fb:'Einladung kopiert, Name auf die Gästeliste gebracht, Waffe vorher im Penthouse deponiert.'},
+      {h:'Als Personal über Tiefgarage und Frachtaufzug',sub:'Deception · Stealth',pro:['Werkzeug, Kisten und Ausrüstung sind plausibel','Direkter Zugang zum Servicebereich und zur Keycard'],con:['Personal wird nach Funktion und Einsatzort getrennt','Unbekannte Namen fallen in Dienstplänen auf','Wer im falschen Bereich steht, wirkt schnell verdächtig'],fb:'Gefälschte Arbeits-ID, manipulierte Schichtliste, echte Uniform, Lieferauftrag.'},
+      {h:'Sprung auf das Dach',sub:'Transport · Assault',pro:['Kaum soziale Voraussetzungen','Viel Ausrüstung möglich','Spektakulär für körperliche Runner'],con:['Wetter, Wind, Höhe','Sichtbare Annäherung; das Glasdach ist von unten einsehbar','Falscher Absetzpunkt, Ausrüstungsverlust oder Harm als Consequence'],fb:'Ein Absturz durch das Glasdach ist eine mögliche Consequence, nicht das automatische Ergebnis.'},
+      {h:'Fassadenwartung',sub:'Stealth · Rigger · Hacker',pro:['Umgeht den Haupteingang','Werkzeug und Kletterausrüstung wirken plausibel','Dockt an einer technischen Schleuse knapp unter dem Penthouse an'],con:['Die Gondel ist Gebäudetechnik und wird protokolliert','Gäste oder Kameras können sie sehen','Ein falscher Fahrbefehl stoppt oder verriegelt sie'],fb:'Gondelroute vorab manipuliert, Wartungsauftrag eingespielt, Techniker-Zugang gekauft.'}]],
+    ['note','gold','Kreative Idee der Spieler:innen','Wenn der Plan mit der etablierten Fiktion vereinbar ist, spiele ihn aus. Gechartertes Skycab, inszenierter medizinischer Notfall, Kunsttransport, übernommener Lieferdrohnenschwarm, ungewöhnliche Magie: Gute Ideen dürfen geplante Bereiche vollständig umgehen.']]},
+
+  {id:'party',num:'Schritt 5',title:'Die Party im Penthouse',time:'45–70 Min.',
+   lead:'Die Gala ist in vollem Gange. Hier lösen die Runner zwei Probleme, in beliebiger Reihenfolge: den Augenscan von Dr. Venn und die Vault-Keycard aus dem Eventbüro.',
+   blocks:[
+    ['h3','Atmosphäre'],
+    ['p','Glas, dunkles Holz, lebende Pflanzen, AR-Skulpturen und echte Kunst konkurrieren um Aufmerksamkeit. Aus dem offenen Atrium sieht man zwischen den Wolken die Lichter Seattles. Dezente Musik liegt über Gesprächen von Konzernleuten, Sammler:innen, Künstler:innen und Personen, deren Tätigkeit niemand offen benennt. Servicedrohnen tragen Getränke. Sicherheitskräfte beobachten eher, als dass sie einschüchtern. Alles soll teuer, kontrolliert und mühelos wirken.'],
+    ['h3','Bereiche'],
+    ['tiles',3,[
+      {h:'Großer Salon',sub:'Ebene 111',p:'Gesellschaftlicher Mittelpunkt. Viele Gäste, gute Deckung in der Menge, aber auch viele Augen.'},
+      {h:'Ausstellungsgalerie',sub:'Venns Revier',p:'Hier hält sich Dr. Venn am häufigsten auf. Objekte werden in AR mit Herkunft und Wert kommentiert. Dahinter liegt der Sammlerlift.'},
+      {h:'Wintergarten',sub:'ruhig',p:'Etwas abseits. Gute Gelegenheit für private Gespräche oder eine unauffällige biometrische Aufnahme.'},
+      {h:'Servicebereich',sub:'Küche · Lager · Eventbüro',p:'Personalflur, Materiallager und das Eventbüro mit der Keycard in der schwarzen Kassette. Gäste fallen hier auf.'},
+      {h:'Private Arbeitszimmer',sub:'Ebene 112',p:'Nicht Teil der Veranstaltung. Hinter einer bündigen Holzverkleidung liegt der Privatlift zum Tresorgeschoss.'},
+      {h:'Glasdach und Dachzugang',sub:'exponiert',p:'Von unten sichtbar. Spektakulärer, aber sehr auffälliger Zugang.'}]],
+    ['h3','Dr. Venn und der Augenscan'],
+    ['p','Die Runner entscheiden selbst, wie sie an den biometrischen Faktor kommen. Wichtig: <b>Venn besitzt die Keycard nicht.</b> Selbst wenn die Crew sie vollständig auf ihre Seite zieht, bleibt das Problem der Karte bestehen. Erst beschreibt die Spielerin die Handlung, daraus ergibt sich die Action; „hier muss Interface gewürfelt werden“ gibt es nicht.'],
+    ['ul',['Hochauflösende Aufnahme des linken Auges und Vorbereitung eines Retinaduplikats.','Venn dazu bringen, freiwillig in einen Scanner oder ein optisches Gerät zu blicken.','Eine private Besichtigung der Sammlung arrangieren.','Venn unter einem Vorwand zur Zugangsschleuse locken.','Betäuben oder entführen: kein automatischer Fehlschlag, nur deutlich auffälliger und riskanter.','Magie, soweit die konkrete Figur dazu in der Lage ist.']],
+    ['tiles',2,[
+      {h:'Private Besichtigung',sub:'sozialer Königsweg',p:'Venn darf ausgewählte Gäste anmelden und bis in den Vorbereich begleiten. Sie legitimiert den biometrischen Teil, kann den Tresor aber nicht allein öffnen: Vier-Augen-Prinzip mit separat verwahrter Keycard.',ul:['Aufklärungsdrohnen zählen und identifizieren die angemeldeten Personen','Sensoren prüfen auf nicht angemeldete Ausrüstung','Drohnen achten darauf, dass niemand die Gruppe verlässt','Abweichungen lösen erneute Authentifizierung oder stillen Alarm aus'],fb:'Der Vorteil ist nicht „keine Sicherheit“, sondern eine bessere Ausgangslage: Handlungen gegenüber den Drohnen können <b>Controlled</b> statt Risky oder Desperate sein.'},
+      {h:'Unter einem Vorwand zur Schleuse',sub:'Täuschung',p:'Venn bestätigt nur ihren Faktor, ohne an eine Besichtigung zu glauben: angeblicher Klimafehler an einem empfindlichen Objekt, automatische Sicherheitsmeldung, fehlerhafter Zugriffsversuch eines Mitarbeiters, Störung im Sammlungsbereich.',ul:['Venn geht bis zum Authentifizierungspunkt und scannt','Die Tür bleibt zu, bis die Keycard eingesetzt wird','Venn steht womöglich direkt daneben, während der zweite Faktor kommen muss','Zu langes Warten oder widersprüchliche Angaben machen Drohnen misstrauisch'],fb:'Ein sozialer Erfolg überspringt das Tresorgeschoss nicht. Er verändert nur, wie die Sicherheit die Runner zunächst einordnet.'}]],
+    ['q','BIOMETRISCHER FAKTOR: BESTÄTIGT · PHYSISCHER FAKTOR: AUSSTEHEND','sys'],
+    ['h3','Die Vault-Keycard und Dorian Kade'],
+    ['p','Die Karte ist dunkelgrau, unbeschriftet und zeigt nur bei direkter Betrachtung ein schwach irisierendes Hologramm. Sie liegt im Eventbüro in einer schwarzen Schlüsselkassette; Entnahme und Rückgabe werden protokolliert. Die Sicherheitsarchitektur trennt bewusst Biometrie und physische Berechtigung.'],
+    ['p','Kade trägt die Karte nicht selbst, weiß aber genau, wo sie liegt und wie eine legitime Entnahme funktioniert: Er oder ein von ihm bestimmter Mitarbeiter autorisiert die Ausgabe, danach wird sie wieder eingecheckt. Mögliche Ansätze: Kassette umgehen, Karte kopieren, einen legitimen Zugriff abpassen, Kade täuschen, eine Berechtigung vortäuschen oder etwas ganz anderes.'],
+    ['note','gm','Optionale Komplikation','Für sehr sozial starke Gruppen: Eine zweite orkische Frau mit rasierter Frisur und silbernen Haueraufsätzen steht auf der Gästeliste und kann aus der Entfernung mit Venn verwechselt werden. Für einen Einsteiger-Oneshot besser weglassen.'],
+    ['h3','Consequences auf der Party'],
+    ['ul',['Eine Sicherheitskraft bittet höflich um Identifikation.','Ein Gast glaubt, einen Runner zu kennen.','Dr. Venn wird misstrauisch.','Die Keycard wird vorübergehend aus dem Eventbüro entfernt.','Eine sperrige Ausrüstungskiste soll überprüft werden.','Alert +1 oder +2.']],
+    ['note','','Wenn die Party zu lange dauert','Dr. Venn kündigt ihren baldigen Aufbruch an (etwa in zwanzig Minuten). Ein Kunstwerk soll zurück in den Tresor. Das Personal beginnt mit dem Abbau. Nimm den Punkt, der logisch aus dem Verlauf folgt.']]},
+
+  {id:'ebene110',num:'Schritt 6',title:'Das Tresorgeschoss · Ebene 110',time:'45–70 Min.',
+   lead:'Kein lebendes Personal, dafür Sensoren, Schleusen und Drohnen. Spiele die Ebene nicht als Dungeon mit zehn Räumen: vier Kernbereiche reichen, die magische Hülle liegt als zusätzliche Schicht darüber.',
+   blocks:[
+    ['p','Zwei reguläre Liftzugänge führen hinunter: der <b>Sammlerlift</b> hinter den Ausstellungsräumen und der <b>Privatlift</b> in Veyraths Arbeitszimmer. Beide münden in dieselbe Abfolge. Ein enger <b>Wartungsschacht</b> aus dem Servicekern bietet zusätzlich einen irregulären Zugang.'],
+    ['chips',['Lift','Zugangsschleuse','Sensorkorridor','Tresortür','Sammlung']],
+    ['tiles',2,[
+      {h:'Zugangsschleuse',sub:'17.1',p:'Beide Lifte enden in derselben mattschwarzen Schleuse. Eine erste Sensorschicht registriert Bewegung, Gewicht und nicht autorisierte Geräte. Venns Anwesenheit oder eine gültige Anmeldung entscheidet nur, ob die Gruppe zunächst als erwartete Besucher oder als Eindringlinge gilt.',ul:['Gemeldete Personenzahl stimmt nicht','Auffällige oder nicht angemeldete Ausrüstung','Jemand trennt sich von der Gruppe','Stiller Alarm, Tür verriegelt hinter der Crew, Kameras fokussieren, zusätzliche Identitätsprüfung']},
+      {h:'Sensorkorridor',sub:'17.2',p:'Lang, überraschend leer, fast museal. Kameras, Bewegungsmelder, unsichtbare Lichtschranken, Drucksensoren, lokale RFID- und Gerätescans. Nicht alles muss gleichzeitig relevant werden; beschreibe zuerst nur, was die Runner wahrnehmen.',ul:['Ein Sensor registriert eine Abweichung','Eine Tür hinter der Crew schließt','Eine Drohne wird aktiviert','Ausrüstung wird als Fremdgerät markiert','Alert steigt']},
+      {h:'Drohnenknoten',sub:'17.3',p:'Eine Servicenische mit den lokalen Drohnen und ihren Wartungsanschlüssen. <b>Aufklärungsdrohnen</b>: klein, schnell, beobachten und markieren. <b>Wächterdrohnen</b>: größer, bewaffnet, isolieren und halten nieder; nichttödliche Optionen, bei massiver Eskalation tödlich.',ul:['<b>Routine:</b> Standardpatrouille, prüfen Unregelmäßigkeiten','<b>Autorisierte Besichtigung:</b> begleiten, zählen, vergleichen; bessere Position, aber beobachtet','<b>Unregelmäßigkeit:</b> stellen sich zwischen Verdächtige und Tresor, fordern Authentifizierung, trennen Personen; erst bei weiterer Eskalation Waffen'],fb:'Drohnen würfeln nicht. Ihr Verhalten läuft über die Action Rolls der Runner und deren Consequences. Besiegen: Interface, Sabotage, Umleiten, Einsperren, präzise Schüsse auf Sensoren, Nahkampf, Täuschung der Zielerkennung, Ablenkung, Magie oder schlicht schneller sein.'},
+      {h:'Die Tresortür',sub:'17.4',p:'Zwei getrennte Prüfungen: Keycard lesen, innerhalb kurzer Zeit Augenscan bestätigen. Die Reihenfolge ist egal; der erste Faktor öffnet ein kurzes Fenster für den zweiten. Jeder Versuch wird protokolliert, ein sauberer Doppelzugang öffnet ohne Alarm.',ul:['Venn besitzt die Keycard nicht; ihre Anwesenheit ersetzt den physischen Faktor nicht','Ohne einen oder beide Faktoren bleibt der Zugang möglich: Manipulation, schweres Werkzeug, Sprengstoff, Magie, Flashback','Dann wird es lauter, riskanter oder zeitaufwendiger, nicht unmöglich']}]],
+    ['h3','Magische Hülle der Vault'],
+    ['p','Die Wände der eigentlichen Vault sind von kultiviertem lebendem Gewebe durchzogen: dunkle Faserstränge wie Wurzeln oder Muskelgewebe zwischen den Schichten. Es trägt eine <b>duale Manabarriere</b>, die physisch und astral abschirmt. Das Gewebe reagiert auf Bohrungen und Erschütterungen, kleine Verletzungen schließen sich, bei Alarm verdichten sich die Fasern. Beschädigungen sind sichtbar: Fasern zucken, dunkle Flüssigkeit tritt aus. Außerhalb der Barriere kann optional ein <b>astraler Watcher</b> patrouillieren, der nur meldet und kein Pflichtgegner ist.'],
+    ['note','','Chancen für Mage und Adept','<ul><li><b>Assense</b> zeigt Manabarriere, Watcher, magische Spuren und auffällige Objekte in der Sammlung.</li><li>Ein Mage kann untersuchen, wie die Barriere am regulären Durchgang kontrolliert geöffnet wird, und daraus einen eigenen Ansatz gewinnen.</li><li>Ein Adept bemerkt subtile Umweltveränderungen, Gefahr, Stressreaktionen oder Sensorik früher; mit Assense oder Astral Warrior geht er astrale Probleme direkt an.</li><li>Magische Antiquitäten lassen sich von mundanen Stücken unterscheiden.</li></ul>'],
+    ['h3','Consequences im Tresorgeschoss'],
+    ['ul',['Eine Drohne erhält Sichtkontakt.','Eine Schleuse verriegelt.','Eine Waffe oder ein Werkzeug wird beschädigt oder verloren.','Sicherungsschaum füllt einen Abschnitt und erschwert Bewegung und Sicht.','Der direkte Rückweg wird blockiert.','Die biometrische Kopie funktioniert nur eingeschränkt; ein zusätzlicher Schritt bleibt nötig.','Alert steigt deutlich.']],
+    ['note','','Wenn die Ebene zu lange dauert','Reduziere sie auf drei Beats: ein Sensorproblem, eine Drohnenkonfrontation, die Vault-Tür. Alles andere wird Beschreibung oder Consequence.']]},
+
+  {id:'tresor',num:'Schritt 7',title:'Der Tresor und der Koffer',time:'Höhepunkt',
+   lead:'Kein Bankraum voller Schließfächer, sondern der moderne Hort eines Drachen. Der Koffer liegt unscheinbar zwischen Dingen, die offensichtlich mehr wert sind. Hier fällt die Entscheidung, die Veyrath wirklich interessiert.',
+   blocks:[
+    ['h3','Veyraths moderner Drachenhort'],
+    ['p','Die Beleuchtung geht langsam an: Gemälde aus verschiedenen Jahrhunderten, Skulpturen und archäologische Objekte, alte und moderne Nahkampfwaffen, hochwertige Schusswaffen, Schmuck und historische Edelsteine, seltene gedruckte Bücher, versiegelte Datenarchive, einzelne Stücke moderner Cyber- und Biotechnologie, mehrere magische Antiquitäten und Dinge, deren Wert ohne Spezialwissen kaum einzuschätzen ist. Alles ist kuratiert; nichts liegt zufällig herum. Der schwarze Aktenkoffer liegt auf einem niedrigen Sockel zwischen erheblich auffälligeren Objekten.'],
+    ['note','gold','Versuchung','Mindestens ein Stück ist offensichtlich wertvoller als der Koffer und überraschend leicht mitzunehmen: eine kleine Schatulle mit historischen Edelsteinen, eine verzierte magische Antiquität, ein kompaktes Stück Cybertechnologie. Darum liegt <b>keine zusätzliche Falle</b>. Wollen die Spieler:innen etwas mitnehmen, lass sie. Der Auftrag verbietet es lediglich, und Veyrath wird es später sehr genau bewerten.'],
+    ['h3','Der Aktenkoffer'],
+    ['tiles',3,[
+      {h:'Äußeres',sub:'für alle sichtbar',p:'Etwa 45 cm breit, mattschwarzer Keramikverbund, erstaunlich altmodisch: keine AR-Anzeige, keine Datenbuchse, kein Logo, kein Funksignal. Eine einzige dünne elfenbeinweiße Linie läuft fast als Kreis über Deckel und Unterseite, nur am Griff fingerbreit unterbrochen. Griff aus dunklem Metall mit abgenutztem schwarzem Leder. Über einem Verschluss ein blassblaues, einmaliges Manipulationssiegel.'},
+      {h:'Matrix',sub:'offline',p:'Sendet nichts, ist nicht über die Matrix zu orten. Die Sicherungen arbeiten lokal ohne Funkverbindung. In einem Tresor voller vernetzter, glänzender Objekte wirkt diese Stille beinahe provokant schlicht.'},
+      {h:'Magisch',sub:'schwache Aura',p:'Eine schwache, alte magische Aura. Nicht gefährlich, löst nichts aus, macht den Koffer für astral wahrnehmende Figuren unter den vielen Gegenständen aber auffällig.'}]],
+    ['note','gm','Verborgener Manipulationsschutz','<p>Im Rahmen sitzt ein kleiner, professionell integrierter <b>Sprengsatz</b>. Wird der Koffer ohne Neutralisierung vollständig geöffnet, zerstört die Ladung in erster Linie den Inhalt. Wer ihn dabei vor sich hält, ist in ernsthafter Gefahr, aber es ist <b>keine automatische Todesfalle</b>: Harm, verlorene Ausrüstung, Alarm oder eine andere Consequence sind sinnvoller als ein plötzliches Charakterende.</p><p><b>Entdeckbar</b> bei gezielter Untersuchung: ungewöhnliches Gewicht, zweiter innerer Rahmen, feine Fertigungsspalten am Deckel, separater abgeschirmter Stromkreis, chemische oder technische Spuren. Survey, Study, Engineer oder Interface können passen; nichts ist vorgeschrieben. Neutralisieren ist unter ruhigen Bedingungen kontrolliert, unter Zeitdruck mit aktiven Drohnen deutlich riskanter.</p><p><b>Zweite Sicherung:</b> Ein unauffälliger mechanischer Manipulationsnachweis im Inneren. Selbst nach perfekter Entschärfung und sauberem Schließen kann Veyrath später feststellen, dass geöffnet wurde.</p><p>Wer den Koffer wie befohlen geschlossen lässt, erfährt von alldem nie. Es ist keine Pflichtszene und kein Rätsel.</p>'],
+    ['table',['Verhalten','Bewertung'],[['Nicht geöffnet','Auftrag exakt erfüllt.'],['Sicherung erkannt, neutralisiert, trotzdem geöffnet','Technisch beeindruckend, aber klare Anweisung missachtet.'],['Unvorsichtig geöffnet','Sprengsatz detoniert; Inhalt zerstört, Situation eskaliert.']]],
+    ['note','gm','Inhalt','Eine handtellergroße, gesprungene Scheibe aus schwarzem Obsidian. Nicht wertlos, ihr tatsächlicher Wert für die Runner aber nicht erkennbar. Warum sie Veyrath wichtig ist, bleibt offen. Er hat bewusst einen Gegenstand gewählt, dessen Verlust real, für ihn aber kaum schmerzhaft wäre; deshalb ist der Sprengsatz keine Attrappe. Der Inhalt ist kein Plotgerät. Der Test ist, ob die Crew die Vorgabe respektiert, obwohl sie mehr herausfinden könnte.']]},
+
+  {id:'flucht',num:'Schritt 8',title:'Die Flucht',time:'20–35 Min. mit Enthüllung',
+   lead:'Ausführlich nur, wenn sie interessant ist oder Zeit übrig bleibt. Der Alert-Stand bestimmt, wie viel Widerstand die Crew erlebt.',
+   blocks:[
+    ['tiles',3,[
+      {h:'Glasaufzug',sub:'elegant bei niedrigem Alert',p:'Die Crew fährt zwischen ahnungslosen Gästen nach unten, während die Stadt hinter den Glaswänden vorbeizieht. Bei höherem Alert kann der Aufzug gestoppt, umgeleitet oder überprüft werden.'},
+      {h:'Frachtaufzug und Tiefgarage',sub:'pragmatisch',p:'Unten wartet ein vorbereitetes Fahrzeug, ein spontanes wird beschafft, oder es geht zu Fuß in die unteren Ebenen des Komplexes.'},
+      {h:'Sprung vom Dach',sub:'spektakulär',p:'Fallschirme oder Gleiteranzüge. Wind, Verfolger und verlorene Ausrüstung sind gute Consequences, ohne jeden Meter auszuspielen.'},
+      {h:'Fassadenwartung',sub:'wieder nutzbar',p:'Die Gondel kann erneut verwendet, manuell übersteuert oder als Zwischenstation für den Abstieg dienen.'},
+      {h:'Skycab-Extraktion',sub:'Kontakte · Technik',p:'Ein autonomes Skycab oder kleines Luftfahrzeug erscheint an einer zulässigen oder improvisierten Außenposition: echte Buchung, falsche VIP-Anweisung, Übernahme, Rigger oder Flashback.'},
+      {h:'Kreative Idee',sub:'immer erlaubt',p:'Findet die Gruppe einen plausiblen besseren Weg, lass ihn funktionieren.'}]],
+    ['h3','Consequences bei der Flucht'],
+    ['ul',['Der bevorzugte Ausgang ist gesperrt.','Ein Aufzug hält auf einer falschen Etage.','Ausrüstung muss zurückgelassen werden.','Eine Drohne hängt sich an die Crew.','Die Gruppe wird getrennt.','Ein Sprung oder Flugmanöver verursacht Harm oder Verlust von Equipment.']],
+    ['note','','Wer kommt bei vollem Alert?','Bewusst nur ein <b>zuständiger externer Polizeidienstleister</b> beziehungsweise ein vertragliches Response-Team. Ob Knight Errant oder Lone Star, legst du fest, wenn du es mit einer Seattle-Quelle abgleichen willst. Bei viel Restzeit startet eine kurze Response Clock; sonst ist die nächste große Consequence die eintreffende Verstärkung.']]},
+
+  {id:'enthuellung',num:'Schritt 9',title:'Die Enthüllung',time:'während der Flucht',
+   lead:'Während oder unmittelbar nach der Flucht, nicht als langer Monolog. Kein Endboss, keine neue Konfrontation: ausschließlich die Bewertung des Tests.',
+   blocks:[
+    ['p','Ein gewaltiger Schatten gleitet über die Fassade. Flügel schlagen im Regen. Für einen Moment fliegt oder klettert ein echter Drache in deutlichem Abstand neben der fliehenden Crew, weit größer als alles, womit sie gerechnet hat. Er versperrt ihnen nicht den Weg und macht keine Anstalten anzugreifen. Dann hören die Runner seine Stimme direkt in ihren Gedanken:'],
+    ['q','„Nennt mich Veyrath. Der Turm ist mein. Der Tresor ist mein. Und der Koffer, den ihr gerade gestohlen habt, ebenfalls.“'],
+    ['p','Damit ist klar: Sie haben keinen Rivalen bestohlen. Veyrath selbst hat sie in seinen eigenen Tresor geschickt. Je nach Verlauf ergänzt er:'],
+    ['tiles',2,[
+      {h:'Sauberer Run',p:'„Ihr nehmt, was euch gegeben wurde, und lasst liegen, was euch nicht gehört. Selten. Ihr seid also tatsächlich zu etwas zu gebrauchen.“'},
+      {h:'Erfolgreich, aber chaotisch',p:'„Nicht elegant. Nicht leise. Aber ihr seid noch am Leben und der Koffer ist bei euch. Das genügt fürs Erste.“'},
+      {h:'Viel Gewalt',p:'„Gewalt ist ein Werkzeug. Wer für jedes Problem dasselbe Werkzeug benutzt, ist kein Handwerker.“'},
+      {h:'Zusätzliche Beute',p:'„Ich bat euch um einen Gegenstand. Ihr habt entschieden, dass mein Eigentum eure Bezahlung erhöhen sollte. Das merke ich mir.“'},
+      {h:'Geöffneter Koffer',p:'„Neugier ist wertvoll. Disziplin ebenfalls. Heute habt ihr mir gezeigt, welche von beiden bei euch gewinnt.“'},
+      {h:'Sprengsatz sauber neutralisiert',p:'„Den Sicherungsmechanismus zu erkennen war gute Arbeit. Ihn überwinden zu müssen, war eure eigene Entscheidung.“'}]],
+    ['note','warn','Kein Kampf','Veyrath bleibt außer Reichweite, bedroht die Crew nicht und blockiert ihre Flucht nicht. Schießen die Runner auf ihn, beendet er den Kontakt und zieht sich zurück, statt aus dem Epilog einen Kampf gegen einen erwachsenen Drachen zu machen.']]},
+
+  {id:'payoff',num:'Schritt 10',title:'Payoff und Bewertung',time:'Abschluss',
+   lead:'Die Grundbezahlung beträgt 6 Nuyen. Veyrath koppelt die Auszahlung an die Professionalität der Crew. Der Rechner links übernimmt die Regel.',
+   blocks:[
+    ['table',['Alert am Ende','Auszahlung'],[['Low Alert (0–1)','6 Nuyen'],['Medium Alert (2–5)','5 Nuyen'],['High Alert / Lockdown (6)','3 Nuyen']],[1]],
+    ['p','Verletzte oder tote Gäste und Angestellte zählen für die Auszahlung <b>mindestens wie High Alert</b>. Dr. Venn schwer zu verletzen oder zu töten ist zusätzlich klarer Vertragsbruch. Schäden an der Sammlung wiegen für Veyrath noch schwerer als Personenschäden: Beschädigte oder zusätzlich gestohlene Stücke ziehen deutlichen Unmut nach sich und können die Auszahlung weiter reduzieren.'],
+    ['tiles',3,[
+      {h:'Ideale Kandidaten',sub:'Folgeaufträge',ul:['Koffer ungeöffnet','Keine zusätzliche Beute, Sammlung unbeschädigt','Venn unverletzt','Wenig unnötige Gewalt','Probleme kreativ und als Team gelöst']},
+      {h:'Brauchbar, aber riskant',sub:'vielleicht',ul:['Auftrag erfüllt','Medium oder High Alert','Vermeidbare Aufmerksamkeit','Unnötige, aber nicht katastrophale Eskalation']},
+      {h:'Nicht geeignet',sub:'kein Kontakt mehr',ul:['Koffer absichtlich geöffnet, auch fachgerecht','Inhalt durch unvorsichtiges Öffnen zerstört','Venn schwer verletzt oder getötet','Sammlung beschädigt oder zusätzliche Beute','Wahllose Tötungen trotz klarer Anweisung']}]],
+    ['p','Das heißt nicht, dass die Charaktere „falsch gespielt“ wurden. Es ist die Reaktion dieses Auftraggebers auf ihre Entscheidungen. Gib der Crew beim Payoff Gelegenheit, auf die Enthüllung zu reagieren.'],
+    ['h3','Optional: Heat nach RitS'],
+    ['p','Für einen reinen Oneshot entfällt dieser Schritt. Soll die Crew weitergespielt werden, wird Heat nach den normalen Regeln bestimmt, nicht von der Alert Clock übernommen: 0 Heat smooth & quiet, 2 contained, 4 loud & chaotic, 6 wild, plus situative Modifikatoren für hochprofilige Ziele oder Tötungen. <b>Alert</b> ist, was die Sicherheit jetzt weiß und tut. <b>Heat</b> ist die langfristige Aufmerksamkeit danach.']]},
+
+  {id:'werkzeuge',num:'Werkzeuge',title:'Alert, Consequences und Pacing',time:'den ganzen Run über',long:true,
+   lead:'Die Alert Clock ersetzt Heat während des Runs. Sie steigt, wenn eine Handlung plausibel Aufmerksamkeit erzeugt, und kann sinken, wenn die Fiktion es zulässt.',
+   blocks:[
+    ['h3','Alert Clock · 6 Segmente'],
+    ['stages',[{range:'0–1',name:'Routine',col:'var(--alert0)',items:['Auffälligkeiten gelten als normale Event-Abweichung','Drohnen patrouillieren nach Standardmustern','Keine Suche nach den Runnern']},{range:'2–3',name:'Verdacht',col:'var(--alert1)',items:['Kameras vergleichen Bewegungen und Identitäten gezielter','Einzelne Türen verlangen erneut Berechtigung','Drohnen beobachten auffällige Bereiche','Personal wird diskret befragt']},{range:'4–5',name:'Aktiver Alarm',col:'var(--alert2)',items:['Drohnen suchen gezielt','Servicewege teilweise gesperrt','Aufzüge angehalten oder umgeleitet','Gäste werden aus gefährdeten Bereichen ferngehalten','Erfasste Runner werden verfolgt']},{range:'6',name:'Lockdown',col:'var(--alert3)',items:['Alarm gilt als bestätigt','Fluchtwege verriegelt oder kontrolliert','Externer Sicherheits- oder Polizeidienstleister verständigt','Handlungsspielraum bleibt, aber eindeutig Eskalation']}]],
+    ['p','Verdacht bedeutet <b>keinen automatischen Würfelmalus</b>. Die veränderte Fiktion beeinflusst Position und Effect kommender Actions. Wirkt eine Handlung direkt auf die Clock, passt Limited / Standard / Great Effect zu 1 / 2 / 3 Segmenten.'],
+    ['tiles',2,[
+      {h:'Wann steigt Alert?',sub:'passende Consequence, wenn …',ul:['eine Kamera etwas sieht','ein Sensor ausgelöst wird','eine falsche Identität überprüft wird','eine Drohne eine Warnung sendet','ein Gast Alarm schlägt','eine Tür gewaltsam geöffnet wird','Schüsse oder Explosionen hörbar sind','ein Matrixeingriff einen verwertbaren Hinweis hinterlässt'],fb:'Nicht jede misslungene Probe erhöht Alert. Ebenso möglich: Harm, verlorene Ausrüstung, schlechtere Position, weniger Effect, versperrter Ausgang, misstrauische Venn, Keycard an anderem Ort, Drohne erscheint, Gruppe getrennt.'},
+      {h:'Kann Alert sinken?',sub:'tug-of-war Clock',ul:['Ein Runner erklärt einer Sicherheitskraft glaubwürdig, warum die Abweichung harmlos war','Eine Kamerasequenz wird durch ältere Aufnahmen ersetzt','Ein ausgelöster Sensor wird als Defekt getarnt','Eine Drohne wird abgefangen, bevor sie meldet','Ein manipuliertes Türprotokoll sieht nach Wartung aus','Ein Partyzwischenfall erklärt Lärm oder Bewegung'],fb:'Niemand sagt „ich würfle, um Alert zu senken“. Erst muss klar sein, was die Figur in der Welt tut. Bei Erfolg sinkt Alert gemäß Effect oder ein drohender Anstieg wird verhindert.'}]],
+    ['note','','Kein Hacker nötig','Ein Hacker hat viele Gelegenheiten, Alert zu verhindern, aber kein exklusives Recht darauf. Sozial: Verdacht umlenken, Personal beschäftigen. Täuschung: Identität oder Arbeitsanweisung. Physisch: Sensor oder Drohne ausschalten, bevor gesendet wird. Präzision: Optiken und Waffenmodule zerstören. Technik: Leitungen, Türen, lokale Steuerungen. Magie: Wahrnehmung oder Bewegung. Mobilität: den Bereich verlassen, bevor die Suche sich schließt. Wiederholte Hacks werden nicht automatisch schwerer, sondern dann, wenn die Fiktion einen Grund liefert: Gegenmaßnahme läuft, Trace begonnen, System isoliert.'],
+    ['h3','Szenariospezifische Dragon’s Deals'],
+    ['deals',['Die Einladung ist echt. Aber jemand auf der Party erkennt deinen Alias.','Du bekommst den perfekten biometrischen Scan. Dr. Venn wird sich später sehr genau an dein Gesicht erinnern.','Die Drohne geht sofort offline. Ihr letzter Datenburst wurde allerdings bereits gesendet.','Die Wartungsgondel bringt euch exakt ans Ziel. Danach verriegelt sie sich außen und steht für die Flucht nicht mehr zur Verfügung.','Du erreichst den Koffer ohne weiteren Widerstand. Dafür schließt sich die Tresortür hinter euch.']],
+    ['h3','Spotlight für die Playbooks'],
+    ['table',['Playbook','Typische Chancen zu glänzen'],[['Face','Einladung, Kontakte, ernsthafte Sammlerrolle, Venn beschäftigen, Verdacht sozial entschärfen'],['Hacker','Gästelisten, Kameras, Aufzüge, Zugangslogs, Drohnen, Gebäudetechnik'],['Muscle','Schutz der Gruppe, schwere Ausrüstung, nichttödliche Überwältigung, gewaltsame Notwege, Drohnen im Nahkampf'],['Punk','Fassadeninfiltration, Parkour, Ablenkung, Sabotage, chaotische Improvisation und Flucht'],['Rigger','Pilot für Absprung oder Flucht, Wartungsgondel, Gebäudedrohnen, Fahrzeuge, Fernsteuerung'],['Snake','Personalrollen, Verkleidung, Täuschung, Keycard-Diebstahl, Venn manipulieren'],['Trigger','Overwatch, Gefahr früh erkennen, Drohnenkomponenten präzise ausschalten, Fluchtweg sichern'],['Adept','Je nach Way: Wahrnehmung, Gefahrensinn, Mobilität, körperliche Infiltration; mit passenden Fähigkeiten astrale Probleme'],['Mage','Assense der Manabarriere und des Watchers, magische Spuren, magische Objekte unterscheiden, eigene Umgehungswege'],['Techno','Signale und vernetzte Systeme emergent beeinflussen, Drohnen oder Gebäudetechnik manipulieren, Anomalien erkennen']]],
+    ['p','Der Run ist kein Charakterquiz. Niemand bekommt einen Raum „nur für seine Klasse“. Die Actions auf dem Bogen sind wichtiger als das Etikett.'],
+    ['h3','Pacing'],
+    ['tiles',2,[
+      {h:'Zu lange geplant?',ul:['Welchen Plan verwendet ihr?','Was ist das Detail?','Welches Load wählt ihr?','Dann Engagement Roll und Schnitt zur Action.']},
+      {h:'Viel Zeit übrig?',ul:['Flucht ausführlicher ausspielen','Einen abgeschnittenen Runner einen alternativen Weg suchen lassen','Response Clock nach vollem Alert','Der Crew beim Payoff Raum für die Reaktion auf die Enthüllung geben']}]]]},
+
+  {id:'referenz',num:'Anhang',title:'Schnellreferenz',time:'zum Ausdrucken',
+   lead:'Alles Wichtige auf einen Blick, wenn am Tisch keine Zeit zum Blättern ist.',
+   blocks:[
+    ['qr',[
+      {h:'Auftrag',items:['<b>Stehlt:</b> schwarzen Koffer aus der Vault, ungeöffnet','<b>Verborgene Sicherung:</b> Sprengsatz zerstört bei unbefugtem Öffnen primär den Inhalt; entdeck- und entschärfbar','<b>Manipulationsnachweis:</b> Öffnen bleibt auch nach Entschärfung nachweisbar','<b>Nicht stehlen:</b> alles andere · <b>Nicht verletzen:</b> Dr. Venn · <b>Vermeiden:</b> Tote','<b>Payoff:</b> 6 Nuyen bei Low Alert, 5 bei Medium, 3 bei High; Personenschaden mindestens wie High']},
+      {h:'Zugangsfaktoren',items:['Vault-Keycard in der schwarzen Kassette im Eventbüro (Servicebereich)','Augenscan von Dr. Venn: linkes, bernsteinfarbenes, natürliches Auge','Ohne einen oder beide Faktoren bleibt der Zugang möglich, aber lauter, riskanter, langsamer']},
+      {h:'Penthouse 111/112',items:['Großer Salon · Ausstellungsgalerie · Wintergarten','Servicebereich mit Eventbüro','Sammlerlift hinter den Ausstellungsräumen','Privates Arbeitszimmer mit Privatlift','Glasdach und Dachzugang']},
+      {h:'Vault-Ebene 110',items:['Gemeinsame Zugangsschleuse','Sensorkorridor','Drohnenknoten: Aufklärer und Wächter','Tresortür: Keycard + Augenscan, Reihenfolge egal','Lebende Vault-Hülle mit dualer Manabarriere, optional astraler Watcher','Moderner Drachenhort mit Versuchung']},
+      {h:'Alert Clock ○○○○○○',items:['<b>0–1</b> Routine','<b>2–3</b> Verdacht','<b>4–5</b> aktiver Alarm','<b>6</b> Lockdown + externe Response']},
+      {h:'NPCs',items:['<b>Mr. Johnson:</b> professioneller Vermittler Veyraths','<b>Dr. Amara Venn:</b> orkische Kuratorin, linkes Auge = Biometrie, hat keine Keycard','<b>Dorian Kade:</b> Sicherheitschef, Cyberarme, kennt Verwahrung und Ausgabe der Keycard','<b>Veyrath:</b> erwachsener Drache, Eigentümer und Auftraggeber, prüft die Crew, kämpft nie']},
+      {h:'Die Wahrheit',items:['Veyrath besitzt Penthouse, Vault, Sammlung und Koffer und hat den Einbruch in seinen eigenen Tresor beauftragt','Kein rivalisierender Drache','Die Gala schafft absichtlich ein realistisches Zeitfenster','Geprüft werden Disziplin, Kreativität, Teamwork und Eskalationskontrolle']},
+      {h:'Würfel',items:['<b>6</b> Erfolg · <b>4/5</b> mit Consequence · <b>1–3</b> schlecht · mehrere 6en Critical','Position: Controlled / Risky / Desperate · Effect: Limited / Standard / Great','2 Edge pushen, 1 Edge assistieren, Resistance kostet Edge','Flashback 0–2 Edge je nach Aufwand']}]]]},
+ ],
+};
+
+/* ---------- GM guide: English data ---------- */
+const GUIDE_EN={
+ ui:{title:'GM Guide',subtitle:'The run “Trial by Fire” step by step · Seattle 2080 · Meridian Spire',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
+  plans:'Meridian Spire plans',runner:'Runners & sheets',print:'Print',nav:'Flow',navDone:'done',doneLbl:'Section done',
+  alert:'Alert clock',alertSub:'click segments',alertReset:'reset',alertNames:['Routine','Routine','Suspicion','Suspicion','Active alarm','Active alarm','Lockdown'],
+  alertDesc:['Systems treat anomalies as normal event deviations. Drones patrol on standard patterns.','Systems treat anomalies as normal event deviations. Drones patrol on standard patterns.','Cameras cross-check more closely, doors ask for credentials again, staff are quietly questioned.','Cameras cross-check more closely, doors ask for credentials again, staff are quietly questioned.','Drones search actively, service routes are closed, elevators rerouted, identified runners are pursued.','Drones search actively, service routes are closed, elevators rerouted, identified runners are pursued.','Escape routes locked, external response called. Escalation, not failure.'],
+  calc:'Payoff calculator',calcChecks:[['open','Case was opened (even expertly)'],['loot','Extra loot or damage to the collection'],['venn','Dr. Venn harmed'],['harm','Guests or staff injured or killed'],['gore','Indiscriminate killing despite orders']],
+  calcNuyen:'nuyen',calcBase:'payout at alert {a}',calcHarm:'harm to people counts at least as high alert',calcLootCut:'damage to the collection cuts the payout further',
+  verdictGood:'Ideal candidates. Veyrath will be in touch.',verdictMid:'Usable but risky. A follow-up job is possible, not certain.',verdictBad:'Not suitable. Breach of contract or greed; Veyrath withdraws.',
+  portrait:'Portrait · click to insert',portraitRm:'remove',
+  fine:'Fan material for the private gaming table. <i>Runners in the Shadows</i> is a Forged in the Dark game by Mark Cleveland Massengale; <i>Shadowrun</i> is a trademark of The Topps Company / Catalyst Game Labs. Meridian Spire, Vesperline Collections, Dr. Amara Venn, Dorian Kade, Veyrath and the living vault tissue are original creations for this one-shot. Portraits you insert here are stored only in your browser.'},
+
+ npcs:[
+  {id:'johnson',name:'Mr. Johnson',role:'Fixer · the face of the job',tags:['Human','Charcoal suit','Paper notebook'],kind:'person',
+   bio:'A calm professional who keeps Veyrath’s contacts into the shadows. He arrives early, is already seated in the privacy booth when the crew shows up, and writes with a pen in a real paper notebook throughout the whole conversation. No visible commlink, no threats, no theatre. Johnson keeps agreements and expects the same.',
+   look:['Charcoal-grey tailored suit, no insignia','Polite, factual, never hurried','Actually finishes his soykaf'],
+   play:['States “unopened” matter-of-factly as one condition among several, without stressing it.','Does not haggle over agreed terms after the run.','Answers questions about his client with “My client values discretion.”'],
+   secret:'Works directly for Veyrath and knows the run is a trial. He does not reveal it, but he does not lie clumsily either: anyone watching closely notices that he studies the crew like applicants.',
+   say:'“The case is handed over closed. Nothing else in that room interests my client, and it should not interest you either.”'},
+  {id:'venn',name:'Dr. Amara Venn',role:'Head curator of Vesperline Collections · the biometric key',tags:['Ork','Mid-40s','Left eye = biometrics'],kind:'person',key:true,
+   bio:'Art historian and security curator. She is responsible for selection, provenance and the physical handover of the most valuable pieces, and one of the few people whose eye scan the vault accepts. Venn considers most guests people with too much money and too little understanding of art; genuine interest in a piece wins her attention at once. She wants to end the evening without incident and go home.',
+   look:['Tall, slim, very upright posture, shaved head','Polished silver caps on both tusks','Left eye amber and natural; right eye a black cybereye without an iris','Dark green, severely cut evening suit, golden feather brooch'],
+   play:['Mostly in the gallery; occasionally retreats to the winter garden.','Can register guests for a private viewing and escort them to the airlock.','Does not have the vault keycard and cannot open the vault alone.','Must not be harmed, per the contract. Abduction is possible but conspicuous.'],
+   secret:'Knows nothing of the trial. Her suspicion is a good consequence: she asks follow-up questions, calls Kade over, or announces her departure when the party drags on.',
+   say:'“You are actually looking at the piece, not the price tag. That is rare tonight. Come, let me show you why it hangs here.”'},
+  {id:'kade',name:'Dorian Kade',role:'Head of security for the gala · knows the way to the keycard',tags:['Human','Cyberarms','Augmented reflexes'],kind:'person',
+   bio:'Runs security for the evening and wants one thing above all: no visible incident in front of the VIPs. Kade is polite, calm and extremely attentive. He does not carry the vault keycard himself, but knows exactly where it sits in the black key box in the event office and how a legitimate withdrawal is logged. He authorises the release or assigns someone to do so.',
+   look:['Elegant dark tailored suit over two flawlessly chromed cyberarms','Small, almost imperceptible twitches in hands, shoulders and gaze','Discreetly armed with a pistol'],
+   play:['Source of information, obstacle or opportunity, never a mandatory waypoint.','Politely asks for identification instead of threatening.','Reacts to alert: on suspicion he asks questions, on active alarm he keeps guests away from endangered areas.'],
+   secret:'Suspects nothing of the test. Anyone who gives him a plausible explanation can lower alert; anyone who deceives him gains an opponent with very fast reflexes.',
+   say:'“I have nobody matching your description on the list. That need not mean anything. Help me clear it up before someone else does.”'},
+  {id:'veyrath',name:'Veyrath',role:'Adult dragon · owner and true employer',tags:['Dragon','Collector','Not an antagonist'],kind:'dragon',
+   bio:'A reserved, exceptionally wealthy collector who prefers to act through intermediaries rather than appear in public. The penthouse, vault, collection and briefcase are his; he stands behind Vesperline Collections and several shell companies. Veyrath regards runners as potentially valuable specialists and is looking for a small crew for later tasks. What interests him is reliability when greed, fear and improvisation collide.',
+   look:['Appears only at the reveal: a vast shadow, wings in the rain','Speaks directly into the runners’ minds','Stays out of reach, blocks nothing, never attacks'],
+   play:['Neither rescues nor hinders the crew. The building is the obstacle, not him.','Judges at the end: discipline, creativity, teamwork, control of escalation.','Values his property above metahuman life. That is deliberately uncomfortable.','Is never a combat encounter. If someone shoots at him, he ends the contact.'],
+   secret:'Has allowed a difficult but realistically exploitable weakness in event mode for this one night. Collection, guests, staff and security are real. If the crew pulls off exceptional research, they may learn this beforehand; the reveal then becomes confirmation.',
+   say:'“Call me Veyrath. The tower is mine. The vault is mine. And so is the case you have just stolen.”'},
+ ],
+
+ chapters:[
+  {id:'blick',num:'At a glance',title:'What is really going on',time:'before the session',
+   lead:'A one-shot for 3–4 players, three to four hours, Seattle 2080. The crew is to steal a briefcase from a private vault level during a gala. What they do not know: the vault belongs to the employer.',
+   blocks:[
+    ['tiles',3,[
+      {h:'The job',sub:'public',ul:['Retrieve a black briefcase from the vault below the penthouse during the gala','Hand the case over <b>unopened</b>, take <b>nothing</b> else','Do not harm Dr. Amara Venn, avoid deaths','Access: physical vault keycard + Venn’s eye scan']},
+      {h:'The truth',sub:'GM only',ul:['Penthouse, vault, collection and case belong to the dragon <b>Veyrath</b>','Mr. Johnson works for Veyrath; the run is a <b>trial by fire</b>','No rival dragon, no other owner, no hidden twist behind it','Veyrath neither intervenes nor rescues']},
+      {h:'What is being tested',sub:'the yardstick',ul:['Understanding orders and taking them seriously','Solving unusual problems independently','Not escalating at once under pressure','Not stealing everything just because they can','Working as a team']}]],
+    ['h3','Timetable for 3–4 hours'],
+    ['table',['Section','Guide'],[['Character choice + short Shadowrun/RitS intro','15–25 min'],['Meeting Mr. Johnson','10–15 min'],['Gather information + plan','10–20 min'],['Entry and party','45–70 min'],['Vault level','45–70 min'],['Escape + reveal','20–35 min'],['Buffer','20–30 min']],[1]],
+    ['p','If characters were chosen in advance, far more time remains for the mission itself. The chapters on the left follow the flow at the table; tick them off as you go. The alert clock and the payoff calculator accompany you through the whole run.'],
+    ['note','gm','Guidelines',
+     '<ul><li>No playbook and no single action is mandatory.</li><li>Keycard and eye scan are problems, not prescribed puzzles.</li><li>Veyrath tests the crew but never fudges a dice result and never becomes a combat encounter.</li><li>A full alert is escalation, not automatic failure. Consequences create new situations.</li><li>Competent runners need no roll for routine. Good ideas may bypass prepared scenes.</li><li>If the runners earn the truth about the employer, tell them.</li><li>For 3–4 hours: playability before completeness.</li></ul>'],
+    ['h3','Key people'],
+    ['npcs']]},
+
+  {id:'einstieg',num:'Step 1',title:'Getting started at the table',time:'15–25 min',
+   lead:'Choose characters, then cover world and rules in a few minutes. Nobody needs more before the first roll.',
+   blocks:[
+    ['h3','Shadowrun in five sentences'],
+    ['p','Seattle 2080 is a city of vast corporations, extreme inequality, ubiquitous connectivity and real magic. Humans and metahumans live among AR advertising, cyberware, drones, spirits and privatised security. <b>Shadowrunners</b> do unofficial jobs for people who do not want to be linked to a deed; that is why the employer is called <b>Mr. Johnson</b>.'],
+    ['ul',['You are competent professional criminals and may dare risky things.','The world is full of tech, Matrix and magic.','A good plan helps, but nobody plans every eventuality in advance.','When something goes wrong, a new complication arises instead of game over.']],
+    ['h3','RitS in five minutes'],
+    ['tiles',2,[
+      {h:'Action roll',sub:'fiction first',p:'First the player describes what their runner does and wants. Only when something dangerous is at stake do you roll: as many d6 as the action rating, the highest counts.',ul:['<b>6</b> full success · <b>4/5</b> success with a consequence · <b>1–3</b> bad plus consequence','Several 6s: critical','Settle beforehand: <b>position</b> (controlled / risky / desperate) and <b>effect</b> (limited / standard / great)','Actions are not knowledge skills; they follow what the character actually does']},
+      {h:'Edge & flashbacks',sub:'reserve and preparation',ul:['<b>2 edge</b>: push yourself, +1d or more effect','<b>1 edge</b>: assist a teammate, +1d','<b>Resistance roll</b> softens a consequence; it always works, the roll sets the edge cost','<b>Flashback</b>: mid-run, explain what you had prepared. The more elaborate, the more edge']}]],
+    ['h3','Plan and engagement'],
+    ['p','The group only picks a rough plan and names the required detail. Then comes the <b>engagement roll</b>, and you cut straight to the first interesting situation.'],
+    ['chips',['Assault · point of attack','Deception · method','Social · connection','Stealth · entry point','Supernatural · power / method','Transport · route & means']],
+    ['note','warn','Important','Do not let the group spend an hour planning around hypothetical security measures. Once plan and detail are set, the run begins. Everything else is a flashback.']]},
+
+  {id:'johnson',num:'Step 2',title:'Meeting Mr. Johnson',time:'10–15 min',
+   lead:'Calm, professional, no trap. The job is stated clearly, the conditions named plainly. This is where you set the yardstick the crew will later be measured against.',
+   blocks:[
+    ['h3','Recommended venue: “Raincheck”'],
+    ['p','A 24-hour soykaf diner on a middle floor of a mixed-use high-rise. Rain runs in broad sheets down the panoramic windows. Most tables are empty; delivery drones wait outside on a charging rail. Johnson is already seated in a semi-transparent privacy booth, charcoal tailored suit, real paper notebook instead of a commlink.'],
+    ['tiles',3,[
+      {h:'Late ferry',sub:'alternative',p:'Johnson boards at a stop, sits next to the crew for ten minutes and vanishes into the crowd at the next landing.'},
+      {h:'Parking deck above the clouds',sub:'alternative',p:'An almost empty automated car park in the upper floors of an office tower. Wind and rain whip through open sides while autonomous vehicles roll in and out without a word.'},
+      {h:'Private Matrix lounge',sub:'alternative',p:'A rented virtual meeting room. For a first Shadowrun evening the physical option is better: the players get to know the real Sixth World first.'}]],
+    ['h3','The briefing'],
+    ['tiles',2,[
+      {h:'The job',sub:'in Johnson’s words',p:'During tonight’s gala, retrieve a specific briefcase from the private vault beneath the penthouse of the Meridian Spire. Johnson provides a current photo of Dr. Venn and an exact description of the case.'},
+      {h:'Conditions',sub:'the contract',ul:['The case is handed over <b>unopened</b>.','<b>Nothing else</b> is taken from the vault.','Dr. Amara Venn is <b>not harmed</b>.','No wetwork. Avoidable deaths are expressly unwanted.','How the crew proceeds is up to them.']},
+      {h:'Known access factors',sub:'two keys',ol:['A physical vault keycard, somewhere in the penthouse during the gala.','The biometric eye scan of Dr. Amara Venn.']},
+      {h:'Pay',sub:'recommended 6 nuyen',p:'A serious, professional run. 4 nuyen for a lighter tutorial feel, 8 only if the briefing should already hint at an exceptionally rich employer. Paid on handover per contract; Johnson does not haggle afterwards.'}]],
+    ['note','gm','Do not foreshadow','Johnson names “unopened” plainly as one condition among several and does not stress the word. The hidden tamper protection is not hinted at in the briefing. Anyone who examines the case later on their own initiative can find clues.'],
+    ['h4','What Johnson does not say'],
+    ['ul',['That penthouse, vault and case belong to Veyrath himself.','That Veyrath is the true employer behind him.','That the job is a test.','That the security configuration deliberately leaves a chance.']],
+    ['p','If the runners earn this information through credible research, do not hold it back artificially.']]},
+
+  {id:'info',num:'Step 3',title:'Gather information',time:'10–20 min',
+   lead:'One or two targeted questions per player are enough. The group only needs enough to settle plan and detail.',
+   blocks:[
+    ['qa',[
+      {q:'When is security weakest?',a:'<p>During <b>event mode</b>. Between midnight and the end of the gala both access factors are on site at the same time. Afterwards the keycard leaves the building again and the vault goes into a stricter lockdown.</p>'},
+      {q:'Where is the keycard?',a:'<p>In the service area there is a small, non-public <b>event office</b> where sensitive event equipment is kept during the gala.</p><p><b>On a particularly good result:</b> the card sits there in a black key box; withdrawal and return are logged.</p>'},
+      {q:'How do I get close to Dr. Venn?',a:'<p>Venn mostly stays near the exhibited pieces and readily explains details to genuinely interested guests. She occasionally withdraws to a quieter <b>winter garden</b> to escape the small talk.</p>'},
+      {q:'What gear stands out?',a:'<p>Guests may carry light personal gear. Big weapons, heavy armour and obvious operational equipment are hardly plausible in the glass elevator and become a problem at reception. <b>Service staff</b> can bring far bulkier crates and tools.</p>'},
+      {q:'Is there an alternative way in?',a:'<p>An automated maintenance system runs along the outer façade with a small cleaning and inspection gondola. It can dock at a technical airlock near the penthouse.</p>'},
+      {q:'What awaits us below the penthouse?',a:'<p>The vault level is normally unmanned. It works with sensors, airlocks and autonomous security drones.</p>'},
+      {q:'What kind of building is this?',a:'<p>The ownership structure ends behind several opaque holdings. Vesperline Collections is only the visible management.</p><p><b>On exceptional research:</b> behind the structure stands the dragon <b>Veyrath</b>, and the penthouse with its vault is his. The later reveal still works: it turns from twist into confirmation that a dragon is testing the crew by having them break into his own property.</p>'}]],
+    ['note','','Pacing lever','If the group debates too long, ask only: which plan? which detail? which load? Then engagement roll and cut.']]},
+
+  {id:'plan',num:'Step 4',title:'Plan, engagement and entry',time:'transition',
+   lead:'Once plan and detail are set, the engagement roll follows and you cut to the first serious situation. These approaches are offers, not solutions.',
+   blocks:[
+    ['table',['Plan','Possible detail'],[['Social','A genuine invitation through a contact'],['Deception','Catering crew with a forged shift assignment'],['Stealth','Maintenance airlock on the façade'],['Transport','Jump from an aircraft onto the roof'],['Supernatural','A concrete magical method of the runners'],['Assault','A technical access point the crew takes by force']]],
+    ['p','A bad engagement does not mean the planning was stupid. It only means the first situation is already dangerous.'],
+    ['h3','Possible approaches'],
+    ['tiles',2,[
+      {h:'As guests via the glass elevator',sub:'social · deception',pro:['Little attention once inside','Direct contact with Dr. Venn','Ideal for observation and deception'],con:['Invitation and identity must be plausible','Bulky gear stands out','The elevator logs arrivals'],fb:'Copied an invitation, got a name onto the guest list, stashed a weapon in the penthouse beforehand.'},
+      {h:'As staff via garage and freight elevator',sub:'deception · stealth',pro:['Tools, crates and gear are plausible','Direct access to the service area and the keycard'],con:['Staff are separated by function and location','Unknown names stand out on rosters','Being in the wrong area looks suspicious fast'],fb:'Forged work ID, manipulated shift list, real uniform, delivery order.'},
+      {h:'Jump onto the roof',sub:'transport · assault',pro:['Hardly any social prerequisites','Lots of gear possible','Spectacular for physical runners'],con:['Weather, wind, altitude','Visible approach; the glass roof can be seen from below','Wrong drop point, lost gear or harm as consequences'],fb:'A fall through the glass roof is a possible consequence, not the automatic result.'},
+      {h:'Façade maintenance',sub:'stealth · rigger · hacker',pro:['Bypasses the main entrance','Tools and climbing gear look plausible','Docks at a technical airlock just below the penthouse'],con:['The gondola is building tech and is logged','Guests or cameras may see it','A wrong drive command stops or locks it'],fb:'Gondola route manipulated in advance, maintenance order injected, technician access bought.'}]],
+    ['note','gold','The players’ own idea','If the plan is compatible with the established fiction, play it out. Chartered skycab, staged medical emergency, art transport, hijacked delivery drone swarm, unusual magic: good ideas may bypass planned areas completely.']]},
+
+  {id:'party',num:'Step 5',title:'The party in the penthouse',time:'45–70 min',
+   lead:'The gala is in full swing. Here the runners solve two problems, in any order: Dr. Venn’s eye scan and the vault keycard from the event office.',
+   blocks:[
+    ['h3','Atmosphere'],
+    ['p','Glass, dark wood, living plants, AR sculptures and real art compete for attention. From the open atrium the lights of Seattle show between the clouds. Subtle music lies over conversations of corporate people, collectors, artists and people whose actual work nobody names openly. Service drones carry drinks. Security observes rather than intimidates. Everything is meant to look expensive, controlled and effortless.'],
+    ['h3','Areas'],
+    ['tiles',3,[
+      {h:'Grand salon',sub:'level 111',p:'The social centre. Many guests, good cover in the crowd, but also many eyes.'},
+      {h:'Exhibition gallery',sub:'Venn’s territory',p:'Dr. Venn spends most of her time here. Pieces are annotated in AR with provenance and value. The collector’s lift lies behind it.'},
+      {h:'Winter garden',sub:'quiet',p:'Slightly apart. A good opportunity for private conversation or an inconspicuous biometric capture.'},
+      {h:'Service area',sub:'kitchen · storage · event office',p:'Staff corridor, storage and the event office with the keycard in the black box. Guests stand out here.'},
+      {h:'Private study',sub:'level 112',p:'Not part of the event. Behind a flush wooden panel lies the private lift to the vault level.'},
+      {h:'Glass roof and roof access',sub:'exposed',p:'Visible from below. Spectacular but very conspicuous.'}]],
+    ['h3','Dr. Venn and the eye scan'],
+    ['p','The runners decide how to obtain the biometric factor. Important: <b>Venn does not have the keycard.</b> Even if the crew wins her over completely, the card remains a problem. First the player describes the action, from that follows the action rating; there is no “you must roll Interface here”.'],
+    ['ul',['High-resolution capture of the left eye and preparation of a retinal duplicate.','Get Venn to look voluntarily into a scanner or optical device.','Arrange a private viewing of the collection.','Lure Venn to the access airlock under a pretext.','Sedate or abduct her: not automatic failure, just far more conspicuous and risky.','Magic, as far as the specific character is actually capable of it.']],
+    ['tiles',2,[
+      {h:'Private viewing',sub:'the social high road',p:'Venn may register selected guests and escort them to the antechamber. She legitimises the biometric part but cannot open the vault alone: four-eyes principle with a separately stored keycard.',ul:['Recon drones count and identify the registered persons','Sensors check for unregistered gear','Drones make sure nobody leaves the group','Deviations trigger re-authentication or a silent alarm'],fb:'The advantage is not “no security” but a better starting position: actions against the drones can be <b>controlled</b> instead of risky or desperate.'},
+      {h:'To the airlock under a pretext',sub:'deception',p:'Venn only confirms her factor without believing she is conducting a viewing: an alleged climate fault on a sensitive piece, an automatic security notice, a faulty access attempt by an employee, a fault in the collection area.',ul:['Venn goes to the authentication point and scans','The door stays shut until the keycard is used','Venn may stand right next to them while the second factor has to appear','Waiting too long or contradictory statements make the drones suspicious'],fb:'A social success does not skip the vault level. It only changes how security classifies the runners at first.'}]],
+    ['q','BIOMETRIC FACTOR: CONFIRMED · PHYSICAL FACTOR: PENDING','sys'],
+    ['h3','The vault keycard and Dorian Kade'],
+    ['p','The card is dark grey, unlabelled and shows a faintly iridescent hologram only when viewed directly. It sits in the event office in a black key box; withdrawal and return are logged. The security architecture deliberately separates biometrics and physical authorisation.'],
+    ['p','Kade does not carry the card himself but knows exactly where it is and how a legitimate withdrawal works: he or a staff member he designates authorises the release, then it is checked back in. Possible approaches: bypass the box, copy the card, intercept a legitimate withdrawal, deceive Kade, fake an authorisation, or something else entirely.'],
+    ['note','gm','Optional complication','For very socially strong groups: a second ork woman with a shaved head and silver tusk caps is on the guest list and can be mistaken for Venn from a distance. Better left out for a beginners’ one-shot.'],
+    ['h3','Consequences at the party'],
+    ['ul',['A security officer politely asks for identification.','A guest thinks they recognise a runner.','Dr. Venn becomes suspicious.','The keycard is temporarily removed from the event office.','A bulky equipment crate is to be inspected.','Alert +1 or +2.']],
+    ['note','','If the party drags on','Dr. Venn announces she will leave soon (in about twenty minutes). A piece of art is to go back into the vault. Staff begin dismantling. Pick whatever follows logically from what has happened.']]},
+
+  {id:'ebene110',num:'Step 6',title:'The vault level · level 110',time:'45–70 min',
+   lead:'No living staff, but sensors, airlocks and drones. Do not run the level as a dungeon with ten rooms: four core areas are enough, the magical shell lies over them as an extra layer.',
+   blocks:[
+    ['p','Two regular lifts lead down: the <b>collector’s lift</b> behind the exhibition rooms and the <b>private lift</b> in Veyrath’s study. Both end in the same sequence. A narrow <b>maintenance shaft</b> from the service core offers an additional irregular access.'],
+    ['chips',['Lift','Access airlock','Sensor corridor','Vault door','Collection']],
+    ['tiles',2,[
+      {h:'Access airlock',sub:'17.1',p:'Both lifts end in the same matte black airlock. A first sensor layer registers movement, weight and unauthorised devices. Venn’s presence or a valid registration only decides whether the group is first treated as expected visitors or as intruders.',ul:['Reported head count does not match','Conspicuous or unregistered gear','Someone separates from the group','Silent alarm, door locks behind the crew, cameras focus, additional identity check']},
+      {h:'Sensor corridor',sub:'17.2',p:'Long, surprisingly empty, almost museum-like. Cameras, motion detectors, invisible light barriers, pressure sensors, local RFID and device scans. Not everything has to matter at once; first describe only what the runners perceive.',ul:['A sensor registers a deviation','A door closes behind the crew','A drone activates','Gear is flagged as a foreign device','Alert rises']},
+      {h:'Drone node',sub:'17.3',p:'A service niche with the local drones and their maintenance ports. <b>Recon drones</b>: small, fast, observe and tag. <b>Guardian drones</b>: larger, armed, isolate and suppress; non-lethal options, lethal on massive escalation.',ul:['<b>Routine:</b> standard patrol, check irregularities','<b>Authorised viewing:</b> escort, count, compare; better position but watched','<b>Irregularity:</b> position themselves between suspects and vault, demand authentication, separate people; weapons only on further escalation'],fb:'Drones do not roll. Their behaviour runs through the runners’ action rolls and consequences. Beating them: Interface, sabotage, rerouting, locking in, precise shots at sensors, melee, spoofing target recognition, distraction, magic, or simply being faster.'},
+      {h:'The vault door',sub:'17.4',p:'Two separate checks: read the keycard, confirm the eye scan within a short time. Order does not matter; the first factor opens a short window for the second. Every attempt is logged; a clean double access opens without alarm.',ul:['Venn does not have the keycard; her presence does not replace the physical factor','Without one or both factors access remains possible: manipulation, heavy tools, explosives, magic, flashback','It then gets louder, riskier or slower, not impossible']}]],
+    ['h3','Magical shell of the vault'],
+    ['p','The walls of the vault proper are threaded with cultivated living tissue: dark fibre strands like roots or muscle between the layers. It carries a <b>dual mana barrier</b> shielding physically and astrally. The tissue reacts to drilling and vibration, small wounds close, on alarm the fibres thicken. Damage is visible: fibres twitch, dark fluid seeps out. Outside the barrier an <b>astral watcher</b> may optionally patrol; it only reports and is not a mandatory opponent.'],
+    ['note','','Chances for mage and adept','<ul><li><b>Assense</b> reveals mana barrier, watcher, magical traces and conspicuous objects in the collection.</li><li>A mage can study how the barrier opens in a controlled way at the regular doorway and gain an approach of their own.</li><li>An adept notices subtle environmental changes, danger, stress reactions or sensors earlier; with Assense or Astral Warrior they tackle astral problems directly.</li><li>Magical antiques can be told apart from mundane pieces.</li></ul>'],
+    ['h3','Consequences on the vault level'],
+    ['ul',['A drone gains visual contact.','An airlock locks.','A weapon or tool is damaged or lost.','Security foam fills a section and hampers movement and sight.','The direct way back is blocked.','The biometric copy only works partially; an additional step is needed.','Alert rises sharply.']],
+    ['note','','If the level drags on','Reduce it to three beats: a sensor problem, a drone confrontation, the vault door. Everything else becomes description or consequence.']]},
+
+  {id:'tresor',num:'Step 7',title:'The vault and the case',time:'climax',
+   lead:'Not a bank room full of deposit boxes but the modern hoard of a dragon. The case lies unremarkably among things obviously worth more. This is where the decision Veyrath really cares about is made.',
+   blocks:[
+    ['h3','Veyrath’s modern dragon hoard'],
+    ['p','The lights come up slowly: paintings from several centuries, sculptures and archaeological objects, old and modern melee weapons, high-end firearms, jewellery and historical gems, rare printed books, sealed data archives, single pieces of modern cyber- and biotechnology, several magical antiques and things whose value can hardly be judged without expert knowledge. Everything is curated; nothing lies around by chance. The black briefcase rests on a low plinth between far more conspicuous objects.'],
+    ['note','gold','Temptation','At least one piece is obviously more valuable than the case and surprisingly easy to take: a small casket of historical gems, an ornate magical antique, a compact piece of cybertech. There is <b>no additional trap</b> on it. If the players want to take something, let them. The contract merely forbids it, and Veyrath will judge it very precisely later.'],
+    ['h3','The briefcase'],
+    ['tiles',3,[
+      {h:'Exterior',sub:'visible to all',p:'About 45 cm wide, matte black ceramic composite, remarkably old-fashioned: no AR display, no data port, no logo, no radio signal. A single thin ivory line runs almost as a circle over lid and base, broken only at the handle by a finger’s width. Handle of dark metal wrapped in worn black leather. Over one latch a pale blue single-use tamper seal.'},
+      {h:'Matrix',sub:'offline',p:'Transmits nothing, cannot be located via the Matrix. Its safeguards work locally without a radio link. In a vault full of networked, gleaming objects this silence seems almost provocatively plain.'},
+      {h:'Magical',sub:'faint aura',p:'A faint, old magical aura. Not dangerous, triggers nothing, but makes the case stand out among the many objects for astrally perceiving characters.'}]],
+    ['note','gm','Hidden tamper protection','<p>A small, professionally integrated <b>explosive charge</b> sits in the frame. If the case is fully opened without neutralisation, the charge primarily destroys the contents. Anyone holding it in front of them is in serious danger, but it is <b>not an automatic death trap</b>: harm, lost gear, an alarm or another consequence make more sense than a sudden character death.</p><p><b>Discoverable</b> on deliberate examination: unusual weight, a second inner frame, fine manufacturing gaps along the lid, a separate shielded circuit, chemical or technical traces. Survey, Study, Engineer or Interface may fit; nothing is prescribed. Neutralising is controlled under calm conditions, far riskier under time pressure with active drones.</p><p><b>Second safeguard:</b> an inconspicuous mechanical tamper indicator inside. Even after perfect defusal and clean closing, Veyrath can later tell that it was opened.</p><p>Whoever leaves the case closed as ordered never learns of any of this. It is not a mandatory scene and not a puzzle.</p>'],
+    ['table',['Behaviour','Judgement'],[['Not opened','Job fulfilled exactly.'],['Safeguard found, neutralised, opened anyway','Technically impressive, but a clear order ignored.'],['Opened carelessly','Charge detonates; contents destroyed, situation escalates.']]],
+    ['note','gm','Contents','A palm-sized, cracked disc of black obsidian. Not worthless, but its real value is not apparent to the runners. Why it matters to Veyrath stays open. He deliberately chose an object whose loss would be real but hardly painful for him; that is why the charge is not a dummy. The contents are not a plot device. The test is whether the crew respects the instruction although they could find out more.']]},
+
+  {id:'flucht',num:'Step 8',title:'The escape',time:'20–35 min incl. reveal',
+   lead:'Play it out in detail only if it is interesting or time remains. The alert level decides how much resistance the crew meets.',
+   blocks:[
+    ['tiles',3,[
+      {h:'Glass elevator',sub:'elegant at low alert',p:'The crew rides down among unsuspecting guests while the city slides past the glass walls. At higher alert the elevator can be stopped, rerouted or checked.'},
+      {h:'Freight elevator and garage',sub:'pragmatic',p:'A prepared vehicle waits below, one is acquired on the spot, or the crew flees on foot into the lower levels of the complex.'},
+      {h:'Jump from the roof',sub:'spectacular',p:'Parachutes or wingsuits. Wind, pursuers and lost gear are good consequences without playing out every metre.'},
+      {h:'Façade maintenance',sub:'reusable',p:'The gondola can be used again, manually overridden or serve as a waypoint for the descent.'},
+      {h:'Skycab extraction',sub:'contacts · tech',p:'An autonomous skycab or small aircraft appears at a permitted or improvised outside position: real booking, fake VIP instruction, takeover, rigger or flashback.'},
+      {h:'Own idea',sub:'always allowed',p:'If the group finds a plausible better way, let it work.'}]],
+    ['h3','Consequences during the escape'],
+    ['ul',['The preferred exit is closed.','An elevator stops on the wrong floor.','Gear has to be left behind.','A drone latches onto the crew.','The group is split up.','A jump or flight manoeuvre causes harm or loss of equipment.']],
+    ['note','','Who shows up at full alert?','Deliberately just a <b>contracted external police provider</b> or a contractual response team. Whether that is Knight Errant or Lone Star is your call if you want to check it against a Seattle source. With plenty of time left, start a short response clock; otherwise the next big consequence is the arriving reinforcement.']]},
+
+  {id:'enthuellung',num:'Step 9',title:'The reveal',time:'during the escape',
+   lead:'During or right after the escape, not as a long monologue. No final boss, no new confrontation: solely the assessment of the test.',
+   blocks:[
+    ['p','A vast shadow glides over the façade. Wings beat in the rain. For a moment a real dragon flies or climbs at a clear distance beside the fleeing crew, far larger than anything they expected. It does not block their way and makes no move to attack. Then the runners hear its voice directly in their minds:'],
+    ['q','“Call me Veyrath. The tower is mine. The vault is mine. And so is the case you have just stolen.”'],
+    ['p','That makes it clear: they did not rob a rival. Veyrath himself sent them into his own vault. Depending on how things went, he adds:'],
+    ['tiles',2,[
+      {h:'Clean run',p:'“You take what you were given and leave what is not yours. Rare. So you are actually good for something.”'},
+      {h:'Successful but chaotic',p:'“Not elegant. Not quiet. But you are still alive and the case is with you. That will do for now.”'},
+      {h:'Lots of violence',p:'“Violence is a tool. Whoever uses the same tool for every problem is no craftsman.”'},
+      {h:'Extra loot',p:'“I asked you for one object. You decided my property should raise your pay. I will remember that.”'},
+      {h:'Opened case',p:'“Curiosity is valuable. So is discipline. Tonight you showed me which of the two wins with you.”'},
+      {h:'Charge neutralised cleanly',p:'“Recognising the safeguard was good work. Having to overcome it was your own decision.”'}]],
+    ['note','warn','No fight','Veyrath stays out of reach, does not threaten the crew and does not block their escape. If the runners shoot at him, he ends the contact and withdraws rather than turning the epilogue into a fight against an adult dragon.']]},
+
+  {id:'payoff',num:'Step 10',title:'Payoff and assessment',time:'wrap-up',
+   lead:'The base pay is 6 nuyen. Veyrath ties the actual payout to the crew’s professionalism. The calculator on the left applies the rule.',
+   blocks:[
+    ['table',['Alert at the end','Payout'],[['Low alert (0–1)','6 nuyen'],['Medium alert (2–5)','5 nuyen'],['High alert / lockdown (6)','3 nuyen']],[1]],
+    ['p','Injured or dead guests and staff count <b>at least as high alert</b> for the payout. Seriously harming or killing Dr. Venn is additionally a clear breach of contract. Damage to the collection weighs even heavier for Veyrath than harm to people: damaged or additionally stolen pieces draw his marked displeasure and can cut the payout further.'],
+    ['tiles',3,[
+      {h:'Ideal candidates',sub:'follow-up jobs',ul:['Case unopened','No extra loot, collection undamaged','Venn unharmed','Little unnecessary violence','Problems solved creatively and as a team']},
+      {h:'Usable but risky',sub:'maybe',ul:['Job done','Medium or high alert','Avoidable attention','Unnecessary but not catastrophic escalation']},
+      {h:'Not suitable',sub:'no further contact',ul:['Case opened deliberately, even expertly','Contents destroyed by careless opening','Venn seriously harmed or killed','Collection damaged or extra loot taken','Indiscriminate killing despite clear orders']}]],
+    ['p','This does not mean the characters were “played wrong”. It is this employer’s reaction to their decisions. Give the crew room at the payoff to react to the reveal.'],
+    ['h3','Optional: heat per RitS'],
+    ['p','For a pure one-shot skip this step. If the crew continues, heat is determined by the normal rules, not copied from the alert clock: 0 heat smooth & quiet, 2 contained, 4 loud & chaotic, 6 wild, plus situational modifiers for high-profile targets or killings. <b>Alert</b> is what security knows and does now. <b>Heat</b> is the long-term attention afterwards.']]},
+
+  {id:'werkzeuge',num:'Tools',title:'Alert, consequences and pacing',time:'throughout the run',long:true,
+   lead:'The alert clock replaces heat during the run. It rises when an action plausibly draws attention and can fall when the fiction allows it.',
+   blocks:[
+    ['h3','Alert clock · 6 segments'],
+    ['stages',[{range:'0–1',name:'Routine',col:'var(--alert0)',items:['Anomalies count as normal event deviations','Drones patrol on standard patterns','No search for the runners']},{range:'2–3',name:'Suspicion',col:'var(--alert1)',items:['Cameras compare movements and identities more closely','Single doors ask for credentials again','Drones watch conspicuous areas','Staff are quietly questioned']},{range:'4–5',name:'Active alarm',col:'var(--alert2)',items:['Drones search actively','Service routes partly closed','Elevators stopped or rerouted','Guests kept away from endangered areas','Identified runners are pursued']},{range:'6',name:'Lockdown',col:'var(--alert3)',items:['Alarm counts as confirmed','Escape routes locked or controlled','External security or police provider called','Room to act remains, but clearly escalation']}]],
+    ['p','Suspicion means <b>no automatic dice penalty</b>. The changed fiction influences position and effect of coming actions. If an action works directly on the clock, limited / standard / great effect maps to 1 / 2 / 3 segments.'],
+    ['tiles',2,[
+      {h:'When does alert rise?',sub:'a fitting consequence when …',ul:['a camera sees something','a sensor is triggered','a false identity is checked','a drone sends a warning','a guest raises the alarm','a door is forced open','shots or explosions are audible','a Matrix intrusion leaves a usable trace'],fb:'Not every failed roll raises alert. Equally possible: harm, lost gear, worse position, less effect, blocked exit, suspicious Venn, keycard moved elsewhere, a drone appears, group split up.'},
+      {h:'Can alert fall?',sub:'tug-of-war clock',ul:['A runner credibly explains to a guard why the deviation was harmless','A camera sequence is replaced with older footage','A triggered sensor is disguised as a fault','A drone is intercepted before it reports','A manipulated door log looks like maintenance','A party incident explains noise or movement'],fb:'Nobody says “I roll to lower alert”. First it must be clear what the character does in the world. On success alert drops according to effect, or an imminent rise is prevented.'}]],
+    ['note','','No hacker required','A hacker has many opportunities to prevent alert but no exclusive right to it. Social: redirect suspicion, keep staff busy. Deception: identity or work order. Physical: disable a sensor or drone before it transmits. Precision: destroy optics and weapon modules. Tech: cables, doors, local controls. Magic: perception or movement. Mobility: leave the area before the search closes in. Repeated hacks do not automatically get harder, only when the fiction gives a reason: a countermeasure is running, a trace has begun, a system was isolated.'],
+    ['h3','Scenario-specific dragon’s deals'],
+    ['deals',['The invitation is genuine. But someone at the party recognises your alias.','You get the perfect biometric scan. Dr. Venn will remember your face very precisely later.','The drone goes offline at once. Its last data burst, however, has already been sent.','The maintenance gondola takes you exactly to the target. Then it locks itself outside and is no longer available for the escape.','You reach the case without further resistance. In return the vault door closes behind you.']],
+    ['h3','Spotlight for the playbooks'],
+    ['table',['Playbook','Typical chances to shine'],[['Face','Invitation, contacts, a serious collector role, keeping Venn busy, defusing suspicion socially'],['Hacker','Guest lists, cameras, elevators, access logs, drones, building tech'],['Muscle','Protecting the group, heavy gear, non-lethal takedowns, forced emergency routes, drones in melee'],['Punk','Façade infiltration, parkour, distraction, sabotage, chaotic improvisation and escape'],['Rigger','Pilot for drop or escape, maintenance gondola, building drones, vehicles, remote control'],['Snake','Staff roles, disguise, deception, keycard theft, manipulating Venn'],['Trigger','Overwatch, spotting danger early, precisely disabling drone components, securing the exit'],['Adept','Depending on the way: perception, danger sense, mobility, physical infiltration; with fitting abilities astral problems'],['Mage','Assense the mana barrier and watcher, magical traces, telling magical objects apart, own workarounds'],['Techno','Influencing signals and networked systems emergently, manipulating drones or building tech, spotting anomalies']]],
+    ['p','The run is not a character quiz. Nobody gets a room “just for their class”. The actions on the sheet matter more than the label.'],
+    ['h3','Pacing'],
+    ['tiles',2,[
+      {h:'Planning too long?',ul:['Which plan are you using?','What is the detail?','Which load do you choose?','Then engagement roll and cut to the action.']},
+      {h:'Plenty of time left?',ul:['Play the escape in more detail','Let a cut-off runner look for an alternative route','Response clock after full alert','Give the crew room at the payoff to react to the reveal']}]]]},
+
+  {id:'referenz',num:'Appendix',title:'Quick reference',time:'for printing',
+   lead:'Everything important at a glance when there is no time to flip pages at the table.',
+   blocks:[
+    ['qr',[
+      {h:'The job',items:['<b>Steal:</b> the black case from the vault, unopened','<b>Hidden safeguard:</b> charge primarily destroys the contents on unauthorised opening; discoverable and defusable','<b>Tamper indicator:</b> opening stays provable even after defusal','<b>Do not steal:</b> anything else · <b>Do not harm:</b> Dr. Venn · <b>Avoid:</b> deaths','<b>Payoff:</b> 6 nuyen at low alert, 5 at medium, 3 at high; harm to people at least as high']},
+      {h:'Access factors',items:['Vault keycard in the black box in the event office (service area)','Dr. Venn’s eye scan: left, amber, natural eye','Without one or both factors access remains possible, but louder, riskier, slower']},
+      {h:'Penthouse 111/112',items:['Grand salon · exhibition gallery · winter garden','Service area with event office','Collector’s lift behind the exhibition rooms','Private study with private lift','Glass roof and roof access']},
+      {h:'Vault level 110',items:['Shared access airlock','Sensor corridor','Drone node: recon and guardians','Vault door: keycard + eye scan, any order','Living vault shell with dual mana barrier, optional astral watcher','Modern dragon hoard with temptation']},
+      {h:'Alert clock ○○○○○○',items:['<b>0–1</b> routine','<b>2–3</b> suspicion','<b>4–5</b> active alarm','<b>6</b> lockdown + external response']},
+      {h:'NPCs',items:['<b>Mr. Johnson:</b> Veyrath’s professional fixer','<b>Dr. Amara Venn:</b> ork curator, left eye = biometrics, has no keycard','<b>Dorian Kade:</b> head of security, cyberarms, knows storage and release of the keycard','<b>Veyrath:</b> adult dragon, owner and employer, tests the crew, never fights']},
+      {h:'The truth',items:['Veyrath owns penthouse, vault, collection and case and commissioned the break-in into his own vault','No rival dragon','The gala deliberately creates a realistic window','Tested: discipline, creativity, teamwork and control of escalation']},
+      {h:'Dice',items:['<b>6</b> success · <b>4/5</b> with consequence · <b>1–3</b> bad · several 6s critical','Position: controlled / risky / desperate · effect: limited / standard / great','2 edge push, 1 edge assist, resistance costs edge','Flashback 0–2 edge depending on effort']}]]]},
+ ],
+};
+
+/* ---------- SL-Leitfaden: Renderer, Alert Clock, Payoff-Rechner, Porträts ---------- */
+let lang='de';
+const state={alert:0,done:{},calc:{}};
+(function(){try{
+  const q=new URLSearchParams(location.search).get('lang');
+  if(q==='en'||q==='de')lang=q;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}
+  const s=JSON.parse(localStorage.getItem('fp-guide')||'{}');if(s&&typeof s==='object')Object.assign(state,s);
+}catch(e){}})();
+function save(){try{localStorage.setItem('fp-guide',JSON.stringify(state));localStorage.setItem('fp-lang',lang);}catch(e){}}
+const G=()=>lang==='en'?GUIDE_EN:GUIDE_DE;
+const T=()=>G().ui;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const list=(tag,items,cls)=>items&&items.length?`<${tag}${cls?` class="${cls}"`:''}>${items.map(i=>`<li>${i}</li>`).join('')}</${tag}>`:'';
+
+/* ---- Blöcke ---- */
+function tile(t){
+  return `<div class="tile"><h4>${t.h}${t.sub?`<small>${t.sub}</small>`:''}</h4>${t.p?`<p>${t.p}</p>`:''}${list('ul',t.ul)}${list('ol',t.ol)}${list('ul',t.pro,'pro')}${list('ul',t.con,'con')}${t.fb?`<div class="fb">${t.fb}</div>`:''}</div>`;
+}
+function block(b){
+  const [t,a,b2,c,d]=b;
+  switch(t){
+    case 'h3':return `<h3>${a}</h3>`;
+    case 'h4':return `<h4>${a}</h4>`;
+    case 'p':return `<p>${a}</p>`;
+    case 'ul':return list('ul',a);
+    case 'ol':return list('ol',a);
+    case 'q':return `<blockquote class="q${b2?' '+b2:''}">${a}</blockquote>`;
+    case 'note':return `<div class="note${a?' '+a:''}">${b2?`<h5>${b2}</h5>`:''}${/^\s*</.test(c)?c:`<p>${c}</p>`}</div>`;
+    case 'tiles':return `<div class="grid c${a}">${b2.map(tile).join('')}</div>`;
+    case 'table':{const r=c||[];return `<table class="tb"><thead><tr>${a.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${b2.map(row=>`<tr>${row.map((cell,i)=>`<td${r.includes(i)?' class="r"':''}>${cell}</td>`).join('')}</tr>`).join('')}</tbody></table>`;}
+    case 'qa':return a.map(x=>`<details class="qa"><summary>${x.q}</summary><div class="a">${x.a}</div></details>`).join('');
+    case 'stages':return `<div class="stages">${a.map(s=>`<div class="stage" style="--sc:${s.col}"><b>${s.name}</b><i>${s.range}</i>${list('ul',s.items)}</div>`).join('')}</div>`;
+    case 'deals':return list('ul',a,'deals');
+    case 'chips':return `<div class="chips">${a.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`;
+    case 'qr':return `<div class="qr">${a.map(x=>`<div class="tile"><h4>${x.h}</h4>${list('ul',x.items)}</div>`).join('')}</div>`;
+    case 'npcs':return `<div class="npcs">${G().npcs.map(npc).join('')}</div>`;
+  }
+  return '';
+}
+
+/* ---- NPCs mit Porträt-Platzhalter ---- */
+const SIL={
+  person:`<svg viewBox="0 0 132 176" aria-hidden="true"><rect width="132" height="176" fill="none"/><circle cx="66" cy="62" r="28" fill="currentColor" opacity=".45"/><path d="M14 176c0-38 24-60 52-60s52 22 52 60z" fill="currentColor" opacity=".45"/></svg>`,
+  dragon:`<svg viewBox="0 0 132 176" aria-hidden="true"><path d="M20 118c10-40 34-64 70-70-16 12-24 26-26 40 18-14 40-18 62-10-22 4-36 16-44 34 10-2 20 0 30 6-16 4-28 12-36 26-6-10-16-18-30-22 4 14 2 26-6 36-6-16-12-28-20-40z" fill="currentColor" opacity=".45"/><circle cx="84" cy="70" r="3" fill="currentColor"/></svg>`,
+};
+function porKey(id){return 'fp-guide-por-'+id;}
+function npc(n){
+  let img='';try{img=localStorage.getItem(porKey(n.id))||'';}catch(e){}
+  return `<article class="npc" id="npc-${n.id}">
+  <div class="por${img?' has':''}" data-id="${n.id}">${SIL[n.kind]||SIL.person}${img?`<img src="${img}" alt="">`:''}<span class="lbl">${T().portrait}</span><input type="file" accept="image/*" class="pick" title="${T().portrait}"><button type="button" class="rm">${T().portraitRm}</button></div>
+  <div class="info"><div class="nm">${n.name}</div><div class="rl">${n.role}</div>
+  <div class="tags">${n.tags.map((t,i)=>`<span${n.key&&i===n.tags.length-1?' class="k"':''}>${t}</span>`).join('')}</div>
+  <p>${n.bio}</p>
+  <h5>${lang==='en'?'Look':'Aussehen'}</h5>${list('ul',n.look)}
+  <h5>${lang==='en'?'At the table':'Am Tisch'}</h5>${list('ul',n.play)}
+  <div class="sec"><h5>${lang==='en'?'GM only':'Nur für die SL'}</h5>${n.secret}</div>
+  <div class="say">${n.say}</div></div></article>`;
+}
+function bindPortraits(){
+  document.querySelectorAll('.npc .por').forEach(p=>{
+    const id=p.dataset.id;
+    p.querySelector('.pick').addEventListener('change',e=>{
+      const f=e.target.files&&e.target.files[0];if(!f)return;
+      const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{
+        const W=480,H=640,cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d');
+        const s=Math.max(W/im.width,H/im.height),w=im.width*s,h=im.height*s;cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);
+        const url=cv.toDataURL('image/jpeg',.82);
+        try{localStorage.setItem(porKey(id),url);}catch(err){alert(lang==='en'?'Could not store the image (browser storage full).':'Bild konnte nicht gespeichert werden (Browserspeicher voll).');return;}
+        let img=p.querySelector('img');if(!img){img=document.createElement('img');img.alt='';p.insertBefore(img,p.querySelector('.lbl'));}img.src=url;p.classList.add('has');
+      };im.src=r.result;};r.readAsDataURL(f);e.target.value='';
+    });
+    p.querySelector('.rm').addEventListener('click',()=>{try{localStorage.removeItem(porKey(id));}catch(e){}const img=p.querySelector('img');if(img)img.remove();p.classList.remove('has');});
+  });
+}
+
+/* ---- Kapitel ---- */
+function chapter(ch){
+  const on=!!state.done[ch.id];
+  return `<article class="card chap${ch.long?' long':''}" id="${ch.id}" data-id="${ch.id}"><header>
+  <div class="num">${ch.num}</div>
+  <div class="meta"><span class="time">${ch.time}</span><label class="done${on?' on':''}"><input type="checkbox" data-done="${ch.id}"${on?' checked':''}>${T().doneLbl}</label></div>
+  <h2>${ch.title}</h2><p class="lead">${ch.lead}</p></header>${ch.blocks.map(block).join('')}</article>`;
+}
+function renderNav(){
+  const chs=G().chapters;
+  $('nav').innerHTML=chs.map((c,i)=>`<li${c.id==='werkzeuge'?' class="sep"':''}><a href="#${c.id}" data-nav="${c.id}" class="${state.done[c.id]?'done':''}"><span class="n">${/^\D*(\d+)/.test(c.num)&&/\d/.test(c.num)?c.num.match(/\d+/)[0]:(i===0?'◎':c.id==='werkzeuge'?'⚙':'§')}</span><span>${c.title}</span><span class="t">${c.time.replace(/ Min\.|min$/,'')}</span></a></li>`).join('');
+  const steps=chs.filter(c=>/\d/.test(c.num));const n=steps.filter(c=>state.done[c.id]).length;
+  $('progBar').style.width=Math.round(100*n/steps.length)+'%';
+}
+
+/* ---- Alert Clock ---- */
+function arc(i){
+  const r1=48,r0=26,a0=(-90+i*60)*Math.PI/180,a1=(-90+(i+1)*60)*Math.PI/180;
+  const p=(r,a)=>`${(50+r*Math.cos(a)).toFixed(2)} ${(50+r*Math.sin(a)).toFixed(2)}`;
+  return `M${p(r1,a0)}A${r1} ${r1} 0 0 1 ${p(r1,a1)}L${p(r0,a1)}A${r0} ${r0} 0 0 0 ${p(r0,a0)}Z`;
+}
+function renderClock(){
+  const a=state.alert,col=a<=1?'var(--alert0)':a<=3?'var(--alert1)':a<=5?'var(--alert2)':'var(--alert3)';
+  $('clockSvg').innerHTML=[0,1,2,3,4,5].map(i=>`<path class="seg${i<a?' on':''}" d="${arc(i)}" data-seg="${i}"><title>${i+1}</title></path>`).join('')+`<text x="50" y="55" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="22" fill="currentColor">${a}</text>`;
+  $('clockSvg').style.setProperty('--alertcol',col);
+  $('alertN').textContent=a;$('alertName').textContent=T().alertNames[a];$('alertDesc').innerHTML=T().alertDesc[a];
+  renderCalcOut();
+}
+function setAlert(n){state.alert=Math.max(0,Math.min(6,n));save();renderClock();}
+
+/* ---- Payoff-Rechner ---- */
+function renderCalc(){
+  $('calcBody').innerHTML=T().calcChecks.map(([k,l])=>`<label><input type="checkbox" data-calc="${k}"${state.calc[k]?' checked':''}>${l}</label>`).join('')+`<div class="out" id="calcOut"></div>`;
+  $('calcBody').querySelectorAll('[data-calc]').forEach(cb=>cb.addEventListener('change',()=>{state.calc[cb.dataset.calc]=cb.checked;save();renderCalcOut();}));
+  renderCalcOut();
+}
+function renderCalcOut(){
+  const out=$('calcOut');if(!out)return;const c=state.calc,a=state.alert,U=T();
+  let pay=a<=1?6:a<=5?5:3;const notes=[U.calcBase.replace('{a}',a)];
+  if(c.harm||c.venn||c.gore){pay=Math.min(pay,3);notes.push(U.calcHarm);}
+  if(c.loot){pay=Math.max(0,pay-1);notes.push(U.calcLootCut);}
+  const bad=c.open||c.loot||c.venn||c.gore,good=!bad&&a<=1&&!c.harm;
+  out.innerHTML=`<b>${pay}</b><span>${U.calcNuyen}<br>${notes.join(' · ')}</span><div class="verdict ${good?'good':bad?'bad':'mid'}">${good?U.verdictGood:bad?U.verdictBad:U.verdictMid}</div>`;
+}
+
+/* ---- Gesamtrender ---- */
+function renderAll(){
+  const U=T();document.documentElement.lang=lang;
+  document.title=lang==='en'?'Feuerprobe GM Guide':'Feuerprobe SL-Leitfaden';
+  $('title').textContent=U.title;$('subtitle').textContent=U.subtitle;$('eyebrow').textContent=U.eyebrow;
+  $('lnkPlans').textContent=U.plans;$('lnkRunner').textContent=U.runner;$('btnPrint').textContent=U.print;
+  ['lnkPlans','lnkRunner'].forEach(id=>{const a=$(id);a.href=a.getAttribute('href').split('?')[0]+'?lang='+lang;});
+  $('navH').innerHTML=`${U.nav}<span id="navCount"></span>`;$('alertH').innerHTML=`${U.alert}<span>${U.alertSub}</span>`;$('calcH').textContent=U.calc;$('alertReset').textContent=U.alertReset;
+  $('main').innerHTML=G().chapters.map(chapter).join('');
+  $('fine').innerHTML=U.fine;
+  $('langDE').setAttribute('aria-pressed',lang==='de');$('langEN').setAttribute('aria-pressed',lang==='en');
+  renderNav();renderClock();renderCalc();bindPortraits();
+  document.querySelectorAll('[data-done]').forEach(cb=>cb.addEventListener('change',()=>{state.done[cb.dataset.done]=cb.checked;cb.closest('.done').classList.toggle('on',cb.checked);save();renderNav();}));
+  observe();
+}
+let io;
+function observe(){
+  if(io)io.disconnect();
+  io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('cur',a.dataset.nav===e.target.dataset.id));}});},{rootMargin:'-10% 0px -75% 0px'});
+  document.querySelectorAll('.chap').forEach(c=>io.observe(c));
+}
+
+/* ---- Events ---- */
+$('clockSvg').addEventListener('click',e=>{const s=e.target.closest('[data-seg]');if(!s)return;const i=+s.dataset.seg;setAlert(state.alert===i+1?i:i+1);});
+$('alertPlus').addEventListener('click',()=>setAlert(state.alert+1));
+$('alertMinus').addEventListener('click',()=>setAlert(state.alert-1));
+$('alertReset').addEventListener('click',()=>setAlert(0));
+const setLang=l=>{lang=l;save();renderAll();};
+$('langDE').addEventListener('click',()=>setLang('de'));
+$('langEN').addEventListener('click',()=>setLang('en'));
+$('btnPrint').addEventListener('click',()=>window.print());
+window.addEventListener('beforeprint',()=>{document.querySelectorAll('details.qa').forEach(d=>{d.dataset.was=d.open?'1':'';d.open=true;});});
+window.addEventListener('afterprint',()=>{document.querySelectorAll('details.qa').forEach(d=>{d.open=d.dataset.was==='1';});});
+window.addEventListener('scroll',()=>{$('toplink').classList.toggle('show',window.scrollY>600);},{passive:true});
+$('toplink').addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});
+renderAll();
+
+</script>
