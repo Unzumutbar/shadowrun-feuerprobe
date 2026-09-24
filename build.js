@@ -19,14 +19,14 @@ const pages = [
     name: 'feuerprobe-runner',
     dir: 'src/runner',
     html: ['r1_head.html', 'r2_body.html'],
-    js: ['r3_data_a.js', 'r4_data_b.js', 'r5_app.js'],
+    js: ['r3_data_a.js', 'r4_data_b.js', 'r3b_en_a.js', 'r4b_en_b.js', 'r5_app.js'],
   },
   {
     // Spielerbögen: gleiche Runner-Daten, eigenes Layout (ein Runner pro A4)
     name: 'feuerprobe-runner-bogen',
     dir: 'src/bogen',
     html: ['b1_head.html', 'b2_body.html'],
-    js: ['../runner/r3_data_a.js', '../runner/r4_data_b.js', 'b3_app.js'],
+    js: ['../runner/r3_data_a.js', '../runner/r4_data_b.js', '../runner/r3b_en_a.js', '../runner/r4b_en_b.js', 'b3_app.js'],
   },
 ];
 

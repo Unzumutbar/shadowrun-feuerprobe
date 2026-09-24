@@ -27,6 +27,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:9pt/1.32 "IBM Plex Sans
 .toolbar label{display:inline-flex;align-items:center;gap:6px}
 .toolbar select,.toolbar button{font:500 13px "IBM Plex Sans",sans-serif;padding:6px 10px;border:1px solid var(--tb-line);border-radius:8px;background:transparent;color:inherit;cursor:pointer}
 .toolbar button.primary{border-color:var(--accent);background:var(--accent);color:#fff}
+.toolbar .langs{display:inline-flex;border:1px solid var(--tb-line);border-radius:8px;overflow:hidden}
+.toolbar .langs button{border:0;border-radius:0;padding:6px 12px;font-weight:600;letter-spacing:.04em}
+.toolbar .langs button+button{border-left:1px solid var(--tb-line)}
+.toolbar .langs button[aria-pressed="true"]{background:var(--accent);color:#fff}
 .toolbar .hint{flex-basis:100%;font-size:12px;opacity:.75}
 .stack{display:flex;flex-direction:column;align-items:center;gap:14px;padding:18px 8px 40px}
 /* Bogen */
@@ -137,12 +141,13 @@ body.only .sheet.show{display:flex}
 
 
 <div class="toolbar" id="toolbar">
-  <div class="t">Feuerprobe Spielerbögen<small>ein Runner pro A4</small></div>
-  <label for="selRunner">Bogen <select id="selRunner"><option value="">Alle acht</option></select></label>
-  <label><input type="checkbox" id="chkStreet"> Straßennamen vorausfüllen</label>
+  <div class="t">Feuerprobe Spielerbögen<small id="tbSub">ein Runner pro A4</small></div>
+  <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
+  <label for="selRunner"><select id="selRunner"></select></label>
+  <label><input type="checkbox" id="chkStreet"> <span id="lblStreet">Straßennamen vorausfüllen</span></label>
   <button type="button" id="btnClear">Eingaben leeren</button>
   <button type="button" class="primary" id="btnPrint">Drucken</button>
-  <p class="hint">Straßenname, Name und Pronomen lassen sich hier eintippen und werden mitgedruckt; leer gelassen bleiben Schreiblinien für den Tisch. Drucken funktioniert aus der Datei im Repo oder den fertigen PDFs, nicht aus der claude.ai-Ansicht.</p>
+  <p class="hint" id="tbHint"></p>
 </div>
 <div class="stack" id="stack"></div>
 
@@ -405,29 +410,254 @@ const CREWS=[
  {n:'Drei Personen',t:'Mercer, Fizz und Ravn: Charme, Kletterei und Magie. Kessels Kameraarbeit ersetzt ihr durch Flashbacks und Fizz’ EMP-Granaten.'},
 ];
 
-/* ---------- Spielerbögen: ein Runner pro A4 ---------- */
-const ATTRS=[
- ['Intuition','Intuition',[['engineer','Engineer','Technik, Basteln'],['interface','Interface','Matrix, Hacken'],['stalk','Stalk','Aufspüren, Zielen'],['survey','Survey','Beobachten, Lage']]],
- ['Body','Körper',[['fight','Fight','Kämpfen'],['finesse','Finesse','Geschick, Fahrzeuge'],['prowl','Prowl','Schleichen, Klettern'],['wreck','Wreck','Zerstören, Gewalt']]],
- ['Willpower','Wille',[['command','Command','Befehlen, Drohen'],['consort','Consort','Umgang, Kontakte'],['influence','Influence','Überzeugen, Täuschen'],['study','Study','Analysieren, Zaubern']]],
+/* English layer: only text fields; numbers, names of items, abilities and traits stay as in the base data. */
+const EN={
+mercer:{
+ street:'Mercer',pbDesc:'Face: smooth, connected, invited everywhere',idnShort:'SIN revoked · fake',
+ look:'Late thirties, hair dyed silver-grey, tailored evening wear in charcoal, a single earring of real gold. You smile before you speak.',
+ heritage:'North America · born in Tír Tairngire (Portland), in Seattle since 2071',
+ background:'Corporate · art PR for a corporate gallery in Bellevue, fired after a scandal',
+ vice:'Luxury · Chef Horowitz’s private dinners at the Wilder Hotel, Downtown',
+ idn:'Your own SIN still exists but is revoked. A fake SIN under an alias of your choice, occupation art consultant, good quality.',
+ friendsLabel:'Shrewd Friends',
+ role:'Opens doors others would have to force: invitation, guest list, a conversation with Dr. Venn. The reason the crew gets into the glass elevator at all.',
+ feel:'Charm, contacts, small talk with snakes. You talk; the others work in the shadow of your smile.',
+ metaTraits:['You can see in low light as well as if it were well lit.','You hear from further away. Spend 1 edge to perceive beyond normal limits for several minutes (whispers in a noisy room, ultrasound).','You remain fast at normal load.','When you resist a consequence of social pressure, it costs only 1 edge, regardless of the roll.'],
+ cyber:'No implants. You consider chrome a flaw and let people notice. Instead you carry a high-end commlink and contact lenses with an AR overlay.',
+ karma:['You addressed a challenge with charisma or conspiracy.'],
+ abilities:[{tag:'Start',t:'You gain +1d to Consort when you gather information on a target for a run. You get +1d to the engagement roll for that operation.'}],
+ items:['A suit of clothes that marks you as an executive, an officer of rank or the undisputed leader of a gang, badges and accoutrements included.','Prepaid credit at the city’s popular clubs and restaurants. Intoxicates and impresses.','A small tabletop device for a short conversation free of audio surveillance. Perfect for five minutes with Dr. Venn in the conservatory.','Up to three doses: Bluecoke, Glow, Nu-Ganja, Red Rock. Refills itself during downtime.','Like the Fine Outfit, one step more expensive: gala level.','Three to five bodyguards, fans and retainers loyal only to you. Quality equals Tier when they can help.'],
+ friend:{n:'Ines Okonkwo-Harada, gallerist',t:'Curates in Bellevue and still owes Mercer. She can put a name on the guest list of the Vesperline gala or tell you which collectors are there tonight.'},
+ rival:{n:'Tobias Wren, society reporter',t:'Writes for a trid gossip channel, knows every face on the scene and once covered Mercer’s fall with relish. He is invited tonight.'},
+ why:'You used to be inside: the invitations, the receptions, the right people. A scandal you did not cause threw you out. Six nuyen is good money, but the real payoff is one evening standing at the top again. And maybe the name behind it all.',
+ shine:['<b>Foyer & security arch:</b> With the Fine Outfit and a name from Ines you get waved through. Sprawl Whisperer gives the crew +1d on the engagement roll if you did your research.','<b>Gallery & conservatory:</b> Dr. Venn only talks to people who take art seriously. Consort 2 and Study 1 are enough to ask for a private viewing. The Privacy Generator buys five undisturbed minutes.','<b>Lowering Alert:</b> When a guard spots a deviation, you deliver the plausible explanation before they reach for the radio.'],
+ lore:{h:'SINs, elves and the price of existing',t:'A SIN (System Identification Number) is more than an ID in the Sixth World: bank account, apartment, health insurance, the right to vote. Lose it and you officially stop existing. Mercer comes from Tír Tairngire, the elven nation south of Seattle, where bloodline decides careers. That Mercer now works with ork punks counts as a disgrace in the family.'},
+ gm:'Mercer’s real face has been on a Bellevue blacklist since the gallery scandal, and Kade’s arch checks it. If Mercer enters the foyer undisguised, that counts as a deviation (silent check, Alert +1). Tobias Wren is the perfect Dragon’s Deal: “The invitation is real, but someone at the party recognizes your alias.” Mercer also has a fine nose for money and is the first to sense that someone very old and very rich stands behind Vesperline.',
+},
+chamaeleon:{
+ street:'Chameleon',pbDesc:'Snake: lies, manipulation, a thousand faces',idnShort:'fake SIN',
+ look:'Early thirties, completely unremarkable on request. Today: dark suit, glasses without prescription, hair pulled back. Tomorrow: someone else entirely.',
+ heritage:'North America · Los Angeles (California Free State), in Seattle for five years',
+ background:'Media · stunt double and bit parts in trid series, then acting lessons for people who did not want to act',
+ vice:'Gambling · Krist’s fight clubs under the Kingdome grounds, bets on anything that moves',
+ idn:'None of your own anymore. The fake SIN changes with the role; the current one reads “Dr. L. Voss, art insurance” (see Fine Cover Identity). You choose the first name to fit the part.',
+ friendsLabel:'Sly Friends',
+ role:'Becomes someone who is allowed to be here: catering, insurance assessor, security. Fetches the keycard without anyone noticing it was fetched.',
+ feel:'Disguise, deception, the moment everyone believes what you say. You win scenes in which nobody draws a gun.',
+ metaTraits:['No special traits. By the rules you may instead pick up to two free permutations to represent an easier life. Talk it over with the GM or skip it.'],
+ cyber:'An inconspicuous voice modulator in the larynx (changes pitch and accent) and a datajack behind the ear for simsense recordings from your trid days.',
+ karma:['You addressed a challenge with deception or information.'],
+ abilities:[{tag:'Start',t:'When you use a disguise or other form of covert misdirection, you get +1d to rolls to confuse or deflect suspicion. When you throw off your disguise, the resulting surprise gives you the initiative in the situation.'}],
+ items:['A vial of pheromones and a thermoplastic mask kit with expert appliances. May increase the effect of your deceptions.','Fake licenses, business holo-cards, planted rumors and relationships: enough to pass as a different person.','Low calibre, vanished up a sleeve. Hard to find even in a search.','Compromising recordings, embarrassing video or incriminating evidence.','One dose: the victim slips into a calm, suggestible state, similar to hypnosis.','Standard gear: makeup kit, subvocal communicator, janitor outfit, blank licenses, reversible coat.'],
+ friend:{n:'Nadia Feld, shift planner at Silberkante Catering',t:'Sells empty shift slots at galas for cash. She knows Silberkante is catering the Meridian Spire tonight and what the shift list on the supervisor’s tablet looks like.'},
+ rival:{n:'Detective Marisol Ruiz, contracted police service',t:'Missed Chameleon by a hair two years ago and has collected every recording of a person who never shows up twice since.'},
+ why:'The bookies want their money and you have skipped town too often already. But honestly: a gala, a vault, a curator with a cybereye and a case nobody may open. It is the best role you have been offered in years.',
+ shine:['<b>Garage & freight lobby:</b> With Nadia’s shift slot and a catering uniform you come in over the loading dock. The shift supervisor scans her tablet: Master of Disguise gives you +1d when she hesitates.','<b>Event office & hatch:</b> In a security uniform you demand the keycard “on Kade’s orders for the return transport”. Influence 2, risky. On a 4/5 the event manager calls Kade.','<b>Guest restroom & locker room:</b> In as a guest, out as staff. Fine Cover Identity carries you as an insurance assessor all the way to Dr. Venn.'],
+ lore:{h:'Trideo, simsense and identities for sale',t:'Trid is the television of the Sixth World: three-dimensional, everywhere, with stars more powerful than senators. Simsense goes further and plays feelings and senses straight into the brain. Anyone who was famous in this world knows how cheap identity is: on the black market a SIN costs less than a good dinner, but it only holds as long as nobody looks closely.'},
+ gm:'The cover identity “Dr. Voss” really exists: a Zurich art insurer Dr. Venn has exchanged e-mails with. Venn will politely ask how the weather was in Zurich. A slip here makes Venn suspicious (consequence); a success opens the private viewing. Detective Ruiz is not in the Spire, but her name suits the Heat reckoning after the run.',
+},
+kessel:{
+ street:'Kessel',pbDesc:'Hacker: digital spy and virtual weapon',idnShort:'SINless · own fake',
+ look:'Mid twenties, broad shoulders, braided hair with a data cable as jewelry. Hoodie covered in stickers, the cyberdeck belt underneath.',
+ heritage:'North America · Puyallup, Seattle, grew up in the shadow of the Ash Pit',
+ background:'Academic · Matrix informatics at U-Dub, expelled in the third semester for rewriting the grading system',
+ vice:'Obligation · two younger siblings in Puyallup whose school fees and clinic bills you pay',
+ idn:'Never had a real one. You built the fake SIN yourself; it survives every routine check and no targeted one.',
+ friendsLabel:'1337 Friends',
+ role:'Guest list, cameras, elevators, drones: anything with a network is your door. You see the building as a data flow and find the spot where it stalls.',
+ feel:'Matrix, cameras, airlocks and the feeling of hearing the building breathe. You are rarely where the shooting is, and still everywhere.',
+ metaTraits:['Your senses detect nearby thermal signatures that are normally invisible.','You are not fast at light load, but you remain inconspicuous at normal load. People underestimate you, and your stature.','You do not suffer a harm penalty until an entire row is filled.','Alcohol does not linger. Resisting poison or disease costs only 1 edge.'],
+ cyber:'Datajack at the left temple, cybereyes with image link and low-light amplifier. Your cyberdeck “Kessel” is soldered together from three corporate commlinks and carries a pendant from your sister.',
+ karma:['You addressed a challenge with information or cybercrime.'],
+ abilities:[{tag:'Start',t:'You are always aware of online devices in your presence. Take +1d when you gather information about high technology by any means.'}],
+ items:['A modified comm that spots hidden data trails and quietly exploits them. Feature: smart (cannot be hacked to turn against you).','Illegal apps for the cyberdeck: Armor, Arsenal, Breach, Mask. Executing several warez in one run draws attention.','A database of architectural and city plans. Say which plans you loaded when the run starts.','Signal scanner, wireless data taps, tracer tags, long-range audio and video sensors.','A lightweight headband for entering virtual reality without a datajack.','A thin case with a seat and trodes: the safe corner from which you take over the building.'],
+ friend:{n:'Glitch, former building-automation spider',t:'Maintained the elevator controls of the Meridian Spire as a subcontractor. Knows the building-control node in the garage, the maintenance schedule of the facade gondola and the rule that the freight elevator does not stop at 110.'},
+ rival:{n:'Nullpunkt, Matrix competition',t:'Sells the same exploits to the same people, just an hour earlier. Claims Kessel’s cyberdeck is “a toaster with ambitions”.'},
+ why:'The clinic in Puyallup keeps sending reminders. Six nuyen clears the rest. And Glitch said something that will not let you go: “Level 110 has its own host. Nobody builds that for art.”',
+ shine:['<b>Garage, building-control node:</b> From here you reach elevators, doors and the garage cameras. Not level 110, but you can make the freight elevator stop there.','<b>Security room & cameras:</b> Swap footage, mark a sensor as defective: that is how Alert drops again. Search Protocol tells you which drone is transmitting right now.','<b>Security server 110:</b> Physical access to doors, sensors and drone logic of the level. Controlled, but every login is logged: Heat after the run.'],
+ lore:{h:'The Matrix',t:'The Matrix is everywhere: as augmented reality over the street, as virtual reality when you plug in via trodes or datajack. Corporations run hosts; their security hackers are called spiders. Break in and you risk biofeedback that injures the body. Deckers like Kessel build their tools from scrap because a legal cyberdeck costs more than an apartment in Bellevue.'},
+ gm:'Kessel’s siblings are the lever for Veyrath’s greed test: the compact piece of cybertechnology in the collection is exactly the prosthetic controller the sister needs. Describe it when Kessel sees the case. Glitch is right: the host of 110 is separate from the building host (plan 110, location 8). A hack from the garage cannot reach it; physical access in the server room can.',
+},
+zephyr:{
+ street:'Zephyr',pbDesc:'Rigger: technology, flying skill, control over every machine',idnShort:'SIN “killed in action”',
+ look:'Late thirties, sun-weathered, short hair, a flight jacket with the patches cut off. Control-rig jacks at the neck, always a tool belt at the hip.',
+ heritage:'North America · Atlanta (CAS), drone missions for the UCAS Army, stuck in Seattle since',
+ background:'Military · reconnaissance and transport drones in the Desert Wars, dishonorably discharged after refusing an order',
+ vice:'Stupor · cheap synth whisky at the hangar bar “Cap’s” at Everett field, at night when the memories get loud',
+ idn:'Your real military SIN was set to “killed in action” when you left. For everyday life you carry a fake civilian SIN.',
+ friendsLabel:'Handy Friends',
+ role:'Air route, facade gondola, skycab, drones in the shaft: where others look for a door, you see a flight corridor. You get the crew up and back down.',
+ feel:'Vehicles, drones and the view through other people’s cameras. Your body sits in the van; your head is already flying over the tower.',
+ metaTraits:['No special traits. By the rules you may instead pick up to two free permutations. Talk it over with the GM or skip it.'],
+ cyber:'A control rig in the neck that links you directly to drones and vehicles. When you “rig”, your body slumps and breathes shallowly. Your left hand is a plain army-issue prosthesis.',
+ karma:['You addressed a challenge with technical skill or control.'],
+ abilities:[{tag:'Start',t:'You can Finesse a vehicle to take off, control or land it, regardless of its means of propulsion. You gain potency when you make difficult maneuvers while piloting a vehicle.'}],
+ items:['“Dragonfly”: a palm-sized rotor drone with camera and microphone, fits through the drone shaft. More features cost one special item choice each.','A heavy motorcycle with sidecar, waiting at the VIP drop-off or the ramp. Seats two, drives autonomously.','Three chemicals or gadgets: Hypersolvent, Hyperglue, Thermite Gel, Nightshades, Sensor Tag, Spatial Scanner, Thermite Rod, Vehicular Override.','Three sprays or patches: Antidote Patch, Hard-Clot, Sterilizer, Stim Patch, Stun Patch.','Soldering irons, special wrenches, precision sensors, a headlamp with magnification.'],
+ friend:{n:'“Cap” Okafor, tilt-rotor pilot',t:'Flies freight routes over the Sound and is not afraid of a pass at 400 meters. She drops the crew above the roof or picks them up again at the east facade.'},
+ rival:{n:'Dispatcher Vance, Seattle skycab control',t:'Once caught Zephyr rerouting a skycab without clearance. He knows the control rig’s signature and reports it with pleasure.'},
+ why:'You want your old reconnaissance drone back; a scrap dealer in Tacoma holds it for twelve nuyen. Six is a start. And this run has altitude, wind and a tower that deserves a proper approach.',
+ shine:['<b>Roof & skycab pad:</b> With Ace and Cap you come in from above. The approach transponder grants hacked skycabs landing clearance; without clearance the cab circles and calls in.','<b>Facade gondola:</b> Control box on the roof, docking point on 110. Finesse 2 for the ride in the wind, Vehicular Override from the Utility Harness for the electronics.','<b>Drone shaft:</b> “Dragonfly” flies from the garage to the kitchen on 111 and up to the roof. Gear in portions, eyes everywhere, and nobody asks a delivery drone for an invitation.'],
+ lore:{h:'Riggers, drones and corporate wars',t:'A control rig links the nervous system directly to machines: whoever rigs feels the rotor like their own hand. Such implants cost Essence, a piece of humanity that cannot be bought back. The Desert Wars are the televised wars of the corporations, mercenaries fighting in front of cameras. Anyone who flew there knows the difference between a target and a person.'},
+ gm:'Zephyr’s control rig is registered army property. Kade’s security arch recognizes military augmentation and reports it silently (Alert +1) if Zephyr walks through the foyer. The gondola ride is the classic Dragon’s Deal: “It takes you exactly to the target and then locks itself to the outside of the building.” Cap flies reliably, but only once: a second pass draws the attention of airspace control.',
+},
+
+bastion:{
+ street:'Bastion',pbDesc:'Muscle: dangerous, intimidating, the crew’s shield',idnShort:'corporate SIN expired',
+ look:'2.40 m, calm movements, one horn sawn off (the other polished). Dark coat over a bulletproof vest, a voice like a refrigerator starting up.',
+ heritage:'Europe · Hamburg (Allied German States), brought to Seattle ten years ago on a security contract',
+ background:'Law · twelve years of corporate security and close protection at Sentinel Solutions, fired for refusing a shoot order',
+ vice:'Obligation · your ex and your daughter in Tacoma, whose school fees you transfer on time, whatever it costs',
+ idn:'A real corporate SIN from Sentinel Solutions, expired with the dismissal. Never replaced, so every checkpoint is a problem.',
+ friendsLabel:'Dangerous Friends',
+ role:'Stands between the crew and whatever goes wrong. Knows how security people think because you were one. Masters violence instead of needing it.',
+ feel:'Presence, protection, calm in the storm. You win by getting the crew out in one piece, not by counting opponents.',
+ metaTraits:['Your senses detect nearby thermal signatures.','You are never inconspicuous (not even at light load), but you are not slower at heavy load and carry +1 load. People fear your kind.','Skin and bones are hardened: one extra armor box and +1d on resistance rolls with Body.','Horns as weapons. You had one removed; the other makes people nervous.'],
+ cyber:'No implants, on principle. “I have seen enough chrome in faces that felt nothing anymore.” Kevlar under the coat instead, and a security license that still looks real.',
+ karma:['You addressed a challenge with violence or coercion.'],
+ abilities:[{tag:'Start',t:'When you protect a teammate, take +1d to your resistance roll. When you gather information to anticipate possible threats in the current situation, you get +1 effect.'}],
+ items:['Lighter and less conspicuous than normal armor, with a (real or forged) security license. Passes the arch in the foyer plausibly.','Shock gloves: more effect when you intimidate, not more harm. Non-lethal when it has to be.','Self-latching manacles with impact-resistant chain. A souvenir from the security days.','A devastating heavy weapon, here a shotgun from Sentinel stock. Potency when power or reach matter.','Combat drug: strength, pain tolerance, rage for minutes. Then two consequences: “Can’t tell friend from foe” and “Can’t stop until they’re all broken”.','Standard: a telescopic baton. Getting medieval, but under control.'],
+ friend:{n:'Doc Amsel, street doctor in Tacoma',t:'Patches up runners without questions and amputated Bastion’s horn. She knows every bodyguard in town who is on duty at a gala tonight.'},
+ rival:{n:'Dorian Kade, head of security at the gala',t:'Was Bastion’s team leader at Sentinel Solutions and signed the dismissal. Kade has a memory for faces and two chromed arms Bastion never liked.'},
+ why:'You need the money for Tacoma, but you take the job because Mr. Johnson said: no wetwork. A run where nobody dies, in a tower Kade guards. You want to prove that security can be beaten without a shoot order.',
+ shine:['<b>Foyer & security arch:</b> Light Armor with a license plus Oversized means: they see you, but they expect you too. As a hired bodyguard of a guest you are plausible.','<b>Drone node 110:</b> Guardian drones block first and shoot last. Bodyguard gives you +1d when you put yourself in front of the crew and +1 effect when you read their states.','<b>Kade:</b> You know his routine, his twitches, his pride. Consort or Command to read him, Survey to predict his rounds. As long as he does not see you.'],
+ lore:{h:'Trolls, goblinization and corporate security',t:'In 2021 people all over the world turned into orks and trolls overnight: goblinization. Trolls are strong, armored and live with doors, chairs and prejudices not built for them. Corporations like hiring them as security and dislike giving them responsibility. A troll who refuses a shoot order is a legend in the shadows and an HR case in Bellevue.'},
+ gm:'Kade recognizes Bastion at once if he sees the character undisguised: no siren, but a conversation (“Well now. I thought you were doing night watch in Tacoma these days.”). Afterwards he does not let Bastion out of his sight (Alert +1, one guard stays in view), but he might also ask something useful to the crew. Bastion’s test is not greed but honor: Veyrath judges especially whether violence is avoided when violence would be easier.',
+},
+fizz:{
+ street:'Fizz',pbDesc:'Punk: wily, streetwise, chaos with a plan',idnShort:'SINless',
+ look:'19, wiry, neon-green streaks, tusk caps made from spray-can aluminium. Hoodie, climbing gloves, hoverboard under one arm. You chew gum constantly.',
+ heritage:'North America · Redmond Barrens, Seattle. Never been further than Bellevue, and only to steal.',
+ background:'Underworld · courier runs and climbing for the Rusted Halos, a go-gang you left when the leader started killing',
+ vice:'Pleasure · rooftop parties above Glow City, adrenaline, loud music, anything that tastes like life',
+ idn:'None. Never had one. To you the city is a climbing wall without ID checks.',
+ friendsLabel:'Shady Friends',
+ role:'Takes the routes that officially do not exist: access ladder, maintenance shaft, glass roof, ceiling void. Creates distractions when things get hot, and is the first one back outside.',
+ feel:'Parkour, improvisation, sabotage and the thrill of being seen and getting away anyway.',
+ metaTraits:['You can see in low light as well as if it were well lit.','Regain 1 edge when you roll a critical on a desperate action roll.','Spend 1 edge to ignore a harm penalty (including incapacitation) for an action.'],
+ cyber:'No implants, but you would love cybereyes. Instead a scratched commlink with a climbing app, gecko gloves and a hoverboard with hand-sprayed flames.',
+ karma:['You addressed a challenge with surprise or mayhem.'],
+ abilities:[{tag:'Start',t:'You may expend your special armor to resist a consequence from detection or security measures, or to push yourself for a feat of escape or stealth.'}],
+ items:['Nanofiber gloves with extreme adhesion: climb smooth and vertical surfaces, hold things securely.','A full bodysuit of smart cloth that blends you into the darkness.','Three electronic bombs on a strap: Bangflash, EMP Grenade, Pepper Smoke, Tear Gas. EMP against drones, smoke against cameras.','Tranquilizer for an hour of sleep. Sprayed in the face it works briefly but hard.','A small hoverboard for tricks, with graphics of your choice. Or spiked boots, or a fanny pack full of marbles.','Standard: grappling hooks, suction gloves, carabiners. For anyone without gecko gloves.'],
+ friend:{n:'Mondo, facade cleaner for the maintenance firm',t:'Rides the Meridian Spire’s gondola every Tuesday. He tells you where the control box sits, when the schedule calls for a run and that the terrace camera only sees the drone pad.'},
+ rival:{n:'Ripfang, leader of the Rusted Halos',t:'Takes it personally that Fizz left. His gang controls the streets around the approach to Bellevue.'},
+ why:'Your little brother Teo is eleven and starting to think the Rusted Halos are cool. Six nuyen is an apartment outside the Barrens. Besides: 112 floors of glass. You have never seen anything that tall that you have not climbed.',
+ shine:['<b>Access ladder & maintenance shaft:</b> From the terrace on 111 to the roof, from the roof down the shaft to 110, without touching the party. Catch Me If You Can pays for the moment a sensor trips after all.','<b>Ceiling void:</b> From the locker room over the partition wall into the event office. Tight, dark, exactly your thing. The keycard lies below in its box.','<b>Distraction:</b> Pepper smoke in the salon, a guest falls into the pool, a tray tips over: you buy the crew the two minutes in which nobody is watching.'],
+ lore:{h:'The Barrens, go-gangs and life without a SIN',t:'Redmond used to be a tech suburb. Today the Barrens are a district without power, police or garbage collection, where gangs are the order. Those born here often have no SIN: no school, no doctor, no way out except the shadows. Orks are born where humans move away. Fizz does not consider that fate, but a wall you can climb.'},
+ gm:'Foolish Pride is also a character trait: Fizz cannot resist a dare. The jewel casket lies in the collection right next to the door and fits in the fanny pack. Describe it before you describe the case. Mondo’s knowledge of the gondola is real, but every ride is logged (roof plan, location 7). Ripfang can show up as a response-clock complication during the escape through the Barrens.',
+},
+stille:{
+ street:'Hush',pbDesc:'Adept: magic in the body, perfection as a path',idnShort:'real SIN',
+ look:'Early thirties, slim, very upright, short black hair. Plain dark clothes without logos; fine white tattoos on neck and the backs of the hands that glow in astral space.',
+ heritage:'Asia · Seoul, moved to Seattle with your parents as a child; grew up between two languages and a dojo',
+ background:'Academic · dropped philosophy, taught martial arts for ten years, then security consulting until too many contracts raised questions',
+ vice:'Faith · meditation at Master Oyelaran’s dojo in Georgetown. You call it discipline; it is an addiction to stillness.',
+ idn:'A real, unremarkable SIN. You are registered, pay taxes and exist for the state as someone who teaches martial arts.',
+ friendsLabel:'Strange Friends',
+ role:'Moves where sensors stand and senses danger before it arrives. Reads people like a pulse. Solves conflicts with a grip instead of a bullet.',
+ feel:'Perception, body control, quiet superiority. You are the one who sees the trap before anyone walks into it.',
+ metaTraits:['No special traits. By the rules you may instead pick up to two free permutations. Talk it over with the GM or skip it.'],
+ cyber:'No implants: cyberware would weaken your magic. Your tattoos are Fine Mystic Body Art, a focus that carries your way.',
+ karma:['You addressed a tough challenge with inner perfection or mystical power.'],
+ abilities:[{tag:'Required',t:'Way of the Body (Fight, Finesse, Prowl, Wreck): three of your starting dots lie there. You resist supernatural consequences with Body. You can never become Awakened or Emergent. Choose an adept drawback from the rulebook.'},{tag:'Start',t:'Spend 1 edge to perceive beyond normal limits for several minutes. Detect subtle environmental changes (temperature, frequency, pressure), sense the presence of danger, become a living lie detector.'}],
+ items:['Tattoos that focus your adept core. Supernaturally bonded, unique, painstaking to remove.','A small item, here a worn prayer chain, that shows visions of the past or near future of a place, whether you want them or not.','A short staff effective against astral beings. For the Trial by Fire more ballast than help, unless the watcher comes closer.','Standard: throwing knives or a blowgun with tranquilizer darts. Quiet, light, usable non-lethally.','Standard: grappling hooks and carabiners in case Prowl 2 is not enough for once.'],
+ friend:{n:'Master Oyelaran, dojo owner in Georgetown',t:'Trains half of Seattle’s security industry. He knows which guards stand in the Spire tonight, which of them are augmented and who gets careless after a 14-hour day.'},
+ rival:{n:'Aurel Voss, adept in the service of a corporate security firm',t:'Once trained beside Hush and considers this path a weakness. He advises security companies in Bellevue, occasionally Vesperline too.'},
+ why:'You seek tasks that make you grow. A tower full of sensors, drones and a curator who must not be harmed is a test of your discipline. The money goes to the dojo. The test is yours.',
+ shine:['<b>Sensor corridor 110:</b> Adept Senses feel light barriers as warmth, pressure plates as unevenness, cameras as a hum. Prowl 2 carries you through.','<b>Dr. Venn:</b> As a living lie detector you notice her turning suspicious before she shows it. Study to read her; Finesse to capture the iris scan unnoticed.','<b>Conservatory glass roof:</b> The vent flap sticks mechanically, no sensor. Five meters of rope into soft plants is a step for you.'],
+ lore:{h:'The Awakening and the adepts',t:'Magic has been back in the world since 2011. About one in a hundred people is Awakened: mages cast and summon, adepts channel mana into their own bodies and become faster, more alert, harder, without anyone seeing it. Cyberware and magic do not mix: every implant costs Essence and weakens the gift. Adepts like Hush therefore choose the body they have and make it the weapon.'},
+ gm:'Hush’s aura is as bright in astral space as a mage’s. The watcher on 110 notices it just like a sorcerer (Alert +1 for astral activity nearby). The Strange Trinket is a tool for foreboding: in front of the vault door it can show a vision of a huge shadow gliding across the facade. A quiet foretaste of Veyrath without giving away the twist.',
+},
+ravn:{
+ street:'Ravn',pbDesc:'Mage: Awakened, hermetic, a view into astral space',idnShort:'corporate SIN cancelled',
+ look:'Mid forties, greying temples, strong polished tusks. Tweed jacket, reading glasses with a sensing focus, a ring of meteoric iron on the little finger.',
+ heritage:'Europe · Kraków, transferred to Seattle on a corporate contract and stayed',
+ background:'Corporate · wage mage in a corporation’s magical security: check barriers, banish spirits, do not ask questions. You asked.',
+ vice:'Weird · conversations with “Vesna”, a free spirit living in the empty library at Pike Place who only answers in rhymes',
+ idn:'Your corporate SIN was deleted with the dismissal. You live on a fake SIN, occupation: independent scholar.',
+ friendsLabel:'Strange Friends',
+ role:'Sees what nobody else sees: barriers, watchers, magical auras, the case among a hundred objects. Casts quietly and knows how corporate mages think.',
+ feel:'Knowledge, astral space, spells with deliberation. You are the one who says: “Wait. There is something about this wall.”',
+ sup:{attr:'Awakened · counts toward the 7 dots',gloss:'perceive astrally, read barriers and spirits'},
+ metaTraits:['You can see in low light as well as if it were well lit.','Regain 1 edge when you roll a critical on a desperate action roll.','Spend 1 edge to ignore a harm penalty (including incapacitation) for an action.'],
+ cyber:'No implants: every piece of chrome would weaken your magic. Your foci are glasses and ring.',
+ karma:['You addressed a challenge with knowledge or magical power.'],
+ abilities:[{tag:'Required',t:'Arcane method: hermetic tradition (choose drawbacks per the rulebook). You may roll the Assense action; when you roll a desperate Assense action, mark 1 karma on the Willpower track. Buy further Assense dots as a Willpower advance. Never Emergent or an adept.'},{tag:'Start',t:'You know the unique methods to activate metaplanar energies through your body to cast spells. You can Study a spell formula to summon a supernatural effect. You begin with two spells already learned.'}],
+ spells:{h:'Two spells learned',list:[{n:'Stunbolt',t:'A surge of mana against a target’s mind: unconsciousness instead of wounds. Non-lethal, silent, visible only to the Awakened. Study, line of sight.'},{n:'Veil',t:'An illusion over a person or thing: different clothes, another face, a case that looks like a briefcase. Lasts as long as you concentrate. It fools people, not cameras.'}]},
+ items:['The ring of meteoric iron: wield spells with exceptional control.','Glasses through which you see arcane energies in great detail. Also some protection against possession.','A small arcane amulet that astral beings prefer to avoid.','Grave dust, prayer beads, awakened feathers: concentrated essence for big spells, deteriorates after use.','An awakened animal as a companion (cohort, expert). Ravn has none; Vesna would supposedly be jealous.'],
+ friend:{n:'Talia Vance, talismonger in Tacoma',t:'Deals in foci and reagents and hears everything Seattle’s Awakened gossip about. She has heard that the barrier in the Meridian Spire was drawn by a master nobody knows.'},
+ rival:{n:'Dr. Henrik Solvay, Ravn’s former supervisor',t:'Still runs the magical security of the former corporation and has marked Ravn’s file “unreliable, monitor whereabouts”.'},
+ why:'For twelve years you drew barriers for people who never told you what lay behind them. Now, for once, you want to know what is behind a wall built this well. The nuyen pay for Vesna’s library. The curiosity you pay yourself.',
+ shine:['<b>Vault 110:</b> Assense shows you the dual mana barrier, the living tissue and the watcher on its rounds. At the doorway you see how the barrier is opened in a controlled way: an advantage for any way in of your own.','<b>The collection:</b> The case carries a faint, old aura. Among a hundred glittering things it is the only one that whispers to you. You also see which antiques are magical and which are merely expensive.','<b>Stunbolt & Veil:</b> A guard sleeps, a runner looks like staff, the case looks like a briefcase. Non-lethal, silent, exactly as Johnson demanded.'],
+ lore:{h:'Hermetics, astral space and dragons',t:'Awakened mages follow traditions: hermetics treat magic as a science of formulas and circles, shamans as a relationship with spirits and mentors. Astral space is the second layer of the world, where thoughts have colors and barriers stand like walls. At the very top stand the Great Dragons: ancient, unimaginably rich, seated on corporate boards. Some walls were not built for people.'},
+ gm:'Ravn recognizes the vault shell as a cultivated dual barrier: a technique that costs decades and a fortune. No corporation builds that for art. That is the trail to Veyrath without giving away the twist. Before the run Vesna told Ravn in rhymes that the tower “has a heartbeat”. The watcher reports astral activity (Alert +1) but does not attack; Ravn can distract it with Assense or stay still. Solvay is a Heat complication for after the run.',
+},
+};
+const CREWS_EN=[
+ {n:'The Invitation',t:'Mercer (Face), Kessel (Hacker), Bastion (Muscle), Ravn (Mage). In through the glass elevator, Venn in conversation, cameras under control, a shield in front of the crew and a look into astral space.'},
+ {n:'The Quiet Ones',t:'Chameleon (Snake), Fizz (Punk), Hush (Adept), Kessel (Hacker). Through the garage as staff, keycard from the event office, maintenance shaft down to 110, not a shot fired.'},
+ {n:'The Air Route',t:'Zephyr (Rigger), Fizz (Punk), Bastion (Muscle), Hush (Adept). Onto the roof from above, ladder and shaft, gondola to the technical airlock, skycab for the getaway.'},
+ {n:'Three players',t:'Mercer, Fizz and Ravn: charm, climbing and magic. Replace Kessel’s camera work with flashbacks and Fizz’s EMP grenades.'},
 ];
+
+/* ---------- Spielerbögen / player sheets: ein Runner pro A4, DE + EN ---------- */
+const UI={
+ de:{sub:'ein Runner pro A4',selAll:'Alle acht',chkStreet:'Straßennamen vorausfüllen',btnClear:'Eingaben leeren',btnPrint:'Drucken',
+  hint:'Straßenname, Name und Pronomen lassen sich hier eintippen und werden mitgedruckt; leer gelassen bleiben Schreiblinien für den Tisch. Drucken funktioniert aus der Datei im Repo oder den fertigen PDFs, nicht aus der claude.ai-Ansicht.',
+  street:'Straßenname',suggest:'Vorschlag',name:'Name',pron:'Pronomen',meta:'Feuerprobe · Runners in the Shadows',
+  profile:'Profil',look:'Aussehen',heritage:'Herkunft',background:'Hintergrund',vice:'Laster',idn:'IDN (SIN)',contacts:'Kontakte',metatype:'Metatyp',implants:'Implantate & Körper',
+  karma:'Karma · Playbook-Leiste',karmaPb:'Playbook:',karma2:'Du hast Überzeugung, Herkunft oder Hintergrund ausgespielt.',karma3:'Dein Laster oder Trauma hat dir Ärger gemacht.',
+  actions:'Actions · 7 Punkte · Kästchen = Karma-Leisten',resist:'Resistance',sup:'übernatürlich',
+  edge:'Edge',edgeSub:'pushen 2 · assistieren 1 · voll = Trauma',harm:'Harm',harmSub:'Stufe 4 = tödlich',lvl:'Stufe',h3:'braucht Hilfe',h2:'−1d',h1:'weniger Effect',
+  armor:'Armor',load:'Load',loadSub:'vor dem Run wählen',loadBonus:'durch Metatyp',nuyen:'Nuyen',nuyenSub:'Start 2',stash:'Stash',
+  abilities:'Spezialfähigkeiten',gear:'Ausrüstung · Kästchen = eingepackt · ● empfohlen',std:'Standard jederzeit:',
+  stdList:'Kommlink 0 · Armor 2 · Pistole 1 · Burglary Gear 1 · Climbing Gear 2 · Subterfuge Supplies 1 · Quiet Weapon 1 · Medieval Weapon 1 · Technical Tools 1 · Demolition Tools 2 · Lighting Gear 1 · Ammo 1',
+  shine:'So glänzt du im Meridian Spire',friend:'Freund',rival:'Rivale',why:'Warum du diesen Job nimmst',
+  dice:'<b>Würfeln:</b> nur der höchste W6 zählt · 6 Erfolg · 4/5 Erfolg mit Consequence · 1–3 Fehlschlag · zwei 6en Critical · Position tauschen gegen Effect',sheet:'Bogen',
+  glosses:{engineer:'Technik, Basteln',interface:'Matrix, Hacken',stalk:'Aufspüren, Zielen',survey:'Beobachten, Lage',fight:'Kämpfen',finesse:'Geschick, Fahrzeuge',prowl:'Schleichen, Klettern',wreck:'Zerstören, Gewalt',command:'Befehlen, Drohen',consort:'Umgang, Kontakte',influence:'Überzeugen, Täuschen',study:'Analysieren, Zaubern'},
+  attrDe:{Intuition:'Intuition',Body:'Körper',Willpower:'Wille'}},
+ en:{sub:'one runner per A4 page',selAll:'All eight',chkStreet:'Prefill street names',btnClear:'Clear entries',btnPrint:'Print',
+  hint:'Street name, name and pronouns can be typed here and are printed with the sheet; left empty they remain writing lines for the table. Printing works from the file in the repo or the ready-made PDFs, not from the claude.ai view.',
+  street:'Street name',suggest:'Suggestion',name:'Name',pron:'Pronouns',meta:'Feuerprobe · Runners in the Shadows',
+  profile:'Profile',look:'Look',heritage:'Heritage',background:'Background',vice:'Vice',idn:'IDN (SIN)',contacts:'Contacts',metatype:'Metatype',implants:'Implants & body',
+  karma:'Karma · playbook track',karmaPb:'Playbook:',karma2:'You expressed your beliefs, heritage or background.',karma3:'Your vice or trauma caused you trouble.',
+  actions:'Actions · 7 dots · boxes = karma tracks',resist:'Resistance',sup:'supernatural',
+  edge:'Edge',edgeSub:'push 2 · assist 1 · full = trauma',harm:'Harm',harmSub:'level 4 = fatal',lvl:'Level',h3:'needs help',h2:'−1d',h1:'less effect',
+  armor:'Armor',load:'Load',loadSub:'choose before the run',loadBonus:'from metatype',nuyen:'Nuyen',nuyenSub:'start 2',stash:'Stash',
+  abilities:'Special abilities',gear:'Gear · box = packed · ● recommended',std:'Standard anytime:',
+  stdList:'Comm 0 · Armor 2 · Pistol 1 · Burglary Gear 1 · Climbing Gear 2 · Subterfuge Supplies 1 · Quiet Weapon 1 · Medieval Weapon 1 · Technical Tools 1 · Demolition Tools 2 · Lighting Gear 1 · Ammo 1',
+  shine:'How you shine in the Meridian Spire',friend:'Friend',rival:'Rival',why:'Why you take this job',
+  dice:'<b>Rolling:</b> only the highest d6 counts · 6 success · 4/5 success with consequence · 1–3 failure · two 6s critical · trade position for effect',sheet:'Sheet',
+  glosses:{engineer:'tech, tinkering',interface:'Matrix, hacking',stalk:'tracking, aiming',survey:'observing, the scene',fight:'combat',finesse:'dexterity, vehicles',prowl:'sneaking, climbing',wreck:'breaking, force',command:'orders, threats',consort:'rapport, contacts',influence:'persuasion, deceit',study:'analysis, spellcasting'},
+  attrDe:{Intuition:'Intuition',Body:'Body',Willpower:'Willpower'}},
+};
+const ATTRS=[['Intuition',[['engineer','Engineer'],['interface','Interface'],['stalk','Stalk'],['survey','Survey']]],['Body',[['fight','Fight'],['finesse','Finesse'],['prowl','Prowl'],['wreck','Wreck']]],['Willpower',[['command','Command'],['consort','Consort'],['influence','Influence'],['study','Study']]]];
 const TRAUMA=['Cold','Haunted','Obsessed','Paranoid','Reckless','Soft','Unstable','Vicious'];
-const STD='Kommlink 0 · Armor 2 · Pistole 1 · Burglary Gear 1 · Climbing Gear 2 · Subterfuge Supplies 1 · Quiet Weapon 1 · Medieval Weapon 1 · Technical Tools 1 · Demolition Tools 2 · Lighting Gear 1 · Ammo 1';
 function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 function bx(n,cls){let h='';for(let i=0;i<n;i++)h+='<i class="bx'+(cls?' '+cls:'')+'"></i>';return h;}
 function dots(n){let h='<span class="dots">';for(let i=0;i<4;i++)h+='<i class="'+(i<n?'on':'')+'"></i>';return h+'</span>';}
 function short(t,max){const s=String(t||'').replace(/<[^>]+>/g,'');const m=s.match(/^.*?[.!?](\s|$)/);let r=(m?m[0]:s).trim();if(r.length>max)r=r.slice(0,max-1).replace(/\s+\S*$/,'')+'…';return r;}
+/* Sprachschicht: EN-Texte über die deutsche Basis legen (Arrays nach Index) */
+function loc(R,lang){
+  if(lang!=='en'||!EN[R.id])return R;const e=EN[R.id];const o=Object.assign({},R,e);
+  o.metaTraits=R.metaTraits.map((t,i)=>[t[0],(e.metaTraits||[])[i]??t[1]]);
+  o.abilities=R.abilities.map((a,i)=>Object.assign({},a,(e.abilities||[])[i]||{}));
+  o.items=R.items.map((it,i)=>Object.assign({},it,{t:(e.items||[])[i]??it.t}));
+  o.karma=e.karma||R.karma;o.shine=e.shine||R.shine;o.lore=e.lore||R.lore;o.friend=e.friend||R.friend;o.rival=e.rival||R.rival;
+  if(R.sup)o.sup=Object.assign({},R.sup,e.sup||{});if(R.spells)o.spells=e.spells||R.spells;
+  return o;
+}
 const STORE='fp-runner';
 let saved={};try{saved=JSON.parse(localStorage.getItem(STORE)||'{}')||{};}catch(e){saved={};}
 function save(){try{localStorage.setItem(STORE,JSON.stringify(saved));}catch(e){}}
 function st(id){return saved[id]||(saved[id]={});}
+let lang='de';
+(function(){try{const q=new URLSearchParams(location.search).get('lang');if(q==='en'||q==='de')lang=q;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}}catch(e){}})();
 
-function renderSheet(R,idx,total){
-  const a=R.actions||{},s=st(R.id);
-  const resist=k=>ATTRS.find(x=>x[0]===k)[2].filter(([id])=>(a[id]||0)>0).length;
-  const lb=R.loadBonus||0;
-  const supRow=R.sup?`<div class="act sup"><div class="an">${esc(R.sup.name)}<small>${esc(R.sup.gloss)}</small></div>${dots(R.sup.dots)}</div>`:'';
-  const attrs=ATTRS.map(([k,de,acts])=>`<div class="attr"><h4><span>${k} <span class="res">· ${de} · Resistance ${resist(k)}d</span></span><span class="kt" title="Karma ${k}">${bx(6,'sm')}</span></h4>${acts.map(([id,en,gl])=>`<div class="act"><div class="an">${en}<small>${gl}</small></div>${dots(a[id]||0)}</div>`).join('')}${k==='Willpower'?supRow:''}</div>`).join('');
+function renderSheet(R0,idx,total){
+  const T=UI[lang],R=loc(R0,lang),a=R.actions||{},s=st(R.id),lb=R.loadBonus||0;
+  const resist=k=>ATTRS.find(x=>x[0]===k)[1].filter(([id])=>(a[id]||0)>0).length;
+  const supRow=R.sup?`<div class="act sup" data-sup="${esc(T.sup)}"><div class="an">${esc(R.sup.name)}<small>${esc(R.sup.gloss)}</small></div>${dots(R.sup.dots)}</div>`:'';
+  const attrs=ATTRS.map(([k,acts])=>`<div class="attr"><h4><span>${k} <span class="res">· ${T.attrDe[k]} · ${T.resist} ${resist(k)}d</span></span><span class="kt" title="Karma ${k}">${bx(6,'sm')}</span></h4>${acts.map(([id,en])=>`<div class="act"><div class="an">${en}<small>${T.glosses[id]}</small></div>${dots(a[id]||0)}</div>`).join('')}${k==='Willpower'?supRow:''}</div>`).join('');
   const armor=[['Armor'],['Heavy'],['Special']].concat(R.extraArmor?[['Troll','dash']]:[]).map(([l,c])=>`<label><i class="bx${c?' '+c:''}"></i>${l}</label>`).join('');
   const load=[['Light',3],['Normal',5],['Heavy',6]].map(([l,n])=>`<label><i class="bx"></i>${l} ${n+lb}</label>`).join('');
   const pbDesc=R.pbDesc.replace(/^[^:]+:\s*/,'');
@@ -435,44 +665,44 @@ function renderSheet(R,idx,total){
   return `<section class="sheet" id="${R.id}" style="--pb:var(--pb-${R.color})" data-street="${esc(R.street)}">
   <header class="sh">
     <div class="ids">
-      <label class="fld big"><span>Straßenname <em>Vorschlag: ${esc(R.street)}</em></span><input type="text" id="${R.id}-b-street" data-k="street" value="${esc(s.street||'')}" autocomplete="off"></label>
-      <label class="fld"><span>Name</span><input type="text" id="${R.id}-b-name" data-k="name" value="${esc(s.name||'')}" autocomplete="off"></label>
-      <label class="fld"><span>Pronomen</span><input type="text" id="${R.id}-b-pron" data-k="pron" value="${esc(s.pron||'')}" autocomplete="off"></label>
+      <label class="fld big"><span>${T.street} <em>${T.suggest}: ${esc(R.street)}</em></span><input type="text" id="${R.id}-b-street" data-k="street" value="${esc(s.street||'')}" autocomplete="off"></label>
+      <label class="fld"><span>${T.name}</span><input type="text" id="${R.id}-b-name" data-k="name" value="${esc(s.name||'')}" autocomplete="off"></label>
+      <label class="fld"><span>${T.pron}</span><input type="text" id="${R.id}-b-pron" data-k="pron" value="${esc(s.pron||'')}" autocomplete="off"></label>
     </div>
-    <div class="pbbox"><div class="pbname">${esc(R.pb)}</div><div class="pbdesc">${esc(pbDesc)}</div><p class="role">${R.role}</p><div class="meta">${esc(R.meta)} · Feuerprobe · Runners in the Shadows</div></div>
+    <div class="pbbox"><div class="pbname">${esc(R.pb)}</div><div class="pbdesc">${esc(pbDesc)}</div><p class="role">${R.role}</p><div class="meta">${esc(R.meta)} · ${T.meta}</div></div>
   </header>
   <div class="cols">
     <div class="col">
-      <section><h3>Profil</h3><dl class="kv"><dt>Aussehen</dt><dd>${esc(R.look)}</dd><dt>Herkunft</dt><dd>${esc(R.heritage)}</dd><dt>Hintergrund</dt><dd>${esc(R.background)}</dd><dt>Laster</dt><dd>${esc(R.vice)}</dd><dt>IDN (SIN)</dt><dd>${esc(R.idn)}</dd><dt>Kontakte</dt><dd>${esc(R.friendsLabel)}</dd></dl></section>
-      <section><h3>Metatyp · ${esc(R.meta)}</h3><ul class="tr">${R.metaTraits.map(([n,t])=>`<li><b>${esc(n)}.</b> ${esc(t)}</li>`).join('')}</ul></section>
-      ${R.cyber?`<section><h3>Implantate & Körper</h3><p class="txt">${R.cyber}</p></section>`:''}
-      <section><h3>Karma · Playbook-Leiste <span class="boxes" style="display:inline-flex;vertical-align:middle;margin-left:1mm">${bx(10,'xs')}</span></h3><ul class="tr"><li><b>Playbook:</b> ${R.karma.join(' ')}</li><li>Du hast Überzeugung, Herkunft oder Hintergrund ausgespielt.</li><li>Dein Laster oder Trauma hat dir Ärger gemacht.</li></ul></section>
+      <section><h3>${T.profile}</h3><dl class="kv"><dt>${T.look}</dt><dd>${esc(R.look)}</dd><dt>${T.heritage}</dt><dd>${esc(R.heritage)}</dd><dt>${T.background}</dt><dd>${esc(R.background)}</dd><dt>${T.vice}</dt><dd>${esc(R.vice)}</dd><dt>${T.idn}</dt><dd>${esc(R.idn)}</dd><dt>${T.contacts}</dt><dd>${esc(R.friendsLabel)}</dd></dl></section>
+      <section><h3>${T.metatype} · ${esc(R.meta)}</h3><ul class="tr">${R.metaTraits.map(([n,t])=>`<li><b>${esc(n)}.</b> ${esc(t)}</li>`).join('')}</ul></section>
+      ${R.cyber?`<section><h3>${T.implants}</h3><p class="txt">${R.cyber}</p></section>`:''}
+      <section><h3>${T.karma} <span class="boxes" style="display:inline-flex;vertical-align:middle;margin-left:1mm">${bx(10,'xs')}</span></h3><ul class="tr"><li><b>${T.karmaPb}</b> ${R.karma.join(' ')}</li><li>${T.karma2}</li><li>${T.karma3}</li></ul></section>
       ${spells}
     </div>
     <div class="col">
-      <section><h3>Actions · 7 Punkte · Kästchen = Karma-Leisten</h3>${attrs}</section>
-      <div class="trk" style="margin-top:2mm"><h4>Edge <span>pushen 2 · assistieren 1 · voll = Trauma</span></h4><div class="boxes">${bx(9)}</div><div class="trauma"><span class="boxes">${bx(4,'sm')}</span>${TRAUMA.map(t=>`<span>${t}</span>`).join('')}</div></div>
-      <div class="trk"><h4>Harm <span>Stufe 4 = tödlich</span></h4><div class="harm">
-        <div class="row"><div class="lv">Stufe 3<small>braucht Hilfe</small></div><div class="cells one"><div class="cell"></div></div></div>
-        <div class="row"><div class="lv">Stufe 2<small>−1d</small></div><div class="cells"><div class="cell"></div><div class="cell"></div></div></div>
-        <div class="row"><div class="lv">Stufe 1<small>weniger Effect</small></div><div class="cells"><div class="cell"></div><div class="cell"></div></div></div>
+      <section><h3>${T.actions}</h3>${attrs}</section>
+      <div class="trk" style="margin-top:2mm"><h4>${T.edge} <span>${T.edgeSub}</span></h4><div class="boxes">${bx(9)}</div><div class="trauma"><span class="boxes">${bx(4,'sm')}</span>${TRAUMA.map(t=>`<span>${t}</span>`).join('')}</div></div>
+      <div class="trk"><h4>${T.harm} <span>${T.harmSub}</span></h4><div class="harm">
+        <div class="row"><div class="lv">${T.lvl} 3<small>${T.h3}</small></div><div class="cells one"><div class="cell"></div></div></div>
+        <div class="row"><div class="lv">${T.lvl} 2<small>${T.h2}</small></div><div class="cells"><div class="cell"></div><div class="cell"></div></div></div>
+        <div class="row"><div class="lv">${T.lvl} 1<small>${T.h1}</small></div><div class="cells"><div class="cell"></div><div class="cell"></div></div></div>
       </div></div>
-      <div class="trk"><div class="grp"><div><h5>Armor</h5><div class="inl">${armor}</div></div><div><h5>Load${lb?' (+'+lb+')':''}</h5><div class="inl">${load}</div></div></div></div>
+      <div class="trk"><div class="grp"><div><h5>${T.armor}</h5><div class="inl">${armor}</div></div><div><h5>${T.load}${lb?' (+'+lb+')':''}</h5><div class="inl">${load}</div></div></div></div>
     </div>
     <div class="col">
-      <section><h3>Spezialfähigkeiten</h3><ul class="ab">${R.abilities.map(ab=>`<li><b>${esc(ab.n)}<i>${esc(ab.tag)}</i></b>${ab.t}</li>`).join('')}</ul></section>
-      <section><h3>Ausrüstung · Kästchen = eingepackt · ● empfohlen</h3><table class="items"><tbody>${R.items.map(it=>`<tr class="${it.rec?'rec':''}"><td class="ck"><i class="bx sm"></i></td><td class="ld">${it.l}</td><td><b>${esc(it.n)}</b> ${esc(short(it.t,80))}</td></tr>`).join('')}</tbody></table><p class="std"><b>Standard jederzeit:</b> ${STD}</p></section>
-      <section><h3>So glänzt du im Meridian Spire</h3><ul class="shine">${R.shine.map(x=>`<li>${x}</li>`).join('')}</ul></section>
-      <div class="trk" style="margin-top:2mm"><div class="grp"><div><h5>Nuyen <span style="font:400 5.8pt 'IBM Plex Mono',monospace;text-transform:none;letter-spacing:0;color:var(--muted)">Start 2</span></h5><div class="boxes">${bx(4)}</div></div><div><h5>Stash</h5><div class="stash">${bx(20,'xs')}</div></div></div></div>
+      <section><h3>${T.abilities}</h3><ul class="ab">${R.abilities.map(ab=>`<li><b>${esc(ab.n)}<i>${esc(ab.tag)}</i></b>${ab.t}</li>`).join('')}</ul></section>
+      <section><h3>${T.gear}</h3><table class="items"><tbody>${R.items.map(it=>`<tr class="${it.rec?'rec':''}"><td class="ck"><i class="bx sm"></i></td><td class="ld">${it.l}</td><td><b>${esc(it.n)}</b> ${esc(short(it.t,80))}</td></tr>`).join('')}</tbody></table><p class="std"><b>${T.std}</b> ${T.stdList}</p></section>
+      <section><h3>${T.shine}</h3><ul class="shine">${R.shine.map(x=>`<li>${x}</li>`).join('')}</ul></section>
+      <div class="trk" style="margin-top:2mm"><div class="grp"><div><h5>${T.nuyen} <span style="font:400 5.8pt 'IBM Plex Mono',monospace;text-transform:none;letter-spacing:0;color:var(--muted)">${T.nuyenSub}</span></h5><div class="boxes">${bx(4)}</div></div><div><h5>${T.stash}</h5><div class="stash">${bx(20,'xs')}</div></div></div></div>
     </div>
   </div>
   <div class="band">
-    <section style="margin-top:0"><h3>Freund</h3><p><b>${esc(R.friend.n)}.</b> ${R.friend.t}</p></section>
-    <section style="margin-top:0"><h3>Rivale</h3><p><b>${esc(R.rival.n)}.</b> ${R.rival.t}</p></section>
-    <section style="margin-top:0"><h3>Warum du diesen Job nimmst</h3><p>${R.why}</p></section>
+    <section style="margin-top:0"><h3>${T.friend}</h3><p><b>${esc(R.friend.n)}.</b> ${R.friend.t}</p></section>
+    <section style="margin-top:0"><h3>${T.rival}</h3><p><b>${esc(R.rival.n)}.</b> ${R.rival.t}</p></section>
+    <section style="margin-top:0"><h3>${T.why}</h3><p>${R.why}</p></section>
     <section class="lore"><b>${esc(R.lore.h)}.</b> ${R.lore.t}</section>
   </div>
-  <footer class="foot"><span><b>Würfeln:</b> nur der höchste W6 zählt · 6 Erfolg · 4/5 Erfolg mit Consequence · 1–3 Fehlschlag · zwei 6en Critical · Position tauschen gegen Effect</span><span>Bogen ${idx+1}/${total}</span></footer>
+  <footer class="foot"><span>${T.dice}</span><span>${T.sheet} ${idx+1}/${total}</span></footer>
 </section>`;
 }
 
@@ -491,21 +721,31 @@ function fillStreets(on){
 }
 window.fpCheck=()=>[...document.querySelectorAll('.sheet')].map(s=>({id:s.id,sheetOverflow:s.scrollHeight-s.clientHeight,cols:[...s.querySelectorAll('.col')].map(c=>{const k=[...c.children];return Math.round(k.reduce((a,x)=>a+x.getBoundingClientRect().height,0)+(k.length-1)*2*3.7795);}),colsBox:Math.round(s.querySelector('.cols').getBoundingClientRect().height),band:Math.round(s.querySelector('.band').getBoundingClientRect().height),head:Math.round(s.querySelector('.sh').getBoundingClientRect().height)}));
 
-(function boot(){
-  const stack=document.getElementById('stack');
-  stack.innerHTML=RUNNERS.map((R,i)=>renderSheet(R,i,RUNNERS.length)).join('');
-  const sel=document.getElementById('selRunner');
-  RUNNERS.forEach(R=>{const o=document.createElement('option');o.value=R.id;o.textContent=`${R.street} · ${R.pb} · ${R.meta}`;sel.appendChild(o);});
-  sel.addEventListener('change',()=>{if(sel.value)location.hash=sel.value;else history.replaceState(null,'',location.pathname);applyHash();window.scrollTo(0,0);});
-  window.addEventListener('hashchange',applyHash);
+function renderAll(){
+  const T=UI[lang];document.documentElement.lang=lang;
+  document.getElementById('tbSub').textContent=T.sub;document.getElementById('tbHint').textContent=T.hint;
+  document.getElementById('lblStreet').textContent=T.chkStreet;document.getElementById('btnClear').textContent=T.btnClear;document.getElementById('btnPrint').textContent=T.btnPrint;
+  document.getElementById('langDE').setAttribute('aria-pressed',lang==='de'?'true':'false');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en'?'true':'false');
+  const sel=document.getElementById('selRunner');sel.innerHTML=`<option value="">${T.selAll}</option>`+RUNNERS.map(R=>{const L=loc(R,lang);return `<option value="${R.id}">${esc(L.street)} · ${esc(R.pb)} · ${esc(R.meta)}</option>`;}).join('');
+  document.getElementById('stack').innerHTML=RUNNERS.map((R,i)=>renderSheet(R,i,RUNNERS.length)).join('');
   document.querySelectorAll('.sheet input').forEach(i=>i.addEventListener('input',()=>{const id=i.closest('.sheet').id;st(id)[i.dataset.k]=i.value;delete i.dataset.auto;save();}));
+  const chk=document.getElementById('chkStreet');fillStreets(chk.checked);
+  applyHash();
+}
+(function boot(){
+  const sel=document.getElementById('selRunner');
+  sel.addEventListener('change',()=>{if(sel.value)location.hash=sel.value;else history.replaceState(null,'',location.pathname+location.search);applyHash();window.scrollTo(0,0);});
+  window.addEventListener('hashchange',applyHash);
   const chk=document.getElementById('chkStreet');
   let pre=false;try{pre=localStorage.getItem('fp-bogen-street')==='1';}catch(e){}
-  chk.checked=pre;fillStreets(pre);
+  chk.checked=pre;
   chk.addEventListener('change',()=>{fillStreets(chk.checked);try{localStorage.setItem('fp-bogen-street',chk.checked?'1':'0');}catch(e){}});
   document.getElementById('btnClear').addEventListener('click',()=>{document.querySelectorAll('.sheet input').forEach(i=>{i.value='';delete i.dataset.auto;const s=st(i.closest('.sheet').id);delete s[i.dataset.k];});chk.checked=false;save();try{localStorage.setItem('fp-bogen-street','0');}catch(e){}});
   document.getElementById('btnPrint').addEventListener('click',()=>{try{window.print();}catch(e){}});
-  applyHash();
+  const setLang=l=>{lang=l;try{localStorage.setItem('fp-lang',l);}catch(e){}renderAll();};
+  document.getElementById('langDE').addEventListener('click',()=>setLang('de'));
+  document.getElementById('langEN').addEventListener('click',()=>setLang('en'));
+  renderAll();
 })();
 
 </script>

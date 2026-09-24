@@ -22,6 +22,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:9pt/1.32 "IBM Plex Sans
 .toolbar label{display:inline-flex;align-items:center;gap:6px}
 .toolbar select,.toolbar button{font:500 13px "IBM Plex Sans",sans-serif;padding:6px 10px;border:1px solid var(--tb-line);border-radius:8px;background:transparent;color:inherit;cursor:pointer}
 .toolbar button.primary{border-color:var(--accent);background:var(--accent);color:#fff}
+.toolbar .langs{display:inline-flex;border:1px solid var(--tb-line);border-radius:8px;overflow:hidden}
+.toolbar .langs button{border:0;border-radius:0;padding:6px 12px;font-weight:600;letter-spacing:.04em}
+.toolbar .langs button+button{border-left:1px solid var(--tb-line)}
+.toolbar .langs button[aria-pressed="true"]{background:var(--accent);color:#fff}
 .toolbar .hint{flex-basis:100%;font-size:12px;opacity:.75}
 .stack{display:flex;flex-direction:column;align-items:center;gap:14px;padding:18px 8px 40px}
 /* Bogen */

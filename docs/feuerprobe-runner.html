@@ -45,6 +45,10 @@ header.top h1 small{display:block;font-size:.42em;font-weight:500;color:var(--in
 .tog .dot{width:9px;height:9px;border-radius:50%;background:var(--line-2);flex:none}
 .tog button[aria-pressed="true"]{border-color:var(--gm);background:var(--gm-soft)}
 .tog button[aria-pressed="true"] .dot{background:var(--gm)}
+.tog .langs{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
+.tog .langs button{border:0;border-radius:0;padding:8px 13px;font-weight:600;letter-spacing:.04em}
+.tog .langs button+button{border-left:1px solid var(--line-2)}
+.tog .langs button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
 .tog button:focus-visible,.crewnav a:focus-visible,.box:focus-visible,.dotrow button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* intro */
@@ -190,48 +194,23 @@ body.player .gmnote,body.player .gmonly{display:none}
 <header class="top">
   <div>
     <div class="eyebrow">Shadowrun · Feuerprobe · Runners in the Shadows</div>
-    <h1>Feuerprobe Runner<small>Acht vorgefertigte Runner für den Oneshot im Meridian Spire · Seattle 2080</small></h1>
+    <h1>Feuerprobe Runner<small id="subtitle">Acht vorgefertigte Runner für den Oneshot im Meridian Spire · Seattle 2080</small></h1>
   </div>
   <div class="tog">
-    <button id="btnGM" aria-pressed="true" type="button"><span class="dot"></span>SL-Notizen anzeigen</button>
-    <a href="https://claude.ai/artifact/KXuFzX55yhHiG8WQJqMWGo" target="_blank" rel="noopener">Zu den Plänen des Meridian Spire</a>
+    <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
+    <button id="btnGM" class="gmtog" aria-pressed="true" type="button"><span class="dot"></span>SL-Notizen anzeigen</button>
+    <a id="lnkPlans" href="https://claude.ai/artifact/KXuFzX55yhHiG8WQJqMWGo" target="_blank" rel="noopener">Zu den Plänen des Meridian Spire</a>
   </div>
 </header>
 
-<section class="intro">
-  <article class="card">
-    <h2>Willkommen in den Schatten</h2>
-    <p><b>Seattle, 2080.</b> Die Stadt gehört den Megakonzernen. Ihre Türme stehen auf exterritorialem Boden, ihre Sicherheitsdienste ersetzen die Polizei, ihre Werbung hängt als AR-Schicht über jeder Straße. In Bellevue glitzert das Geld, in den Redmond Barrens fällt der Strom stundenweise aus.</p>
-    <p><b>Metamenschen.</b> Seit dem Erwachen der Magie (2011) und der Goblinisierung (2021) gibt es Elfen, Zwerge, Orks und Trolle. Sie sind Nachbarn, Kolleginnen, Kinder. Vorurteile gegen Orks und Trolle gehören trotzdem zum Alltag, und mancher Elf tut so, als wäre er etwas Besseres.</p>
-    <p><b>Die Matrix.</b> Jeder trägt ein Kommlink, jede Oberfläche spricht mit dir. Wer tiefer will, geht per Trodes oder Datenbuchse in die virtuelle Realität. Hacker knacken Konzernsysteme, Konzern-Spinnen jagen sie.</p>
-    <p><b>Magie.</b> Erwachte sind selten und begehrt. Magier zaubern und beschwören Geister, Adepten lenken Magie in ihren Körper. Es gibt Astralraum, Manabarrieren und Drachen, die Konzerne leiten und in den Nachrichten auftreten.</p>
-    <p><b>Runner.</b> Ihr seid Profis ohne offizielle Existenz. Wer keine SIN (System-Identifikationsnummer) hat, ist für den Staat nicht da: kein Konto, keine Wohnung, keine Rechte. Dafür gibt es Aufträge von Leuten, die sich <i>Mr. Johnson</i> nennen, bezahlt in Nuyen. Die alte Regel lautet: Vertrau niemandem. Schieß nie zuerst. Halt dich an den Deal.</p>
-  </article>
-  <article class="card">
-    <h2>So liest du deinen Bogen</h2>
-    <ul class="rules">
-      <li><span>Actions</span><span>Zwölf Fertigkeiten in drei Gruppen. Du würfelst so viele W6, wie die Action Punkte hat, und zählst nur den höchsten: <span class="dice">6</span> voller Erfolg, <span class="dice">4/5</span> Erfolg mit Consequence, <span class="dice">1–3</span> schlecht. Zwei Sechsen sind ein Critical. Null Punkte: zwei Würfel, der schlechtere zählt.</span></li>
-      <li><span>Position</span><span>Vor dem Wurf sagt die SL, wie gefährlich (Controlled, Risky, Desperate) und wie wirksam (Limited, Standard, Great) dein Ansatz ist. Du darfst tauschen: mehr Risiko für mehr Wirkung.</span></li>
-      <li><span>Edge</span><span>Deine Reserve (9 Kästchen). 2 Edge: dich pushen, +1d oder mehr Effect. 1 Edge: einem Teammitglied assistieren. Eine Consequence darfst du mit einem Resistance Roll abmildern; der Wurf bestimmt, was es kostet. Volles Edge bedeutet ein Trauma.</span></li>
-      <li><span>Resistance</span><span>Gewürfelt wird mit der Attributsgruppe: so viele W6, wie du dort Actions mit mindestens einem Punkt hast. Der Wert steht auf dem Bogen.</span></li>
-      <li><span>Harm</span><span>Stufe 1 (leicht): weniger Effect. Stufe 2 (mittel): −1d. Stufe 3 (schwer): du brauchst Hilfe. Stufe 4 ist tödlich. Armor-Kästchen fangen Schaden ab, Special Armor nur das, was deine Fähigkeit nennt.</span></li>
-      <li><span>Load</span><span>Du legst vor dem Run nur fest, wie viel du trägst (Light 3, Normal 5, Heavy 6). Welche Gegenstände das sind, entscheidest du, wenn du sie brauchst. ● markiert unsere Empfehlung für diesen Run.</span></li>
-      <li><span>Flashback</span><span>Ihr müsst nicht alles vorausplanen. Erkläre mitten im Run, was du vorbereitet hattest, und zahle dafür Edge (0 bis 2, je nach Aufwand).</span></li>
-      <li><span>Karma</span><span>Am Ende der Sitzung: Karma für deine Playbook-Auslöser, dafür, dass du Herkunft oder Überzeugung ausgespielt hast, und wenn dein Laster oder Trauma dir Probleme gemacht hat.</span></li>
-    </ul>
-    <h3>Name, Geschlecht, Gesicht</h3>
-    <p class="small">Die Bögen legen weder Namen noch Geschlecht fest. Der große Titel ist nur der Straßenname, unter dem die Figur in den Schatten bekannt ist; Name und Pronomen trägst du oben im Bogen selbst ein. Aussehen, Herkunft und Hintergrund sind Vorschläge, die du mit der SL anpassen kannst.</p>
-    <h3>Aufbau der Werte</h3>
-    <p class="small">Jeder Bogen hat 7 Action-Punkte (drei vom Playbook, vier frei), keine Action über 2. Erwachte tragen ihre Pflichtfähigkeit zusätzlich zur gewählten Startfähigkeit. Die drei Playbook-Punkte stehen auf deinem offiziellen Playbook-Bogen; weichen sie von hier ab, verschiebe einfach einen der freien Punkte.</p>
-  </article>
-</section>
+<section class="intro" id="intro"></section>
 
 <nav class="crewnav" id="crewnav" aria-label="Runner wählen"></nav>
 <div class="crews" id="crews"></div>
 
 <div id="dossiers"></div>
 
-<p class="fine">Fan-Material für den privaten Spieltisch. <i>Runners in the Shadows</i> ist ein Forged-in-the-Dark-Spiel von Mark Cleveland Massengale; <i>Shadowrun</i> ist eine Marke von The Topps Company / Catalyst Game Labs. Fähigkeiten, Gegenstände und Metatyp-Merkmale folgen der RitS-Version 0.998, ins Deutsche übertragen; Namen, Kontakte und Geheimnisse sind Eigenkreationen für die Feuerprobe.</p>
+<p class="fine" id="fine"></p>
 </div>
 
 <script>
@@ -493,30 +472,286 @@ const CREWS=[
  {n:'Drei Personen',t:'Mercer, Fizz und Ravn: Charme, Kletterei und Magie. Kessels Kameraarbeit ersetzt ihr durch Flashbacks und Fizz’ EMP-Granaten.'},
 ];
 
-/* ---------- Renderer ---------- */
-const ATTRS=[
- ['Intuition','Intuition',[['engineer','Engineer','Technik, Basteln, Reparieren'],['interface','Interface','Matrix, Hacken, Geräte steuern'],['stalk','Stalk','Aufspüren, Verfolgen, Zielen'],['survey','Survey','Beobachten, Lage erfassen']]],
- ['Body','Körper',[['fight','Fight','Kämpfen, Nahkampf, Schusswechsel'],['finesse','Finesse','Geschick, Präzision, Fahrzeuge'],['prowl','Prowl','Schleichen, Klettern, Verstecken'],['wreck','Wreck','Zerstören, Sprengen, rohe Gewalt']]],
- ['Willpower','Wille',[['command','Command','Befehlen, Einschüchtern'],['consort','Consort','Umgang, Netzwerken, Kontakte'],['influence','Influence','Überzeugen, Täuschen, Charme'],['study','Study','Analysieren, Wissen, Zaubern']]],
+/* English layer: only text fields; numbers, names of items, abilities and traits stay as in the base data. */
+const EN={
+mercer:{
+ street:'Mercer',pbDesc:'Face: smooth, connected, invited everywhere',idnShort:'SIN revoked · fake',
+ look:'Late thirties, hair dyed silver-grey, tailored evening wear in charcoal, a single earring of real gold. You smile before you speak.',
+ heritage:'North America · born in Tír Tairngire (Portland), in Seattle since 2071',
+ background:'Corporate · art PR for a corporate gallery in Bellevue, fired after a scandal',
+ vice:'Luxury · Chef Horowitz’s private dinners at the Wilder Hotel, Downtown',
+ idn:'Your own SIN still exists but is revoked. A fake SIN under an alias of your choice, occupation art consultant, good quality.',
+ friendsLabel:'Shrewd Friends',
+ role:'Opens doors others would have to force: invitation, guest list, a conversation with Dr. Venn. The reason the crew gets into the glass elevator at all.',
+ feel:'Charm, contacts, small talk with snakes. You talk; the others work in the shadow of your smile.',
+ metaTraits:['You can see in low light as well as if it were well lit.','You hear from further away. Spend 1 edge to perceive beyond normal limits for several minutes (whispers in a noisy room, ultrasound).','You remain fast at normal load.','When you resist a consequence of social pressure, it costs only 1 edge, regardless of the roll.'],
+ cyber:'No implants. You consider chrome a flaw and let people notice. Instead you carry a high-end commlink and contact lenses with an AR overlay.',
+ karma:['You addressed a challenge with charisma or conspiracy.'],
+ abilities:[{tag:'Start',t:'You gain +1d to Consort when you gather information on a target for a run. You get +1d to the engagement roll for that operation.'}],
+ items:['A suit of clothes that marks you as an executive, an officer of rank or the undisputed leader of a gang, badges and accoutrements included.','Prepaid credit at the city’s popular clubs and restaurants. Intoxicates and impresses.','A small tabletop device for a short conversation free of audio surveillance. Perfect for five minutes with Dr. Venn in the conservatory.','Up to three doses: Bluecoke, Glow, Nu-Ganja, Red Rock. Refills itself during downtime.','Like the Fine Outfit, one step more expensive: gala level.','Three to five bodyguards, fans and retainers loyal only to you. Quality equals Tier when they can help.'],
+ friend:{n:'Ines Okonkwo-Harada, gallerist',t:'Curates in Bellevue and still owes Mercer. She can put a name on the guest list of the Vesperline gala or tell you which collectors are there tonight.'},
+ rival:{n:'Tobias Wren, society reporter',t:'Writes for a trid gossip channel, knows every face on the scene and once covered Mercer’s fall with relish. He is invited tonight.'},
+ why:'You used to be inside: the invitations, the receptions, the right people. A scandal you did not cause threw you out. Six nuyen is good money, but the real payoff is one evening standing at the top again. And maybe the name behind it all.',
+ shine:['<b>Foyer & security arch:</b> With the Fine Outfit and a name from Ines you get waved through. Sprawl Whisperer gives the crew +1d on the engagement roll if you did your research.','<b>Gallery & conservatory:</b> Dr. Venn only talks to people who take art seriously. Consort 2 and Study 1 are enough to ask for a private viewing. The Privacy Generator buys five undisturbed minutes.','<b>Lowering Alert:</b> When a guard spots a deviation, you deliver the plausible explanation before they reach for the radio.'],
+ lore:{h:'SINs, elves and the price of existing',t:'A SIN (System Identification Number) is more than an ID in the Sixth World: bank account, apartment, health insurance, the right to vote. Lose it and you officially stop existing. Mercer comes from Tír Tairngire, the elven nation south of Seattle, where bloodline decides careers. That Mercer now works with ork punks counts as a disgrace in the family.'},
+ gm:'Mercer’s real face has been on a Bellevue blacklist since the gallery scandal, and Kade’s arch checks it. If Mercer enters the foyer undisguised, that counts as a deviation (silent check, Alert +1). Tobias Wren is the perfect Dragon’s Deal: “The invitation is real, but someone at the party recognizes your alias.” Mercer also has a fine nose for money and is the first to sense that someone very old and very rich stands behind Vesperline.',
+},
+chamaeleon:{
+ street:'Chameleon',pbDesc:'Snake: lies, manipulation, a thousand faces',idnShort:'fake SIN',
+ look:'Early thirties, completely unremarkable on request. Today: dark suit, glasses without prescription, hair pulled back. Tomorrow: someone else entirely.',
+ heritage:'North America · Los Angeles (California Free State), in Seattle for five years',
+ background:'Media · stunt double and bit parts in trid series, then acting lessons for people who did not want to act',
+ vice:'Gambling · Krist’s fight clubs under the Kingdome grounds, bets on anything that moves',
+ idn:'None of your own anymore. The fake SIN changes with the role; the current one reads “Dr. L. Voss, art insurance” (see Fine Cover Identity). You choose the first name to fit the part.',
+ friendsLabel:'Sly Friends',
+ role:'Becomes someone who is allowed to be here: catering, insurance assessor, security. Fetches the keycard without anyone noticing it was fetched.',
+ feel:'Disguise, deception, the moment everyone believes what you say. You win scenes in which nobody draws a gun.',
+ metaTraits:['No special traits. By the rules you may instead pick up to two free permutations to represent an easier life. Talk it over with the GM or skip it.'],
+ cyber:'An inconspicuous voice modulator in the larynx (changes pitch and accent) and a datajack behind the ear for simsense recordings from your trid days.',
+ karma:['You addressed a challenge with deception or information.'],
+ abilities:[{tag:'Start',t:'When you use a disguise or other form of covert misdirection, you get +1d to rolls to confuse or deflect suspicion. When you throw off your disguise, the resulting surprise gives you the initiative in the situation.'}],
+ items:['A vial of pheromones and a thermoplastic mask kit with expert appliances. May increase the effect of your deceptions.','Fake licenses, business holo-cards, planted rumors and relationships: enough to pass as a different person.','Low calibre, vanished up a sleeve. Hard to find even in a search.','Compromising recordings, embarrassing video or incriminating evidence.','One dose: the victim slips into a calm, suggestible state, similar to hypnosis.','Standard gear: makeup kit, subvocal communicator, janitor outfit, blank licenses, reversible coat.'],
+ friend:{n:'Nadia Feld, shift planner at Silberkante Catering',t:'Sells empty shift slots at galas for cash. She knows Silberkante is catering the Meridian Spire tonight and what the shift list on the supervisor’s tablet looks like.'},
+ rival:{n:'Detective Marisol Ruiz, contracted police service',t:'Missed Chameleon by a hair two years ago and has collected every recording of a person who never shows up twice since.'},
+ why:'The bookies want their money and you have skipped town too often already. But honestly: a gala, a vault, a curator with a cybereye and a case nobody may open. It is the best role you have been offered in years.',
+ shine:['<b>Garage & freight lobby:</b> With Nadia’s shift slot and a catering uniform you come in over the loading dock. The shift supervisor scans her tablet: Master of Disguise gives you +1d when she hesitates.','<b>Event office & hatch:</b> In a security uniform you demand the keycard “on Kade’s orders for the return transport”. Influence 2, risky. On a 4/5 the event manager calls Kade.','<b>Guest restroom & locker room:</b> In as a guest, out as staff. Fine Cover Identity carries you as an insurance assessor all the way to Dr. Venn.'],
+ lore:{h:'Trideo, simsense and identities for sale',t:'Trid is the television of the Sixth World: three-dimensional, everywhere, with stars more powerful than senators. Simsense goes further and plays feelings and senses straight into the brain. Anyone who was famous in this world knows how cheap identity is: on the black market a SIN costs less than a good dinner, but it only holds as long as nobody looks closely.'},
+ gm:'The cover identity “Dr. Voss” really exists: a Zurich art insurer Dr. Venn has exchanged e-mails with. Venn will politely ask how the weather was in Zurich. A slip here makes Venn suspicious (consequence); a success opens the private viewing. Detective Ruiz is not in the Spire, but her name suits the Heat reckoning after the run.',
+},
+kessel:{
+ street:'Kessel',pbDesc:'Hacker: digital spy and virtual weapon',idnShort:'SINless · own fake',
+ look:'Mid twenties, broad shoulders, braided hair with a data cable as jewelry. Hoodie covered in stickers, the cyberdeck belt underneath.',
+ heritage:'North America · Puyallup, Seattle, grew up in the shadow of the Ash Pit',
+ background:'Academic · Matrix informatics at U-Dub, expelled in the third semester for rewriting the grading system',
+ vice:'Obligation · two younger siblings in Puyallup whose school fees and clinic bills you pay',
+ idn:'Never had a real one. You built the fake SIN yourself; it survives every routine check and no targeted one.',
+ friendsLabel:'1337 Friends',
+ role:'Guest list, cameras, elevators, drones: anything with a network is your door. You see the building as a data flow and find the spot where it stalls.',
+ feel:'Matrix, cameras, airlocks and the feeling of hearing the building breathe. You are rarely where the shooting is, and still everywhere.',
+ metaTraits:['Your senses detect nearby thermal signatures that are normally invisible.','You are not fast at light load, but you remain inconspicuous at normal load. People underestimate you, and your stature.','You do not suffer a harm penalty until an entire row is filled.','Alcohol does not linger. Resisting poison or disease costs only 1 edge.'],
+ cyber:'Datajack at the left temple, cybereyes with image link and low-light amplifier. Your cyberdeck “Kessel” is soldered together from three corporate commlinks and carries a pendant from your sister.',
+ karma:['You addressed a challenge with information or cybercrime.'],
+ abilities:[{tag:'Start',t:'You are always aware of online devices in your presence. Take +1d when you gather information about high technology by any means.'}],
+ items:['A modified comm that spots hidden data trails and quietly exploits them. Feature: smart (cannot be hacked to turn against you).','Illegal apps for the cyberdeck: Armor, Arsenal, Breach, Mask. Executing several warez in one run draws attention.','A database of architectural and city plans. Say which plans you loaded when the run starts.','Signal scanner, wireless data taps, tracer tags, long-range audio and video sensors.','A lightweight headband for entering virtual reality without a datajack.','A thin case with a seat and trodes: the safe corner from which you take over the building.'],
+ friend:{n:'Glitch, former building-automation spider',t:'Maintained the elevator controls of the Meridian Spire as a subcontractor. Knows the building-control node in the garage, the maintenance schedule of the facade gondola and the rule that the freight elevator does not stop at 110.'},
+ rival:{n:'Nullpunkt, Matrix competition',t:'Sells the same exploits to the same people, just an hour earlier. Claims Kessel’s cyberdeck is “a toaster with ambitions”.'},
+ why:'The clinic in Puyallup keeps sending reminders. Six nuyen clears the rest. And Glitch said something that will not let you go: “Level 110 has its own host. Nobody builds that for art.”',
+ shine:['<b>Garage, building-control node:</b> From here you reach elevators, doors and the garage cameras. Not level 110, but you can make the freight elevator stop there.','<b>Security room & cameras:</b> Swap footage, mark a sensor as defective: that is how Alert drops again. Search Protocol tells you which drone is transmitting right now.','<b>Security server 110:</b> Physical access to doors, sensors and drone logic of the level. Controlled, but every login is logged: Heat after the run.'],
+ lore:{h:'The Matrix',t:'The Matrix is everywhere: as augmented reality over the street, as virtual reality when you plug in via trodes or datajack. Corporations run hosts; their security hackers are called spiders. Break in and you risk biofeedback that injures the body. Deckers like Kessel build their tools from scrap because a legal cyberdeck costs more than an apartment in Bellevue.'},
+ gm:'Kessel’s siblings are the lever for Veyrath’s greed test: the compact piece of cybertechnology in the collection is exactly the prosthetic controller the sister needs. Describe it when Kessel sees the case. Glitch is right: the host of 110 is separate from the building host (plan 110, location 8). A hack from the garage cannot reach it; physical access in the server room can.',
+},
+zephyr:{
+ street:'Zephyr',pbDesc:'Rigger: technology, flying skill, control over every machine',idnShort:'SIN “killed in action”',
+ look:'Late thirties, sun-weathered, short hair, a flight jacket with the patches cut off. Control-rig jacks at the neck, always a tool belt at the hip.',
+ heritage:'North America · Atlanta (CAS), drone missions for the UCAS Army, stuck in Seattle since',
+ background:'Military · reconnaissance and transport drones in the Desert Wars, dishonorably discharged after refusing an order',
+ vice:'Stupor · cheap synth whisky at the hangar bar “Cap’s” at Everett field, at night when the memories get loud',
+ idn:'Your real military SIN was set to “killed in action” when you left. For everyday life you carry a fake civilian SIN.',
+ friendsLabel:'Handy Friends',
+ role:'Air route, facade gondola, skycab, drones in the shaft: where others look for a door, you see a flight corridor. You get the crew up and back down.',
+ feel:'Vehicles, drones and the view through other people’s cameras. Your body sits in the van; your head is already flying over the tower.',
+ metaTraits:['No special traits. By the rules you may instead pick up to two free permutations. Talk it over with the GM or skip it.'],
+ cyber:'A control rig in the neck that links you directly to drones and vehicles. When you “rig”, your body slumps and breathes shallowly. Your left hand is a plain army-issue prosthesis.',
+ karma:['You addressed a challenge with technical skill or control.'],
+ abilities:[{tag:'Start',t:'You can Finesse a vehicle to take off, control or land it, regardless of its means of propulsion. You gain potency when you make difficult maneuvers while piloting a vehicle.'}],
+ items:['“Dragonfly”: a palm-sized rotor drone with camera and microphone, fits through the drone shaft. More features cost one special item choice each.','A heavy motorcycle with sidecar, waiting at the VIP drop-off or the ramp. Seats two, drives autonomously.','Three chemicals or gadgets: Hypersolvent, Hyperglue, Thermite Gel, Nightshades, Sensor Tag, Spatial Scanner, Thermite Rod, Vehicular Override.','Three sprays or patches: Antidote Patch, Hard-Clot, Sterilizer, Stim Patch, Stun Patch.','Soldering irons, special wrenches, precision sensors, a headlamp with magnification.'],
+ friend:{n:'“Cap” Okafor, tilt-rotor pilot',t:'Flies freight routes over the Sound and is not afraid of a pass at 400 meters. She drops the crew above the roof or picks them up again at the east facade.'},
+ rival:{n:'Dispatcher Vance, Seattle skycab control',t:'Once caught Zephyr rerouting a skycab without clearance. He knows the control rig’s signature and reports it with pleasure.'},
+ why:'You want your old reconnaissance drone back; a scrap dealer in Tacoma holds it for twelve nuyen. Six is a start. And this run has altitude, wind and a tower that deserves a proper approach.',
+ shine:['<b>Roof & skycab pad:</b> With Ace and Cap you come in from above. The approach transponder grants hacked skycabs landing clearance; without clearance the cab circles and calls in.','<b>Facade gondola:</b> Control box on the roof, docking point on 110. Finesse 2 for the ride in the wind, Vehicular Override from the Utility Harness for the electronics.','<b>Drone shaft:</b> “Dragonfly” flies from the garage to the kitchen on 111 and up to the roof. Gear in portions, eyes everywhere, and nobody asks a delivery drone for an invitation.'],
+ lore:{h:'Riggers, drones and corporate wars',t:'A control rig links the nervous system directly to machines: whoever rigs feels the rotor like their own hand. Such implants cost Essence, a piece of humanity that cannot be bought back. The Desert Wars are the televised wars of the corporations, mercenaries fighting in front of cameras. Anyone who flew there knows the difference between a target and a person.'},
+ gm:'Zephyr’s control rig is registered army property. Kade’s security arch recognizes military augmentation and reports it silently (Alert +1) if Zephyr walks through the foyer. The gondola ride is the classic Dragon’s Deal: “It takes you exactly to the target and then locks itself to the outside of the building.” Cap flies reliably, but only once: a second pass draws the attention of airspace control.',
+},
+
+bastion:{
+ street:'Bastion',pbDesc:'Muscle: dangerous, intimidating, the crew’s shield',idnShort:'corporate SIN expired',
+ look:'2.40 m, calm movements, one horn sawn off (the other polished). Dark coat over a bulletproof vest, a voice like a refrigerator starting up.',
+ heritage:'Europe · Hamburg (Allied German States), brought to Seattle ten years ago on a security contract',
+ background:'Law · twelve years of corporate security and close protection at Sentinel Solutions, fired for refusing a shoot order',
+ vice:'Obligation · your ex and your daughter in Tacoma, whose school fees you transfer on time, whatever it costs',
+ idn:'A real corporate SIN from Sentinel Solutions, expired with the dismissal. Never replaced, so every checkpoint is a problem.',
+ friendsLabel:'Dangerous Friends',
+ role:'Stands between the crew and whatever goes wrong. Knows how security people think because you were one. Masters violence instead of needing it.',
+ feel:'Presence, protection, calm in the storm. You win by getting the crew out in one piece, not by counting opponents.',
+ metaTraits:['Your senses detect nearby thermal signatures.','You are never inconspicuous (not even at light load), but you are not slower at heavy load and carry +1 load. People fear your kind.','Skin and bones are hardened: one extra armor box and +1d on resistance rolls with Body.','Horns as weapons. You had one removed; the other makes people nervous.'],
+ cyber:'No implants, on principle. “I have seen enough chrome in faces that felt nothing anymore.” Kevlar under the coat instead, and a security license that still looks real.',
+ karma:['You addressed a challenge with violence or coercion.'],
+ abilities:[{tag:'Start',t:'When you protect a teammate, take +1d to your resistance roll. When you gather information to anticipate possible threats in the current situation, you get +1 effect.'}],
+ items:['Lighter and less conspicuous than normal armor, with a (real or forged) security license. Passes the arch in the foyer plausibly.','Shock gloves: more effect when you intimidate, not more harm. Non-lethal when it has to be.','Self-latching manacles with impact-resistant chain. A souvenir from the security days.','A devastating heavy weapon, here a shotgun from Sentinel stock. Potency when power or reach matter.','Combat drug: strength, pain tolerance, rage for minutes. Then two consequences: “Can’t tell friend from foe” and “Can’t stop until they’re all broken”.','Standard: a telescopic baton. Getting medieval, but under control.'],
+ friend:{n:'Doc Amsel, street doctor in Tacoma',t:'Patches up runners without questions and amputated Bastion’s horn. She knows every bodyguard in town who is on duty at a gala tonight.'},
+ rival:{n:'Dorian Kade, head of security at the gala',t:'Was Bastion’s team leader at Sentinel Solutions and signed the dismissal. Kade has a memory for faces and two chromed arms Bastion never liked.'},
+ why:'You need the money for Tacoma, but you take the job because Mr. Johnson said: no wetwork. A run where nobody dies, in a tower Kade guards. You want to prove that security can be beaten without a shoot order.',
+ shine:['<b>Foyer & security arch:</b> Light Armor with a license plus Oversized means: they see you, but they expect you too. As a hired bodyguard of a guest you are plausible.','<b>Drone node 110:</b> Guardian drones block first and shoot last. Bodyguard gives you +1d when you put yourself in front of the crew and +1 effect when you read their states.','<b>Kade:</b> You know his routine, his twitches, his pride. Consort or Command to read him, Survey to predict his rounds. As long as he does not see you.'],
+ lore:{h:'Trolls, goblinization and corporate security',t:'In 2021 people all over the world turned into orks and trolls overnight: goblinization. Trolls are strong, armored and live with doors, chairs and prejudices not built for them. Corporations like hiring them as security and dislike giving them responsibility. A troll who refuses a shoot order is a legend in the shadows and an HR case in Bellevue.'},
+ gm:'Kade recognizes Bastion at once if he sees the character undisguised: no siren, but a conversation (“Well now. I thought you were doing night watch in Tacoma these days.”). Afterwards he does not let Bastion out of his sight (Alert +1, one guard stays in view), but he might also ask something useful to the crew. Bastion’s test is not greed but honor: Veyrath judges especially whether violence is avoided when violence would be easier.',
+},
+fizz:{
+ street:'Fizz',pbDesc:'Punk: wily, streetwise, chaos with a plan',idnShort:'SINless',
+ look:'19, wiry, neon-green streaks, tusk caps made from spray-can aluminium. Hoodie, climbing gloves, hoverboard under one arm. You chew gum constantly.',
+ heritage:'North America · Redmond Barrens, Seattle. Never been further than Bellevue, and only to steal.',
+ background:'Underworld · courier runs and climbing for the Rusted Halos, a go-gang you left when the leader started killing',
+ vice:'Pleasure · rooftop parties above Glow City, adrenaline, loud music, anything that tastes like life',
+ idn:'None. Never had one. To you the city is a climbing wall without ID checks.',
+ friendsLabel:'Shady Friends',
+ role:'Takes the routes that officially do not exist: access ladder, maintenance shaft, glass roof, ceiling void. Creates distractions when things get hot, and is the first one back outside.',
+ feel:'Parkour, improvisation, sabotage and the thrill of being seen and getting away anyway.',
+ metaTraits:['You can see in low light as well as if it were well lit.','Regain 1 edge when you roll a critical on a desperate action roll.','Spend 1 edge to ignore a harm penalty (including incapacitation) for an action.'],
+ cyber:'No implants, but you would love cybereyes. Instead a scratched commlink with a climbing app, gecko gloves and a hoverboard with hand-sprayed flames.',
+ karma:['You addressed a challenge with surprise or mayhem.'],
+ abilities:[{tag:'Start',t:'You may expend your special armor to resist a consequence from detection or security measures, or to push yourself for a feat of escape or stealth.'}],
+ items:['Nanofiber gloves with extreme adhesion: climb smooth and vertical surfaces, hold things securely.','A full bodysuit of smart cloth that blends you into the darkness.','Three electronic bombs on a strap: Bangflash, EMP Grenade, Pepper Smoke, Tear Gas. EMP against drones, smoke against cameras.','Tranquilizer for an hour of sleep. Sprayed in the face it works briefly but hard.','A small hoverboard for tricks, with graphics of your choice. Or spiked boots, or a fanny pack full of marbles.','Standard: grappling hooks, suction gloves, carabiners. For anyone without gecko gloves.'],
+ friend:{n:'Mondo, facade cleaner for the maintenance firm',t:'Rides the Meridian Spire’s gondola every Tuesday. He tells you where the control box sits, when the schedule calls for a run and that the terrace camera only sees the drone pad.'},
+ rival:{n:'Ripfang, leader of the Rusted Halos',t:'Takes it personally that Fizz left. His gang controls the streets around the approach to Bellevue.'},
+ why:'Your little brother Teo is eleven and starting to think the Rusted Halos are cool. Six nuyen is an apartment outside the Barrens. Besides: 112 floors of glass. You have never seen anything that tall that you have not climbed.',
+ shine:['<b>Access ladder & maintenance shaft:</b> From the terrace on 111 to the roof, from the roof down the shaft to 110, without touching the party. Catch Me If You Can pays for the moment a sensor trips after all.','<b>Ceiling void:</b> From the locker room over the partition wall into the event office. Tight, dark, exactly your thing. The keycard lies below in its box.','<b>Distraction:</b> Pepper smoke in the salon, a guest falls into the pool, a tray tips over: you buy the crew the two minutes in which nobody is watching.'],
+ lore:{h:'The Barrens, go-gangs and life without a SIN',t:'Redmond used to be a tech suburb. Today the Barrens are a district without power, police or garbage collection, where gangs are the order. Those born here often have no SIN: no school, no doctor, no way out except the shadows. Orks are born where humans move away. Fizz does not consider that fate, but a wall you can climb.'},
+ gm:'Foolish Pride is also a character trait: Fizz cannot resist a dare. The jewel casket lies in the collection right next to the door and fits in the fanny pack. Describe it before you describe the case. Mondo’s knowledge of the gondola is real, but every ride is logged (roof plan, location 7). Ripfang can show up as a response-clock complication during the escape through the Barrens.',
+},
+stille:{
+ street:'Hush',pbDesc:'Adept: magic in the body, perfection as a path',idnShort:'real SIN',
+ look:'Early thirties, slim, very upright, short black hair. Plain dark clothes without logos; fine white tattoos on neck and the backs of the hands that glow in astral space.',
+ heritage:'Asia · Seoul, moved to Seattle with your parents as a child; grew up between two languages and a dojo',
+ background:'Academic · dropped philosophy, taught martial arts for ten years, then security consulting until too many contracts raised questions',
+ vice:'Faith · meditation at Master Oyelaran’s dojo in Georgetown. You call it discipline; it is an addiction to stillness.',
+ idn:'A real, unremarkable SIN. You are registered, pay taxes and exist for the state as someone who teaches martial arts.',
+ friendsLabel:'Strange Friends',
+ role:'Moves where sensors stand and senses danger before it arrives. Reads people like a pulse. Solves conflicts with a grip instead of a bullet.',
+ feel:'Perception, body control, quiet superiority. You are the one who sees the trap before anyone walks into it.',
+ metaTraits:['No special traits. By the rules you may instead pick up to two free permutations. Talk it over with the GM or skip it.'],
+ cyber:'No implants: cyberware would weaken your magic. Your tattoos are Fine Mystic Body Art, a focus that carries your way.',
+ karma:['You addressed a tough challenge with inner perfection or mystical power.'],
+ abilities:[{tag:'Required',t:'Way of the Body (Fight, Finesse, Prowl, Wreck): three of your starting dots lie there. You resist supernatural consequences with Body. You can never become Awakened or Emergent. Choose an adept drawback from the rulebook.'},{tag:'Start',t:'Spend 1 edge to perceive beyond normal limits for several minutes. Detect subtle environmental changes (temperature, frequency, pressure), sense the presence of danger, become a living lie detector.'}],
+ items:['Tattoos that focus your adept core. Supernaturally bonded, unique, painstaking to remove.','A small item, here a worn prayer chain, that shows visions of the past or near future of a place, whether you want them or not.','A short staff effective against astral beings. For the Trial by Fire more ballast than help, unless the watcher comes closer.','Standard: throwing knives or a blowgun with tranquilizer darts. Quiet, light, usable non-lethally.','Standard: grappling hooks and carabiners in case Prowl 2 is not enough for once.'],
+ friend:{n:'Master Oyelaran, dojo owner in Georgetown',t:'Trains half of Seattle’s security industry. He knows which guards stand in the Spire tonight, which of them are augmented and who gets careless after a 14-hour day.'},
+ rival:{n:'Aurel Voss, adept in the service of a corporate security firm',t:'Once trained beside Hush and considers this path a weakness. He advises security companies in Bellevue, occasionally Vesperline too.'},
+ why:'You seek tasks that make you grow. A tower full of sensors, drones and a curator who must not be harmed is a test of your discipline. The money goes to the dojo. The test is yours.',
+ shine:['<b>Sensor corridor 110:</b> Adept Senses feel light barriers as warmth, pressure plates as unevenness, cameras as a hum. Prowl 2 carries you through.','<b>Dr. Venn:</b> As a living lie detector you notice her turning suspicious before she shows it. Study to read her; Finesse to capture the iris scan unnoticed.','<b>Conservatory glass roof:</b> The vent flap sticks mechanically, no sensor. Five meters of rope into soft plants is a step for you.'],
+ lore:{h:'The Awakening and the adepts',t:'Magic has been back in the world since 2011. About one in a hundred people is Awakened: mages cast and summon, adepts channel mana into their own bodies and become faster, more alert, harder, without anyone seeing it. Cyberware and magic do not mix: every implant costs Essence and weakens the gift. Adepts like Hush therefore choose the body they have and make it the weapon.'},
+ gm:'Hush’s aura is as bright in astral space as a mage’s. The watcher on 110 notices it just like a sorcerer (Alert +1 for astral activity nearby). The Strange Trinket is a tool for foreboding: in front of the vault door it can show a vision of a huge shadow gliding across the facade. A quiet foretaste of Veyrath without giving away the twist.',
+},
+ravn:{
+ street:'Ravn',pbDesc:'Mage: Awakened, hermetic, a view into astral space',idnShort:'corporate SIN cancelled',
+ look:'Mid forties, greying temples, strong polished tusks. Tweed jacket, reading glasses with a sensing focus, a ring of meteoric iron on the little finger.',
+ heritage:'Europe · Kraków, transferred to Seattle on a corporate contract and stayed',
+ background:'Corporate · wage mage in a corporation’s magical security: check barriers, banish spirits, do not ask questions. You asked.',
+ vice:'Weird · conversations with “Vesna”, a free spirit living in the empty library at Pike Place who only answers in rhymes',
+ idn:'Your corporate SIN was deleted with the dismissal. You live on a fake SIN, occupation: independent scholar.',
+ friendsLabel:'Strange Friends',
+ role:'Sees what nobody else sees: barriers, watchers, magical auras, the case among a hundred objects. Casts quietly and knows how corporate mages think.',
+ feel:'Knowledge, astral space, spells with deliberation. You are the one who says: “Wait. There is something about this wall.”',
+ sup:{attr:'Awakened · counts toward the 7 dots',gloss:'perceive astrally, read barriers and spirits'},
+ metaTraits:['You can see in low light as well as if it were well lit.','Regain 1 edge when you roll a critical on a desperate action roll.','Spend 1 edge to ignore a harm penalty (including incapacitation) for an action.'],
+ cyber:'No implants: every piece of chrome would weaken your magic. Your foci are glasses and ring.',
+ karma:['You addressed a challenge with knowledge or magical power.'],
+ abilities:[{tag:'Required',t:'Arcane method: hermetic tradition (choose drawbacks per the rulebook). You may roll the Assense action; when you roll a desperate Assense action, mark 1 karma on the Willpower track. Buy further Assense dots as a Willpower advance. Never Emergent or an adept.'},{tag:'Start',t:'You know the unique methods to activate metaplanar energies through your body to cast spells. You can Study a spell formula to summon a supernatural effect. You begin with two spells already learned.'}],
+ spells:{h:'Two spells learned',list:[{n:'Stunbolt',t:'A surge of mana against a target’s mind: unconsciousness instead of wounds. Non-lethal, silent, visible only to the Awakened. Study, line of sight.'},{n:'Veil',t:'An illusion over a person or thing: different clothes, another face, a case that looks like a briefcase. Lasts as long as you concentrate. It fools people, not cameras.'}]},
+ items:['The ring of meteoric iron: wield spells with exceptional control.','Glasses through which you see arcane energies in great detail. Also some protection against possession.','A small arcane amulet that astral beings prefer to avoid.','Grave dust, prayer beads, awakened feathers: concentrated essence for big spells, deteriorates after use.','An awakened animal as a companion (cohort, expert). Ravn has none; Vesna would supposedly be jealous.'],
+ friend:{n:'Talia Vance, talismonger in Tacoma',t:'Deals in foci and reagents and hears everything Seattle’s Awakened gossip about. She has heard that the barrier in the Meridian Spire was drawn by a master nobody knows.'},
+ rival:{n:'Dr. Henrik Solvay, Ravn’s former supervisor',t:'Still runs the magical security of the former corporation and has marked Ravn’s file “unreliable, monitor whereabouts”.'},
+ why:'For twelve years you drew barriers for people who never told you what lay behind them. Now, for once, you want to know what is behind a wall built this well. The nuyen pay for Vesna’s library. The curiosity you pay yourself.',
+ shine:['<b>Vault 110:</b> Assense shows you the dual mana barrier, the living tissue and the watcher on its rounds. At the doorway you see how the barrier is opened in a controlled way: an advantage for any way in of your own.','<b>The collection:</b> The case carries a faint, old aura. Among a hundred glittering things it is the only one that whispers to you. You also see which antiques are magical and which are merely expensive.','<b>Stunbolt & Veil:</b> A guard sleeps, a runner looks like staff, the case looks like a briefcase. Non-lethal, silent, exactly as Johnson demanded.'],
+ lore:{h:'Hermetics, astral space and dragons',t:'Awakened mages follow traditions: hermetics treat magic as a science of formulas and circles, shamans as a relationship with spirits and mentors. Astral space is the second layer of the world, where thoughts have colors and barriers stand like walls. At the very top stand the Great Dragons: ancient, unimaginably rich, seated on corporate boards. Some walls were not built for people.'},
+ gm:'Ravn recognizes the vault shell as a cultivated dual barrier: a technique that costs decades and a fortune. No corporation builds that for art. That is the trail to Veyrath without giving away the twist. Before the run Vesna told Ravn in rhymes that the tower “has a heartbeat”. The watcher reports astral activity (Alert +1) but does not attack; Ravn can distract it with Assense or stay still. Solvay is a Heat complication for after the run.',
+},
+};
+const CREWS_EN=[
+ {n:'The Invitation',t:'Mercer (Face), Kessel (Hacker), Bastion (Muscle), Ravn (Mage). In through the glass elevator, Venn in conversation, cameras under control, a shield in front of the crew and a look into astral space.'},
+ {n:'The Quiet Ones',t:'Chameleon (Snake), Fizz (Punk), Hush (Adept), Kessel (Hacker). Through the garage as staff, keycard from the event office, maintenance shaft down to 110, not a shot fired.'},
+ {n:'The Air Route',t:'Zephyr (Rigger), Fizz (Punk), Bastion (Muscle), Hush (Adept). Onto the roof from above, ladder and shaft, gondola to the technical airlock, skycab for the getaway.'},
+ {n:'Three players',t:'Mercer, Fizz and Ravn: charm, climbing and magic. Replace Kessel’s camera work with flashbacks and Fizz’s EMP grenades.'},
 ];
+
+/* ---------- Dossiers: Renderer, DE + EN ---------- */
+const UI={
+ de:{subtitle:'Acht vorgefertigte Runner für den Oneshot im Meridian Spire · Seattle 2080',gmOn:'SL-Notizen anzeigen',gmOff:'Spieleransicht',plans:'Zu den Plänen des Meridian Spire',
+  role:'Rolle im Run:',profile:'Profil',look:'Aussehen',heritage:'Herkunft',background:'Hintergrund',vice:'Laster',idn:'IDN (SIN)',contacts:'Kontakte',metatype:'Metatyp:',implants:'Implantate & Körper',
+  karma:'Karma-Auslöser',karmaAlways:'Dazu immer: Überzeugung, Herkunft oder Hintergrund ausgespielt · Laster oder Trauma haben Ärger gemacht.',
+  actions:'Actions · 7 Punkte',sup:'Übernatürlich',resist:'Resistance',edgeSub:'Kästchen · pushen 2 · assistieren 1',harm:'Harm',harmSub:'Stufe 4 = tödlich',lvl:'Stufe',h1:'weniger Effect',h2:'−1d',h3:'braucht Hilfe',
+  armor:'Armor',armorTroll:'Troll-Panzer',load:'Load',loadDefault:'Light 3 · Normal 5 · Heavy 6',loadBonus:'durch Metatyp',nuyen:'Nuyen',nuyenSub:'Start 2 · Stash 0',nuyenText:'Bezahlung laut Johnson: 6 Nuyen für die Crew bei sauberer Übergabe.',reset:'Tracker zurücksetzen',
+  abilities:'Spezialfähigkeiten',gear:'Ausrüstung · Load',gearHint:'● empfohlen für die Feuerprobe. Dazu jederzeit Standardausrüstung: Kommlink (0), Armor (2), Pistole (1), Burglary Gear (1), Climbing Gear (2), Subterfuge Supplies (1) und mehr.',
+  friend:'Freund',rival:'Rivale',why:'Warum du diesen Job nimmst',shine:'So glänzt du im Meridian Spire',lore:'Shadowrun-Einblick:',gm:'Nur für die Spielleitung',
+  name:'Name',namePh:'frei wählbar · „{s}“ ist nur der Straßenname',pron:'Pronomen',pronPh:'sie · er · dey · …',
+  crews:'Empfohlene Crews für 3–4 Spieler:innen.',crewsSub:'Jede Zusammenstellung deckt Zugang, Keycard, Venn und den Weg nach 110 auf eigene Weise ab.',
+  fine:'Fan-Material für den privaten Spieltisch. <i>Runners in the Shadows</i> ist ein Forged-in-the-Dark-Spiel von Mark Cleveland Massengale; <i>Shadowrun</i> ist eine Marke von The Topps Company / Catalyst Game Labs. Fähigkeiten, Gegenstände und Metatyp-Merkmale folgen der RitS-Version 0.998, ins Deutsche übertragen; Namen, Kontakte und Geheimnisse sind Eigenkreationen für die Feuerprobe.',
+  glosses:{engineer:'Technik, Basteln, Reparieren',interface:'Matrix, Hacken, Geräte steuern',stalk:'Aufspüren, Verfolgen, Zielen',survey:'Beobachten, Lage erfassen',fight:'Kämpfen, Nahkampf, Schusswechsel',finesse:'Geschick, Präzision, Fahrzeuge',prowl:'Schleichen, Klettern, Verstecken',wreck:'Zerstören, Sprengen, rohe Gewalt',command:'Befehlen, Einschüchtern',consort:'Umgang, Netzwerken, Kontakte',influence:'Überzeugen, Täuschen, Charme',study:'Analysieren, Wissen, Zaubern'},
+  attrDe:{Intuition:'Intuition',Body:'Körper',Willpower:'Wille'}},
+ en:{subtitle:'Eight pregenerated runners for the one-shot in the Meridian Spire · Seattle 2080',gmOn:'Show GM notes',gmOff:'Player view',plans:'To the Meridian Spire plans (German)',
+  role:'Role in the run:',profile:'Profile',look:'Look',heritage:'Heritage',background:'Background',vice:'Vice',idn:'IDN (SIN)',contacts:'Contacts',metatype:'Metatype:',implants:'Implants & body',
+  karma:'Karma triggers',karmaAlways:'Always in addition: you expressed your beliefs, heritage or background · your vice or trauma caused trouble.',
+  actions:'Actions · 7 dots',sup:'Supernatural',resist:'Resistance',edgeSub:'boxes · push 2 · assist 1',harm:'Harm',harmSub:'level 4 = fatal',lvl:'Level',h1:'less effect',h2:'−1d',h3:'needs help',
+  armor:'Armor',armorTroll:'Troll armor',load:'Load',loadDefault:'Light 3 · Normal 5 · Heavy 6',loadBonus:'from metatype',nuyen:'Nuyen',nuyenSub:'start 2 · stash 0',nuyenText:'Johnson’s pay: 6 nuyen for the crew on a clean handover.',reset:'Reset trackers',
+  abilities:'Special abilities',gear:'Gear · load',gearHint:'● recommended for the Trial by Fire. Standard gear anytime: Comm (0), Armor (2), Pistol (1), Burglary Gear (1), Climbing Gear (2), Subterfuge Supplies (1) and more.',
+  friend:'Friend',rival:'Rival',why:'Why you take this job',shine:'How you shine in the Meridian Spire',lore:'Shadowrun insight:',gm:'GM only',
+  name:'Name',namePh:'your choice · “{s}” is just the street name',pron:'Pronouns',pronPh:'she · he · they · …',
+  crews:'Recommended crews for 3–4 players.',crewsSub:'Each line-up covers entry, keycard, Venn and the way down to 110 in its own way.',
+  fine:'Fan material for the private gaming table. <i>Runners in the Shadows</i> is a Forged in the Dark game by Mark Cleveland Massengale; <i>Shadowrun</i> is a trademark of The Topps Company / Catalyst Game Labs. Abilities, items and metatype traits follow RitS version 0.998; names, contacts and secrets are original creations for the Feuerprobe one-shot.',
+  glosses:{engineer:'tech, tinkering, repairs',interface:'Matrix, hacking, controlling devices',stalk:'tracking, hunting, aiming',survey:'observing, reading the scene',fight:'combat, melee, gunfire',finesse:'dexterity, precision, vehicles',prowl:'sneaking, climbing, hiding',wreck:'breaking, blasting, brute force',command:'orders, intimidation',consort:'rapport, networking, contacts',influence:'persuasion, deceit, charm',study:'analysis, knowledge, spellcasting'},
+  attrDe:{Intuition:'Intuition',Body:'Body',Willpower:'Willpower'}},
+};
+const INTRO={
+ de:`<article class="card"><h2>Willkommen in den Schatten</h2>
+<p><b>Seattle, 2080.</b> Die Stadt gehört den Megakonzernen. Ihre Türme stehen auf exterritorialem Boden, ihre Sicherheitsdienste ersetzen die Polizei, ihre Werbung hängt als AR-Schicht über jeder Straße. In Bellevue glitzert das Geld, in den Redmond Barrens fällt der Strom stundenweise aus.</p>
+<p><b>Metamenschen.</b> Seit dem Erwachen der Magie (2011) und der Goblinisierung (2021) gibt es Elfen, Zwerge, Orks und Trolle. Sie sind Nachbarn, Kolleginnen, Kinder. Vorurteile gegen Orks und Trolle gehören trotzdem zum Alltag, und mancher Elf tut so, als wäre er etwas Besseres.</p>
+<p><b>Die Matrix.</b> Jeder trägt ein Kommlink, jede Oberfläche spricht mit dir. Wer tiefer will, geht per Trodes oder Datenbuchse in die virtuelle Realität. Hacker knacken Konzernsysteme, Konzern-Spinnen jagen sie.</p>
+<p><b>Magie.</b> Erwachte sind selten und begehrt. Magier zaubern und beschwören Geister, Adepten lenken Magie in ihren Körper. Es gibt Astralraum, Manabarrieren und Drachen, die Konzerne leiten und in den Nachrichten auftreten.</p>
+<p><b>Runner.</b> Ihr seid Profis ohne offizielle Existenz. Wer keine SIN (System-Identifikationsnummer) hat, ist für den Staat nicht da: kein Konto, keine Wohnung, keine Rechte. Dafür gibt es Aufträge von Leuten, die sich <i>Mr. Johnson</i> nennen, bezahlt in Nuyen. Die alte Regel lautet: Vertrau niemandem. Schieß nie zuerst. Halt dich an den Deal.</p></article>
+<article class="card"><h2>So liest du deinen Bogen</h2><ul class="rules">
+<li><span>Actions</span><span>Zwölf Fertigkeiten in drei Gruppen. Du würfelst so viele W6, wie die Action Punkte hat, und zählst nur den höchsten: <span class="dice">6</span> voller Erfolg, <span class="dice">4/5</span> Erfolg mit Consequence, <span class="dice">1–3</span> schlecht. Zwei Sechsen sind ein Critical. Null Punkte: zwei Würfel, der schlechtere zählt.</span></li>
+<li><span>Position</span><span>Vor dem Wurf sagt die SL, wie gefährlich (Controlled, Risky, Desperate) und wie wirksam (Limited, Standard, Great) dein Ansatz ist. Du darfst tauschen: mehr Risiko für mehr Wirkung.</span></li>
+<li><span>Edge</span><span>Deine Reserve (9 Kästchen). 2 Edge: dich pushen, +1d oder mehr Effect. 1 Edge: einem Teammitglied assistieren. Eine Consequence darfst du mit einem Resistance Roll abmildern; der Wurf bestimmt, was es kostet. Volles Edge bedeutet ein Trauma.</span></li>
+<li><span>Resistance</span><span>Gewürfelt wird mit der Attributsgruppe: so viele W6, wie du dort Actions mit mindestens einem Punkt hast. Der Wert steht auf dem Bogen.</span></li>
+<li><span>Harm</span><span>Stufe 1 (leicht): weniger Effect. Stufe 2 (mittel): −1d. Stufe 3 (schwer): du brauchst Hilfe. Stufe 4 ist tödlich. Armor-Kästchen fangen Schaden ab, Special Armor nur das, was deine Fähigkeit nennt.</span></li>
+<li><span>Load</span><span>Du legst vor dem Run nur fest, wie viel du trägst (Light 3, Normal 5, Heavy 6). Welche Gegenstände das sind, entscheidest du, wenn du sie brauchst. ● markiert unsere Empfehlung für diesen Run.</span></li>
+<li><span>Flashback</span><span>Ihr müsst nicht alles vorausplanen. Erkläre mitten im Run, was du vorbereitet hattest, und zahle dafür Edge (0 bis 2, je nach Aufwand).</span></li>
+<li><span>Karma</span><span>Am Ende der Sitzung: Karma für deine Playbook-Auslöser, dafür, dass du Herkunft oder Überzeugung ausgespielt hast, und wenn dein Laster oder Trauma dir Probleme gemacht hat.</span></li></ul>
+<h3>Name, Geschlecht, Gesicht</h3><p class="small">Die Bögen legen weder Namen noch Geschlecht fest. Der große Titel ist nur der Straßenname, unter dem die Figur in den Schatten bekannt ist; Name und Pronomen trägst du oben im Bogen selbst ein. Aussehen, Herkunft und Hintergrund sind Vorschläge, die du mit der SL anpassen kannst.</p>
+<h3>Aufbau der Werte</h3><p class="small">Jeder Bogen hat 7 Action-Punkte (drei vom Playbook, vier frei), keine Action über 2. Erwachte tragen ihre Pflichtfähigkeit zusätzlich zur gewählten Startfähigkeit. Die drei Playbook-Punkte stehen auf deinem offiziellen Playbook-Bogen; weichen sie von hier ab, verschiebe einfach einen der freien Punkte.</p></article>`,
+ en:`<article class="card"><h2>Welcome to the shadows</h2>
+<p><b>Seattle, 2080.</b> The city belongs to the megacorporations. Their towers stand on extraterritorial ground, their security services replace the police, their advertising hangs as an AR layer over every street. In Bellevue the money glitters; in the Redmond Barrens the power goes out for hours.</p>
+<p><b>Metahumans.</b> Since the Awakening of magic (2011) and goblinization (2021) there are elves, dwarves, orks and trolls. They are neighbors, colleagues, children. Prejudice against orks and trolls is still everyday life, and some elves act as if they were something better.</p>
+<p><b>The Matrix.</b> Everyone carries a commlink, every surface talks to you. Those who want to go deeper enter virtual reality via trodes or datajack. Hackers crack corporate systems; corporate spiders hunt them.</p>
+<p><b>Magic.</b> The Awakened are rare and in demand. Mages cast spells and summon spirits; adepts channel magic into their bodies. There is astral space, mana barriers and dragons who run corporations and appear on the news.</p>
+<p><b>Runners.</b> You are professionals without an official existence. Whoever has no SIN (System Identification Number) does not exist for the state: no account, no apartment, no rights. In return there are jobs from people who call themselves <i>Mr. Johnson</i>, paid in nuyen. The old rule: Never trust anyone. Never shoot first. Stick to the deal.</p></article>
+<article class="card"><h2>How to read your sheet</h2><ul class="rules">
+<li><span>Actions</span><span>Twelve skills in three groups. Roll as many d6 as the action has dots and count only the highest: <span class="dice">6</span> full success, <span class="dice">4/5</span> success with a consequence, <span class="dice">1–3</span> bad. Two sixes are a critical. Zero dots: roll two dice, the worse one counts.</span></li>
+<li><span>Position</span><span>Before the roll the GM says how dangerous (controlled, risky, desperate) and how effective (limited, standard, great) your approach is. You may trade: more risk for more effect.</span></li>
+<li><span>Edge</span><span>Your reserve (9 boxes). 2 edge: push yourself, +1d or more effect. 1 edge: assist a teammate. You may soften a consequence with a resistance roll; the roll decides what it costs. A full edge track means a trauma.</span></li>
+<li><span>Resistance</span><span>Roll with the attribute group: as many d6 as you have actions with at least one dot there. The value is on the sheet.</span></li>
+<li><span>Harm</span><span>Level 1 (lesser): less effect. Level 2 (moderate): −1d. Level 3 (severe): you need help. Level 4 is fatal. Armor boxes absorb harm; special armor only what your ability names.</span></li>
+<li><span>Load</span><span>Before the run you only decide how much you carry (light 3, normal 5, heavy 6). Which items those are you decide when you need them. ● marks our recommendation for this run.</span></li>
+<li><span>Flashback</span><span>You do not have to plan everything ahead. Mid-run, explain what you had prepared and pay edge for it (0 to 2, depending on effort).</span></li>
+<li><span>Karma</span><span>At the end of the session: karma for your playbook triggers, for expressing heritage or beliefs, and when your vice or trauma caused you trouble.</span></li></ul>
+<h3>Name, gender, face</h3><p class="small">The sheets fix neither name nor gender. The big title is only the street name the character is known by in the shadows; you enter name and pronouns at the top of the sheet yourself. Look, heritage and background are suggestions you can adjust with the GM.</p>
+<h3>How the numbers work</h3><p class="small">Every sheet has 7 action dots (three from the playbook, four free), no action above 2. Awakened characters carry their required ability in addition to the chosen starting ability. The three playbook dots are on your official playbook sheet; if they differ from here, simply move one of the free dots.</p></article>`,
+};
+const ATTRS=[['Intuition',[['engineer','Engineer'],['interface','Interface'],['stalk','Stalk'],['survey','Survey']]],['Body',[['fight','Fight'],['finesse','Finesse'],['prowl','Prowl'],['wreck','Wreck']]],['Willpower',[['command','Command'],['consort','Consort'],['influence','Influence'],['study','Study']]]];
 const TRAUMA=['Cold','Haunted','Obsessed','Paranoid','Reckless','Soft','Unstable','Vicious'];
-function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');}
-function dots(n,max){let h='<span class="dots" aria-label="'+n+' von '+max+'">';for(let i=0;i<max;i++)h+='<i class="'+(i<n?'on':'')+'"></i>';return h+'</span>';}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+function dots(n,max){let h='<span class="dots" aria-label="'+n+' / '+max+'">';for(let i=0;i<max;i++)h+='<i class="'+(i<n?'on':'')+'"></i>';return h+'</span>';}
+function loc(R,lang){
+  if(lang!=='en'||typeof EN==='undefined'||!EN[R.id])return R;const e=EN[R.id];const o=Object.assign({},R,e);
+  o.metaTraits=R.metaTraits.map((t,i)=>[t[0],(e.metaTraits||[])[i]??t[1]]);
+  o.abilities=R.abilities.map((a,i)=>Object.assign({},a,(e.abilities||[])[i]||{}));
+  o.items=R.items.map((it,i)=>Object.assign({},it,{t:(e.items||[])[i]??it.t}));
+  o.karma=e.karma||R.karma;o.shine=e.shine||R.shine;o.lore=e.lore||R.lore;o.friend=e.friend||R.friend;o.rival=e.rival||R.rival;
+  if(R.sup)o.sup=Object.assign({},R.sup,e.sup||{});if(R.spells)o.spells=e.spells||R.spells;
+  return o;
+}
 const STORE='fp-runner';
 let saved={};try{saved=JSON.parse(localStorage.getItem(STORE)||'{}')||{};}catch(e){saved={};}
 function save(){try{localStorage.setItem(STORE,JSON.stringify(saved));}catch(e){}}
 function st(id){return saved[id]||(saved[id]={edge:[],armor:{},harm:{},load:'normal'});}
+let lang='de',gm=true;
+(function(){try{const q=new URLSearchParams(location.search).get('lang');if(q==='en'||q==='de')lang=q;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}const g=localStorage.getItem('fp-runner-gm');if(g!==null)gm=g==='1';}catch(e){}})();
 
-function renderDossier(R){
-  const a=R.actions||{};
-  const resist=ATTRS.map(([k,de,acts])=>[k,acts.filter(([id])=>(a[id]||0)>0).length]);
-  const loadBase={light:3,normal:5,heavy:6};const lb=R.loadBonus||0;
-  const s=st(R.id);
-  const attrsHtml=ATTRS.map(([k,de,acts])=>`<div class="attr"><h4>${k}<span>${de} · Resistance ${resist.find(r=>r[0]===k)[1]}d</span></h4>${acts.map(([id,en,gl])=>`<div class="act"><div class="an">${en}<small>${gl}</small></div>${dots(a[id]||0,4)}</div>`).join('')}</div>`).join('')
-    +(R.sup?`<div class="attr"><h4>Übernatürlich<span>${esc(R.sup.attr)}</span></h4><div class="act sup"><div class="an">${esc(R.sup.name)}<small>${esc(R.sup.gloss)}</small></div>${dots(R.sup.dots,4)}</div></div>`:'');
+function renderDossier(R0){
+  const T=UI[lang],R=loc(R0,lang),a=R.actions||{},s=st(R.id),lb=R.loadBonus||0,loadBase={light:3,normal:5,heavy:6};
+  const resist=k=>ATTRS.find(x=>x[0]===k)[1].filter(([id])=>(a[id]||0)>0).length;
+  const attrsHtml=ATTRS.map(([k,acts])=>`<div class="attr"><h4>${k}<span>${T.attrDe[k]} · ${T.resist} ${resist(k)}d</span></h4>${acts.map(([id,en])=>`<div class="act"><div class="an">${en}<small>${T.glosses[id]}</small></div>${dots(a[id]||0,4)}</div>`).join('')}</div>`).join('')
+    +(R.sup?`<div class="attr"><h4>${T.sup}<span>${esc(R.sup.attr)}</span></h4><div class="act sup"><div class="an">${esc(R.sup.name)}<small>${esc(R.sup.gloss)}</small></div>${dots(R.sup.dots,4)}</div></div>`:'');
   const edgeMax=R.edgeMax||9;
   const edgeBoxes=Array.from({length:edgeMax},(_,i)=>`<button type="button" class="box" id="${R.id}-edge-${i}" data-k="edge" data-i="${i}" aria-pressed="${s.edge[i]?'true':'false'}" aria-label="Edge ${i+1}"></button>`).join('');
-  const armorDefs=[['armor','Armor'],['heavy','Heavy'],['special','Special']].concat(R.extraArmor?[['extra','Troll-Panzer']]:[]);
+  const armorDefs=[['armor','Armor'],['heavy','Heavy'],['special','Special']].concat(R.extraArmor?[['extra',T.armorTroll]]:[]);
   const armorHtml=armorDefs.map(([k,l])=>`<label><button type="button" class="box${k==='extra'?' extra':''}" id="${R.id}-armor-${k}" data-k="armor" data-i="${k}" aria-pressed="${s.armor[k]?'true':'false'}" aria-label="${l}"></button>${l}</label>`).join('');
   const harmRow=(lv,title,sub,n)=>`<div class="row"><div class="lv">${title}<small>${sub}</small></div><div class="cells${n===1?' one':''}">${Array.from({length:n},(_,i)=>`<input type="text" id="${R.id}-harm-${lv}${i}" data-k="harm" data-i="${lv}${i}" value="${esc((s.harm||{})[lv+i]||'')}" placeholder="…">`).join('')}</div></div>`;
   const loadHtml=['light','normal','heavy'].map(k=>`<label class="${s.load===k?'on':''}"><input type="radio" name="${R.id}-load" id="${R.id}-load-${k}" value="${k}" ${s.load===k?'checked':''}>${k[0].toUpperCase()+k.slice(1)} ${loadBase[k]+lb}</label>`).join('');
@@ -525,50 +760,55 @@ function renderDossier(R){
   <div class="dhead">
     <div class="name">${esc(R.street)}<small>${esc(R.pbDesc)}</small></div>
     <div class="badges"><span class="badge pb">${esc(R.pb)}</span><span class="badge">${esc(R.meta)}</span><span class="badge">${esc(R.idnShort)}</span></div>
-    <div class="ident"><label for="${R.id}-name">Name</label><input type="text" id="${R.id}-name" data-k="name" value="${esc(s.name||'')}" placeholder="frei wählbar · „${esc(R.street)}“ ist nur der Straßenname"><label for="${R.id}-pron">Pronomen</label><input type="text" id="${R.id}-pron" data-k="pron" value="${esc(s.pron||'')}" placeholder="sie · er · dey · …"></div>
-    <p class="role"><b>Rolle im Run:</b> ${R.role}</p>
+    <div class="ident"><label for="${R.id}-name">${T.name}</label><input type="text" id="${R.id}-name" data-k="name" value="${esc(s.name||'')}" placeholder="${esc(T.namePh.replace('{s}',R.street))}"><label for="${R.id}-pron">${T.pron}</label><input type="text" id="${R.id}-pron" data-k="pron" value="${esc(s.pron||'')}" placeholder="${T.pronPh}"></div>
+    <p class="role"><b>${T.role}</b> ${R.role}</p>
   </div>
   <div class="dbody">
     <div class="col">
-      <section><h3>Profil</h3>${kv([['Aussehen',esc(R.look)],['Herkunft',esc(R.heritage)],['Hintergrund',esc(R.background)],['Laster',esc(R.vice)],['IDN (SIN)',esc(R.idn)],['Kontakte',esc(R.friendsLabel)]])}</section>
-      <section><h3>Metatyp: ${esc(R.meta)}</h3><ul class="traits">${R.metaTraits.map(([n,t])=>`<li><b>${esc(n)}.</b> ${esc(t)}</li>`).join('')}</ul></section>
-      ${R.cyber?`<section><h3>Implantate & Körper</h3><p class="traits" style="margin:0">${R.cyber}</p></section>`:''}
-      <section><h3>Karma-Auslöser</h3><ul class="traits">${R.karma.map(k=>`<li>${k}</li>`).join('')}<li class="small">Dazu immer: Überzeugung, Herkunft oder Hintergrund ausgespielt · Laster oder Trauma haben Ärger gemacht.</li></ul></section>
+      <section><h3>${T.profile}</h3>${kv([[T.look,esc(R.look)],[T.heritage,esc(R.heritage)],[T.background,esc(R.background)],[T.vice,esc(R.vice)],[T.idn,esc(R.idn)],[T.contacts,esc(R.friendsLabel)]])}</section>
+      <section><h3>${T.metatype} ${esc(R.meta)}</h3><ul class="traits">${R.metaTraits.map(([n,t])=>`<li><b>${esc(n)}.</b> ${esc(t)}</li>`).join('')}</ul></section>
+      ${R.cyber?`<section><h3>${T.implants}</h3><p class="traits" style="margin:0">${R.cyber}</p></section>`:''}
+      <section><h3>${T.karma}</h3><ul class="traits">${R.karma.map(k=>`<li>${k}</li>`).join('')}<li class="small">${T.karmaAlways}</li></ul></section>
     </div>
     <div class="col">
-      <section><h3>Actions · 7 Punkte</h3><div class="attrs">${attrsHtml}</div></section>
+      <section><h3>${T.actions}</h3><div class="attrs">${attrsHtml}</div></section>
       <div class="tracks">
-        <div class="trk"><h4>Edge <span>${edgeMax} Kästchen · pushen 2 · assistieren 1</span></h4><div class="boxes">${edgeBoxes}</div>
-          <div class="trauma">${TRAUMA.map(t=>`<span>${t}</span>`).join('')}</div></div>
-        <div class="trk"><h4>Harm <span>Stufe 4 = tödlich</span></h4><div class="harm">${harmRow('l','Stufe 1','weniger Effect',2)}${harmRow('m','Stufe 2','−1d',2)}${harmRow('h','Stufe 3','braucht Hilfe',1)}</div></div>
-        <div class="trk"><h4>Armor</h4><div class="armorrow">${armorHtml}</div></div>
-        <div class="trk"><h4>Load <span>${lb?'+'+lb+' durch Metatyp':'Light 3 · Normal 5 · Heavy 6'}</span></h4><div class="loadsel">${loadHtml}</div></div>
-        <div class="trk"><h4>Nuyen <span>Start 2 · Stash 0</span></h4><p class="small" style="margin:6px 0 0">Bezahlung laut Johnson: 6 Nuyen für die Crew bei sauberer Übergabe.</p></div>
-        <button type="button" class="badge" data-reset="${R.id}" style="cursor:pointer;justify-self:start">Tracker zurücksetzen</button>
+        <div class="trk"><h4>Edge <span>${edgeMax} ${T.edgeSub}</span></h4><div class="boxes">${edgeBoxes}</div><div class="trauma">${TRAUMA.map(t=>`<span>${t}</span>`).join('')}</div></div>
+        <div class="trk"><h4>${T.harm} <span>${T.harmSub}</span></h4><div class="harm">${harmRow('l',T.lvl+' 1',T.h1,2)}${harmRow('m',T.lvl+' 2',T.h2,2)}${harmRow('h',T.lvl+' 3',T.h3,1)}</div></div>
+        <div class="trk"><h4>${T.armor}</h4><div class="armorrow">${armorHtml}</div></div>
+        <div class="trk"><h4>${T.load} <span>${lb?'+'+lb+' '+T.loadBonus:T.loadDefault}</span></h4><div class="loadsel">${loadHtml}</div></div>
+        <div class="trk"><h4>${T.nuyen} <span>${T.nuyenSub}</span></h4><p class="small" style="margin:6px 0 0">${T.nuyenText}</p></div>
+        <button type="button" class="badge" data-reset="${R.id}" style="cursor:pointer;justify-self:start">${T.reset}</button>
       </div>
     </div>
     <div class="col">
-      <section><h3>Spezialfähigkeiten</h3><ul class="abil">${R.abilities.map(ab=>`<li><b>${esc(ab.n)}<i>${esc(ab.tag)}</i></b>${ab.t}</li>`).join('')}</ul></section>
+      <section><h3>${T.abilities}</h3><ul class="abil">${R.abilities.map(ab=>`<li><b>${esc(ab.n)}<i>${esc(ab.tag)}</i></b>${ab.t}</li>`).join('')}</ul></section>
       ${R.spells?`<section><h3>${esc(R.spells.h)}</h3><ul class="abil">${R.spells.list.map(sp=>`<li><b>${esc(sp.n)}</b>${sp.t}</li>`).join('')}</ul></section>`:''}
-      <section><h3>Ausrüstung · Load</h3><table class="items"><tbody>${R.items.map(it=>`<tr class="${it.rec?'rec':''}"><td class="ld">${it.l}</td><td><b>${esc(it.n)}</b> ${it.t}</td></tr>`).join('')}</tbody></table>
-      <p class="hint">● empfohlen für die Feuerprobe. Dazu jederzeit Standardausrüstung: Kommlink (0), Armor (2), Pistole (1), Burglary Gear (1), Climbing Gear (2), Subterfuge Supplies (1) und mehr.</p></section>
+      <section><h3>${T.gear}</h3><table class="items"><tbody>${R.items.map(it=>`<tr class="${it.rec?'rec':''}"><td class="ld">${it.l}</td><td><b>${esc(it.n)}</b> ${it.t}</td></tr>`).join('')}</tbody></table><p class="hint">${T.gearHint}</p></section>
     </div>
   </div>
   <div class="dfoot">
-    <div><h3>Freund</h3><p><b>${esc(R.friend.n)}.</b> ${R.friend.t}</p><h3 style="margin-top:12px">Rivale</h3><p><b>${esc(R.rival.n)}.</b> ${R.rival.t}</p></div>
-    <div><h3>Warum du diesen Job nimmst</h3><p>${R.why}</p></div>
-    <div><h3>So glänzt du im Meridian Spire</h3><ul>${R.shine.map(x=>`<li>${x}</li>`).join('')}</ul></div>
-    <div class="lore"><h3>Shadowrun-Einblick: ${esc(R.lore.h)}</h3>${R.lore.t}</div>
-    <div class="gmnote"><h3>Nur für die Spielleitung</h3>${R.gm}</div>
+    <div><h3>${T.friend}</h3><p><b>${esc(R.friend.n)}.</b> ${R.friend.t}</p><h3 style="margin-top:12px">${T.rival}</h3><p><b>${esc(R.rival.n)}.</b> ${R.rival.t}</p></div>
+    <div><h3>${T.why}</h3><p>${R.why}</p></div>
+    <div><h3>${T.shine}</h3><ul>${R.shine.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="lore"><h3>${T.lore} ${esc(R.lore.h)}</h3>${R.lore.t}</div>
+    <div class="gmnote"><h3>${T.gm}</h3>${R.gm}</div>
   </div>
 </article>`;
 }
 
 function renderAll(){
-  const nav=document.getElementById('crewnav');
-  nav.innerHTML=RUNNERS.map(R=>`<a href="#${R.id}" style="--pb:var(--pb-${R.color})"><div class="sn">${esc(R.street)}</div><div class="pb">${esc(R.pb)} · ${esc(R.meta)}</div><div class="rl">${esc(R.feel)}</div></a>`).join('');
-  document.getElementById('crews').innerHTML=`<b>Empfohlene Crews für 3–4 Spieler:innen.</b> Jede Zusammenstellung deckt Zugang, Keycard, Venn und den Weg nach 110 auf eigene Weise ab.<ul>${CREWS.map(c=>`<li><b>${esc(c.n)}:</b> ${esc(c.t)}</li>`).join('')}</ul>`;
+  const T=UI[lang];document.documentElement.lang=lang;
+  document.getElementById('subtitle').textContent=T.subtitle;document.getElementById('lnkPlans').textContent=T.plans;
+  document.getElementById('langDE').setAttribute('aria-pressed',lang==='de'?'true':'false');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en'?'true':'false');
+  document.getElementById('intro').innerHTML=INTRO[lang];
+  const crews=(lang==='en'&&typeof CREWS_EN!=='undefined')?CREWS_EN:CREWS;
+  document.getElementById('crewnav').innerHTML=RUNNERS.map(R0=>{const R=loc(R0,lang);return `<a href="#${R.id}" style="--pb:var(--pb-${R.color})"><div class="sn">${esc(R.street)}</div><div class="pb">${esc(R.pb)} · ${esc(R.meta)}</div><div class="rl">${esc(R.feel)}</div></a>`;}).join('');
+  document.getElementById('crews').innerHTML=`<b>${T.crews}</b> ${T.crewsSub}<ul>${crews.map(c=>`<li><b>${esc(c.n)}:</b> ${esc(c.t)}</li>`).join('')}</ul>`;
   document.getElementById('dossiers').innerHTML=RUNNERS.map(renderDossier).join('');
+  document.getElementById('fine').innerHTML=T.fine;
+  document.body.classList.toggle('player',!gm);
+  const bg=document.getElementById('btnGM');bg.setAttribute('aria-pressed',gm?'true':'false');bg.lastChild.textContent=gm?T.gmOn:T.gmOff;
   bind();
 }
 function bind(){
@@ -579,11 +819,12 @@ function bind(){
   document.querySelectorAll('[data-reset]').forEach(b=>b.addEventListener('click',()=>{const old=saved[b.dataset.reset]||{};delete saved[b.dataset.reset];const fresh=st(b.dataset.reset);fresh.name=old.name||'';fresh.pron=old.pron||'';save();const R=RUNNERS.find(r=>r.id===b.dataset.reset);const el=document.getElementById(R.id);el.outerHTML=renderDossier(R);bind();}));
 }
 (function boot(){
-  let gm=true;try{const v=localStorage.getItem('fp-runner-gm');if(v!==null)gm=v==='1';}catch(e){}
   const btn=document.getElementById('btnGM');
-  const apply=()=>{document.body.classList.toggle('player',!gm);btn.setAttribute('aria-pressed',gm?'true':'false');btn.lastChild.textContent=gm?'SL-Notizen anzeigen':'Spieleransicht';try{localStorage.setItem('fp-runner-gm',gm?'1':'0');}catch(e){}};
-  btn.addEventListener('click',()=>{gm=!gm;apply();});
-  apply();renderAll();
+  btn.addEventListener('click',()=>{gm=!gm;try{localStorage.setItem('fp-runner-gm',gm?'1':'0');}catch(e){}renderAll();});
+  const setLang=l=>{lang=l;try{localStorage.setItem('fp-lang',l);}catch(e){}renderAll();};
+  document.getElementById('langDE').addEventListener('click',()=>setLang('de'));
+  document.getElementById('langEN').addEventListener('click',()=>setLang('en'));
+  renderAll();
 })();
 
 </script>

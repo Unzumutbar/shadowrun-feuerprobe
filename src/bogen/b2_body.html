@@ -1,9 +1,10 @@
 <div class="toolbar" id="toolbar">
-  <div class="t">Feuerprobe Spielerbögen<small>ein Runner pro A4</small></div>
-  <label for="selRunner">Bogen <select id="selRunner"><option value="">Alle acht</option></select></label>
-  <label><input type="checkbox" id="chkStreet"> Straßennamen vorausfüllen</label>
+  <div class="t">Feuerprobe Spielerbögen<small id="tbSub">ein Runner pro A4</small></div>
+  <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
+  <label for="selRunner"><select id="selRunner"></select></label>
+  <label><input type="checkbox" id="chkStreet"> <span id="lblStreet">Straßennamen vorausfüllen</span></label>
   <button type="button" id="btnClear">Eingaben leeren</button>
   <button type="button" class="primary" id="btnPrint">Drucken</button>
-  <p class="hint">Straßenname, Name und Pronomen lassen sich hier eintippen und werden mitgedruckt; leer gelassen bleiben Schreiblinien für den Tisch. Drucken funktioniert aus der Datei im Repo oder den fertigen PDFs, nicht aus der claude.ai-Ansicht.</p>
+  <p class="hint" id="tbHint"></p>
 </div>
 <div class="stack" id="stack"></div>
