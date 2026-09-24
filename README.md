@@ -13,7 +13,7 @@ Eine kleine Crew soll während einer Gala im 112-stöckigen **Meridian Spire** e
 | `docs/feuerprobe-runner.html` | Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten, Spieltipps für den Turm und Welt-Einblicken. Klickbare Edge-, Harm- und Load-Tracker. Mit SL-Notizen. |
 | `docs/feuerprobe-runner-bogen.html` | Dieselben Runner als Spielerbögen zum Austeilen: ein Runner pro A4, ohne SL-Notizen, mit Schreiblinien für Straßenname, Name und Pronomen sowie Kästchen für Edge, Harm, Karma, Load und Nuyen. |
 | `docs/pdf/de/`, `docs/pdf/en/` | Fertige PDFs: Spielerbögen (`feuerprobe-runner-alle.pdf` und `bogen-<runner>.pdf`; englisch `feuerprobe-runners-all.pdf`, `sheet-<runner>.pdf`) sowie die Pläne als SL-Version (`plaene-sl.pdf` / `plans-gm.pdf`) und Spielerversion (`plaene-spieler.pdf` / `plans-players.pdf`). |
-| `docs/index.html` | Startseite mit Links auf beide Seiten. |
+| `docs/index.html` | Startseite (DE/EN umschaltbar) mit Links auf alle Seiten und PDFs; die Sprachwahl wird an die verlinkten Seiten weitergegeben. |
 | `docs/artifact/` | Dieselben Seiten als Fragment ohne `<html>`-Gerüst, wie claude.ai-Artifacts sie erwarten. |
 | `src/` | Quellteile beider Seiten (Stylesheet, Gerüst, Renderer, Daten pro Ebene bzw. pro Runner). |
 | `build.js` | Fügt die Quellteile zu den Seiten in `docs/` zusammen. |

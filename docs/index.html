@@ -5,26 +5,72 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Shadowrun: Feuerprobe</title>
 <style>
-:root{--bg:#E4E8EC;--surface:#FBFBFC;--ink:#161C26;--muted:#66717F;--line:#CBD1D8;--accent:#0F7B86}
-@media (prefers-color-scheme:dark){:root{--bg:#0D1218;--surface:#151B23;--ink:#E7EBF0;--muted:#8E9AA9;--line:#293441;--accent:#3FC1CC}}
+:root{--bg:#E4E8EC;--surface:#FBFBFC;--ink:#161C26;--ink-2:#3C4756;--muted:#66717F;--line:#CBD1D8;--line-2:#AEB7C1;--accent:#0F7B86}
+@media (prefers-color-scheme:dark){:root{--bg:#0D1218;--surface:#151B23;--ink:#E7EBF0;--ink-2:#C4CCD6;--muted:#8E9AA9;--line:#293441;--line-2:#3B4756;--accent:#3FC1CC}}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:720px;margin:0 auto;padding:48px 16px}
+main{max-width:720px;margin:0 auto;padding:40px 16px 56px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:28px}
 h1{font-size:40px;line-height:1;margin:0 0 6px}
-p{color:var(--muted);margin:0 0 28px}
+p.sub{color:var(--muted);margin:0}
+.langs{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden;flex:none}
+.langs button{appearance:none;border:0;background:transparent;color:var(--ink);font:600 13px system-ui,sans-serif;padding:8px 13px;cursor:pointer;letter-spacing:.04em}
+.langs button+button{border-left:1px solid var(--line-2)}
+.langs button[aria-pressed="true"]{background:var(--accent);color:#fff}
 a.card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px;text-decoration:none;color:var(--ink)}
 a.card b{display:block;font-size:20px;margin-bottom:4px}
 a.card span{color:var(--muted);font-size:14.5px}
 a.card:hover{border-color:var(--accent)}
+h2{font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:32px 0 10px}
+ul.pdfs{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:14.5px}
+ul.pdfs li{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+ul.pdfs li span{color:var(--ink-2);min-width:170px}
+ul.pdfs a{color:var(--accent)}
+p.fine{font-size:12.5px;color:var(--muted);margin-top:32px}
 </style>
 </head>
 <body>
 <main>
-<h1>Shadowrun: Feuerprobe</h1>
-<p>Oneshot für Runners in the Shadows · Seattle 2080 · Meridian Spire</p>
-<a class="card" href="meridian-spire-plaene.html"><b>Meridian Spire Pläne · Plans</b><span>Schnitt, Tiefgarage, Ebene 111 und 112, Dach, Tresorgeschoss 110. SL- und Spieleransicht, Wege, Spielsituationen, Deutsch/Englisch. Druckansicht für SL- und Spielerpläne; PDFs in <code>pdf/de/</code> und <code>pdf/en/</code>.</span></a>
-<a class="card" href="feuerprobe-runner.html"><b>Feuerprobe Runner</b><span>Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten und Welt-Einblicken. Mit SL-Notizen.</span></a>
-<a class="card" href="feuerprobe-runner-bogen.html"><b>Spielerbögen · Player sheets</b><span>Dieselben Runner als Bogen zum Austeilen, ein Runner pro A4, ohne SL-Notizen, umschaltbar Deutsch/Englisch. Straßenname, Name und Pronomen frei wählbar. Fertige PDFs liegen in <code>pdf/de/</code> und <code>pdf/en/</code>.</span></a>
-<a class="card" href="../oneshot/Shadowrun_Feuerprobe_OneShot_v5.md"><b>Das Abenteuer</b><span>Briefing, Gala, Tresorgeschoss, Alert Clock, Enthüllung und Payoff als Markdown.</span></a>
+<header>
+  <div><h1>Shadowrun: Feuerprobe</h1><p class="sub" data-t="sub"></p></div>
+  <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE">DE</button><button type="button" id="langEN">EN</button></span>
+</header>
+<a class="card" id="lnkPlans" href="meridian-spire-plaene.html"><b data-t="plansT"></b><span data-t="plansD"></span></a>
+<a class="card" id="lnkRunner" href="feuerprobe-runner.html"><b data-t="runnerT"></b><span data-t="runnerD"></span></a>
+<a class="card" id="lnkSheets" href="feuerprobe-runner-bogen.html"><b data-t="sheetsT"></b><span data-t="sheetsD"></span></a>
+<a class="card" href="../oneshot/Shadowrun_Feuerprobe_OneShot_v5.md"><b data-t="oneshotT"></b><span data-t="oneshotD"></span></a>
+<h2 data-t="pdfH"></h2>
+<ul class="pdfs" id="pdfs"></ul>
+<p class="fine" data-t="fine"></p>
 </main>
+<script>
+const T={
+ de:{sub:'Oneshot für Runners in the Shadows · Seattle 2080 · Meridian Spire',
+  plansT:'Meridian Spire Pläne',plansD:'Schnitt, Tiefgarage, Ebene 111 und 112, Dach, Tresorgeschoss 110. SL- und Spieleransicht, Wege, Spielsituationen, Druckansicht für SL- und Spielerpläne.',
+  runnerT:'Feuerprobe Runner',runnerD:'Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten und Welt-Einblicken. Mit SL-Notizen.',
+  sheetsT:'Spielerbögen',sheetsD:'Dieselben Runner als Bogen zum Austeilen, ein Runner pro A4, ohne SL-Notizen. Straßenname, Name und Pronomen frei wählbar.',
+  oneshotT:'Das Abenteuer',oneshotD:'Briefing, Gala, Tresorgeschoss, Alert Clock, Enthüllung und Payoff als Markdown (nur auf Deutsch).',
+  pdfH:'Fertige PDFs',fine:'Fan-Material für den privaten Spieltisch. Runners in the Shadows ist ein Spiel von Mark Cleveland Massengale; Shadowrun ist eine Marke von The Topps Company / Catalyst Game Labs.',
+  pdfs:[['Pläne, SL-Version','de/plaene-sl.pdf'],['Pläne, Spielerversion','de/plaene-spieler.pdf'],['Alle acht Spielerbögen','de/feuerprobe-runner-alle.pdf'],['Einzelbögen','de/bogen-mercer.pdf|Mercer','de/bogen-chamaeleon.pdf|Chamäleon','de/bogen-kessel.pdf|Kessel','de/bogen-zephyr.pdf|Zephyr','de/bogen-bastion.pdf|Bastion','de/bogen-fizz.pdf|Fizz','de/bogen-stille.pdf|Stille','de/bogen-ravn.pdf|Ravn']]},
+ en:{sub:'One-shot for Runners in the Shadows · Seattle 2080 · Meridian Spire',
+  plansT:'Meridian Spire Plans',plansD:'Section, parking garage, levels 111 and 112, roof, vault level 110. GM and player view, routes, play situations, print view for GM and player plans.',
+  runnerT:'Feuerprobe Runners',runnerD:'Eight pregenerated runners with stats, abilities, gear, contacts and insights into the world. With GM notes.',
+  sheetsT:'Player sheets',sheetsD:'The same runners as handout sheets, one runner per A4 page, without GM notes. Street name, name and pronouns free to choose.',
+  oneshotT:'The adventure',oneshotD:'Briefing, gala, vault level, Alert clock, reveal and payoff as Markdown (German only).',
+  pdfH:'Ready-made PDFs',fine:'Fan material for the private gaming table. Runners in the Shadows is a game by Mark Cleveland Massengale; Shadowrun is a trademark of The Topps Company / Catalyst Game Labs.',
+  pdfs:[['Plans, GM version','en/plans-gm.pdf'],['Plans, player version','en/plans-players.pdf'],['All eight player sheets','en/feuerprobe-runners-all.pdf'],['Single sheets','en/sheet-mercer.pdf|Mercer','en/sheet-chamaeleon.pdf|Chameleon','en/sheet-kessel.pdf|Kessel','en/sheet-zephyr.pdf|Zephyr','en/sheet-bastion.pdf|Bastion','en/sheet-fizz.pdf|Fizz','en/sheet-stille.pdf|Hush','en/sheet-ravn.pdf|Ravn']]},
+};
+let lang='de';
+try{const q=new URLSearchParams(location.search).get('lang');const v=localStorage.getItem('fp-lang');lang=(q==='en'||q==='de')?q:((v==='en'||v==='de')?v:'de');}catch(e){}
+function render(){
+  const t=T[lang];document.documentElement.lang=lang;
+  document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=t[el.dataset.t]||'';});
+  ['lnkPlans','lnkRunner','lnkSheets'].forEach(id=>{const a=document.getElementById(id);a.href=a.href.split('?')[0]+'?lang='+lang;});
+  document.getElementById('pdfs').innerHTML=t.pdfs.map(row=>{const [label,...links]=row;return `<li><span>${label}</span>${links.map(l=>{const [f,n]=l.split('|');return `<a href="pdf/${f}">${n||f.split('/').pop()}</a>`;}).join('')}</li>`;}).join('');
+  document.getElementById('langDE').setAttribute('aria-pressed',lang==='de');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en');
+}
+document.getElementById('langDE').addEventListener('click',()=>{lang='de';try{localStorage.setItem('fp-lang','de');}catch(e){}render();});
+document.getElementById('langEN').addEventListener('click',()=>{lang='en';try{localStorage.setItem('fp-lang','en');}catch(e){}render();});
+render();
+</script>
 </body>
 </html>
