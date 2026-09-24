@@ -1,0 +1,25 @@
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Shadowrun · Feuerprobe · Runners in the Shadows</div>
+    <h1>Meridian Spire<small>Pläne für Tiefgarage, Penthouse, Dach und Tresorgeschoss · Seattle 2080</small></h1>
+  </div>
+  <div class="controls">
+    <div class="seg" role="tablist" id="tabs" aria-label="Ebene wählen"></div>
+    <div class="tog">
+      <button id="btnGM" class="gmtog" aria-pressed="true" type="button"><span class="dot"></span>SL-Ansicht</button>
+      <button id="btnRoutes" aria-pressed="true" type="button"><span class="dot"></span>Wege einblenden</button>
+      <button id="btnPrint" type="button"><span class="dot"></span>Alle Pläne drucken</button>
+    </div>
+  </div>
+</header>
+<main class="app" id="app">
+  <section class="mappanel" aria-live="polite">
+    <div class="maphead"><h2 id="mapTitle"></h2><div class="chips" id="chips"></div></div>
+    <div class="svgbox" id="svgbox"></div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <aside class="key" id="key"></aside>
+</main>
+<div id="sheets"></div>
+</div>
