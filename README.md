@@ -10,7 +10,9 @@ Eine kleine Crew soll während einer Gala im 112-stöckigen **Meridian Spire** e
 |---|---|
 | `oneshot/` | Das Abenteuer als Markdown: Briefing, Gala, Tresorgeschoss, Alert Clock, Enthüllung, Payoff. |
 | `docs/meridian-spire-plaene.html` | Interaktive Pläne: Schnitt, Tiefgarage P2, Ebene 111 (Gala), Ebene 112 (Lounge & Suite), Dach, Ebene 110 (Tresorgeschoss). SL-/Spieleransicht, Wege-Overlay, nummerierte Orte mit SL-Notizen, Druckbögen. |
-| `docs/feuerprobe-runner.html` | Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten, Spieltipps für den Turm und Welt-Einblicken. Klickbare Edge-, Harm- und Load-Tracker. |
+| `docs/feuerprobe-runner.html` | Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten, Spieltipps für den Turm und Welt-Einblicken. Klickbare Edge-, Harm- und Load-Tracker. Mit SL-Notizen. |
+| `docs/feuerprobe-runner-bogen.html` | Dieselben Runner als Spielerbögen zum Austeilen: ein Runner pro A4, ohne SL-Notizen, mit Schreiblinien für Straßenname, Name und Pronomen sowie Kästchen für Edge, Harm, Karma, Load und Nuyen. |
+| `docs/pdf/` | Fertige PDFs der Spielerbögen: `feuerprobe-runner-alle.pdf` (acht Seiten) und `bogen-<runner>.pdf` je Figur. |
 | `docs/index.html` | Startseite mit Links auf beide Seiten. |
 | `docs/artifact/` | Dieselben Seiten als Fragment ohne `<html>`-Gerüst, wie claude.ai-Artifacts sie erwarten. |
 | `src/` | Quellteile beider Seiten (Stylesheet, Gerüst, Renderer, Daten pro Ebene bzw. pro Runner). |
@@ -32,7 +34,15 @@ Wer die Seiten über einen lokalen Server ansehen möchte (zum Beispiel für die
 node tools/serve.js
 ```
 
-Die Runner sind bewusst ohne Vornamen und Geschlecht geschrieben: Der große Titel ist nur der Straßenname, Name und Pronomen tragen die Spielenden oben im Bogen selbst ein.
+Die Runner sind bewusst ohne Vornamen und Geschlecht geschrieben: Der große Titel ist nur der Straßenname, Name und Pronomen tragen die Spielenden oben im Bogen selbst ein. Auf den Spielerbögen ist auch der Straßenname eine Schreiblinie; der Vorschlag steht klein daneben.
+
+PDFs der Spielerbögen erzeugt (mit installiertem Edge oder Chrome):
+
+```bash
+node tools/make-pdf.js
+```
+
+Ohne PDF-Skript: `docs/feuerprobe-runner-bogen.html` im Browser öffnen, oben einen Bogen wählen und mit Strg+P drucken (A4, Hochformat, ohne Kopf- und Fußzeilen).
 
 ## Pläne anpassen
 

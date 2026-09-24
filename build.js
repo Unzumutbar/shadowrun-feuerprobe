@@ -3,6 +3,7 @@
 // Ergebnis:
 //   docs/meridian-spire-plaene.html   eigenständige Seite (im Browser öffnen)
 //   docs/feuerprobe-runner.html       eigenständige Seite
+//   docs/feuerprobe-runner-bogen.html Spielerbögen, ein Runner pro A4 (PDFs: node tools/make-pdf.js)
 //   docs/artifact/*.html              Fragment ohne <html>/<head>/<body> für claude.ai-Artifacts
 const fs = require('fs');
 const path = require('path');
@@ -19,6 +20,13 @@ const pages = [
     dir: 'src/runner',
     html: ['r1_head.html', 'r2_body.html'],
     js: ['r3_data_a.js', 'r4_data_b.js', 'r5_app.js'],
+  },
+  {
+    // Spielerbögen: gleiche Runner-Daten, eigenes Layout (ein Runner pro A4)
+    name: 'feuerprobe-runner-bogen',
+    dir: 'src/bogen',
+    html: ['b1_head.html', 'b2_body.html'],
+    js: ['../runner/r3_data_a.js', '../runner/r4_data_b.js', 'b3_app.js'],
   },
 ];
 
