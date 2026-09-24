@@ -8,7 +8,7 @@ Eine kleine Crew soll während einer Gala im 112-stöckigen **Meridian Spire** e
 
 | Ordner | Inhalt |
 |---|---|
-| `oneshot/` | Das Abenteuer als Markdown: Briefing, Gala, Tresorgeschoss, Alert Clock, Enthüllung, Payoff. |
+| `oneshot/` | Das Abenteuer als Markdown: Briefing, Gala, Tresorgeschoss, Alert Clock, Enthüllung, Payoff. `build.js` rendert daraus `docs/feuerprobe-oneshot.html` (Renderer in `tools/md2html.js`). |
 | `docs/meridian-spire-plaene.html` | Interaktive Pläne: Schnitt, Tiefgarage P2, Ebene 111 (Gala), Ebene 112 (Lounge & Suite), Dach, Ebene 110 (Tresorgeschoss). SL-/Spieleransicht, Wege-Overlay, nummerierte Orte mit SL-Notizen, Deutsch/Englisch. Die Druckansicht liefert SL-Pläne (Kartenblatt plus Notizblatt je Ebene) oder Spielerpläne (nur Kartenblatt), A4 quer. |
 | `docs/feuerprobe-runner.html` | Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten, Spieltipps für den Turm und Welt-Einblicken. Klickbare Edge-, Harm- und Load-Tracker. Mit SL-Notizen. |
 | `docs/feuerprobe-runner-bogen.html` | Dieselben Runner als Spielerbögen zum Austeilen: ein Runner pro A4, ohne SL-Notizen, mit Schreiblinien für Straßenname, Name und Pronomen sowie Kästchen für Edge, Harm, Karma, Load und Nuyen. |
@@ -18,6 +18,10 @@ Eine kleine Crew soll während einer Gala im 112-stöckigen **Meridian Spire** e
 | `docs/artifact/` | Dieselben Seiten als Fragment ohne `<html>`-Gerüst, wie claude.ai-Artifacts sie erwarten. |
 | `src/` | Quellteile aller Seiten (Stylesheet, Gerüst, Renderer, Daten pro Ebene, pro Runner bzw. pro Sprache beim Leitfaden). |
 | `build.js` | Fügt die Quellteile zu den Seiten in `docs/` zusammen. |
+
+## Online
+
+Der Ordner `docs/` ist eine fertige statische Website. Für GitHub Pages in den Repo-Einstellungen unter *Pages* die Quelle `main` mit Ordner `/docs` wählen; die Seite erscheint dann unter `https://unzumutbar.github.io/shadowrun-feuerprobe/`. Die leere Datei `docs/.nojekyll` sorgt dafür, dass GitHub die Dateien unverändert ausliefert. Wer den Link hat, kann auch die SL-Ansichten einschalten; Spieler:innen bekommen besser nur die Spielerbögen und Spieler-PDFs.
 
 ## Benutzen
 

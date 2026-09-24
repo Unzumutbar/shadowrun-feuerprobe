@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shadowrun – Feuerprobe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#E4E8EC;--surface:#FBFBFC;--surface-2:#F0F2F5;--ink:#161C26;--ink-2:#3C4756;--muted:#66717F;--line:#CBD1D8;--line-2:#AEB7C1;--accent:#0F7B86;--accent-soft:rgba(15,123,134,.12);--gm:#8A3FB3;--gm-soft:rgba(138,63,179,.08)}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#0D1218;--surface:#151B23;--surface-2:#1B222C;--ink:#E7EBF0;--ink-2:#C4CCD6;--muted:#8E9AA9;--line:#293441;--line-2:#3B4756;--accent:#3FC1CC;--accent-soft:rgba(63,193,204,.16);--gm:#CD85FF;--gm-soft:rgba(205,133,255,.1)}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 56px}
+header.top{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.eyebrow{font:11.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 clamp(34px,5vw,50px)/.95 "Barlow Condensed",sans-serif;margin:4px 0 0}
+.tog a{border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:500 13px/1 "IBM Plex Sans",sans-serif;padding:8px 12px;border-radius:999px;text-decoration:none;display:inline-block}
+.layout{display:grid;gap:24px;margin-top:22px;align-items:start}
+@media (min-width:1000px){.layout{grid-template-columns:280px minmax(0,1fr)}.toc{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto}}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:13.5px}
+.toc h2{font:600 11.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.toc ol{margin:0;padding-left:0;list-style:none;display:grid;gap:2px}
+.toc a{display:block;padding:4px 8px;border-radius:7px;color:var(--ink-2);text-decoration:none}
+.toc a:hover{background:var(--surface-2)}
+article{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px 28px 32px;min-width:0}
+article h2{font:700 30px/1.05 "Barlow Condensed",sans-serif;margin:34px 0 10px;padding-top:22px;border-top:1px solid var(--line);scroll-margin-top:16px}
+article h2:first-child{margin-top:0;padding-top:0;border-top:0}
+article h3{font:700 21px/1.1 "Barlow Condensed",sans-serif;margin:22px 0 6px}
+article h4{font:600 12px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px}
+article p,article li{color:var(--ink-2);max-width:76ch}
+article p{margin:0 0 12px}
+article strong{color:var(--ink);font-weight:600}
+article code{font:500 .9em "IBM Plex Mono",monospace;background:var(--surface-2);padding:1px 5px;border-radius:4px;color:var(--ink)}
+article ul,article ol{margin:0 0 12px;padding-left:22px;display:grid;gap:4px}
+article li::marker{color:var(--accent)}
+article blockquote{margin:12px 0 14px;padding:12px 16px;border-left:3px solid var(--gm);background:var(--gm-soft);border-radius:0 10px 10px 0;max-width:76ch}
+article blockquote p{margin:0;color:var(--ink)}
+article blockquote p+p{margin-top:8px}
+article hr{display:none}
+article table{border-collapse:collapse;width:100%;max-width:76ch;font-size:14px;margin:8px 0 14px}
+article th{text-align:left;font:600 11px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line-2)}
+article td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+article td:first-child{color:var(--ink);font-weight:600}
+article .r{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:13px;white-space:nowrap}
+.fine{font-size:12.5px;color:var(--muted);margin-top:22px;max-width:90ch}
+@media print{@page{size:A4;margin:14mm}body{background:#fff;font-size:11pt}.toc,.tog{display:none}.layout{display:block}article{border:0;padding:0}article h2{break-after:avoid}article blockquote,article table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div><div class="eyebrow">Shadowrun · Feuerprobe · Runners in the Shadows · Oneshot-Text</div><h1>Shadowrun – Feuerprobe</h1></div>
+  <div class="tog"><a href="index.html">Startseite</a> <a href="feuerprobe-leitfaden.html?lang=de">SL-Leitfaden</a> <a href="meridian-spire-plaene.html?lang=de">Pläne</a></div>
+</header>
+<div class="layout">
+<nav class="toc"><h2>Inhalt</h2><ol><li><a href="#1-kurzfassung">1. Kurzfassung</a></li><li><a href="#2-für-einsteiger-was-ist-shadowrun">2. Für Einsteiger: Was ist Shadowrun?</a></li><li><a href="#3-für-einsteiger-rits-in-fünf-minuten">3. Für Einsteiger: RitS in fünf Minuten</a></li><li><a href="#4-zeitplan-für-3-4-stunden">4. Zeitplan für 3–4 Stunden</a></li><li><a href="#5-was-wirklich-dahintersteckt-nur-für-die-spielleitung">5. Was wirklich dahintersteckt – nur für die Spielleitung</a></li><li><a href="#6-warum-muss-der-run-während-der-party-stattfinden">6. Warum muss der Run während der Party stattfinden?</a></li><li><a href="#7-der-aktenkoffer">7. Der Aktenkoffer</a></li><li><a href="#8-die-zielperson">8. Die Zielperson</a></li><li><a href="#9-die-vault-keycard">9. Die Vault-Keycard</a></li><li><a href="#10-treffen-mit-mr-johnson">10. Treffen mit Mr. Johnson</a></li><li><a href="#11-das-briefing">11. Das Briefing</a></li><li><a href="#12-gather-information">12. Gather Information</a></li><li><a href="#13-mögliche-zugänge">13. Mögliche Zugänge</a></li><li><a href="#14-plan-und-engagement">14. Plan und Engagement</a></li><li><a href="#15-die-party-im-penthouse">15. Die Party im Penthouse</a></li><li><a href="#16-dr-venn-und-der-augenscan">16. Dr. Venn und der Augenscan</a></li><li><a href="#17-das-tresorgeschoss-ebene-110">17. Das Tresorgeschoss – Ebene 110</a></li><li><a href="#18-der-tresor-veyraths-moderner-drachenhort">18. Der Tresor – Veyraths moderner Drachenhort</a></li><li><a href="#19-alert-statt-heat">19. Alert statt Heat</a></li><li><a href="#20-wann-steigt-alert">20. Wann steigt Alert?</a></li><li><a href="#21-kann-alert-wieder-sinken">21. Kann Alert wieder sinken?</a></li><li><a href="#22-warum-dafür-kein-hacker-zwingend-nötig-ist">22. Warum dafür kein Hacker zwingend nötig ist</a></li><li><a href="#23-spotlight-für-die-verschiedenen-playbooks">23. Spotlight für die verschiedenen Playbooks</a></li><li><a href="#24-mögliche-consequences-nach-bereich">24. Mögliche Consequences nach Bereich</a></li><li><a href="#25-szenariospezifische-dragon-s-deals">25. Szenariospezifische Dragon’s Deals</a></li><li><a href="#26-fluchtmöglichkeiten">26. Fluchtmöglichkeiten</a></li><li><a href="#27-die-enthüllung">27. Die Enthüllung</a></li><li><a href="#28-payoff-und-bewertung">28. Payoff und Bewertung</a></li><li><a href="#29-offizielles-rits-heat-nach-dem-run-optional">29. Offizielles RitS Heat nach dem Run – optional</a></li><li><a href="#30-wer-kommt-bei-vollem-alert">30. Wer kommt bei vollem Alert?</a></li><li><a href="#31-pacing-für-die-spielleitung">31. Pacing für die Spielleitung</a></li><li><a href="#32-leitlinien-für-diesen-one-shot">32. Leitlinien für diesen One-Shot</a></li><li><a href="#33-spielleiter-schnellreferenz">33. Spielleiter-Schnellreferenz</a></li><li><a href="#34-quellen-und-kanonhinweis">34. Quellen- und Kanonhinweis</a></li></ol></nav>
+<article>
+<blockquote><p><strong>One-Shot für 3–4 Spieler:innen · ca. 3–4 Stunden · Seattle, 2080</strong><br>
+<strong>Regelsystem:</strong> Runners in the Shadows (RitS)<br>
+<strong>Setting:</strong> Shadowrun, Sechste Welt</p></blockquote>
+<hr>
+<h2 id="1-kurzfassung">1. Kurzfassung</h2>
+<p>Die Runner sollen während einer exklusiven Gala in einem über hundert Stockwerke hohen Wohnturm einen bestimmten Aktenkoffer aus einem privaten Tresorgeschoss stehlen. Für den Zugang benötigen sie eine physische Zugangskarte aus dem Penthouse und den biometrischen Augenscan einer anwesenden Kuratorin. Der Koffer muss ungeöffnet bleiben, andere Wertgegenstände sind tabu und die Zielperson darf nicht verletzt werden. Tödliche Gewalt soll nach Möglichkeit vermieden werden.</p>
+<p>Was die Runner nicht wissen: Penthouse, Tresor und dessen Inhalt gehören dem erwachsenen Drachen <strong>Veyrath</strong>. Auch der Auftrag selbst stammt von ihm. Die Runner brechen also <strong>in Veyraths eigenen Tresor ein und stehlen Veyraths eigenen Aktenkoffer</strong>. Es gibt keinen rivalisierenden Drachen und keinen fremden Besitzer hinter dem Ziel. Der Auftrag ist eine <strong>Feuerprobe</strong>: Veyrath sucht eine kleine, vielseitige Runnercrew für spätere Aufgaben und will sehen, wie sie unter Druck arbeitet: kreativ oder plump, diszipliniert oder gierig, kontrolliert oder mörderisch.</p>
+<p>Der Run ist bewusst offen gebaut. Einladung, Täuschung, Fassadeninfiltration, Luftweg, Matrixmanipulation, Magie, Gewalt gegen Drohnen oder völlig eigene Ideen können funktionieren. Kein bestimmtes Playbook ist notwendig.</p>
+<hr>
+<h2 id="2-für-einsteiger-was-ist-shadowrun">2. Für Einsteiger: Was ist Shadowrun?</h2>
+<p>Seattle im Jahr 2080 ist eine Stadt gewaltiger Konzerne, extremer sozialer Unterschiede, allgegenwärtiger Vernetzung und realer Magie. Menschen und Metamenschen leben zwischen AR-Werbung, Cyberware, Drohnen, Geistern, Konzernpolitik und privatisierter Sicherheit.</p>
+<p><strong>Shadowrunner</strong> erledigen illegale oder zumindest vollkommen inoffizielle Aufträge für Leute, die selbst nicht mit einer Tat in Verbindung gebracht werden wollen. Auftraggeber treten deshalb häufig anonym als <strong>Mr. Johnson</strong> oder <strong>Ms. Johnson</strong> auf.</p>
+<p>Für diesen One-Shot reicht den Spieler:innen folgende Vorstellung:</p>
+<ul><li>Ihr seid kompetente Berufskriminelle.</li><li>Ihr dürft euch riskante Dinge zutrauen.</li><li>Die Welt ist voller Technik, Matrix und Magie.</li><li>Ein guter Plan hilft, aber niemand muss vor dem Run jede Eventualität durchplanen.</li><li>Wenn etwas schiefgeht, entsteht normalerweise eine neue Komplikation statt eines sofortigen Game Over.</li></ul>
+<hr>
+<h2 id="3-für-einsteiger-rits-in-fünf-minuten">3. Für Einsteiger: RitS in fünf Minuten</h2>
+<p>Runners in the Shadows ist <strong>Fiction first</strong>. Erst beschreibt eine Person, was ihr Runner tut und welches Ziel er damit verfolgt. Nur wenn dabei etwas Gefährliches oder problematisch Unsicheres auf dem Spiel steht, folgt ein <strong>Action Roll</strong>.</p>
+<h3 id="action-roll">Action Roll</h3>
+<p>Die Spieler:in würfelt so viele W6, wie das verwendete <strong>Action Rating</strong> angibt. Es zählt nur der höchste Würfel.</p>
+<ul><li><strong>6:</strong> voller Erfolg.</li><li><strong>4/5:</strong> Erfolg, aber mit einer <strong>Consequence</strong>.</li><li><strong>1–3:</strong> kein oder unerwarteter Erfolg und eine passende <strong>Consequence</strong>.</li><li><strong>Mehrere 6en:</strong> Critical – Erfolg plus zusätzlicher Vorteil.</li></ul>
+<p>Vor dem Wurf werden <strong>Position</strong> und <strong>Effect</strong> geklärt.</p>
+<ul><li><strong>Position:</strong> Controlled, Risky oder Desperate – wie schlimm können die Folgen werden?</li><li><strong>Effect:</strong> Limited, Standard oder Great – wie viel erreicht die Handlung?</li></ul>
+<p>Die Spieler:innen wählen die Action passend dazu, <strong>was ihre Figuren tatsächlich tun</strong>. Actions sind keine Wissensfertigkeiten.</p>
+<h3 id="edge">Edge</h3>
+<ul><li>Für <strong>2 Edge</strong> kann man sich selbst pushen und normalerweise +1d erhalten oder mehr leisten.</li><li>Für <strong>1 Edge</strong> kann ein Teammitglied assistieren und +1d geben.</li><li>Eine unerwünschte Consequence kann mit einem <strong>Resistance Roll</strong> reduziert oder verhindert werden. Resistance funktioniert immer; der Wurf bestimmt, wie viel Edge sie kostet.</li></ul>
+<h3 id="flashbacks">Flashbacks</h3>
+<p>Die Runner müssen nicht alles vorher geplant haben. Während des Runs können sie per <strong>Flashback</strong> erklären, welche Vorbereitung sie bereits getroffen hatten. Je aufwendiger oder unwahrscheinlicher die Vorbereitung, desto höher die Edge-Kosten.</p>
+<h3 id="plan-und-engagement-roll">Plan und Engagement Roll</h3>
+<p>Für den Run wählt die Gruppe nur einen groben Plan und nennt das erforderliche Detail:</p>
+<ul><li><strong>Assault:</strong> Point of attack</li><li><strong>Deception:</strong> Method</li><li><strong>Social:</strong> Connection</li><li><strong>Stealth:</strong> Entry point</li><li><strong>Supernatural:</strong> Power / supernatural method</li><li><strong>Transport:</strong> Route &amp; means</li></ul>
+<p>Danach folgt der <strong>Engagement Roll</strong> und die Spielleitung schneidet direkt zur ersten interessanten Situation des Runs.</p>
+<blockquote><p><strong>Wichtig:</strong> Lass die Gruppe nicht eine Stunde lang hypothetische Sicherheitsmaßnahmen durchplanen. Sobald Plan und Detail stehen, beginnt der Run. Weitere Vorbereitungen können Flashbacks sein.</p></blockquote>
+<hr>
+<h2 id="4-zeitplan-für-3-4-stunden">4. Zeitplan für 3–4 Stunden</h2>
+<p>Der One-Shot funktioniert am besten, wenn die Spielleitung zügig schneidet.</p>
+<table><thead><tr><th>Abschnitt</th><th class="r">Richtwert</th></tr></thead><tbody><tr><td>Charakterwahl + Shadowrun/RitS-Kurzintro</td><td class="r">15–25 Min.</td></tr><tr><td>Treffen mit Mr. Johnson</td><td class="r">10–15 Min.</td></tr><tr><td>Gather Information + Plan</td><td class="r">10–20 Min.</td></tr><tr><td>Zugang und Party</td><td class="r">45–70 Min.</td></tr><tr><td>Tresorgeschoss</td><td class="r">45–70 Min.</td></tr><tr><td>Flucht + Enthüllung</td><td class="r">20–35 Min.</td></tr><tr><td>Puffer</td><td class="r">20–30 Min.</td></tr></tbody></table>
+<p>Wenn die Charaktere bereits vorher gewählt wurden, bleibt deutlich mehr Zeit für die eigentliche Mission.</p>
+<hr>
+<h2 id="5-was-wirklich-dahintersteckt-nur-für-die-spielleitung">5. Was wirklich dahintersteckt – nur für die Spielleitung</h2>
+<p>Der <strong>Meridian Spire</strong> ist eine <strong>Eigenkreation</strong>: ein 112-stöckiger Luxusturm in Seattle. Die obersten beiden Geschosse, 111 und 112, bilden ein doppelstöckiges Penthouse mit Glasatrium. Geschoss 110 ist offiziell lediglich als technische Ebene ausgewiesen. Tatsächlich enthält es einen privaten Tresor und einen Teil einer außerordentlich wertvollen Sammlung.</p>
+<p>Der Besitz wird über mehrere Briefkastenfirmen und die ebenfalls erfundene <strong>Vesperline Collections LLC</strong> verwaltet. Hinter den Gesellschaften steht <strong>Veyrath</strong>, ein erwachsener Drache. Veyrath ist keine kanonische Shadowrun-Figur, sondern eine <strong>Eigenkreation für diesen Run</strong>.</p>
+<h3 id="veyrath-eigentümer-und-eigentlicher-auftraggeber">Veyrath – Eigentümer und eigentlicher Auftraggeber</h3>
+<p>Veyrath ist ein zurückhaltender, äußerst vermögender Sammler, der lieber durch Mittelsleute handelt, als selbst öffentlich aufzutreten. Er betrachtet professionelle Runner nicht als Freunde oder Spielfiguren, sondern als potenziell wertvolle Spezialisten. Was ihn interessiert, ist Verlässlichkeit unter Bedingungen, in denen Gier, Angst und Improvisation miteinander kollidieren.</p>
+<p><strong>Wichtig für die Spielleitung:</strong> Veyrath ist <strong>kein Antagonist dieses Runs</strong>. Es gibt keinen rivalisierenden Drachen, keinen Drachenkonflikt und keinen versteckten Auftrag, bei dem die Crew unwissentlich einen anderen Drachen bestiehlt. <strong>Penthouse, Tresor, Sammlung und Aktenkoffer gehören Veyrath selbst; Mr. Johnson arbeitet für Veyrath.</strong> Die Feuerprobe besteht gerade darin, dass Veyrath eine echte Sicherheitsarchitektur gegen eine von ihm ausgewählte Crew testen lässt.</p>
+<p>Veyrath sucht eine kleine Crew für spätere, wesentlich wichtigere Aufträge. Er will keine perfekten Einbrecher, sondern Runner, die:</p>
+<ul><li>Anweisungen verstehen und ernst nehmen,</li><li>ungewöhnliche Probleme selbstständig lösen,</li><li>unter Druck nicht sofort eskalieren,</li><li>nicht alles stehlen, nur weil sie es können,</li><li>miteinander arbeiten,</li><li>sich von Reichtum nicht die Urteilskraft nehmen lassen.</li></ul>
+<p>Die Gala ist real. Die Gäste und Angestellten sind keine Schauspieler und wissen nichts von der Feuerprobe. Ebenso sind die Sicherheitsmaßnahmen echt. Veyrath hat lediglich dafür gesorgt, dass in dieser Nacht eine <strong>schwierige, aber realistisch ausnutzbare Schwachstelle</strong> besteht.</p>
+<p>Er rettet die Runner nicht, wenn sie scheitern. Ebenso greift er nicht persönlich in den Run ein, um sie zu behindern. Das Gebäude und seine Sicherheit sind das Hindernis – <strong>Veyrath selbst nicht</strong>.</p>
+<hr>
+<h2 id="6-warum-muss-der-run-während-der-party-stattfinden">6. Warum muss der Run während der Party stattfinden?</h2>
+<p>Die Gala ist eine exklusive Vorbesichtigung mehrerer Kunstwerke, die am nächsten Morgen weitertransportiert werden sollen. Während des Abends werden einzelne Stücke aus dem Tresor geholt und später zurückgebracht.</p>
+<p>Deshalb läuft das Gebäude für wenige Stunden im <strong>Event Mode</strong>:</p>
+<ol><li><strong>Dr. Amara Venn</strong>, deren biometrischer Augenscan für den Tresor autorisiert ist, befindet sich ausnahmsweise im Penthouse.</li><li>Die zugehörige <strong>physische Vault-Keycard</strong> befindet sich ebenfalls ausnahmsweise vor Ort. Normalerweise wird sie außerhalb des Gebäudes verwahrt.</li><li>Einige interne Sicherheitsroutinen sind auf diskreten Gästebetrieb eingestellt. Das System versucht zunächst, Auffälligkeiten still zu prüfen, statt sofort Sirenen und bewaffnete Einsatzkräfte in eine Gala voller VIPs zu schicken.</li><li>Nach Ende der Veranstaltung wird die Keycard wieder entfernt und der Tresor in einen strengeren Lockdown-Modus versetzt.</li></ol>
+<p>Damit existiert nur an diesem Abend ein Zeitfenster, in dem beide notwendigen Zugangsfaktoren gleichzeitig erreichbar sind.</p>
+<blockquote><p><strong>Pacing-Hebel:</strong> Falls die Gruppe zu lange diskutiert, kündigt Dr. Venn an, dass sie in ungefähr zwanzig Minuten aufbrechen wird. Erst wenn daraus tatsächlich ein komplexes Wettrennen wird, lohnt sich eine zusätzliche Countdown Clock.</p></blockquote>
+<hr>
+<h2 id="7-der-aktenkoffer">7. Der Aktenkoffer</h2>
+<h3 id="äußeres">Äußeres</h3>
+<p>Der gesuchte Koffer ist ungefähr 45 cm breit und besteht aus mattschwarzem Keramikverbundstoff. Er wirkt erstaunlich altmodisch: keine AR-Anzeige, keine sichtbare Datenbuchse, kein Herstellerlogo und kein aktives Funksignal.</p>
+<p>Über Deckel und Unterseite läuft eine einzige dünne, elfenbeinweiße Linie, die fast einen vollständigen Kreis bildet – nur am Griff bleibt eine etwa fingerbreite Lücke. Der Griff selbst ist aus dunklem Metall und mit abgenutztem schwarzem Leder umwickelt.</p>
+<p>Über einem der beiden mechanischen Verschlüsse sitzt ein blassblaues, einmaliges Manipulationssiegel. Wird der Koffer geöffnet, ist das eindeutig feststellbar.</p>
+<p><strong>Warum ist er leicht zu erkennen?</strong> In einem Tresor voller glänzender, vernetzter und offensiv wertvoller Objekte wirkt dieser kleine, vollkommen stille Koffer beinahe provokant schlicht.</p>
+<h3 id="matrix">Matrix</h3>
+<p>Der Koffer ist <strong>offline</strong>. Er sendet nichts und lässt sich nicht einfach über die Matrix orten. Seine Sicherungen arbeiten lokal und besitzen keine notwendige Funkverbindung.</p>
+<h3 id="magisch">Magisch</h3>
+<p>Der Koffer trägt eine schwache, alte magische Aura. Sie ist nicht gefährlich und löst nichts aus, kann ihn aber für eine astral wahrnehmende Figur unter den vielen Gegenständen auffällig machen.</p>
+<h3 id="verborgener-manipulationsschutz-nur-für-die-spielleitung">Verborgener Manipulationsschutz – nur für die Spielleitung</h3>
+<p>Im Rahmen des Koffers sitzt ein <strong>kleiner, professionell integrierter Sprengsatz</strong>. Er ist nicht als Waffe gegen Diebe gedacht, sondern als letzte Sicherung gegen unbefugtes Öffnen: Wird der Koffer ohne vorherige Neutralisierung vollständig geöffnet, zerstört die Ladung in erster Linie den Inhalt.</p>
+<p>Wer den Koffer dabei unmittelbar vor sich hält, befindet sich trotzdem in ernsthafter Gefahr. Die Detonation sollte jedoch <strong>keine automatische Todesfalle</strong> sein. Je nach Situation sind Harm, verlorene Ausrüstung, ein ausgelöster Alarm oder eine andere passende Consequence sinnvoller als ein plötzliches Charakterende.</p>
+<p>Der Mechanismus ist <strong>entdeckbar</strong>. Ein kundiger oder vorsichtiger Runner kann bei einer gezielten Untersuchung Hinweise bemerken, beispielsweise:</p>
+<ul><li>für die Größe ungewöhnliches Gewicht,</li><li>einen zweiten inneren Rahmen unter der Keramikhülle,</li><li>feine Fertigungsspalten entlang des Deckels,</li><li>einen separaten, abgeschirmten Stromkreis,</li><li>chemische oder technische Spuren, die nicht zu einem gewöhnlichen Aktenkoffer passen.</li></ul>
+<p>Welche <strong>Action</strong> dafür passt, hängt davon ab, was die Figur tatsächlich tut. <code>Survey</code>, <code>Study</code>, <code>Engineer</code> oder <code>Interface</code> können je nach Vorgehensweise sinnvoll sein; keine davon ist automatisch vorgeschrieben.</p>
+<p>Wird der Sprengsatz erkannt, kann ein geeigneter Runner versuchen, ihn mit passenden Werkzeugen, technischer Manipulation oder einer anderen plausiblen Methode zu neutralisieren. Unter ruhigen Bedingungen kann das vergleichsweise kontrolliert sein. Unter Zeitdruck, im Tresorgeschoss mit aktiven Drohnen oder bei hohem Alert kann derselbe Versuch deutlich riskanter werden.</p>
+<p><strong>Wichtig:</strong> Wer den Koffer einfach wie befohlen geschlossen lässt, muss von dieser Sicherung niemals erfahren. Sie ist keine Pflichtszene und kein Rätsel, das gelöst werden muss.</p>
+<h4 id="zweite-sicherung-manipulationsnachweis">Zweite Sicherung: Manipulationsnachweis</h4>
+<p>Unabhängig vom sichtbaren blauen Siegel besitzt der Koffer im Inneren einen unauffälligen mechanischen Manipulationsnachweis. Selbst wenn die Runner den Sprengsatz perfekt entschärfen, den Koffer öffnen und anschließend sauber wieder schließen, kann Veyrath später feststellen, dass er geöffnet wurde.</p>
+<p>Damit unterscheidet der Koffer drei Arten von Verhalten:</p>
+<ol><li><strong>Nicht geöffnet:</strong> Auftrag exakt erfüllt.</li><li><strong>Sicherung erkannt, neutralisiert und trotzdem geöffnet:</strong> technisch beeindruckend, aber klare Anweisung missachtet.</li><li><strong>Unvorsichtig geöffnet:</strong> Sprengsatz detoniert; der Inhalt wird zerstört und die Situation eskaliert.</li></ol>
+<h3 id="inhalt-nur-für-die-spielleitung">Inhalt – nur für die Spielleitung</h3>
+<p>Im Koffer liegt eine handtellergroße, gesprungene Scheibe aus schwarzem Obsidian. Ihr tatsächlicher Wert ist für die Runner nicht unmittelbar erkennbar, aber sie ist <strong>nicht wertlos</strong>.</p>
+<p>Warum sie Veyrath wichtig ist, bleibt unbeantwortet. Er hat für diese Feuerprobe bewusst einen Gegenstand gewählt, dessen Verlust real, für ein Wesen mit seinem Vermögen jedoch kaum schmerzhaft wäre. Deshalb ist auch der Sprengsatz keine Attrappe.</p>
+<p>Der Inhalt ist <strong>kein</strong> Plotgerät, das zum Lösen des Runs gebraucht wird. Der eigentliche Test besteht darin, ob die Crew die klare Vorgabe respektiert, obwohl sie theoretisch die Möglichkeit hätte, mehr herauszufinden.</p>
+<hr>
+<h2 id="8-die-zielperson">8. Die Zielperson</h2>
+<h3 id="dr-amara-venn-leitende-kuratorin">Dr. Amara Venn – leitende Kuratorin</h3>
+<p>Dr. Venn ist eine orkische Kunsthistorikerin und Sicherheitskuratorin von Vesperline Collections. Sie ist für die Auswahl, Provenienz und physische Übergabe besonders wertvoller Stücke verantwortlich.</p>
+<h4 id="erkennungsmerkmale">Erkennungsmerkmale</h4>
+<ul><li>Mitte 40.</li><li>Groß, schlank und sehr aufrechte Haltung.</li><li>Rasierter Kopf.</li><li>Polierte silberne Kappen auf beiden Hauern.</li><li>Linkes Auge: auffällig bernsteinfarben und natürlich.</li><li>Rechtes Auge: schwarzes, hochwertiges Cyberauge ohne künstliche Iris.</li><li>Dunkelgrüner, streng geschnittener Abendanzug.</li><li>Schmale goldene Brosche in Form einer stilisierten Feder.</li></ul>
+<p>Der Tresor akzeptiert den biometrischen Augenscan ihres <strong>linken natürlichen Auges</strong>.</p>
+<h4 id="persönlichkeit">Persönlichkeit</h4>
+<p>Venn ist intelligent, professionell und nicht feindselig. Sie betrachtet die meisten Partygäste als Menschen mit zu viel Geld und zu wenig Ahnung von Kunst. Ernsthaftes Interesse an einem Werk weckt dagegen schnell ihre Aufmerksamkeit.</p>
+<p>Sie will den Abend möglichst ohne Zwischenfälle beenden und danach nach Hause.</p>
+<h4 id="warum-sie-nicht-einfach-entführen">Warum sie nicht einfach entführen?</h4>
+<p>Das ist möglich, aber riskant.</p>
+<ul><li>Sie ist eine bekannte Person der Veranstaltung.</li><li>Ihr Verschwinden fällt auf.</li><li>Eine bewusstlose oder sichtbar gezwungene Kuratorin erhöht die Aufmerksamkeit enorm.</li><li>Mr. Johnson hat ausdrücklich verlangt, dass sie <strong>nicht verletzt</strong> wird.</li></ul>
+<p>Technische Runner können versuchen, genügend biometrische Daten für ein Retinaduplikat oder eine vergleichbare Täuschung zu erfassen. Sozial orientierte Runner können sie möglicherweise dazu bringen, freiwillig in Richtung Tresor zu gehen. Andere Gruppen finden völlig andere Wege.</p>
+<h4 id="optionale-komplikation-für-sehr-sozial-starke-gruppen">Optionale Komplikation für sehr sozial starke Gruppen</h4>
+<p>Wenn du mehr Social-Spiel möchtest, gibt es eine zweite orkische Frau mit rasierter Frisur und silbernen Haueraufsätzen auf der Gästeliste. Aus der Entfernung kann sie mit Venn verwechselt werden.</p>
+<p><strong>Standardmäßig würde ich diese Komplikation für einen Einsteiger-One-Shot weglassen.</strong> Die eigentliche Aufgabe bietet bereits genug Entscheidungen.</p>
+<hr>
+<h2 id="9-die-vault-keycard">9. Die Vault-Keycard</h2>
+<p>Die Keycard liegt während der Gala in einem <strong>kleinen, nicht öffentlich zugänglichen Eventbüro</strong> im Servicebereich des Penthouses. Dort wird sie in einer schwarzen Schlüsselkassette verwahrt; Entnahme und Rückgabe werden protokolliert.</p>
+<p>Die Karte ist dunkelgrau, besitzt keine Beschriftung und zeigt nur bei direkter Betrachtung ein schwach irisierendes Hologramm.</p>
+<p><strong>Warum dort?</strong> Die Sicherheitsarchitektur trennt bewusst Biometrie und physische Berechtigung. Dr. Venn besitzt das biometrische Merkmal, aber nicht die Karte.</p>
+<h3 id="dorian-kade-sicherheitschef">Dorian Kade – Sicherheitschef</h3>
+<p><strong>Eigenkreation.</strong> Kade leitet die Sicherheit der Gala.</p>
+<ul><li>eleganter dunkler Maßanzug trotz zweier makellos verchromter Cyberarme,</li><li>kleine, fast unmerkliche Zuckungen in Händen, Schultern und Blick lassen augmentierte Reflexe vermuten,</li><li>diskret mit einer Pistole bewaffnet,</li><li>höflich, ruhig und ausgesprochen aufmerksam,</li><li>will vor allem verhindern, dass es vor den VIPs zu einem sichtbaren Zwischenfall kommt.</li></ul>
+<p>Kade trägt die Vault-Keycard normalerweise <strong>nicht selbst</strong>, weiß aber genau, wo sie verwahrt wird und wie eine legitime Entnahme funktioniert. Bei einem regulären Zugriff autorisiert er oder ein von ihm bestimmter Mitarbeiter die Ausgabe aus der Kassette; danach wird sie wieder eingecheckt.</p>
+<p>Damit kann Kade für die Runner Informationsquelle, Hindernis oder Gelegenheit sein, ohne zu einem zwingenden Zwischenziel zu werden.</p>
+<p>Mögliche Ansätze bleiben offen: Kassette umgehen, Karte kopieren, einen legitimen Zugriff abpassen, Kade täuschen, eine Berechtigung vortäuschen oder einen völlig anderen Weg finden.</p>
+<hr>
+<h2 id="10-treffen-mit-mr-johnson">10. Treffen mit Mr. Johnson</h2>
+<h3 id="empfohlener-treffpunkt-raincheck">Empfohlener Treffpunkt: „Raincheck“</h3>
+<p><strong>Eigenkreation.</strong> Ein rund um die Uhr geöffnetes Soykaf-Diner auf einer mittleren Etage eines gemischt genutzten Hochhauses. Regen läuft in breiten Bahnen über die Panoramascheiben. Die meisten Tische sind leer; mehrere Lieferdrohnen warten draußen an einer Ladeschiene.</p>
+<p>Mr. Johnson sitzt bereits in einer halbtransparenten Privatsphäre-Nische. Er trägt einen anthrazitfarbenen Maßanzug und benutzt während des gesamten Gesprächs ein echtes Papiernotizbuch statt eines sichtbaren Kommlinks.</p>
+<p>Das Treffen ist ruhig und professionell. Keine Falle, kein Hinterhalt, kein unnötiger Twist.</p>
+<h3 id="alternative-treffpunkte">Alternative Treffpunkte</h3>
+<h4 id="späte-fähre">Späte Fähre</h4>
+<p>Das Treffen findet während einer nächtlichen Fährfahrt statt. Johnson steigt an einer Haltestelle zu, setzt sich für zehn Minuten neben die Crew und verschwindet beim nächsten Anleger wieder in der Menge.</p>
+<h4 id="parkdeck-über-den-wolken">Parkdeck über den Wolken</h4>
+<p>Ein fast leeres automatisiertes Parkhaus in den oberen Etagen eines Büroturms. Wind und Regen peitschen durch offene Seitenflächen, während autonome Fahrzeuge wortlos ein- und ausfahren.</p>
+<h4 id="private-matrix-lounge">Private Matrix-Lounge</h4>
+<p>Ein diskreter, gemieteter virtueller Besprechungsraum. Für einen ersten Shadowrun-One-Shot würde ich die physische Variante bevorzugen, weil die Spieler:innen so zunächst die reale Sechste Welt kennenlernen.</p>
+<hr>
+<h2 id="11-das-briefing">11. Das Briefing</h2>
+<p>Mr. Johnson gibt der Crew folgende Informationen:</p>
+<h3 id="auftrag">Auftrag</h3>
+<p>Beschafft während der heutigen Gala einen bestimmten Aktenkoffer aus dem privaten Tresor unterhalb des Penthouses des Meridian Spire.</p>
+<h3 id="bedingungen">Bedingungen</h3>
+<ul><li>Der Koffer wird <strong>ungeöffnet</strong> übergeben.</li><li>Es wird <strong>nichts anderes</strong> aus dem Tresor entwendet.</li><li>Dr. Amara Venn darf <strong>nicht verletzt</strong> werden.</li><li>Der Auftrag ist <strong>kein Wetwork</strong>. Vermeidbare Todesfälle sind ausdrücklich unerwünscht.</li><li>Die Crew entscheidet selbst, wie sie vorgeht.</li></ul>
+<blockquote><p><strong>Hinweis für die Spielleitung:</strong> Johnson nennt „ungeöffnet“ sachlich als eine Bedingung unter mehreren und betont das Wort nicht auffällig. Der versteckte Manipulationsschutz soll nicht durch das Briefing angekündigt werden. Wer den Koffer später aus eigener Initiative untersucht, kann Hinweise entdecken.</p></blockquote>
+<h3 id="bekannte-zugangsfaktoren">Bekannte Zugangsfaktoren</h3>
+<p>Der Tresor benötigt zwei Dinge:</p>
+<ol><li>eine physische Vault-Keycard, die sich während der Gala irgendwo im Penthouse befindet;</li><li>den biometrischen Augenscan von Dr. Amara Venn.</li></ol>
+<p>Johnson liefert ein aktuelles Foto von Venn und die genaue Beschreibung des Koffers.</p>
+<h3 id="bezahlung">Bezahlung</h3>
+<p><strong>Empfehlung: 6 Nuyen für die Crew.</strong></p>
+<p>Das entspricht einem ernsthaften, professionellen Run und signalisiert, dass der Auftraggeber sowohl über Geld als auch über Erwartungen verfügt.</p>
+<p>Für einen kleineren Tutorial-Charakter kann auch <strong>4 Nuyen</strong> funktionieren. <strong>8 Nuyen</strong> würde ich nur wählen, wenn schon im Briefing deutlich werden soll, dass ein außergewöhnlich reicher Auftraggeber hinter Johnson steht.</p>
+<p>Die 6 Nuyen werden bei erfolgreicher, vertragsgemäßer Übergabe bezahlt. Johnson feilscht nach dem Run nicht plötzlich über bereits vereinbarte Bedingungen.</p>
+<h3 id="was-johnson-nicht-sagt">Was Johnson nicht sagt</h3>
+<ul><li>Dass Penthouse, Tresor und Koffer <strong>Veyrath selbst</strong> gehören.</li><li>Dass Veyrath der eigentliche Auftraggeber hinter Mr. Johnson ist.</li><li>Dass der Auftrag selbst ein Test ist.</li><li>Dass Veyrath die Sicherheitskonfiguration absichtlich so gewählt hat, dass ein kompetentes Team eine Chance besitzt.</li></ul>
+<p>Wenn die Runner diese Informationen durch glaubwürdige Recherche <strong>wirklich verdienen</strong>, sollte die Spielleitung sie nicht künstlich zurückhalten.</p>
+<hr>
+<h2 id="12-gather-information">12. Gather Information</h2>
+<p>Die Gruppe braucht nur genug Information, um einen Plan und dessen Detail festzulegen. Ein oder zwei gezielte Fragen pro Spieler:in reichen normalerweise.</p>
+<p>Mögliche Informationen:</p>
+<h3 id="wann-ist-die-sicherheit-am-schwächsten">„Wann ist die Sicherheit am schwächsten?“</h3>
+<p>Während des Event Mode. Zwischen Mitternacht und dem Ende der Gala sind beide Zugangsfaktoren gleichzeitig vor Ort. Danach verschwindet die Keycard wieder aus dem Gebäude.</p>
+<h3 id="wo-befindet-sich-die-keycard">„Wo befindet sich die Keycard?“</h3>
+<p>Im Servicebereich existiert ein kleines Eventbüro, das von der öffentlichen Party getrennt ist. Dort wird während der Gala sensible Veranstaltungsausrüstung verwahrt.</p>
+<p>Bei besonders gutem Ergebnis: Die Karte liegt in einer schwarzen Schlüsselkassette in diesem Raum.</p>
+<h3 id="wie-komme-ich-an-dr-venn-heran">„Wie komme ich an Dr. Venn heran?“</h3>
+<p>Venn hält sich häufig in der Nähe der ausgestellten Stücke auf und erklärt ernsthaft interessierten Gästen bereitwillig Details. Sie zieht sich außerdem gelegentlich in einen ruhigeren Wintergarten zurück, um dem Smalltalk zu entkommen.</p>
+<h3 id="welche-ausrüstung-fällt-auf">„Welche Ausrüstung fällt auf?“</h3>
+<p>Gäste dürfen leichte persönliche Ausrüstung tragen. Große Waffen, schwere Rüstung und offensichtliche Operationsausrüstung sind im Glasaufzug kaum plausibel und werden am Empfang zum Problem.</p>
+<p>Das Servicepersonal kann wesentlich sperrigere Kisten und Werkzeuge mitführen.</p>
+<h3 id="gibt-es-einen-alternativen-zugang">„Gibt es einen alternativen Zugang?“</h3>
+<p>An der Außenfassade verläuft ein automatisiertes Wartungssystem mit einer kleinen Reinigungs- und Inspektionsgondel. Sie kann nahe dem Penthouse andocken.</p>
+<h3 id="was-erwartet-uns-unter-dem-penthouse">„Was erwartet uns unter dem Penthouse?“</h3>
+<p>Das Tresorgeschoss ist normalerweise unbemannt. Es arbeitet mit Sensoren, Schleusen und autonomen Sicherheitsdrohnen.</p>
+<h3 id="was-ist-das-für-ein-gebäude">„Was ist das für ein Gebäude?“</h3>
+<p>Die Eigentumsstruktur endet hinter mehreren schwer durchschaubaren Holdinggesellschaften. Vesperline Collections ist nur die sichtbare Verwaltung.</p>
+<p>Bei wirklich außergewöhnlicher Recherche darf deutlich werden, dass hinter der Struktur der Drache <strong>Veyrath</strong> steht und dass das Penthouse samt Tresor zu seinem eigenen Besitz gehört. Die spätere Enthüllung funktioniert auch dann – sie wird vom Twist zur Bestätigung, dass die Crew gerade einen Drachen bei einem Einbruch in <strong>dessen eigenes Eigentum</strong> auf die Probe stellt.</p>
+<hr>
+<h2 id="13-mögliche-zugänge">13. Mögliche Zugänge</h2>
+<p>Diese Zugänge sind <strong>Angebote, keine vorgeschriebenen Lösungen</strong>.</p>
+<h3 id="13-1-als-gäste-über-den-glasaufzug">13.1 Als Gäste über den Glasaufzug</h3>
+<p>Die Crew besorgt Einladungen oder glaubwürdige Zugangsberechtigungen und fährt mit dem öffentlichen Glasaufzug direkt zum Penthouse.</p>
+<p><strong>Stärken:</strong></p>
+<ul><li>Nach erfolgreichem Eintritt geringe unmittelbare Aufmerksamkeit.</li><li>Idealer Zugang für Social, Deception und unauffällige Beobachtung.</li><li>Direkter Kontakt zu Dr. Venn.</li></ul>
+<p><strong>Probleme:</strong></p>
+<ul><li>Einladung und Identität müssen plausibel sein.</li><li>Sperrige Ausrüstung fällt auf oder muss vorher anders ins Gebäude gelangen.</li><li>Der Aufzug protokolliert, wer angekommen ist.</li></ul>
+<p><strong>Gute Flashbacks:</strong> eine Einladung kopiert, einen Namen auf die Gästeliste gebracht, eine Waffe vorher im Penthouse deponiert.</p>
+<hr>
+<h3 id="13-2-als-personal-über-tiefgarage-und-frachtaufzug">13.2 Als Personal über Tiefgarage und Frachtaufzug</h3>
+<p>Die Runner geben sich als Caterer, Techniker, Künstlerteam, Logistikpersonal oder zusätzliche Sicherheitskräfte aus.</p>
+<p><strong>Stärken:</strong></p>
+<ul><li>Werkzeuge, Kisten und sperrigere Ausrüstung sind plausibler.</li><li>Direkter Zugang zum Servicebereich und damit näher an der Keycard.</li></ul>
+<p><strong>Probleme:</strong></p>
+<ul><li>Personal wird stärker nach Funktion und Einsatzort getrennt.</li><li>Unbekannte Namen können in Dienstplänen auffallen.</li><li>Wer im falschen Bereich gesehen wird, wirkt schneller verdächtig als ein verwirrter Gast.</li></ul>
+<p><strong>Gute Flashbacks:</strong> gefälschte Arbeits-ID, manipulierte Schichtliste, echte Uniform, Lieferauftrag.</p>
+<hr>
+<h3 id="13-3-fallschirm-oder-gleiteranzug-sprung-auf-das-dach">13.3 Fallschirm- oder Gleiteranzug-Sprung auf das Dach</h3>
+<p>Ein bekannter Pilot bringt die Crew über den Turm. Von dort springt sie auf das Glasdach oder eine technische Dachfläche.</p>
+<p><strong>Stärken:</strong></p>
+<ul><li>Kaum soziale Voraussetzungen.</li><li>Viel Ausrüstung kann mitgeführt werden.</li><li>Spektakulärer Einstieg für körperliche und Transport-orientierte Charaktere.</li></ul>
+<p><strong>Risiken:</strong></p>
+<ul><li>Wetter, Wind und Höhenunterschied.</li><li>Sichtbare Annäherung.</li><li>Ein misslungener Ansatz kann die Crew am falschen Punkt absetzen, Ausrüstung kosten oder Harm verursachen.</li><li>Das Glasdach über dem Penthouse ist sichtbar von unten. Wer darauf herumläuft, kann von Gästen bemerkt werden.</li></ul>
+<p>Ein Absturz durch das Glasdach sollte eine mögliche Consequence sein, <strong>nicht automatisch das Ergebnis des Einstiegs</strong>.</p>
+<hr>
+<h3 id="13-4-fassadenwartung-zusätzliche-empfehlung">13.4 Fassadenwartung – zusätzliche Empfehlung</h3>
+<p>Die Crew übernimmt oder manipuliert die automatische Wartungsgondel des Meridian Spire. Sie fährt außen am Gebäude entlang und kann an einer technischen Schleuse knapp unterhalb des Penthouses andocken.</p>
+<p><strong>Stärken:</strong></p>
+<ul><li>Sehr guter Ansatz für Rigger, Hacker, Techno, Punk oder körperlich geschickte Runner.</li><li>Umgeht den Haupteingang.</li><li>Werkzeug und Kletterausrüstung wirken plausibel.</li></ul>
+<p><strong>Probleme:</strong></p>
+<ul><li>Die Gondel ist Teil der Gebäudetechnik und wird protokolliert.</li><li>Von innen können Gäste oder Kameras sie sehen.</li><li>Ein falscher Fahrbefehl kann das System stoppen oder die Gondel an einer ungünstigen Stelle verriegeln.</li></ul>
+<hr>
+<h3 id="13-5-kreative-idee-der-spieler-innen">13.5 Kreative Idee der Spieler:innen</h3>
+<p>Wenn der Plan mit der etablierten Fiktion vereinbar ist, spiele ihn aus. Gute Ideen dürfen geplante Bereiche des Runs vollständig umgehen.</p>
+<p>Mögliche Beispiele wären ein gechartertes Skycab, ein inszenierter medizinischer Notfall, ein Kunsttransport, ein übernommener Lieferdrohnenschwarm oder ein ungewöhnlicher Einsatz von Magie.</p>
+<hr>
+<h2 id="14-plan-und-engagement">14. Plan und Engagement</h2>
+<p>Sobald die Gruppe einen Plan und dessen Detail hat, folgt der <strong>Engagement Roll</strong>. Danach direkt zur ersten ernsthaften Situation schneiden.</p>
+<p>Beispiele:</p>
+<table><thead><tr><th>Plan</th><th>Mögliches Detail</th></tr></thead><tbody><tr><td>Social</td><td>Eine echte Einladung über einen Kontakt</td></tr><tr><td>Deception</td><td>Cateringcrew mit gefälschter Schichtzuweisung</td></tr><tr><td>Stealth</td><td>Wartungsschleuse an der Fassade</td></tr><tr><td>Transport</td><td>Absprung vom Flugzeug auf das Dach</td></tr><tr><td>Supernatural</td><td>Eine konkrete magische Methode der Runner</td></tr><tr><td>Assault</td><td>Technischer Zugangspunkt, den die Crew mit Gewalt nimmt</td></tr></tbody></table>
+<p>Ein schlechtes Engagement bedeutet nicht, dass die Runner bei der Planung dumm waren. Es bedeutet nur, dass die erste Situation bereits gefährlich ist.</p>
+<hr>
+<h2 id="15-die-party-im-penthouse">15. Die Party im Penthouse</h2>
+<p>Die Gala ist bereits in vollem Gange.</p>
+<h3 id="atmosphäre">Atmosphäre</h3>
+<p>Glas, dunkles Holz, lebende Pflanzen, AR-Skulpturen und echte Kunst konkurrieren um Aufmerksamkeit. Aus dem offenen Atrium sieht man zwischen den Wolken die Lichter Seattles. Dezente Musik liegt über Gesprächen von Konzernleuten, Sammler:innen, Künstler:innen, Influencer:innen und Personen, deren eigentliche Tätigkeit niemand offen benennt.</p>
+<p>Servicedrohnen tragen Getränke. Diskrete Sicherheitskräfte beobachten eher, als dass sie einschüchtern. Die gesamte Veranstaltung soll teuer, kontrolliert und mühelos wirken.</p>
+<h3 id="wichtige-bereiche">Wichtige Bereiche</h3>
+<h4 id="großer-salon">Großer Salon</h4>
+<p>Der gesellschaftliche Mittelpunkt. Viele Gäste, gute Deckung durch Menschenmenge, aber auch viele Augen.</p>
+<h4 id="ausstellungsgalerie">Ausstellungsgalerie</h4>
+<p>Hier hält sich Dr. Venn am häufigsten auf. Mehrere Objekte werden in AR mit Herkunft und Verkaufswert kommentiert.</p>
+<h4 id="wintergarten">Wintergarten</h4>
+<p>Ruhiger, etwas abseits. Gute Gelegenheit für private Gespräche oder eine unauffällige biometrische Aufnahme.</p>
+<h4 id="servicebereich">Servicebereich</h4>
+<p>Küche, Personalflur, Materiallager und das Eventbüro mit der Keycard. Gäste fallen hier auf.</p>
+<h4 id="private-arbeitszimmer">Private Arbeitszimmer</h4>
+<p>Nicht Teil der Veranstaltung. Hinter einer bündig in die Wand eingelassenen Holzverkleidung befindet sich der private Abstieg zum Tresorgeschoss.</p>
+<h4 id="glasdach-und-dachzugang">Glasdach und Dachzugang</h4>
+<p>Von unten sichtbar. Ein spektakulärer, aber exponierter Zugang.</p>
+<hr>
+<h2 id="16-dr-venn-und-der-augenscan">16. Dr. Venn und der Augenscan</h2>
+<p>Die Runner entscheiden selbst, wie sie an den biometrischen Faktor kommen.</p>
+<p>Wichtig ist dabei: <strong>Dr. Venn besitzt nicht die Vault-Keycard.</strong> Ihr natürlicher Augenscan ist nur einer von zwei voneinander getrennten Zugangsfaktoren. Selbst wenn die Runner Venn vollständig auf ihre Seite ziehen, müssen sie das Problem der Keycard weiterhin lösen.</p>
+<p>Mögliche Ansätze:</p>
+<ul><li>Hochauflösende Aufnahme des natürlichen Auges und Vorbereitung eines Retinaduplikats.</li><li>Venn in eine Situation bringen, in der sie einen Scanner oder ein optisches Gerät freiwillig betrachtet.</li><li>Eine private Besichtigung der Sammlung arrangieren.</li><li>Venn unter einem glaubwürdigen Vorwand zur Zugangsschleuse locken.</li><li>Sie betäuben oder entführen.</li><li>Magie einsetzen, soweit die konkrete Figur dazu tatsächlich in der Lage ist.</li><li>Einen ganz anderen Ansatz finden.</li></ul>
+<p>Die Spielleitung sollte nicht entscheiden: „Hier muss Interface gewürfelt werden.“ Erst beschreibt die Spieler:in die Handlung; daraus ergibt sich die passende <strong>Action</strong>.</p>
+<p>Wenn Venn tatsächlich entführt wird, ist das kein automatischer Fehlschlag. Es ist lediglich eine deutlich auffälligere und riskantere Lösung.</p>
+<h3 id="private-besichtigung-arrangieren">Private Besichtigung arrangieren</h3>
+<p>Dr. Venn darf ausgewählte Gäste zu einer privaten Besichtigung <strong>anmelden</strong> und bis in den Vorbereich der Sammlung begleiten. Sie kann mit ihrem Auge den biometrischen Teil des Zugangs legitimieren, aber den Tresor <strong>nicht allein öffnen</strong>.</p>
+<p>Eine reguläre Besichtigung funktioniert nach dem Vier-Augen-Prinzip:</p>
+<ol><li>Venn bestätigt ihre Identität am Scanner.</li><li>Eine separat verwahrte Vault-Keycard muss als zweiter Faktor eingesetzt werden.</li></ol>
+<p>Die Runner haben damit den biometrischen Faktor elegant gelöst, benötigen aber weiterhin die Keycard. Sie können sie beispielsweise vorher beschaffen, kopieren, während der Besichtigung unterschieben oder sich als die Person ausgeben, die den zweiten Faktor bereitstellen soll.</p>
+<p>Eine offizielle Besichtigung schaltet die Sicherheit <strong>nicht ab</strong>. Stattdessen behandelt sie die Gruppe zunächst als autorisierte Besucher:</p>
+<ul><li>Aufklärungsdrohnen zählen und identifizieren die angemeldeten Personen.</li><li>Sensoren prüfen, ob auffällige oder nicht angemeldete Ausrüstung mitgeführt wird.</li><li>Drohnen achten darauf, dass niemand die Besuchergruppe verlässt.</li><li>Türen und Bewegungszonen bleiben auf den angemeldeten Zweck beschränkt.</li><li>Abweichungen können eine erneute Authentifizierung oder einen stillen Alarm auslösen.</li></ul>
+<p>Der Vorteil dieser Lösung ist daher nicht „keine Sicherheit“, sondern eine <strong>günstigere fiktionale Ausgangslage</strong>. Eine Handlung gegenüber den Drohnen kann dadurch eher <code>Controlled</code> sein, während dieselbe Handlung bei einem offen illegalen Eindringen <code>Risky</code> oder <code>Desperate</code> wäre.</p>
+<h3 id="venn-unter-einem-vorwand-zur-schleuse-locken">Venn unter einem Vorwand zur Schleuse locken</h3>
+<p>Die Runner können Venn auch dazu bringen, lediglich ihren biometrischen Faktor zu bestätigen, ohne dass sie glaubt, eine Besichtigung durchzuführen.</p>
+<p>Geeignete Vorwände können sein:</p>
+<ul><li>ein angeblicher Fehler der Klimatisierung bei einem empfindlichen Kunstobjekt,</li><li>eine automatische Sicherheitsmeldung, die ihre erneute Bestätigung verlangt,</li><li>ein vermeintlich fehlerhafter Zugriffsversuch eines Mitarbeiters,</li><li>eine technische Störung im Sammlungsbereich,</li><li>ein Problem, das angeblich nur die verantwortliche Kuratorin bestätigen darf.</li></ul>
+<p>Venn geht in diesem Fall nur bis zum Authentifizierungspunkt und führt dort den Irisscan durch.</p>
+<p>Das System meldet anschließend sinngemäß:</p>
+<blockquote><p><strong>BIOMETRISCHER FAKTOR: BESTÄTIGT</strong><br>
+<strong>PHYSISCHER FAKTOR: AUSSTEHEND</strong></p></blockquote>
+<p>Die Tür bleibt geschlossen, bis die Vault-Keycard eingesetzt wird.</p>
+<p>Diese Variante kann sogar zusätzlichen Druck erzeugen: Venn steht möglicherweise direkt daneben, während die Runner den zweiten Faktor ins Spiel bringen müssen. Ein längeres Ausbleiben der Keycard, eine unpassende Person am Lesegerät oder widersprüchliche Angaben können die Drohnen und Sicherheitssysteme misstrauisch machen.</p>
+<p>Auch hier gilt: Ein erfolgreicher sozialer Ansatz <strong>überspringt nicht das Tresorgeschoss</strong>. Er verändert lediglich, wie die dortige Sicherheit die Runner zunächst einordnet.</p>
+<hr>
+<h2 id="17-das-tresorgeschoss-ebene-110">17. Das Tresorgeschoss – Ebene 110</h2>
+<p>Auf dieser Ebene ist <strong>kein lebendes Personal dauerhaft stationiert</strong>. Bei legitimen Besichtigungen, Kunsttransporten oder Sicherheitsvorfällen können Dr. Venn, Kade oder andere autorisierte Personen die Ebene jedoch betreten.</p>
+<p>Es gibt zwei reguläre Liftzugänge:</p>
+<ul><li>einen <strong>Sammlerlift</strong> im Anschluss an die Ausstellungsräume, vorgesehen für Kurator:innen, Kunsttransporte und angemeldete Besucher;</li><li>einen <strong>Privatlift</strong> in Veyraths Arbeitszimmer, vorgesehen für besonders privilegierte Zugriffe.</li></ul>
+<p>Beide münden in dieselbe Abfolge:</p>
+<p><strong>Lift → Sicherheitsschleuse → Sensorkorridor → Tresortür → Sammlung</strong></p>
+<p>Ein enger Wartungsschacht aus dem Servicekern bietet zusätzlich einen irregulären Zugang.</p>
+<p>Die Ebene sollte nicht als Dungeon mit zehn Räumen gespielt werden. Für den One-Shot reichen vier funktionale Kernbereiche; die magische Hülle der Vault überlagert diese als zusätzliche Sicherheitsebene.</p>
+<h3 id="17-1-zugangsschleuse">17.1 Zugangsschleuse</h3>
+<p>Beide Lifte enden in derselben mattschwarzen Schleuse.</p>
+<p>Eine erste Sensorschicht registriert Bewegung, Gewicht und nicht autorisierte Geräte. Normalerweise erkennt sie Dr. Venn, angemeldete Besucher und autorisierte Wartungskräfte.</p>
+<p>Eine gültige Anmeldung oder Venns Anwesenheit bedeutet <strong>nicht</strong>, dass die Schleuse alle Kontrollen deaktiviert. Sie entscheidet lediglich, ob die Gruppe zunächst als erwartete Besucher oder als unbekannte Eindringlinge behandelt wird.</p>
+<p><strong>Mögliche Probleme:</strong></p>
+<ul><li>die gemeldete Personenzahl stimmt nicht,</li><li>ein Runner führt auffällige oder nicht angemeldete Ausrüstung mit,</li><li>jemand trennt sich von der registrierten Gruppe,</li><li>stiller Alarm,</li><li>Schleusentür verriegelt hinter der Crew,</li><li>Kameras fokussieren einzelne Runner,</li><li>lokale Systeme verlangen eine zusätzliche Identitätsprüfung.</li></ul>
+<hr>
+<h3 id="17-2-sensorkorridor">17.2 Sensorkorridor</h3>
+<p>Ein langer, überraschend leerer Korridor führt zum Tresor. Beleuchtung und Wandflächen wirken fast museal.</p>
+<p>Sicherheitskomponenten können sein:</p>
+<ul><li>Kameras,</li><li>Bewegungsmelder,</li><li>unsichtbare Lichtschranken,</li><li>Drucksensoren,</li><li>lokale RFID- und Gerätescans.</li></ul>
+<p>Nicht alle Systeme müssen gleichzeitig relevant werden. Beschreibe zunächst nur, was die Runner wahrnehmen oder herausfinden.</p>
+<p><strong>Mögliche Consequences:</strong></p>
+<ul><li>ein Sensor registriert eine Abweichung,</li><li>eine Tür hinter der Crew schließt,</li><li>eine Drohne wird aktiviert,</li><li>ein Teil der Ausrüstung wird als Fremdgerät markiert,</li><li>die Alert Clock steigt.</li></ul>
+<hr>
+<h3 id="17-3-drohnenknoten">17.3 Drohnenknoten</h3>
+<p>Eine seitliche Servicenische enthält die lokalen Sicherheitsdrohnen und deren Wartungsanschlüsse.</p>
+<h4 id="aufklärungsdrohnen">Aufklärungsdrohnen</h4>
+<p>Kleine, schnelle Fluggeräte. Sie versuchen zunächst zu beobachten, Gesichter und Bewegungsmuster zu erfassen und die Crew zu markieren.</p>
+<h4 id="wächterdrohnen">Wächterdrohnen</h4>
+<p>Größere bewaffnete Drohnen. Ihre Standardreaktion besteht darin, Eindringlinge zu isolieren, niederzuhalten und Zeit für Verstärkung zu gewinnen. Sie besitzen nichttödliche Optionen, können bei schwerer Bewaffnung oder massiver Eskalation aber auf tödliche Gewalt umschalten.</p>
+<h4 id="betriebszustände">Betriebszustände</h4>
+<p>Die Drohnen müssen nicht sofort zwischen „ignorieren“ und „angreifen“ wechseln. Drei grobe Zustände reichen für die Spielleitung:</p>
+<p><strong>Routine:</strong><br>
+Die Ebene erwartet niemanden. Drohnen patrouillieren nach Standardmustern und prüfen Unregelmäßigkeiten.</p>
+<p><strong>Autorisierte Besichtigung oder Wartung:</strong><br>
+Die Drohnen bleiben aktiv und begleiten beziehungsweise überwachen die registrierten Personen. Sie zählen Besucher, vergleichen Identitäten, beobachten Bewegungszonen und reagieren auf auffällige Ausrüstung oder Abweichungen. Die Runner haben dadurch meist eine bessere <strong>Position</strong>, sind aber keineswegs unbeobachtet.</p>
+<p><strong>Unregelmäßigkeit:</strong><br>
+Die Drohnen positionieren sich zwischen den verdächtigen Personen und dem Tresor, fordern erneute Authentifizierung, blockieren Wege oder trennen einzelne Personen voneinander. Erst bei weiterer Eskalation greifen die Wächterdrohnen körperlich oder mit Waffen ein.</p>
+<p>Damit bleiben die Drohnen auch dann relevant, wenn Dr. Venn freiwillig mit den Runnern zur Schleuse geht. Ein sozialer Erfolg verändert ihre Reaktion, beseitigt sie aber nicht als Hindernis.</p>
+<h4 id="wie-man-sie-besiegt">Wie man sie besiegt</h4>
+<p>Es gibt keine einzige vorgesehene Methode. Möglich sind unter anderem:</p>
+<ul><li>Interface oder emergente Manipulation,</li><li>physisches Sabotieren,</li><li>Umleiten oder Einsperren,</li><li>präzise Schüsse auf Sensoren oder Waffen,</li><li>starke Nahkampfangriffe,</li><li>Täuschung der Zielerkennung,</li><li>Ablenkung,</li><li>Magie,</li><li>schlichtes Vorbeikommen, bevor sie reagieren.</li></ul>
+<p>Die Drohnen würfeln nicht separat. Ihr Verhalten und ihre Angriffe werden über die Action Rolls der Runner und daraus entstehende Consequences abgewickelt.</p>
+<hr>
+<h3 id="17-4-die-tresortür">17.4 Die Tresortür</h3>
+<p>Die massive Tür besitzt zwei voneinander getrennte Zugangsprüfungen.</p>
+<ol><li>Die Vault-Keycard wird gelesen.</li><li>Innerhalb kurzer Zeit muss der biometrische Augenscan von Dr. Venn bestätigt werden.</li></ol>
+<p>Die Reihenfolge ist nicht entscheidend; der zuerst bestätigte Faktor erzeugt lediglich ein kurzes Authentifizierungsfenster für den zweiten.</p>
+<p><strong>Venn besitzt die Vault-Keycard nicht.</strong> Auch ihre freiwillige Anwesenheit oder eine von ihr arrangierte Besichtigung ersetzt den physischen Faktor nicht.</p>
+<p>Das System protokolliert jeden Öffnungsversuch. Ein sauberer Doppelzugang öffnet die Tür ohne weiteren Alarm.</p>
+<p>Keycard und Augenscan sind der <strong>sauberste reguläre Zugang</strong>, aber keine unüberwindbaren Single Points of Failure. Fehlt einer oder sogar beide Faktoren, können die Runner weiterhin andere Wege versuchen: technische Manipulation, schweres Werkzeug, Sprengstoff, Magie, einen Flashback oder eine völlig andere Idee.</p>
+<p>Ohne die vorgesehenen Faktoren wird der Zugang typischerweise <strong>lauter, riskanter oder zeitaufwendiger</strong>, aber nicht automatisch unmöglich. Wie riskant und wirksam ein konkreter Ansatz ist, ergibt sich aus <strong>Position</strong>, <strong>Effect</strong>, Ausrüstung, Vorbereitung und bereits bestehender Aufmerksamkeit.</p>
+<h3 id="17-5-magische-hülle-der-vault">17.5 Magische Hülle der Vault</h3>
+<p>Die <strong>Wände der eigentlichen Vault</strong> sind von kultiviertem lebendem Gewebe durchzogen: dunkle Faserstränge, die wie Wurzeln oder feines Muskelgewebe zwischen den Schichten der Konstruktion verlaufen.</p>
+<p>Das Gewebe ist eine <strong>Eigenkreation</strong> dieses Runs. Es dient als biologisches Trägermaterial einer <strong>dualen Manabarriere</strong>, welche die Vault physisch und astral abschirmt. Ein astrales Ausspähen oder einfaches Eindringen durch die Wände ist dadurch erheblich erschwert.</p>
+<p>Zusätzliche fiktionale Funktionen des Gewebes:</p>
+<ul><li>es reagiert auf Bohrungen, starke Erschütterungen und Beschädigungen,</li><li>kleine Verletzungen schließen sich mit der Zeit,</li><li>bei Alarm können sich Fasern verdichten und die Konstruktion zusätzlich stabilisieren,</li><li>Beschädigungen sind sichtbar: Fasern zucken, dunkle Flüssigkeit tritt aus, die Wand wirkt für einen Moment beinahe lebendig.</li></ul>
+<p>Außerhalb der Barriere kann optional ein <strong>astraler Watcher</strong> patrouillieren, dessen Aufgabe nur darin besteht, ungewöhnliche astrale Aktivität zu bemerken und zu melden. Er ist kein verpflichtender Kampfgegner.</p>
+<h4 id="chancen-für-mage-und-adept">Chancen für Mage und Adept</h4>
+<p>Ein Erwachter ist für den Run <strong>nicht erforderlich</strong>, kann aber zusätzliche Ebenen der Sicherheit erkennen und ausnutzen:</p>
+<ul><li><code>Assense</code> kann Manabarriere, astralen Watcher, magische Spuren und auffällige Objekte in der Sammlung sichtbar machen.</li><li>Ein Mage kann untersuchen, wie die Barriere am regulären Türdurchgang kontrolliert geöffnet wird, und daraus einen Vorteil für einen eigenen Ansatz gewinnen.</li><li>Ein Adept mit passenden Fähigkeiten kann subtile Umweltveränderungen, Gefahr, Stressreaktionen oder Sensorik früher bemerken.</li><li>Ein Adept mit Zugang zu <code>Assense</code> oder <code>Astral Warrior</code> kann direkt mit astralen Problemen umgehen.</li><li>Magische Gegenstände innerhalb der Sammlung können von mundanen Stücken unterschieden werden.</li></ul>
+<hr>
+<h2 id="18-der-tresor-veyraths-moderner-drachenhort">18. Der Tresor – Veyraths moderner Drachenhort</h2>
+<p>Hinter der Tür liegt keine Bankkammer voller identischer Schließfächer, sondern eine private Sammlung.</p>
+<p>Die Beleuchtung geht langsam an und zeigt:</p>
+<ul><li>Gemälde aus verschiedenen Jahrhunderten,</li><li>Skulpturen und archäologische Objekte,</li><li>alte und moderne Nahkampfwaffen,</li><li>mehrere hochwertige Schusswaffen,</li><li>Schmuck und historische Edelsteine,</li><li>seltene gedruckte Bücher,</li><li>versiegelte Datenarchive,</li><li>einzelne Stücke moderner Cyber- und Biotechnologie,</li><li>mehrere magische Antiquitäten,</li><li>Dinge, deren kultureller oder finanzieller Wert ohne Spezialwissen kaum einzuschätzen ist.</li></ul>
+<p>Alles ist sorgfältig kuratiert. Nichts liegt zufällig herum. Es ist kein chaotischer Goldhaufen, sondern der Besitz eines Wesens, das über sehr lange Zeit gesammelt hat.</p>
+<p>Der schwarze Aktenkoffer liegt auf einem niedrigen Sockel zwischen erheblich auffälligeren Objekten.</p>
+<h3 id="versuchung">Versuchung</h3>
+<p>Mehrere Stücke wirken <strong>offensichtlich wertvoller als der Koffer</strong>. Mindestens eines davon sollte überraschend leicht mitzunehmen sein – etwa eine kleine Schatulle mit historischen Edelsteinen, eine verzierte magische Antiquität oder ein kompaktes Stück hochwertiger Cybertechnologie.</p>
+<p>Darum liegt <strong>keine zusätzliche Falle</strong>. Wenn die Spieler:innen etwas mitnehmen wollen, lass sie das tun.</p>
+<p>Der Auftrag verbietet es lediglich, und Veyrath wird es später sehr genau bewerten.</p>
+<hr>
+<h2 id="19-alert-statt-heat">19. Alert statt Heat</h2>
+<h3 id="wichtige-regeltrennung">Wichtige Regeltrennung</h3>
+<p>Die unmittelbare Aufmerksamkeit der Gebäudesicherheit sollte <strong>nicht Heat heißen</strong>.</p>
+<p>In Runners in the Shadows ist <strong>Heat</strong> bereits eine eigene Crew-Ressource, die normalerweise <strong>nach dem Run</strong> anhand der allgemeinen Sichtbarkeit und Eskalation des Auftrags bestimmt wird.</p>
+<p>Für diesen Run verwende stattdessen eine <strong>6-segmentige Alert Clock</strong>.</p>
+<blockquote><p><strong>Alert – Gebäudesicherheit wird auf die Eindringlinge aufmerksam</strong><br>
+<code>○ ○ ○ ○ ○ ○</code></p></blockquote>
+<p>Eine 6er Clock ist für diesen One-Shot übersichtlicher als fünf Segmente und lässt sich gut mit Limited / Standard / Great Effect verbinden, wenn eine Handlung tatsächlich direkt auf die Clock wirkt.</p>
+<h3 id="0-1-segmente-routine">0–1 Segmente: Routine</h3>
+<ul><li>Systeme behandeln Auffälligkeiten als normale Event-Abweichungen.</li><li>Drohnen patrouillieren nach Standardmustern.</li><li>Keine besondere Suche nach den Runnern.</li></ul>
+<h3 id="2-3-segmente-verdacht">2–3 Segmente: Verdacht</h3>
+<ul><li>Kameras vergleichen Bewegungen und Identitäten gezielter.</li><li>einzelne Türen verlangen erneut Berechtigungen,</li><li>Sicherheitsdrohnen beobachten auffällige Bereiche,</li><li>Personal wird diskret nach Unregelmäßigkeiten gefragt.</li></ul>
+<p>Das bedeutet <strong>nicht automatisch einen Würfelmalus</strong>. Die veränderte Fiktion kann aber Position und Effect kommender Actions beeinflussen.</p>
+<h3 id="4-5-segmente-aktiver-alarm">4–5 Segmente: Aktiver Alarm</h3>
+<ul><li>Sicherheitsdrohnen suchen gezielt,</li><li>Servicewege werden teilweise gesperrt,</li><li>Aufzüge können angehalten oder umgeleitet werden,</li><li>die Gebäudesicherheit beginnt, Gäste aus gefährdeten Bereichen fernzuhalten,</li><li>Runner, deren Identität bereits erfasst wurde, werden aktiv verfolgt.</li></ul>
+<h3 id="6-segmente-lockdown">6 Segmente: Lockdown</h3>
+<ul><li>Der lokale Sicherheitsalarm gilt als bestätigt.</li><li>Fluchtwege werden verriegelt oder kontrolliert.</li><li>Ein externer Sicherheits- bzw. Polizeidienstleister wird verständigt.</li><li>Die Runner haben noch Handlungsspielraum, aber der Run ist jetzt eindeutig in der Eskalation.</li></ul>
+<p><strong>Das Füllen der Clock ist kein automatisches Mission Failure.</strong> Es verändert die Situation.</p>
+<p>Wenn noch viel Spielzeit vorhanden ist, kann jetzt zusätzlich eine kurze <strong>Response Clock</strong> gestartet werden. Wenn die Sitzung bereits weit fortgeschritten ist, reicht es, die nächste große Consequence als eintreffende Verstärkung zu behandeln.</p>
+<hr>
+<h2 id="20-wann-steigt-alert">20. Wann steigt Alert?</h2>
+<p>Nicht jede misslungene Probe erhöht automatisch Alert.</p>
+<p>Alert ist eine passende Consequence, wenn eine Handlung plausibel Aufmerksamkeit erzeugt, etwa:</p>
+<ul><li>eine Kamera sieht etwas,</li><li>ein Sensor wird ausgelöst,</li><li>eine falsche Identität wird überprüft,</li><li>eine Drohne sendet eine Warnung,</li><li>ein Gast schlägt Alarm,</li><li>eine Tür wird gewaltsam geöffnet,</li><li>schwere Schüsse oder Explosionen sind im Gebäude hörbar,</li><li>ein Matrixeingriff hinterlässt einen unmittelbar verwertbaren Hinweis.</li></ul>
+<p>Andere Consequences sind genauso möglich:</p>
+<ul><li>Harm,</li><li>verlorene Ausrüstung,</li><li>schlechtere Position,</li><li>reduzierter Effect,</li><li>ein Ausgang wird versperrt,</li><li>Dr. Venn wird misstrauisch,</li><li>die Keycard wird an einen anderen Ort gebracht,</li><li>eine Drohne erscheint,</li><li>die Gruppe wird getrennt.</li></ul>
+<hr>
+<h2 id="21-kann-alert-wieder-sinken">21. Kann Alert wieder sinken?</h2>
+<p>Ja, wenn die Fiktion das zulässt. Behandle Alert bei Bedarf wie eine <strong>tug-of-war Clock</strong>.</p>
+<p>Wichtig ist: Niemand darf einfach sagen „Ich würfle, um Alert zu senken.“ Zuerst muss klar sein, <strong>was die Figur in der Welt tut</strong>, um die Sicherheitslage zu beruhigen.</p>
+<p>Beispiele:</p>
+<ul><li>Ein Runner erklärt einem Sicherheitsmitarbeiter glaubwürdig, warum die beobachtete Abweichung harmlos war.</li><li>Eine Kamerasequenz wird durch unauffällige ältere Aufnahmen ersetzt.</li><li>Ein ausgelöster Sensor wird als technischer Defekt getarnt.</li><li>Eine Drohne wird abgefangen, bevor sie ihren Bericht übermittelt.</li><li>Ein manipuliertes Türprotokoll lässt den Zugang wie einen autorisierten Wartungsvorgang aussehen.</li><li>Ein Partyzwischenfall liefert eine plausible Erklärung für Lärm oder Bewegung.</li></ul>
+<p>Bei erfolgreicher Handlung kann Alert entsprechend dem Effect sinken oder ein unmittelbar drohender Anstieg ganz verhindert werden.</p>
+<hr>
+<h2 id="22-warum-dafür-kein-hacker-zwingend-nötig-ist">22. Warum dafür kein Hacker zwingend nötig ist</h2>
+<p>Ein Hacker ist sehr gut darin, elektronische Spuren, Kameras, Zugangslogs und Drohnen zu beeinflussen. Er bekommt dadurch viele Gelegenheiten, Alert zu verhindern oder zurückzudrängen.</p>
+<p>Aber er besitzt <strong>kein exklusives Recht</strong>, die Alert Clock zu beeinflussen.</p>
+<p>Mögliche andere Ansätze:</p>
+<ul><li><strong>Sozial:</strong> Verdacht umlenken, eine plausible Erklärung liefern, Personal beschäftigen.</li><li><strong>Täuschung:</strong> Eine falsche Identität oder Arbeitsanweisung herstellen.</li><li><strong>Physisch:</strong> Sensor oder Drohne ausschalten, bevor ein Alarm übertragen wird.</li><li><strong>Präzision:</strong> Kameras, Optiken oder Waffenmodule einer Drohne gezielt zerstören.</li><li><strong>Technik:</strong> Leitungen, Türen oder lokale Steuerungen manipulieren.</li><li><strong>Magie:</strong> Wahrnehmung oder Bewegung beeinflussen, sofern die konkrete Figur entsprechende Möglichkeiten besitzt.</li><li><strong>Mobilität:</strong> einen überwachten Bereich verlassen, bevor die Suche sich schließt.</li></ul>
+<p>Wiederholte Hacker-Versuche werden <strong>nicht automatisch</strong> immer schwieriger. Sie werden dann riskanter, wenn die Fiktion dafür einen Grund geschaffen hat: eine Gegenmaßnahme läuft, ein Trace wurde begonnen, ein System ist isoliert worden oder die Sicherheit weiß jetzt, wonach sie sucht.</p>
+<hr>
+<h2 id="23-spotlight-für-die-verschiedenen-playbooks">23. Spotlight für die verschiedenen Playbooks</h2>
+<p>Der Run soll kein Charakterquiz sein. Niemand bekommt einen Raum, der „nur für seine Klasse“ gedacht ist. Stattdessen enthält die Situation viele Probleme, die unterschiedliche Runner auf unterschiedliche Weise lösen können.</p>
+<table><thead><tr><th>Playbook</th><th>Typische Chancen zu glänzen</th></tr></thead><tbody><tr><td><strong>Face</strong></td><td>Einladung, Kontakte, ernsthafte Sammlerrolle, Dr. Venn beschäftigen, Verdacht sozial entschärfen</td></tr><tr><td><strong>Hacker</strong></td><td>Gästelisten, Kameras, Aufzüge, Zugangslogs, Drohnen und Gebäudetechnik</td></tr><tr><td><strong>Muscle</strong></td><td>Schutz der Gruppe, schwere Ausrüstung, nichttödliche Überwältigung, gewaltsame Notwege, Drohnen im direkten Kampf</td></tr><tr><td><strong>Punk</strong></td><td>Fassadeninfiltration, Parkour, Ablenkung, Sabotage, chaotische Improvisation und Flucht</td></tr><tr><td><strong>Rigger</strong></td><td>Pilot für Absprung oder Flucht, Wartungsgondel, Gebäudedrohnen, Fahrzeuge und technische Fernsteuerung</td></tr><tr><td><strong>Snake</strong></td><td>Personalrollen, Verkleidung, Täuschung, Keycard-Diebstahl, Dr. Venn manipulieren</td></tr><tr><td><strong>Trigger</strong></td><td>Overwatch, Gefahr früh erkennen, präzise Drohnenkomponenten ausschalten, Fluchtweg sichern</td></tr><tr><td><strong>Adept</strong></td><td>Je nach Way: außergewöhnliche Wahrnehmung, Gefahrensinn, Mobilität, körperliche Infiltration, Kontrolle eigener Körperreaktionen; mit passenden Fähigkeiten auch astrale Probleme</td></tr><tr><td><strong>Mage</strong></td><td>Assense der Manabarriere und des Watchers, magische Spuren untersuchen, magische Objekte unterscheiden, eigene magische Umgehungswege schaffen</td></tr><tr><td><strong>Techno</strong></td><td>Signale und vernetzte Systeme auf emergente Weise beeinflussen, Drohnen oder Gebäudetechnik manipulieren, digitale Anomalien erkennen</td></tr></tbody></table>
+<p>Die Actions auf dem Charakterbogen sind wichtiger als das Etikett des Playbooks.</p>
+<hr>
+<h2 id="24-mögliche-consequences-nach-bereich">24. Mögliche Consequences nach Bereich</h2>
+<h3 id="party">Party</h3>
+<ul><li>Eine Sicherheitskraft bittet höflich um Identifikation.</li><li>Ein Gast glaubt, einen Runner zu kennen.</li><li>Dr. Venn wird misstrauisch.</li><li>Die Keycard wird vorübergehend aus dem Eventbüro entfernt.</li><li>Eine sperrige Ausrüstungskiste soll überprüft werden.</li><li>Alert +1 oder +2.</li></ul>
+<h3 id="tresorgeschoss">Tresorgeschoss</h3>
+<ul><li>Eine Drohne erhält Sichtkontakt.</li><li>Eine Schleuse verriegelt.</li><li>Eine Waffe oder ein Werkzeug wird beschädigt oder verloren.</li><li>Lösch- oder Sicherungsschaum füllt einen Abschnitt und erschwert Bewegung und Sicht.</li><li>Der direkte Rückweg wird blockiert.</li><li>Die biometrische Kopie funktioniert nur eingeschränkt; ein zusätzlicher Schritt bleibt nötig.</li><li>Alert steigt deutlich.</li></ul>
+<h3 id="flucht">Flucht</h3>
+<ul><li>Der bevorzugte Ausgang ist gesperrt.</li><li>Ein Aufzug hält auf einer falschen Etage.</li><li>Ausrüstung muss zurückgelassen werden.</li><li>Eine Drohne hängt sich an die Crew.</li><li>Die Gruppe wird getrennt.</li><li>Ein Sprung oder Flugmanöver verursacht Harm oder Verlust von Equipment.</li></ul>
+<hr>
+<h2 id="25-szenariospezifische-dragon-s-deals">25. Szenariospezifische Dragon’s Deals</h2>
+<p>Diese Angebote sind keine Pflicht. Nutze sie, wenn sie zur Situation passen.</p>
+<ul><li><strong>„Die Einladung ist echt – aber jemand auf der Party erkennt deinen Alias.“</strong></li><li><strong>„Du bekommst den perfekten biometrischen Scan. Dr. Venn wird sich später sehr genau an dein Gesicht erinnern.“</strong></li><li><strong>„Die Drohne geht sofort offline. Ihr letzter Datenburst wurde allerdings bereits gesendet.“</strong></li><li><strong>„Die Wartungsgondel bringt euch exakt ans Ziel. Danach verriegelt sie sich außen am Gebäude und steht für die Flucht nicht mehr zur Verfügung.“</strong></li><li><strong>„Du erreichst den Koffer ohne weiteren Widerstand. Dafür schließt sich die Tresortür hinter euch.“</strong></li></ul>
+<hr>
+<h2 id="26-fluchtmöglichkeiten">26. Fluchtmöglichkeiten</h2>
+<p>Die Flucht muss nur dann ausführlich ausgespielt werden, wenn sie interessant ist oder noch Zeit vorhanden ist.</p>
+<h3 id="glasaufzug">Glasaufzug</h3>
+<p>Besonders elegant bei niedriger Alert-Stufe. Die Crew fährt zwischen ahnungslosen Gästen und Bewohner:innen nach unten, während die Stadt hinter den Glaswänden vorbeizieht.</p>
+<p>Bei höherem Alert kann der Aufzug gestoppt, umgeleitet oder überprüft werden.</p>
+<h3 id="frachtaufzug-und-tiefgarage">Frachtaufzug und Tiefgarage</h3>
+<p>Die pragmatische Variante. Unten kann ein vorbereitetes Fahrzeug warten, ein spontanes Fahrzeug beschafft oder zu Fuß in die unteren Ebenen des Gebäudekomplexes geflohen werden.</p>
+<h3 id="sprung-vom-dach">Sprung vom Dach</h3>
+<p>Fallschirme oder Gleiteranzüge machen den Abgang spektakulär. Wind, Verfolger und verlorene Ausrüstung sind gute Consequences, ohne jeden einzelnen Meter des Abstiegs auszuspielen.</p>
+<h3 id="fassadenwartung">Fassadenwartung</h3>
+<p>Die Wartungsgondel kann erneut verwendet, manuell übersteuert oder als Zwischenstation für einen Abstieg genutzt werden.</p>
+<h3 id="zusätzlich-skycab-extraktion">Zusätzlich: Skycab-Extraktion</h3>
+<p>Ein Runner mit den richtigen Kontakten oder technischen Möglichkeiten lässt ein autonomes Skycab oder ein anderes kleines Luftfahrzeug an einer zulässigen oder improvisierten Außenposition auftauchen.</p>
+<p>Das kann durch eine echte Buchung, eine falsche VIP-Anweisung, eine Übernahme des Fahrzeugs, einen Rigger oder einen Flashback geschehen.</p>
+<h3 id="kreative-idee">Kreative Idee</h3>
+<p>Wenn die Gruppe einen plausiblen besseren Weg findet, lass ihn funktionieren.</p>
+<hr>
+<h2 id="27-die-enthüllung">27. Die Enthüllung</h2>
+<p>Die Enthüllung funktioniert am besten <strong>während oder unmittelbar nach der Flucht</strong>, nicht als langer Monolog.</p>
+<p>Ein gewaltiger Schatten gleitet über die Fassade. Flügel schlagen im Regen. Für einen Moment fliegt oder klettert ein echter Drache in deutlichem Abstand neben der fliehenden Crew, weit größer als alles, womit sie gerechnet hat. Er versperrt ihnen nicht den Weg und macht keine Anstalten anzugreifen.</p>
+<p>Dann hören die Runner seine Stimme direkt in ihren Gedanken:</p>
+<blockquote><p>„Nennt mich Veyrath. Der Turm ist mein. Der Tresor ist mein. Und der Koffer, den ihr gerade gestohlen habt, ebenfalls.“</p></blockquote>
+<p>Damit wird klar: <strong>Sie haben keinen Rivalen Veyraths bestohlen. Veyrath selbst hat sie in seinen eigenen Tresor geschickt.</strong></p>
+<p>Je nach Verlauf kann er anschließend ergänzen:</p>
+<h3 id="sauberer-run">Sauberer Run</h3>
+<blockquote><p>„Ihr nehmt, was euch gegeben wurde, und lasst liegen, was euch nicht gehört. Selten. Ihr seid also tatsächlich zu etwas zu gebrauchen.“</p></blockquote>
+<h3 id="erfolgreich-aber-chaotisch">Erfolgreich, aber chaotisch</h3>
+<blockquote><p>„Nicht elegant. Nicht leise. Aber ihr seid noch am Leben und der Koffer ist bei euch. Das genügt fürs Erste.“</p></blockquote>
+<h3 id="viel-gewalt">Viel Gewalt</h3>
+<blockquote><p>„Gewalt ist ein Werkzeug. Wer für jedes Problem dasselbe Werkzeug benutzt, ist kein Handwerker.“</p></blockquote>
+<h3 id="zusätzliche-beute">Zusätzliche Beute</h3>
+<blockquote><p>„Ich bat euch um einen Gegenstand. Ihr habt entschieden, dass mein Eigentum eure Bezahlung erhöhen sollte. Das merke ich mir.“</p></blockquote>
+<h3 id="geöffneter-koffer">Geöffneter Koffer</h3>
+<blockquote><p>„Neugier ist wertvoll. Disziplin ebenfalls. Heute habt ihr mir gezeigt, welche von beiden bei euch gewinnt.“</p></blockquote>
+<p>Hat die Crew den Sprengsatz entdeckt und sauber neutralisiert, kann Veyrath ergänzen:</p>
+<blockquote><p>„Den Sicherungsmechanismus zu erkennen war gute Arbeit. Ihn überwinden zu müssen, war eure eigene Entscheidung.“</p></blockquote>
+<p>Veyraths Auftauchen ist <strong>ausschließlich die Bewertung des Tests</strong>, kein Endbosskampf und keine neue Konfrontation. Er ist nicht der Gegner der Runner. Er bleibt außer Reichweite, bedroht die Crew nicht und blockiert ihre Flucht nicht. Sollten die Runner ausgerechnet auf ihn schießen, beendet er den Kontakt und zieht sich zurück, statt aus dem Epilog einen Kampf gegen einen erwachsenen Drachen zu machen.</p>
+<hr>
+<h2 id="28-payoff-und-bewertung">28. Payoff und Bewertung</h2>
+<p>Die vereinbarte Grundbezahlung beträgt <strong>6 Nuyen</strong>. Veyrath koppelt die tatsächliche Auszahlung jedoch an die Professionalität der Crew.</p>
+<h3 id="auszahlung-nach-alert">Auszahlung nach Alert</h3>
+<ul><li><strong>Low Alert (0–1): 6 Nuyen</strong></li><li><strong>Medium Alert (2–5): 5 Nuyen</strong></li><li><strong>High Alert / Lockdown (6): 3 Nuyen</strong></li></ul>
+<p>Verletzte oder tote Gäste beziehungsweise Angestellte werden für die Auszahlung <strong>mindestens wie High Alert</strong> behandelt. Dr. Venn schwer zu verletzen oder zu töten ist zusätzlich ein klarer Vertragsbruch.</p>
+<p>Schäden an Veyraths Sammlung wiegen für ihn noch schwerer als Personenschäden. Werden Stücke aus dem Tresor beschädigt oder zusätzlich gestohlen, zieht das seinen deutlichen Unmut auf sich; erheblicher oder absichtlicher Schaden kann die Auszahlung weiter reduzieren und macht Folgeaufträge sehr unwahrscheinlich.</p>
+<p>Diese Prioritäten sind bewusst unangenehm: <strong>Veyrath misst seinem Eigentum mehr Wert bei als metamenschlichem Leben.</strong></p>
+<p>Ob die Crew für Folgeaufträge interessant ist, entscheidet Veyrath anhand ihres tatsächlichen Vorgehens.</p>
+<h3 id="ideale-kandidaten">Ideale Kandidaten</h3>
+<ul><li>Koffer ungeöffnet.</li><li>Keine zusätzliche Beute.</li><li>Sammlung unbeschädigt.</li><li>Venn unverletzt.</li><li>wenig unnötige Gewalt.</li><li>Probleme kreativ und als Team gelöst.</li></ul>
+<h3 id="brauchbar-aber-riskant">Brauchbar, aber riskant</h3>
+<ul><li>Auftrag erfüllt.</li><li>Medium oder High Alert.</li><li>vermeidbare Aufmerksamkeit.</li><li>unnötige, aber nicht katastrophale Eskalation.</li></ul>
+<h3 id="nicht-geeignet">Nicht geeignet</h3>
+<ul><li>Koffer absichtlich geöffnet – auch wenn der Manipulationsschutz fachgerecht neutralisiert wurde.</li><li>Inhalt des Koffers durch unvorsichtiges Öffnen zerstört.</li><li>Venn schwer verletzt oder getötet.</li><li>Sammlung beschädigt oder zusätzliche Beute entwendet.</li><li>Auftrag wegen Gier gefährdet.</li><li>wahllose Tötungen trotz klarer Anweisung.</li></ul>
+<p>Das bedeutet nicht, dass die Charaktere „falsch gespielt“ wurden. Es ist lediglich die Reaktion dieses Auftraggebers auf ihre Entscheidungen.</p>
+<hr>
+<h2 id="29-offizielles-rits-heat-nach-dem-run-optional">29. Offizielles RitS Heat nach dem Run – optional</h2>
+<p>Für einen reinen One-Shot kann dieser Schritt weggelassen werden.</p>
+<p>Wenn die Crew danach weitergespielt werden soll, wird <strong>Heat nach den normalen RitS-Regeln</strong> bestimmt und nicht einfach von der Alert Clock übernommen.</p>
+<p>Grundlage ist die allgemeine Exposure des Runs:</p>
+<ul><li><strong>0 Heat:</strong> smooth &amp; quiet, geringe Exposure.</li><li><strong>2 Heat:</strong> contained, normale Exposure.</li><li><strong>4 Heat:</strong> loud &amp; chaotic, hohe Exposure.</li><li><strong>6 Heat:</strong> wild, verheerende Exposure.</li></ul>
+<p>Dazu kommen die normalen situativen Modifikatoren des Systems, etwa für hochprofilige Ziele oder Tötungen.</p>
+<p><strong>Alert und Heat sind also bewusst zwei verschiedene Dinge:</strong></p>
+<ul><li><strong>Alert</strong> = Was weiß und tut die Sicherheit <em>jetzt während des Runs</em>?</li><li><strong>Heat</strong> = Welche langfristige Aufmerksamkeit erzeugt der Run <em>für die Crew danach</em>?</li></ul>
+<p>Zusätzliche Heat, die während des Runs ausdrücklich als Consequence oder durch eine Ability entsteht, wird natürlich wie üblich berücksichtigt.</p>
+<hr>
+<h2 id="30-wer-kommt-bei-vollem-alert">30. Wer kommt bei vollem Alert?</h2>
+<p>Die vorhandene Grundquelle etabliert für diese Ausarbeitung nicht eindeutig, welcher konkrete Polizeikonzern in Seattle 2080 den zuständigen Vertrag besitzt.</p>
+<p>Deshalb wird im One-Shot bewusst nur von einem <strong>zuständigen externen Polizeidienstleister</strong> bzw. einem <strong>vertraglichen Sicherheits-Response-Team</strong> gesprochen.</p>
+<p>Wenn für eine spätere Version explizit <strong>Knight Errant</strong> oder <strong>Lone Star</strong> verwendet werden soll, sollte das anhand einer zusätzlichen Seattle-Quelle oder gezielter Recherche festgelegt werden, statt es hier als Kanon zu behaupten.</p>
+<hr>
+<h2 id="31-pacing-für-die-spielleitung">31. Pacing für die Spielleitung</h2>
+<h3 id="wenn-die-gruppe-zu-lange-plant">Wenn die Gruppe zu lange plant</h3>
+<p>Frage nur:</p>
+<ol><li>Welchen Plan verwendet ihr?</li><li>Was ist das Detail?</li><li>Welches Load wählt ihr?</li></ol>
+<p>Dann Engagement Roll und Schnitt zur Action.</p>
+<h3 id="wenn-die-party-zu-lange-dauert">Wenn die Party zu lange dauert</h3>
+<ul><li>Dr. Venn kündigt ihren baldigen Aufbruch an.</li><li>Ein Kunstwerk soll zurück in den Tresor gebracht werden.</li><li>Das Servicepersonal beginnt mit dem Abbau.</li></ul>
+<p>Nimm den Punkt, der logisch aus dem bisherigen Verlauf folgt.</p>
+<h3 id="wenn-das-tresorgeschoss-zu-lange-dauert">Wenn das Tresorgeschoss zu lange dauert</h3>
+<p>Reduziere die Ebene auf:</p>
+<ol><li>ein Sensorproblem,</li><li>eine Drohnenkonfrontation,</li><li>die Vault-Tür.</li></ol>
+<p>Die übrigen Elemente können Teil von Consequences oder Beschreibung werden.</p>
+<h3 id="wenn-viel-zeit-übrig-ist">Wenn viel Zeit übrig ist</h3>
+<ul><li>Spiele die Flucht ausführlicher aus.</li><li>Lass einen abgeschnittenen Runner einen alternativen Weg suchen.</li><li>Nutze eine Response Clock nach vollem Alert.</li><li>Gib der Crew beim Payoff Gelegenheit, auf die Enthüllung zu reagieren.</li></ul>
+<hr>
+<h2 id="32-leitlinien-für-diesen-one-shot">32. Leitlinien für diesen One-Shot</h2>
+<ul><li><strong>Kein Playbook ist Pflicht.</strong></li><li><strong>Keine einzelne Action ist Pflicht.</strong></li><li><strong>Die Keycard und der Augenscan sind Probleme, keine vorgegebenen Rätsel.</strong></li><li><strong>Veyrath testet die Crew, aber manipuliert nicht heimlich jedes Würfelergebnis.</strong></li><li><strong>Veyrath ist Auftraggeber und Eigentümer des Zielobjekts, nicht Gegner oder rivalisierende Partei.</strong></li><li><strong>Veyrath wird in diesem One-Shot niemals als Kampfbegegnung eingesetzt.</strong></li><li><strong>Ein voller Alert ist Eskalation, kein automatisches Scheitern.</strong></li><li><strong>Consequences sollen neue Situationen erzeugen.</strong></li><li><strong>Kompetente Runner brauchen für ungefährliche Routinehandlungen keinen Roll.</strong></li><li><strong>Gute Spielerideen dürfen vorbereitete Szenen umgehen.</strong></li><li><strong>Wenn die Runner die Wahrheit über den Auftraggeber verdienen, verrate sie.</strong></li><li><strong>Für 3–4 Stunden gilt: Spielbarkeit vor Vollständigkeit.</strong></li></ul>
+<hr>
+<h2 id="33-spielleiter-schnellreferenz">33. Spielleiter-Schnellreferenz</h2>
+<h3 id="auftrag">Auftrag</h3>
+<p><strong>Stehlt:</strong> schwarzen Koffer aus Vault, ungeöffnet.<br>
+<strong>Verborgene Sicherung:</strong> kleiner Sprengsatz zerstört bei unbefugtem Öffnen primär den Inhalt; entdeck- und entschärfbar.<br>
+<strong>Manipulationsnachweis:</strong> Veyrath kann auch nach erfolgreicher Entschärfung erkennen, ob der Koffer geöffnet wurde.<br>
+<strong>Nicht stehlen:</strong> alles andere.<br>
+<strong>Nicht verletzen:</strong> Dr. Amara Venn.<br>
+<strong>Vermeiden:</strong> Tote.<br>
+<strong>Payoff:</strong> 6 Nuyen bei Low Alert, 5 bei Medium Alert, 3 bei High Alert; verletztes/totes Personal mindestens wie High Alert.</p>
+<h3 id="vorgesehene-zugangsfaktoren">Vorgesehene Zugangsfaktoren</h3>
+<ul><li>Vault-Keycard im Eventbüro.</li><li>Biometrischer Augenscan von Dr. Venn.</li><li>Ohne einen oder beide Faktoren bleibt der Zugang möglich, aber deutlich riskanter.</li></ul>
+<h3 id="penthouse">Penthouse</h3>
+<ul><li>Salon</li><li>Galerie</li><li>Wintergarten</li><li>Servicebereich / Eventbüro</li><li>Sammlerlift hinter den Ausstellungsräumen</li><li>privates Arbeitszimmer / Privatlift</li><li>Glasdach</li></ul>
+<h3 id="vault-ebene">Vault-Ebene</h3>
+<ul><li>gemeinsame Zugangsschleuse</li><li>Sensorkorridor</li><li>Drohnenknoten</li><li>Tresortür</li><li>lebende Vault-Hülle + duale Manabarriere</li><li>moderner Drachenhort</li></ul>
+<h3 id="alert-clock">Alert Clock</h3>
+<p><code>○ ○ ○ ○ ○ ○</code></p>
+<ul><li><strong>0–1:</strong> Routine</li><li><strong>2–3:</strong> Verdacht</li><li><strong>4–5:</strong> aktiver Alarm</li><li><strong>6:</strong> Lockdown + externe Response</li></ul>
+<h3 id="wichtigste-npcs">Wichtigste NPCs</h3>
+<p><strong>Mr. Johnson:</strong> professioneller Vermittler Veyraths.<br>
+<strong>Dr. Amara Venn:</strong> orkische Kuratorin, linkes bernsteinfarbenes Auge = Biometrie.<br>
+<strong>Dorian Kade:</strong> Sicherheitschef; eleganter Maßanzug, zwei verchromte Cyberarme, kleine reflexartige Zuckungen, diskrete Pistole; kennt Verwahrung und Ausgabe der Keycard.<br>
+<strong>Veyrath:</strong> erwachsener Drache, Eigentümer und eigentlicher Auftraggeber; prüft die Crew.</p>
+<h3 id="die-wahrheit">Die Wahrheit</h3>
+<p><strong>Veyrath besitzt Penthouse, Vault, Sammlung und Koffer und hat den Einbruch in seinen eigenen Tresor beauftragt.</strong> Es gibt keinen rivalisierenden Drachen. Die Gala schafft absichtlich ein realistisches Zeitfenster. Die Crew wird auf Disziplin, Kreativität, Teamwork und Eskalationskontrolle getestet.</p>
+<hr>
+<h2 id="34-quellen-und-kanonhinweis">34. Quellen- und Kanonhinweis</h2>
+<p>Die mechanische Struktur dieses Runs ist für <strong>Runners in the Shadows</strong> gedacht. Insbesondere Plan/Engagement, Action Rolls, Position/Effect, Consequences, Flashbacks, Progress Clocks und das getrennte offizielle Heat-System sollen nach RitS gehandhabt werden.</p>
+<p>Shadowrun liefert ausschließlich Welt und Lore. Seattle 2080, Drachen, Matrix, biometrische Magschlösser, Drohnen, Manabarrieren, Watcher und private Sicherheit sind Elemente der Sechsten Welt. Das <strong>lebende Gewebe als Trägermaterial der Vault-Sicherung</strong>, seine zusätzlichen Funktionen sowie konkrete Namen wie <strong>Meridian Spire</strong>, <strong>Vesperline Collections</strong>, <strong>Dr. Amara Venn</strong>, <strong>Dorian Kade</strong> und <strong>Veyrath</strong> sind <strong>Eigenkreationen dieses One-Shots</strong>.</p>
+</article>
+</div>
+<p class="fine">Fan-Material für den privaten Spieltisch. <i>Runners in the Shadows</i> ist ein Spiel von Mark Cleveland Massengale; <i>Shadowrun</i> ist eine Marke von The Topps Company / Catalyst Game Labs. Quelle: <code>oneshot/Shadowrun_Feuerprobe_OneShot_v5.md</code>.</p>
+</div>
+</body>
+</html>

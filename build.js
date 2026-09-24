@@ -5,6 +5,7 @@
 //   docs/feuerprobe-runner.html       eigenständige Seite
 //   docs/feuerprobe-runner-bogen.html Spielerbögen, ein Runner pro A4 (PDFs: node tools/make-pdf.js)
 //   docs/feuerprobe-leitfaden.html    SL-Leitfaden durch den Run mit NPC-Dossiers
+//   docs/feuerprobe-oneshot.html      das Abenteuer aus oneshot/*.md als lesbare Seite
 //   docs/artifact/*.html              Fragment ohne <html>/<head>/<body> für claude.ai-Artifacts
 const fs = require('fs');
 const path = require('path');
@@ -59,3 +60,13 @@ for (const p of pages) {
   fs.writeFileSync(path.join(__dirname, 'docs', p.name + '.html'), doc);
   console.log('gebaut:', 'docs/' + p.name + '.html');
 }
+
+// Das Abenteuer: Markdown → HTML, damit es auch online (GitHub Pages) lesbar ist.
+const md2html = require('./tools/md2html');
+const mdPath = path.join(__dirname, 'oneshot', 'Shadowrun_Feuerprobe_OneShot_v5.md');
+fs.writeFileSync(path.join(__dirname, 'docs', 'feuerprobe-oneshot.html'), md2html.page(fs.readFileSync(mdPath, 'utf8'), {
+  eyebrow: 'Shadowrun · Feuerprobe · Runners in the Shadows · Oneshot-Text',
+  links: [{ href: 'index.html', text: 'Startseite' }, { href: 'feuerprobe-leitfaden.html?lang=de', text: 'SL-Leitfaden' }, { href: 'meridian-spire-plaene.html?lang=de', text: 'Pläne' }],
+  fine: 'Fan-Material für den privaten Spieltisch. <i>Runners in the Shadows</i> ist ein Spiel von Mark Cleveland Massengale; <i>Shadowrun</i> ist eine Marke von The Topps Company / Catalyst Game Labs. Quelle: <code>oneshot/Shadowrun_Feuerprobe_OneShot_v5.md</code>.',
+}));
+console.log('gebaut: docs/feuerprobe-oneshot.html');
