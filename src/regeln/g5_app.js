@@ -11,7 +11,7 @@ function save(){try{localStorage.setItem('fp-lang',lang);localStorage.setItem('f
 const D=()=>lang==='en'?SHEETS_EN:SHEETS_DE;
 const $=id=>document.getElementById(id);
 // Druckschrift je Sheet hochskalieren, damit jede A4-Seite gut gefüllt ist (gemessen an der längeren deutschen Fassung)
-const PRINT_K={grundregeln:1.1,actions:1.34,kampf:1.26,magie:1.28,heist:1.36,'sl-wuerfe':1.26,'sl-kampf':1.34,'sl-magie':1.34,'sl-alert':1.24};
+const PRINT_K={grundregeln:1.08,actions:1.34,kampf:1.26,magie:1.32,heist:1.38,'sl-wuerfe':1.26,'sl-kampf':1.34,'sl-magie':1.36,'sl-alert':1.34};
 const list=(tag,items)=>items&&items.length?`<${tag}>${items.map(i=>`<li>${i}</li>`).join('')}</${tag}>`:'';
 
 function block(b){

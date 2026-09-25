@@ -21,7 +21,8 @@ const SHEETS_EN={
     ['p','More effect from the right gear, surprise, good preparation. Less from superior numbers, armour, level 1 harm. You may trade position for effect: riskier for more impact.']]},
    {h:'Edge',sm:'9 boxes · your reserve',b:[
     ['ul',['<b>Push (2 edge per benefit):</b> +1d, +1 effect, or act despite level 3 harm.','<b>Assist (1 edge):</b> a teammate gets +1d. Only one assist per roll. You may suffer consequences yourself.','<b>Dragon’s deal:</b> instead of pushing, +1d if you accept a catch offered by the GM or anyone at the table. The catch happens whatever the roll.','<b>Resistance:</b> costs edge (see below).']],
-    ['note','warn','<b>Edge full?</b> You take a <b>trauma</b> (Cold, Haunted, Obsessed, Paranoid, Reckless, Soft, Unstable, Vicious) and are out for the rest of the scene. Edge clears.']]},
+    ['note','warn','<b>Edge full?</b> You take a <b>trauma</b> (Cold, Haunted, Obsessed, Paranoid, Reckless, Soft, Unstable, Vicious) and are out for the rest of the scene. Edge clears.'],
+    ['p','There is no recovery tonight: edge and harm stay until the run is over.']]},
    {h:'Resistance roll',sm:'soften a consequence',b:[
     ['p','A consequence hits you? <b>Resistance always works</b>: the GM says whether it is reduced or avoided entirely. The roll only sets the price.'],
     ['ul',['The GM names the matching <b>attribute</b> (value on your sheet).','Cost: <b>6 minus your highest die</b> in edge (5 at most).','Critical: you regain 1 edge.','Decide first, then roll. One roll per consequence, and not on top of armour.']],
@@ -34,7 +35,7 @@ const SHEETS_EN={
     ['p','Then it works like any action: sometimes an action roll, sometimes a fortune roll, sometimes no roll at all. A flashback isn’t time travel and can’t undo anything.']]},
    {h:'Load',sm:'choose before the run',b:[
     ['tbl',['Load','Effect'],[['Light 3','faster, inconspicuous, fits the gala. Armoured clothing or one bulky item.'],['Normal 4–5','looks like trouble. Heavy armour or two bulky items.'],['Heavy 6','slower, looks like an operative. Up to three bulky items.']],'nw'],
-    ['p','You only decide which items you carry when you need them. Tick them off until your load is reached. Choosing your load restores your armour boxes.']]},
+    ['p','You only decide which items you carry when you need them. Tick them off until your load is reached.']]},
    {h:'Plan & engagement',sm:'no hour-long planning',b:[
     ['p','Pick a plan and name the detail. The GM rolls the <b>engagement roll</b> and cuts straight to the first danger.'],
     ['tbl',['Plan','Detail'],[['Assault','point of attack'],['Deception','method'],['Social','connection'],['Stealth','entry point'],['Supernatural','magical method'],['Transport','route & means']],'nw'],
@@ -77,7 +78,7 @@ const SHEETS_EN={
     ['tbl',['Level','Effect','Example'],[['1 lesser','less effect','scraped, sprained, tired'],['2 moderate','−1d','deep cut, concussion'],['3 severe','incapacitated: only with help or pushing','shot in the chest, broken leg, blinded'],['4','fatal','dead unless you resist']]],
     ['p','Levels 1 and 2 have two slots each, level 3 one. If a row is full, new harm moves up a level. The penalty applies when the injury fits the action. Short-lived states like dazed or panicked are not harm; they worsen position or effect.']]},
    {h:'Armour',sm:'boxes on your sheet',b:[
-    ['ul',['<b>Armor:</b> mark to reduce or avoid a fitting consequence <b>instead of</b> rolling resistance. Needs Armor in your load (2) or Light Armor (1).','<b>Heavy:</b> a second box, heavy armour only (+2 load). Hardly plausible at the gala.','Marked boxes only come back with the next run.','<b>Special:</b> only for what your ability allows (Fizz: detection and escape).','<b>Troll armor:</b> Bastion’s extra box.']]]},
+    ['ul',['<b>Armor:</b> mark to reduce or avoid a fitting consequence <b>instead of</b> rolling resistance. Needs Armor in your load (2) or Light Armor (1).','<b>Heavy:</b> a second box, heavy armour only (+2 load). Hardly plausible at the gala.','Each box works once per evening.','<b>Special:</b> only for what your ability allows (Fizz: detection and escape).','<b>Troll armor:</b> Bastion’s extra box.']]]},
    {h:'Johnson’s conditions',cls:'warnbx',b:[
     ['ul',['<b>No wetwork:</b> avoidable deaths are explicitly unwanted.','<b>Dr. Venn</b> must not be harmed.','Injured or dead guests and staff cut the pay.','Fighting is loud: gunfire and explosions push the alert clock.']]]},
    {h:'Non-lethal in the crew',b:[
@@ -96,7 +97,7 @@ const SHEETS_EN={
     ['tbl',['Runner','Magic'],[['Ravn · Mage','Awakened (hermetic) + Sorcerer: Assense and spells'],['Hush · Adept','Way of the Body: mana in their own body, Adept Senses'],['everyone else','mundane. Cyberware and magic don’t mix well.']],'nw']]},
    {h:'Assense',sm:'action · Awakened only',b:[
     ['p','You open your mind to the astral: auras, arcane traces of recent events, spirits, barriers, magical objects.'],
-    ['ul',['Roll Assense like any action. The position is often worse than with Survey, because the astral itself is dangerous.','On a <b>desperate</b> Assense action, mark 1 karma on the Willpower track.','Good effect: more detail, clearer answers.']]]},
+    ['ul',['Roll Assense like any action. The position is often worse than with Survey, because the astral itself is dangerous.','Good effect: more detail, clearer answers.']]]},
    {h:'Casting spells',sm:'Sorcerer',b:[
     ['ol',['Say which spell you cast, on whom, and what it should achieve. You need the link it requires (touch, sight).','If casting is dangerous, roll an action, usually <b>Assense</b>. The GM names position and effect.','Then pay the <b>cost</b> (see below).']],
     ['p','<b>Spell Focus</b> (meteoric iron ring): spells with exceptional control. <b>Arcane Reagents:</b> reduce the edge cost by 1 or boost the spell by one level, crumble after use.']]},
@@ -104,7 +105,7 @@ const SHEETS_EN={
     ['tbl',['Spell strength','Cost'],[['below your potential','1 edge <i>or</i> level 1 drain (then no resisting)'],['equal to your potential','1 edge <i>and</i> level 1 drain'],['above it','1 edge <i>and</i> level 2 drain']]],
     ['p','Drain is special harm and a supernatural consequence: you may resist it. Ravn has Assense 1, so potential 1. The GM judges how strong a spell is.']]},
    {h:'Concentration',b:[
-    ['p','Some spells only last while you concentrate (Veil). When your concentration is challenged, re-roll Assense (risking drain) or drop the spell: when you cast another spell, the target takes harm, magic acts against you, or the target is driven to desperation. The edge for it only returns once the spell ends.']]},
+    ['p','Some spells only last while you concentrate (Veil). When your concentration is challenged, re-roll Assense (risking drain) or drop the spell: when you cast another spell, the target takes harm, magic acts against you, or the target is driven to desperation.']]},
    {h:'Ravn’s spells',b:[
     ['tbl',['Spell','Effect'],[['Stunbolt','mental spell: unconsciousness instead of wounds. Non-lethal, silent, visible only to the Awakened. Line of sight.'],['Veil','an illusion over a person or thing. Lasts while you concentrate. Fools people, <b>not cameras</b>.']],'nw']]},
    {h:'Adept',sm:'Hush',b:[
@@ -123,8 +124,7 @@ const SHEETS_EN={
   lead:'The Meridian Spire is full of networked tech. Hackers get many chances to shine, but no exclusive right. And building security remembers what you do.',
   boxes:[
    {h:'The alert clock',sm:'6 segments · visible',b:[
-    ['ladder',[['0–1 Routine',C6,'Anomalies count as normal event deviations.'],['2–3 Suspicion',C45,'Cameras cross-check, doors ask again, staff get questioned.'],['4–5 Alarm','var(--alert2)','Drones search, lifts stop, identified runners are tracked.'],['6 Lockdown',C13,'Exits sealed, external response called. Escalation, not game over.']]],
-    ['p','Alert is not heat. Heat only counts after the run.']]},
+    ['ladder',[['0–1 Routine',C6,'Anomalies count as normal event deviations.'],['2–3 Suspicion',C45,'Cameras cross-check, doors ask again, staff get questioned.'],['4–5 Alarm','var(--alert2)','Drones search, lifts stop, identified runners are tracked.'],['6 Lockdown',C13,'Exits sealed, external response called. Escalation, not game over.']]],]},
    {h:'What drives alert',b:[
     ['ul',['cameras or guests see something','a sensor trips','a fake identity gets checked','a drone sends a warning','doors are forced','gunfire, explosions, screams','a hack leaves a trace']]]},
    {h:'Lowering alert',sm:'tug-of-war',b:[
@@ -158,7 +158,7 @@ const SHEETS_EN={
     ['p','The rulebook only states desperate = severe harm; the rest is Blades practice. Temporary states (dazed, panicked) are complications, not harm.']]},
    {h:'Effect factors',b:[
     ['ul',['<b>Quality:</b> better gear than the opposition (fine items) = +1.','<b>Scale:</b> group against individuals, drone swarm = ±1.','<b>Potency:</b> weak spot, surprise, magic against the mundane, EMP against drones = +1.']],
-    ['p','A dominant factor overrides the rest (one against twenty). Zero effect is possible, then only a setup helps; beyond great there is extreme effect.']]},
+    ['p','A dominant factor overrides the rest (one against twenty). Zero effect is possible, then only a setup helps.']]},
    {h:'Clocks',b:[
     ['tbl',['Size','for'],[['4–5','complex: the keycard lockbox, guards in the service wing'],['6–7','more complicated: guardian drones, the alert clock'],['8–10','daunting: break the mana barrier, the vault door without factors']],'nw'],
     ['p','Limited 1 · standard 2 · great 3 segments. Clocks track the obstacle, not the method (“guardian drones”, not “hack the drones”). Simple things need no clock: one roll decides.']]},
@@ -215,7 +215,7 @@ const SHEETS_EN={
    {h:'Spells in practice',b:[
     ['ul',['<b>Stunbolt</b> on a guard: Assense, risky, silent, non-lethal. A guard is weak: cost 1 edge or drain 1. Near level 110 the watcher notices.','<b>Veil:</b> people see the illusion, <b>cameras see the truth</b>. Needs concentration; when challenged, re-roll Assense or the veil drops.','The spell’s signature clings to caster’s spot and target for minutes and can be tracked.']]]},
    {h:'Magical consequences',b:[
-    ['ul',['<b>Drain</b> comes from the spell cost (spell potential = Assense rating, Ravn 1): below it 1 edge or drain 1, equal 1 edge + drain 1, above 1 edge + drain 2.','From the roll: backlash harm (“lightly toasted”, level 1), spell out of control.','Astral attention: the watcher reports, alert +1.','Resistance: Ravn (hermetic) Intuition, Hush Body. Desperate Assense: 1 karma on Willpower.']]]},
+    ['ul',['<b>Drain</b> comes from the spell cost (spell potential = Assense rating, Ravn 1): below it 1 edge or drain 1, equal 1 edge + drain 1, above 1 edge + drain 2.','From the roll: backlash harm (“lightly toasted”, level 1), spell out of control.','Astral attention: the watcher reports, alert +1.','Resistance: Ravn (hermetic) Intuition, Hush Body.']]]},
    {h:'Clues to Veyrath',cls:'goldbx',b:[
     ['ul',['<b>Ravn</b> recognises the grown dual barrier as decades of work: someone very old lives here.','Vesna (Ravn’s spirit) said the tower “has a heartbeat”.','<b>Hush’s</b> strange trinket may show a vast shadow over the façade at the vault door.','Don’t hold back a truth the runners have earned.']]]},
    {h:'Veyrath',sm:'reveal',b:[
@@ -223,7 +223,7 @@ const SHEETS_EN={
   ]},
 
  {id:'sl-alert',aud:'gm',title:'Alert, Matrix & payoff',c3:true,
-  lead:'The alert clock replaces heat during the run. It rises when an action plausibly draws attention, and drops when the fiction allows it.',
+  lead:'The alert clock shows what building security knows and does right now. It rises when an action plausibly draws attention, and drops when the fiction allows it.',
   boxes:[
    {h:'Alert stages',sm:'6 segments',b:[
     ['ladder',[['0–1 Routine',C6,'event deviation. Standard patrols. Nobody searches.'],['2–3 Suspicion',C45,'cameras cross-check, doors demand re-auth, drones watch, staff are questioned.'],['4–5 Alarm','var(--alert2)','drones search, service routes closed, lifts stop or reroute, identified runners are tracked.'],['6 Lockdown',C13,'alarm confirmed, exits sealed, external response called.']]]]},
@@ -237,15 +237,13 @@ const SHEETS_EN={
    {h:'Offline',b:[
     ['ul',['<b>The briefcase</b> transmits nothing and can’t be located via the Matrix. Offline means: only hackable by cable, directly at the device.','<b>Keycard lockbox</b> in the event office: removal is logged, but the lock is physical.','The <b>vault door</b> logs every attempt; a clean two-factor entry raises no alarm.']]]},
    {h:'Matrix consequences',b:[
-    ['ul',['ICe alerted or corners the hacker; next hack desperate.','“Traced” clock: when full, the location is known. Going offline clears it but drops all control taken.','Device damaged, shut down or jacked; target icon hidden.','Exposure: usable trace, alert +1 (heat after the run).','Breach opens at once but alerts the system.']],
+    ['ul',['ICe alerted or corners the hacker; next hack desperate.','“Traced” clock: when full, the location is known. Going offline clears it but drops all control taken.','Device damaged, shut down or jacked; target icon hidden.','Usable trace: alert +1.','Breach opens at once but alerts the system.']],
     ['p','Repeated attempts only get harder when the fiction gives a reason.']]},
    {h:'Payoff',cls:'goldbx',b:[
     ['tbl',['Alert at the end','Nuyen'],[['Low 0–1','6'],['Medium 2–5','5'],['High / lockdown 6','3']],'nw'],
-    ['ul',['Injured or dead guests or staff: at least as high alert.','Venn seriously hurt or killed: clear breach of contract.','Damage to the collection or extra loot can cut further and ends follow-up jobs.']]]},
+    ['ul',['Injured or dead guests or staff: at least as high alert.','Venn seriously hurt or killed: clear breach of contract.','Damage to the collection or extra loot can cut further.']]]},
    {h:'Veyrath’s verdict',b:[
     ['tbl',['Result','if …'],[['Ideal','briefcase closed, no loot, collection intact, Venn unharmed, little violence, teamwork'],['Usable','job done, but medium/high alert or avoidable escalation'],['Unfit','briefcase opened (even expertly), contents destroyed, Venn hurt, loot, indiscriminate killing']],'nw']]},
-   {h:'Heat afterwards',sm:'optional',b:[
-    ['p','Only if you keep playing: 0 smooth & quiet, 2 contained, 4 loud & chaotic, 6 wild. +1 high-profile target, +2 if killing was involved (by anyone). Don’t copy it from the alert clock.']]},
   ]},
  ],
 };

@@ -25,7 +25,8 @@ const SHEETS_DE={
     ['p','Mehr Effect durch passende Ausrüstung, Überraschung, gute Vorbereitung. Weniger durch Übermacht, Panzerung, Harm Stufe 1. Position gegen Effect tauschen ist erlaubt: riskanter für mehr Wirkung.']]},
    {h:'Edge',sm:'9 Kästchen · deine Reserve',b:[
     ['ul',['<b>Pushen (2 Edge je Vorteil):</b> +1d, +1 Effect oder trotz Harm Stufe 3 handeln.','<b>Assistieren (1 Edge):</b> ein Teammitglied erhält +1d. Nur eine Person pro Wurf. Du kannst dabei selbst Consequences abbekommen.','<b>Dragon’s Deal:</b> statt zu pushen +1d, wenn du einen Haken annimmst, den die SL oder jemand am Tisch anbietet. Der Haken tritt ein, egal wie der Wurf ausgeht.','<b>Resistance:</b> kostet Edge (siehe unten).']],
-    ['note','warn','<b>Edge voll?</b> Du erhältst ein <b>Trauma</b> (Cold, Haunted, Obsessed, Paranoid, Reckless, Soft, Unstable, Vicious) und fällst für den Rest der Szene aus. Edge ist wieder leer.']]},
+    ['note','warn','<b>Edge voll?</b> Du erhältst ein <b>Trauma</b> (Cold, Haunted, Obsessed, Paranoid, Reckless, Soft, Unstable, Vicious) und fällst für den Rest der Szene aus. Edge ist wieder leer.'],
+    ['p','Erholung gibt es an diesem Abend nicht: Edge und Harm bleiben, bis der Run vorbei ist.']]},
    {h:'Resistance Roll',sm:'Consequence abmildern',b:[
     ['p','Eine Consequence trifft dich? <b>Resistance wirkt immer</b>: Die SL sagt, ob sie abgeschwächt wird oder ganz entfällt. Der Wurf bestimmt nur den Preis.'],
     ['ul',['Die SL nennt das passende <b>Attribut</b> (Wert auf deinem Bogen).','Kosten: <b>6 minus höchster Würfel</b> in Edge (höchstens 5).','Critical: du bekommst 1 Edge zurück.','Erst entscheiden, dann würfeln. Nur ein Wurf pro Consequence, und nicht zusätzlich zu Armor.']],
@@ -38,7 +39,7 @@ const SHEETS_DE={
     ['p','Danach wie jede Action: manchmal ein Action Roll, manchmal ein Fortune Roll, manchmal gar nichts. Ein Flashback ist keine Zeitreise und macht nichts ungeschehen.']]},
    {h:'Load',sm:'vor dem Run wählen',b:[
     ['tbl',['Load','Wirkung'],[['Light 3','schneller, unauffällig, passt zur Gala. Rüstkleidung oder ein sperriges Teil.'],['Normal 4–5','sieht nach Ärger aus. Schwere Rüstung oder zwei sperrige Teile.'],['Heavy 6','langsamer, wirkt wie im Einsatz. Bis zu drei sperrige Teile.']],'nw'],
-    ['p','Welche Gegenstände du trägst, entscheidest du erst, wenn du sie brauchst. Du hakst sie dann ab, bis dein Load erreicht ist. Mit der Load-Wahl füllen sich deine Armor-Kästchen wieder auf.']]},
+    ['p','Welche Gegenstände du trägst, entscheidest du erst, wenn du sie brauchst. Du hakst sie dann ab, bis dein Load erreicht ist.']]},
    {h:'Plan & Engagement',sm:'kein stundenlanges Planen',b:[
     ['p','Wählt einen Plan und nennt das Detail. Dann würfelt die SL den <b>Engagement Roll</b> und schneidet direkt in die erste Gefahr.'],
     ['tbl',['Plan','Detail'],[['Assault','Angriffspunkt'],['Deception','Methode'],['Social','Verbindung'],['Stealth','Einstiegspunkt'],['Supernatural','magische Methode'],['Transport','Route & Mittel']],'nw'],
@@ -81,7 +82,7 @@ const SHEETS_DE={
     ['tbl',['Stufe','Folge','Beispiel'],[['1 leicht','weniger Effect','zerschrammt, verstaucht, erschöpft'],['2 mittel','−1d','tiefer Schnitt, Gehirnerschütterung'],['3 schwer','handlungsunfähig: nur mit Hilfe oder pushen','Schuss in die Brust, gebrochenes Bein, geblendet'],['4','tödlich','tot, wenn du nicht widerstehst']]],
     ['p','Stufe 1 und 2 haben je zwei Felder, Stufe 3 eines. Ist die Zeile voll, rutscht neuer Harm eine Stufe höher. Die Strafe gilt, wenn die Verletzung zur Handlung passt. Kurzfristiges wie benommen oder in Panik ist kein Harm, sondern verschlechtert Position oder Effect.']]},
    {h:'Armor',sm:'Kästchen auf dem Bogen',b:[
-    ['ul',['<b>Armor:</b> ankreuzen, um eine passende Consequence zu senken oder zu verhindern, <b>statt</b> Resistance zu würfeln. Braucht Armor im Load (2) oder Light Armor (1).','<b>Heavy:</b> ein zweites Kästchen, nur mit schwerer Panzerung (+2 Load). Auf der Gala kaum plausibel.','Verbrauchte Kästchen kommen erst mit dem nächsten Run zurück.','<b>Special:</b> nur wofür deine Fähigkeit es erlaubt (Fizz: Entdeckung und Flucht).','<b>Troll-Panzer:</b> Bastions Extra-Kästchen.']]]},
+    ['ul',['<b>Armor:</b> ankreuzen, um eine passende Consequence zu senken oder zu verhindern, <b>statt</b> Resistance zu würfeln. Braucht Armor im Load (2) oder Light Armor (1).','<b>Heavy:</b> ein zweites Kästchen, nur mit schwerer Panzerung (+2 Load). Auf der Gala kaum plausibel.','Jedes Kästchen hält einmal pro Abend.','<b>Special:</b> nur wofür deine Fähigkeit es erlaubt (Fizz: Entdeckung und Flucht).','<b>Troll-Panzer:</b> Bastions Extra-Kästchen.']]]},
    {h:'Johnsons Bedingungen',cls:'warnbx',b:[
     ['ul',['<b>Kein Wetwork:</b> vermeidbare Tote sind ausdrücklich unerwünscht.','<b>Dr. Venn</b> darf nicht verletzt werden.','Verletzte oder tote Gäste und Angestellte drücken die Bezahlung.','Kampf ist laut: Schüsse und Explosionen treiben die Alert Clock.']]]},
    {h:'Nichttödlich im Team',b:[
@@ -100,7 +101,7 @@ const SHEETS_DE={
     ['tbl',['Figur','Magie'],[['Ravn · Mage','Awakened (hermetisch) + Sorcerer: Assense und Zauber'],['Stille · Adept','Weg des Körpers: Mana im eigenen Körper, Adept Senses'],['alle anderen','mundan. Cyberware und Magie vertragen sich schlecht.']],'nw']]},
    {h:'Assense',sm:'Action · nur Awakened',b:[
     ['p','Du öffnest deinen Geist für den Astralraum: Auren, magische Spuren kürzlicher Ereignisse, Geister, Barrieren, magische Gegenstände.'],
-    ['ul',['Würfle Assense wie eine Action. Oft ist die Position schlechter als bei Survey, weil der Astralraum selbst gefährlich ist.','Bei einer <b>Desperate</b> Assense-Action markierst du 1 Karma auf der Willpower-Leiste.','Guter Effect: mehr Details, klarere Antworten.']]]},
+    ['ul',['Würfle Assense wie eine Action. Oft ist die Position schlechter als bei Survey, weil der Astralraum selbst gefährlich ist.','Guter Effect: mehr Details, klarere Antworten.']]]},
    {h:'Zauber wirken',sm:'Sorcerer',b:[
     ['ol',['Sag, welchen Zauber du wirkst, auf wen und was er erreichen soll. Du brauchst die Verbindung, die er verlangt (Berührung, Sicht).','Ist das Zaubern gefährlich, würfelst du eine Action, meist <b>Assense</b>. Die SL nennt Position und Effect.','Danach zahlst du die <b>Kosten</b> (siehe unten).']],
     ['p','<b>Spell Focus</b> (Ring aus Meteoreisen): Zauber mit außergewöhnlicher Kontrolle. <b>Arcane Reagents:</b> senken die Edge-Kosten um 1 oder verstärken den Zauber um eine Stufe, zerfallen danach.']]},
@@ -108,7 +109,7 @@ const SHEETS_DE={
     ['tbl',['Zauberstärke','Kosten'],[['unter deinem Potential','1 Edge <i>oder</i> Drain Stufe 1 (dann kein Widerstand)'],['gleich deinem Potential','1 Edge <i>und</i> Drain Stufe 1'],['darüber','1 Edge <i>und</i> Drain Stufe 2']]],
     ['p','Drain ist Special Harm und eine übernatürliche Consequence: du darfst widerstehen. Ravn hat Assense 1, also Potential 1. Wie stark ein Zauber ist, schätzt die SL ein.']]},
    {h:'Konzentration',b:[
-    ['p','Manche Zauber halten nur, solange du dich konzentrierst (Schleier). Wird die Konzentration gestört, würfelst du erneut Assense (Drain droht) oder lässt den Zauber fallen: wenn du einen weiteren Zauber wirkst, das Ziel Harm erleidet, Magie gegen dich wirkt oder das Ziel verzweifelt. Das Edge dafür bekommst du erst zurück, wenn der Zauber endet.']]},
+    ['p','Manche Zauber halten nur, solange du dich konzentrierst (Schleier). Wird die Konzentration gestört, würfelst du erneut Assense (Drain droht) oder lässt den Zauber fallen: wenn du einen weiteren Zauber wirkst, das Ziel Harm erleidet, Magie gegen dich wirkt oder das Ziel verzweifelt.']]},
    {h:'Ravns Zauber',b:[
     ['tbl',['Zauber','Wirkung'],[['Betäubungsblitz','mentaler Zauber: Ohnmacht statt Wunden. Nichttödlich, lautlos, nur für Erwachte sichtbar. Sichtlinie.'],['Schleier','Trugbild über Person oder Sache. Hält, solange du dich konzentrierst. Täuscht Menschen, <b>keine Kameras</b>.']],'nw']]},
    {h:'Adept',sm:'Stille',b:[
@@ -127,8 +128,7 @@ const SHEETS_DE={
   lead:'Der Meridian Spire ist voller vernetzter Technik. Hacker haben viele Gelegenheiten zu glänzen, aber kein exklusives Recht. Und: Die Gebäudesicherheit merkt sich, was ihr tut.',
   boxes:[
    {h:'Die Alert Clock',sm:'6 Segmente · sichtbar',b:[
-    ['ladder',[['0–1 Routine',C6,'Auffälligkeiten gelten als normale Event-Abweichung.'],['2–3 Verdacht',C45,'Kameras gleichen ab, Türen fragen erneut, Personal wird befragt.'],['4–5 Alarm','var(--alert2)','Drohnen suchen, Aufzüge halten, erkannte Runner werden verfolgt.'],['6 Lockdown',C13,'Fluchtwege zu, externe Response kommt. Eskalation, kein Game Over.']]],
-    ['p','Alert ist nicht Heat. Heat zählt erst nach dem Run.']]},
+    ['ladder',[['0–1 Routine',C6,'Auffälligkeiten gelten als normale Event-Abweichung.'],['2–3 Verdacht',C45,'Kameras gleichen ab, Türen fragen erneut, Personal wird befragt.'],['4–5 Alarm','var(--alert2)','Drohnen suchen, Aufzüge halten, erkannte Runner werden verfolgt.'],['6 Lockdown',C13,'Fluchtwege zu, externe Response kommt. Eskalation, kein Game Over.']]],]},
    {h:'Was Alert treibt',b:[
     ['ul',['Kameras oder Gäste sehen etwas','ein Sensor schlägt an','eine falsche Identität wird geprüft','eine Drohne sendet eine Warnung','Türen werden gewaltsam geöffnet','Schüsse, Explosionen, Geschrei','ein Hack hinterlässt eine Spur']]]},
    {h:'Alert senken',sm:'tug-of-war',b:[
@@ -162,7 +162,7 @@ const SHEETS_DE={
     ['p','Das Regelwerk nennt nur Desperate = schwerer Harm; der Rest ist Blades-Praxis. Temporäres (benommen, in Panik) ist eine Complication, kein Harm.']]},
    {h:'Effect-Faktoren',b:[
     ['ul',['<b>Quality:</b> bessere Ausrüstung als der Gegner (Fine Items) = +1.','<b>Scale:</b> Gruppe gegen Einzelne, Drohnenschwarm = ±1.','<b>Potency:</b> Schwachstelle, Überraschung, Magie gegen Mundane, EMP gegen Drohnen = +1.']],
-    ['p','Ein dominanter Faktor schlägt alle anderen (einer gegen zwanzig). Zero Effect ist möglich, dann hilft nur ein Setup; über Great hinaus gibt es Extreme Effect.']]},
+    ['p','Ein dominanter Faktor schlägt alle anderen (einer gegen zwanzig). Zero Effect ist möglich, dann hilft nur ein Setup.']]},
    {h:'Clocks',b:[
     ['tbl',['Größe','wofür'],[['4–5','komplex: Keycard-Kassette, Wachen im Servicetrakt'],['6–7','komplizierter: Wächterdrohnen, Alert Clock'],['8–10','abschreckend: Manabarriere durchbrechen, Tür ohne Faktoren']],'nw'],
     ['p','Limited 1 · Standard 2 · Great 3 Segmente. Clocks gelten dem Hindernis, nicht der Methode („Wächterdrohnen“, nicht „Drohnen hacken“). Einfaches ohne Clock: ein Wurf entscheidet.']]},
@@ -219,7 +219,7 @@ const SHEETS_DE={
    {h:'Zauber in der Praxis',b:[
     ['ul',['<b>Betäubungsblitz</b> auf eine Wache: Assense, Risky, lautlos, nichttödlich. Eine Wache ist schwach: Kosten 1 Edge oder Drain 1. Nahe Ebene 110 bemerkt der Watcher ihn.','<b>Schleier:</b> Menschen sehen das Trugbild, <b>Kameras die Wahrheit</b>. Braucht Konzentration; wird sie gestört, erneut Assense oder der Schleier fällt.','Die Signatur des Zaubers bleibt Minuten lang an Ort und Ziel haften und lässt sich verfolgen.']]]},
    {h:'Magische Consequences',b:[
-    ['ul',['<b>Drain</b> kommt aus den Zauberkosten (Spell Potential = Assense-Rating, Ravn 1): darunter 1 Edge oder Drain 1, gleich 1 Edge + Drain 1, darüber 1 Edge + Drain 2.','Aus dem Wurf: Harm durch Rückwirkung („leicht angesengt“, Stufe 1), Zauber außer Kontrolle.','Astrale Aufmerksamkeit: Watcher meldet, Alert +1.','Resistance: Ravn (hermetisch) Intuition, Stille Body. Desperate Assense: 1 Karma auf Willpower.']]]},
+    ['ul',['<b>Drain</b> kommt aus den Zauberkosten (Spell Potential = Assense-Rating, Ravn 1): darunter 1 Edge oder Drain 1, gleich 1 Edge + Drain 1, darüber 1 Edge + Drain 2.','Aus dem Wurf: Harm durch Rückwirkung („leicht angesengt“, Stufe 1), Zauber außer Kontrolle.','Astrale Aufmerksamkeit: Watcher meldet, Alert +1.','Resistance: Ravn (hermetisch) Intuition, Stille Body.']]]},
    {h:'Spuren zu Veyrath',cls:'goldbx',b:[
     ['ul',['<b>Ravn</b> erkennt die gezüchtete Dual-Barriere als Jahrzehnte-Arbeit: Hier sitzt jemand sehr Altes.','Vesna (Ravns Geist) sagte, der Turm „habe einen Herzschlag“.','<b>Stilles</b> Strange Trinket zeigt vor der Tresortür vielleicht einen gewaltigen Schatten über der Fassade.','Verdiente Wahrheit nicht künstlich zurückhalten.']]]},
    {h:'Veyrath',sm:'Enthüllung',b:[
@@ -227,7 +227,7 @@ const SHEETS_DE={
   ]},
 
  {id:'sl-alert',aud:'gm',title:'Alert, Matrix & Payoff',c3:true,
-  lead:'Die Alert Clock ersetzt Heat während des Runs. Sie steigt, wenn eine Handlung plausibel Aufmerksamkeit erzeugt, und sinkt, wenn die Fiktion es zulässt.',
+  lead:'Die Alert Clock zeigt, was die Gebäudesicherheit gerade weiß und tut. Sie steigt, wenn eine Handlung plausibel Aufmerksamkeit erzeugt, und sinkt, wenn die Fiktion es zulässt.',
   boxes:[
    {h:'Alert-Stufen',sm:'6 Segmente',b:[
     ['ladder',[['0–1 Routine',C6,'Event-Abweichung. Standardpatrouillen. Niemand sucht.'],['2–3 Verdacht',C45,'Kameras gleichen ab, Türen fordern Re-Auth, Drohnen beobachten, Personal wird befragt.'],['4–5 Alarm','var(--alert2)','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge halten oder leiten um, erfasste Runner werden verfolgt.'],['6 Lockdown',C13,'Alarm bestätigt, Fluchtwege zu, externe Response verständigt.']]]]},
@@ -241,15 +241,13 @@ const SHEETS_DE={
    {h:'Offline',b:[
     ['ul',['<b>Der Koffer</b> sendet nichts und ist nicht über die Matrix zu orten. Offline heißt: nur per Kabel direkt am Gerät hackbar.','<b>Keycard-Kassette</b> im Eventbüro: Entnahme wird protokolliert, aber das Schloss ist physisch.','Die <b>Tresortür</b> protokolliert jeden Versuch; ein sauberer Doppelzugang löst keinen Alarm aus.']]]},
    {h:'Matrix-Consequences',b:[
-    ['ul',['ICe alarmiert oder stellt den Hacker; nächster Hack Desperate.','„Traced“-Clock: wenn voll, ist der Standort bekannt. Offline gehen löscht sie, bricht aber alle Übernahmen ab.','Gerät beschädigt, abgeschaltet oder gejackt; Ziel-Icon verborgen.','Exposure: verwertbare Spur, Alert +1 (nach dem Run Heat).','Breach öffnet sofort, alarmiert aber das System.']],
+    ['ul',['ICe alarmiert oder stellt den Hacker; nächster Hack Desperate.','„Traced“-Clock: wenn voll, ist der Standort bekannt. Offline gehen löscht sie, bricht aber alle Übernahmen ab.','Gerät beschädigt, abgeschaltet oder gejackt; Ziel-Icon verborgen.','Verwertbare Spur: Alert +1.','Breach öffnet sofort, alarmiert aber das System.']],
     ['p','Wiederholte Versuche werden nur schwerer, wenn die Fiktion einen Grund liefert.']]},
    {h:'Payoff',cls:'goldbx',b:[
     ['tbl',['Alert am Ende','Nuyen'],[['Low 0–1','6'],['Medium 2–5','5'],['High / Lockdown 6','3']],'nw'],
-    ['ul',['Verletzte oder tote Gäste oder Personal: mindestens wie High Alert.','Venn schwer verletzt oder getötet: klarer Vertragsbruch.','Schaden an der Sammlung oder Zusatzbeute kann weiter kürzen und beendet Folgeaufträge.']]]},
+    ['ul',['Verletzte oder tote Gäste oder Personal: mindestens wie High Alert.','Venn schwer verletzt oder getötet: klarer Vertragsbruch.','Schaden an der Sammlung oder Zusatzbeute kann weiter kürzen.']]]},
    {h:'Veyraths Urteil',b:[
     ['tbl',['Ergebnis','wenn …'],[['Ideal','Koffer zu, keine Beute, Sammlung heil, Venn unverletzt, wenig Gewalt, Teamwork'],['Brauchbar','Auftrag erfüllt, aber Medium/High Alert oder vermeidbare Eskalation'],['Ungeeignet','Koffer geöffnet (auch fachgerecht), Inhalt zerstört, Venn verletzt, Beute, wahllose Tötungen']],'nw']]},
-   {h:'Heat danach',sm:'optional',b:[
-    ['p','Nur bei Weiterspiel: 0 smooth & quiet, 2 contained, 4 loud & chaotic, 6 wild. +1 hochprofiliges Ziel, +2 bei Tötungen (egal durch wen). Nicht von der Alert Clock übernehmen.']]},
   ]},
  ],
 };
