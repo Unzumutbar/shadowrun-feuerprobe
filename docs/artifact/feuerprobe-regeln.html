@@ -1,0 +1,735 @@
+<title>Feuerprobe Cheat-Sheets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#E4E8EC; --surface:#FBFBFC; --surface-2:#F0F2F5; --ink:#161C26; --ink-2:#3C4756; --muted:#66717F; --line:#CBD1D8; --line-2:#AEB7C1;
+  --accent:#0F7B86; --accent-soft:rgba(15,123,134,.12); --gm:#8A3FB3; --gm-soft:rgba(138,63,179,.08);
+  --warn:#B3382C; --warn-soft:rgba(179,56,44,.09); --gold:#A8720A; --gold-soft:rgba(168,114,10,.1);
+  --alert0:#2C8452; --alert1:#A8720A; --alert2:#C96A0B; --alert3:#B3382C;
+  --box:#FBFBFC; --shadow:0 1px 2px rgba(20,28,40,.08),0 10px 28px rgba(20,28,40,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0D1218; --surface:#151B23; --surface-2:#1B222C; --ink:#E7EBF0; --ink-2:#C4CCD6; --muted:#8E9AA9; --line:#293441; --line-2:#3B4756;
+    --accent:#3FC1CC; --accent-soft:rgba(63,193,204,.16); --gm:#CD85FF; --gm-soft:rgba(205,133,255,.1);
+    --warn:#F0716A; --warn-soft:rgba(240,113,106,.12); --gold:#E9BC3F; --gold-soft:rgba(233,188,63,.12);
+    --alert0:#5AD08A; --alert1:#E9BC3F; --alert2:#FFAB45; --alert3:#F0716A;
+    --box:#1B222C; --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0D1218; --surface:#151B23; --surface-2:#1B222C; --ink:#E7EBF0; --ink-2:#C4CCD6; --muted:#8E9AA9; --line:#293441; --line-2:#3B4756;
+  --accent:#3FC1CC; --accent-soft:rgba(63,193,204,.16); --gm:#CD85FF; --gm-soft:rgba(205,133,255,.1);
+  --warn:#F0716A; --warn-soft:rgba(240,113,106,.12); --gold:#E9BC3F; --gold-soft:rgba(233,188,63,.12);
+  --alert0:#5AD08A; --alert1:#E9BC3F; --alert2:#FFAB45; --alert3:#F0716A;
+  --box:#1B222C; --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:14.5px/1.45 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1360px;margin:0 auto;padding-block:20px 56px;padding-inline:16px}
+h1,h2,h3,h4{font-family:"Barlow Condensed","Arial Narrow",sans-serif;text-wrap:balance;margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+header.top{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between;padding-block:4px 18px;border-bottom:1px solid var(--line)}
+header.top h1{font-size:clamp(34px,5vw,50px);line-height:.95;font-weight:700}
+header.top h1 small{display:block;font-size:.42em;font-weight:500;color:var(--ink-2);letter-spacing:.04em;margin-top:6px}
+.tog{display:flex;flex-wrap:wrap;gap:8px}
+.tog button,.tog a{appearance:none;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:500 13px/1 "IBM Plex Sans",sans-serif;padding:8px 12px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.tog .seg{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
+.tog .seg button{border:0;border-radius:0;padding:8px 13px;font-weight:600;letter-spacing:.04em}
+.tog .seg button+button{border-left:1px solid var(--line-2)}
+.tog .seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.tog .seg button.gm[aria-pressed="true"]{background:var(--gm)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+nav.index{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0}
+nav.index a{font:500 12.5px "IBM Plex Sans",sans-serif;text-decoration:none;color:var(--ink-2);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px;display:inline-flex;gap:6px;align-items:center}
+nav.index a i{font:600 10px "IBM Plex Mono",monospace;font-style:normal;letter-spacing:.08em;color:var(--accent)}
+nav.index a.gm i{color:var(--gm)}
+nav.index a:hover{border-color:var(--line-2);color:var(--ink)}
+
+.sheets{display:grid;gap:22px;margin-top:18px}
+.sheet{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px 20px;scroll-margin-top:16px}
+.sheet.gm{border-top-color:var(--gm)}
+.sheet>header{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:start;margin-bottom:12px}
+.sheet .aud{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.sheet.gm .aud{color:var(--gm)}
+.sheet h2{font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1;grid-column:1}
+.sheet .lead{grid-column:1;color:var(--ink-2);margin:4px 0 0;max-width:90ch;font-size:14px}
+.sheet .no{grid-column:2;grid-row:1/4;font:700 40px/1 "Barlow Condensed",sans-serif;color:var(--line-2)}
+.cols{columns:1;column-gap:14px}
+@media (min-width:760px){.cols{columns:2}}
+@media (min-width:1120px){.cols.c3{columns:3}}
+.bx{break-inside:avoid;border:1px solid var(--line);border-radius:10px;padding:10px 12px 11px;margin:0 0 12px;background:var(--surface);display:flow-root}
+.bx.gmbx{border-color:color-mix(in srgb,var(--gm) 45%,var(--line));background:var(--gm-soft)}
+.bx.warnbx{border-color:color-mix(in srgb,var(--warn) 45%,var(--line));background:var(--warn-soft)}
+.bx.goldbx{border-color:color-mix(in srgb,var(--gold) 45%,var(--line));background:var(--gold-soft)}
+.bx h4{font:700 17px/1.1 "Barlow Condensed",sans-serif;letter-spacing:.01em;margin:0 0 6px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 8px;align-items:baseline}
+.bx h4 small{font:500 10.5px "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right;margin-left:auto}
+.bx p{margin:0 0 6px;color:var(--ink-2);font-size:13.5px}
+.bx p:last-child,.bx ul:last-child,.bx ol:last-child,.bx table:last-child{margin-bottom:0}
+.bx b{color:var(--ink);font-weight:600}
+.bx ul,.bx ol{margin:0 0 6px;padding-left:18px;color:var(--ink-2);font-size:13.5px;display:grid;gap:3px}
+.bx li::marker{color:var(--accent)}
+.sheet.gm .bx li::marker{color:var(--gm)}
+.bx ol li::marker{font-weight:600;color:var(--ink)}
+.bx .sm{font-size:12.5px;color:var(--muted)}
+.bx code{font:500 12px "IBM Plex Mono",monospace;background:var(--surface-2);border:1px solid var(--line);border-radius:4px;padding:0 4px;color:var(--ink)}
+table.tb{width:100%;border-collapse:collapse;font-size:13px;margin:2px 0 6px}
+table.tb th{text-align:left;font:600 10.5px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:4px 6px;border-bottom:1px solid var(--line-2)}
+table.tb td{padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+table.tb tr:last-child td{border-bottom:0}
+table.tb td:first-child{color:var(--ink);font-weight:600}
+table.tb.nw td:first-child{white-space:nowrap}
+.dice{display:grid;gap:5px;margin:2px 0 6px}
+.dice>div{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:start;font-size:13px;color:var(--ink-2)}
+.dice .d{font:700 15px/1 "Barlow Condensed",sans-serif;text-align:center;border-radius:6px;padding:5px 0;color:#fff;background:var(--dc,var(--accent));-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.dice b{color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 6px}
+.chip{font:500 11.5px "IBM Plex Mono",monospace;padding:3px 8px;border-radius:6px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-2)}
+.ladder{margin:2px 0 6px}
+.ladder>div+div{margin-top:4px}
+.ladder>div{font-size:13px;color:var(--ink-2);border-left:4px solid var(--lc,var(--line-2));padding:3px 0 3px 8px}
+.ladder b{color:var(--ink);margin-right:6px}
+.note{margin:4px 0 6px;padding:7px 10px;border-radius:0 8px 8px 0;border-left:3px solid var(--accent);background:var(--accent-soft);font-size:13px;color:var(--ink)}
+.note.gm{border-color:var(--gm);background:var(--gm-soft)}
+.note.warn{border-color:var(--warn);background:var(--warn-soft)}
+.note.gold{border-color:var(--gold);background:var(--gold-soft)}
+.fine{font-size:12.5px;color:var(--muted);margin-top:22px;max-width:90ch}
+.sheet .foot{display:none}
+.toplink{position:fixed;right:14px;bottom:14px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 12px;font:500 12.5px "IBM Plex Sans",sans-serif;text-decoration:none;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .2s}
+.toplink.show{opacity:1;pointer-events:auto}
+
+@media print{
+  @page{size:A4;margin:9mm 10mm}
+  :root{--surface:#fff;--surface-2:#F0F2F5;--ink:#161C26;--ink-2:#2E3846;--muted:#5C6673;--line:#C4CBD3;--line-2:#9AA4AF;--accent:#0F7B86;--accent-soft:rgba(15,123,134,.10);--gm:#8A3FB3;--gm-soft:rgba(138,63,179,.07);--warn:#B3382C;--warn-soft:rgba(179,56,44,.08);--gold:#A8720A;--gold-soft:rgba(168,114,10,.09);color-scheme:light}
+  body{background:#fff;font-size:calc(var(--k,1)*10px)}
+  header.top,nav.index,.toplink,.fine{display:none!important}
+  .wrap{max-width:none;padding:0}
+  .sheets{display:block;margin:0}
+  .sheet{box-shadow:none;border:0;border-top:4px solid var(--accent);border-radius:0;padding:6px 0 0;break-after:page;page-break-after:always;position:relative}
+  .sheet.gm{border-top-color:var(--gm)}
+  .sheet:last-child{break-after:auto;page-break-after:auto}
+  .sheet>header{margin-bottom:6px}
+  .sheet h2{font-size:calc(var(--k,1)*24px)}
+  .sheet .lead{font-size:calc(var(--k,1)*10.5px);margin-top:2px}
+  .sheet .no{font-size:calc(var(--k,1)*30px)}
+  .cols{columns:2;column-gap:8px}
+  .cols.c3{columns:3}
+  .bx{padding:6px 8px 7px;margin-bottom:7px;border-radius:7px}
+  .bx h4{font-size:calc(var(--k,1)*13.5px);margin-bottom:3px}
+  .bx h4 small{font-size:calc(var(--k,1)*8px)}
+  .bx p,.bx ul,.bx ol{font-size:calc(var(--k,1)*9.6px);gap:1px}
+  .bx ul,.bx ol{padding-left:13px}
+  .bx .sm{font-size:calc(var(--k,1)*9px)}
+  table.tb{font-size:calc(var(--k,1)*9.4px)}
+  table.tb th{font-size:calc(var(--k,1)*8px);padding:2px 4px}
+  table.tb td{padding:2.5px 4px}
+  .dice>div{grid-template-columns:36px 1fr;font-size:calc(var(--k,1)*9.6px);gap:6px}
+  .dice .d{font-size:calc(var(--k,1)*11.5px);padding:3px 0}
+  .ladder>div{font-size:calc(var(--k,1)*9.6px);padding:1px 0 1px 6px}
+  .note{font-size:calc(var(--k,1)*9.6px);padding:4px 7px}
+  .chip{font-size:calc(var(--k,1)*8.5px);padding:1px 5px}
+  .sheet .foot{display:block;font:500 calc(var(--k,1)*7.5px) "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+  .bx,.note,.sheet,.chip,.ladder>div{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{color:inherit;text-decoration:none}
+}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow" id="eyebrow">Shadowrun · Feuerprobe · Runners in the Shadows</div>
+    <h1><span id="title">Cheat-Sheets</span><small id="subtitle"></small></h1>
+  </div>
+  <div class="tog">
+    <span class="seg" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
+    <span class="seg" role="group" id="audGroup"><button type="button" data-aud="all" id="audAll"></button><button type="button" data-aud="player" id="audPlayer"></button><button type="button" data-aud="gm" class="gm" id="audGm"></button></span>
+    <a id="lnkHome" href="index.html"></a>
+    <a id="lnkGuide" href="feuerprobe-leitfaden.html"></a>
+    <button type="button" id="btnPrint"></button>
+  </div>
+</header>
+<nav class="index" id="index" aria-label="Sheets"></nav>
+<div class="sheets" id="sheets"></div>
+<p class="fine" id="fine"></p>
+</div>
+<a href="#top" class="toplink" id="toplink">↑</a>
+
+<script>
+/* ---------- Cheat-Sheets: deutsche Daten ---------- */
+// Blöcke: ['p',html] · ['ul',[..]] · ['ol',[..]] · ['tbl',[Köpfe],[[Zellen]],'nw'] · ['dice',[[Würfel,Farbe,html]]]
+//         ['ladder',[[Stufe,Farbe,html]]] · ['note',klasse,html] · ['chips',[..]]
+// Kasten: {h, sm, cls:'gmbx'|'warnbx'|'goldbx', b:[Blöcke]} · Sheet: {id, aud:'player'|'gm', title, lead, c3, boxes}
+const C6='var(--alert0)',C45='var(--alert1)',C13='var(--alert3)',CCR='var(--accent)';
+const SHEETS_DE={
+ ui:{title:'Cheat-Sheets',subtitle:'Kampf, Magie, Matrix und Grundregeln für die Feuerprobe',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
+  all:'Alle',player:'Spieler',gm:'SL',home:'Startseite',guide:'SL-Leitfaden',print:'Drucken',audPlayer:'Für Spieler:innen',audGm:'Nur für die Spielleitung',
+  foot:'Feuerprobe · Runners in the Shadows · Cheat-Sheet',
+  fine:'Fan-Material für den privaten Spieltisch. <i>Runners in the Shadows</i> ist ein Forged-in-the-Dark-Spiel von Mark Cleveland Massengale; <i>Shadowrun</i> ist eine Marke von The Topps Company / Catalyst Game Labs. Die Sheets fassen die Regeln zusammen, wie dieser Oneshot sie benutzt; wo „Oneshot“ steht, ist es eine Empfehlung für diesen Run, keine offizielle Regel. Im Zweifel gilt das Regelwerk. Zum Drucken oben „Spieler“ oder „SL“ wählen: jedes Sheet ist eine A4-Seite.'},
+ sheets:[
+ /* ================= SPIELER ================= */
+ {id:'grundregeln',aud:'player',title:'Grundregeln',c3:true,
+  lead:'Fiction first: Erst sagst du, was dein Runner tut und was er damit erreichen will. Gewürfelt wird nur, wenn etwas Gefährliches oder Ungewisses auf dem Spiel steht.',
+  boxes:[
+   {h:'Action Roll',sm:'so viele W6 wie dein Action Rating',b:[
+    ['p','Würfle, zähle nur den <b>höchsten</b> Würfel.'],
+    ['dice',[['6 + 6',CCR,'<b>Critical:</b> Erfolg mit Zusatzvorteil.'],['6',C6,'<b>Voller Erfolg.</b> Du bekommst, was du wolltest.'],['4/5',C45,'<b>Erfolg mit Consequence.</b> Es klappt, aber es kostet etwas.'],['1–3',C13,'<b>Schlecht.</b> Kein oder falscher Erfolg, dazu eine Consequence.']]],
+    ['p','<b>0 Punkte</b> in der Action: 2W6, der <b>niedrigere</b> zählt, kein Critical.']]},
+   {h:'Position',sm:'wie schlimm kann es werden?',b:[
+    ['tbl',['Position','Bedeutung'],[['Controlled','Du hast die Lage im Griff. Folgen sind mild, du kannst oft abbrechen.'],['Risky','Der Normalfall. Es kann ernsthaft schiefgehen.'],['Desperate','Du bist in großen Schwierigkeiten. Folgen sind schwer.']],'nw'],
+    ['p','Die SL sagt Position und Effect <b>vor</b> dem Wurf an. Ihr dürft verhandeln oder einen anderen Ansatz wählen.']]},
+   {h:'Effect',sm:'wie viel erreichst du?',b:[
+    ['tbl',['Effect','Clock-Segmente'],[['Limited','1 · halbe Sache, Teilerfolg'],['Standard','2 · das, was man erwarten würde'],['Great','3 · mehr als erwartet']],'nw'],
+    ['p','Mehr Effect durch passende Ausrüstung, Überraschung, gute Vorbereitung. Weniger durch Übermacht, Panzerung, Harm Stufe 1. Position gegen Effect tauschen ist erlaubt: riskanter für mehr Wirkung.']]},
+   {h:'Edge',sm:'9 Kästchen · deine Reserve',b:[
+    ['ul',['<b>Pushen (2 Edge je Vorteil):</b> +1d, +1 Effect oder trotz Harm Stufe 3 handeln.','<b>Assistieren (1 Edge):</b> ein Teammitglied erhält +1d. Nur eine Person pro Wurf. Du kannst dabei selbst Consequences abbekommen.','<b>Dragon’s Deal:</b> statt zu pushen +1d, wenn du einen Haken annimmst, den die SL oder jemand am Tisch anbietet. Der Haken tritt ein, egal wie der Wurf ausgeht.','<b>Resistance:</b> kostet Edge (siehe unten).']],
+    ['note','warn','<b>Edge voll?</b> Du erhältst ein <b>Trauma</b> (Cold, Haunted, Obsessed, Paranoid, Reckless, Soft, Unstable, Vicious) und fällst für den Rest der Szene aus. Edge ist wieder leer.']]},
+   {h:'Resistance Roll',sm:'Consequence abmildern',b:[
+    ['p','Eine Consequence trifft dich? <b>Resistance wirkt immer</b>: Die SL sagt, ob sie abgeschwächt wird oder ganz entfällt. Der Wurf bestimmt nur den Preis.'],
+    ['ul',['Die SL nennt das passende <b>Attribut</b> (Wert auf deinem Bogen).','Kosten: <b>6 minus höchster Würfel</b> in Edge (höchstens 5).','Critical: du bekommst 1 Edge zurück.','Erst entscheiden, dann würfeln. Nur ein Wurf pro Consequence, und nicht zusätzlich zu Armor.']],
+    ['tbl',['Attribut','gegen …'],[['Intuition','Täuschung, Überraschung'],['Body','körperliche Belastung, Verletzung'],['Willpower','mentale Belastung, Willenskraft, Furcht']],'nw']]},
+   {h:'Teamwork',sm:'gemeinsam seid ihr besser',b:[
+    ['ul',['<b>Assist:</b> 1 Edge, +1d für eine andere Person.','<b>Setup:</b> deine Action bereitet die nächste vor. Erfolg gibt dem Team +1 Effect oder eine bessere Position.','<b>Group Action:</b> eine Person führt, alle würfeln dieselbe Action, das beste Ergebnis zählt. Für jede 1–3 in der Gruppe zahlt die Anführerin 1 Edge.','<b>Protect:</b> du wirfst dich vor eine Consequence, die jemand anderen treffen würde, und nimmst sie selbst (Resistance erlaubt).']]]},
+   {h:'Flashback',sm:'Vorbereitung nachträglich',b:[
+    ['p','Ihr müsst nichts vorausplanen. Mitten im Run erklärst du, was du vorher schon getan hattest.'],
+    ['tbl',['Edge','Beispiel'],[['0','gewöhnlich, leichte Gelegenheit: Du hast den Weg zur Garage ausgekundschaftet.'],['1','komplex oder unwahrscheinlich: Eine Waffe liegt schon im Penthouse.'],['2+','aufwendig, mit Sonderchancen: Dein Name steht auf der Gästeliste.']],'nw'],
+    ['p','Danach wie jede Action: manchmal ein Action Roll, manchmal ein Fortune Roll, manchmal gar nichts. Ein Flashback ist keine Zeitreise und macht nichts ungeschehen.']]},
+   {h:'Load',sm:'vor dem Run wählen',b:[
+    ['tbl',['Load','Wirkung'],[['Light 3','schneller, unauffällig, passt zur Gala. Rüstkleidung oder ein sperriges Teil.'],['Normal 4–5','sieht nach Ärger aus. Schwere Rüstung oder zwei sperrige Teile.'],['Heavy 6','langsamer, wirkt wie im Einsatz. Bis zu drei sperrige Teile.']],'nw'],
+    ['p','Welche Gegenstände du trägst, entscheidest du erst, wenn du sie brauchst. Du hakst sie dann ab, bis dein Load erreicht ist. Mit der Load-Wahl füllen sich deine Armor-Kästchen wieder auf.']]},
+   {h:'Plan & Engagement',sm:'kein stundenlanges Planen',b:[
+    ['p','Wählt einen Plan und nennt das Detail. Dann würfelt die SL den <b>Engagement Roll</b> und schneidet direkt in die erste Gefahr.'],
+    ['tbl',['Plan','Detail'],[['Assault','Angriffspunkt'],['Deception','Methode'],['Social','Verbindung'],['Stealth','Einstiegspunkt'],['Supernatural','magische Methode'],['Transport','Route & Mittel']],'nw'],
+    ['p','Ein schlechtes Engagement heißt nicht, dass ihr dumm geplant habt. Nur, dass es gleich brenzlig beginnt.']]},
+  ]},
+
+ {id:'actions',aud:'player',title:'Welche Action?',c3:true,
+  lead:'Actions sind Tätigkeiten, keine Wissensfertigkeiten. Nicht „ich würfle Interface“, sondern: Was tut deine Figur? Daraus ergibt sich die Action. Oft passen mehrere; deine Methode entscheidet über Position und Effect.',
+  boxes:[
+   {h:'Intuition',sm:'Resistance gegen Täuschung & Überraschung',b:[
+    ['tbl',['Action','Im Meridian Spire'],[['Engineer','Gondelsteuerung umverdrahten, Keycard kopieren, Retinaduplikat bauen, eine Sicherung entschärfen'],['Interface','Kameras loopen, Gästeliste ändern, Aufzug umleiten, Türprotokoll fälschen, Drohne übernehmen'],['Stalk','Dr. Venn unauffällig folgen, Kades Spur aufnehmen, gezielter Schuss auf eine Drohnenoptik'],['Survey','Kades Runde vorhersagen, Sensoren im Korridor erkennen, Fluchtweg ausmachen, die Menge lesen']]]]},
+   {h:'Body',sm:'Resistance gegen Verletzung & Anstrengung',b:[
+    ['tbl',['Action','Im Meridian Spire'],[['Fight','Wache überwältigen, Wächterdrohne im Nahkampf, jemandem die Pistole vorhalten, eine Position halten'],['Finesse','Keycard aus der Tasche ziehen, Gondel im Wind steuern, Skycab landen, entwaffnen'],['Prowl','durch den Servicetrakt schleichen, an der Fassade klettern, Lichtschranken umgehen, aus dem Hinterhalt ausschalten'],['Wreck','Tür aufbrechen, Deckung zerlegen, Drohne zertrümmern, Wand sprengen']]]]},
+   {h:'Willpower',sm:'Resistance gegen Angst, Druck, Magie',b:[
+    ['tbl',['Action','Im Meridian Spire'],[['Command','Personal herumkommandieren, Wache einschüchtern, Panik unter Gästen bändigen'],['Consort','mit Sammler:innen netzwerken, Venn in ein Fachgespräch ziehen, einen Kontakt anrufen'],['Influence','Empfang täuschen, Venn zur Schleuse überreden, eine Wache beschwichtigen'],['Study','Provenienz recherchieren, Baupläne auswerten, Lügen erkennen, eine Zauberformel studieren']]]]},
+   {h:'Assense',sm:'nur Erwachte',b:[
+    ['p','Astral wahrnehmen: Auren, Emotionen, Geister, Barrieren, magische Gegenstände. Zählt zu den 7 Action-Punkten. Gefährliches Zaubern würfelst du meist mit Assense. Mehr auf dem Sheet <b>Magie</b>.']]},
+   {h:'Die richtige Frage',b:[
+    ['ol',['Was willst du erreichen?','Wie genau tust du es?','Was steht dabei auf dem Spiel?']],
+    ['p','Die SL nennt Action, Position und Effect. Klingt dir die Position zu schlimm, ändere deinen Ansatz, bevor gewürfelt wird.']]},
+   {h:'Kein Wurf nötig',b:[
+    ['p','Ihr seid Profis. Routine ohne Gefahr klappt einfach: ein Glas nehmen, sich im Salon umsehen, ein Kommlink bedienen, den Lift rufen.']]},
+   {h:'Wissen statt Würfeln',b:[
+    ['p','Ob deine Figur etwas weiß, entscheidet ihr Hintergrund. Frag die SL einfach. Gewürfelt wird, wenn du dir Wissen unter Druck <i>beschaffst</i>, etwa mit Study oder Survey.']]},
+   {h:'Gather Information',sm:'vor dem Run',b:[
+    ['p','Eine oder zwei gezielte Fragen pro Person reichen. Gute Fragen: Wo ist die Keycard? Wie komme ich an Dr. Venn? Welche Ausrüstung fällt auf? Gibt es einen zweiten Zugang? Was liegt unter dem Penthouse?']]},
+  ]},
+
+ {id:'kampf',aud:'player',title:'Kampf',c3:true,
+  lead:'Keine Initiative, keine Runden, keine Trefferpunkte für Gegner. Ihr beschreibt Ziel und Methode, würfelt eine Action, und die Gegner handeln über die Consequences. Ein Wurf kann einen ganzen Schlagabtausch abbilden.',
+  boxes:[
+   {h:'So läuft ein Kampf',b:[
+    ['ol',['Sag, <b>was du erreichen willst</b>: die Drohne blenden, die Wache zu Boden bringen, den Gang halten.','Sag, <b>wie</b>: Waffe, Deckung, Timing, Teamwork.','Die SL nennt Position und Effect. Zähe Gegner haben eine <b>Clock</b>.','Würfeln. Der Wurf zählt für beide Seiten: <b>6</b> du setzt dich durch, <b>4/5</b> beide haben Effect, <b>1–3</b> der Gegner setzt sich durch.']],
+    ['p','Sehr gefährliche Gegner handeln zuerst. Dann musst du erst widerstehen, bevor du selbst handeln kannst.']]},
+   {h:'Kampf-Actions',b:[
+    ['tbl',['Action','wofür'],[['Fight','Nahkampf, Handgemenge, Waffe auf Sprechdistanz, Position halten'],['Stalk','Präzisionsschuss aus der Distanz, Hinterhalt legen'],['Prowl','aus dem Versteck angreifen'],['Finesse','entwaffnen, Duell, Fahrzeug steuern'],['Wreck','rohe Gewalt, Deckung und Türen zerstören, Sabotage'],['Command','einschüchtern, Kapitulation erzwingen'],['Assense','Zauber unter Gefahr (nur Erwachte)']],'nw']]},
+   {h:'Was den Effect ändert',b:[
+    ['ul',['<b>Übermacht:</b> mehr oder größere Gegner = weniger Effect.','<b>Panzerung:</b> gegen gepanzerte Drohnen wirkt eine Holdout-Pistole kaum.','<b>Potency:</b> passende Waffe, Überraschung, Schwachstelle (EMP gegen Drohnen, Optik zerschießen) = mehr Effect.','<b>Vorbereitung:</b> Setup-Action oder Flashback.']]]},
+   {h:'Harm',sm:'Stufe 4 = tödlich',b:[
+    ['tbl',['Stufe','Folge','Beispiel'],[['1 leicht','weniger Effect','zerschrammt, verstaucht, erschöpft'],['2 mittel','−1d','tiefer Schnitt, Gehirnerschütterung'],['3 schwer','handlungsunfähig: nur mit Hilfe oder pushen','Schuss in die Brust, gebrochenes Bein, geblendet'],['4','tödlich','tot, wenn du nicht widerstehst']]],
+    ['p','Stufe 1 und 2 haben je zwei Felder, Stufe 3 eines. Ist die Zeile voll, rutscht neuer Harm eine Stufe höher. Die Strafe gilt, wenn die Verletzung zur Handlung passt. Kurzfristiges wie benommen oder in Panik ist kein Harm, sondern verschlechtert Position oder Effect.']]},
+   {h:'Armor',sm:'Kästchen auf dem Bogen',b:[
+    ['ul',['<b>Armor:</b> ankreuzen, um eine passende Consequence zu senken oder zu verhindern, <b>statt</b> Resistance zu würfeln. Braucht Armor im Load (2) oder Light Armor (1).','<b>Heavy:</b> ein zweites Kästchen, nur mit schwerer Panzerung (+2 Load). Auf der Gala kaum plausibel.','Verbrauchte Kästchen kommen erst mit dem nächsten Run zurück.','<b>Special:</b> nur wofür deine Fähigkeit es erlaubt (Fizz: Entdeckung und Flucht).','<b>Troll-Panzer:</b> Bastions Extra-Kästchen.']]]},
+   {h:'Johnsons Bedingungen',cls:'warnbx',b:[
+    ['ul',['<b>Kein Wetwork:</b> vermeidbare Tote sind ausdrücklich unerwünscht.','<b>Dr. Venn</b> darf nicht verletzt werden.','Verletzte oder tote Gäste und Angestellte drücken die Bezahlung.','Kampf ist laut: Schüsse und Explosionen treiben die Alert Clock.']]]},
+   {h:'Nichttödlich im Team',b:[
+    ['chips',['Betäubungsblitz · Ravn','Stunlock Vial · Fizz','Blasrohr · Stille','Schockhandschuhe · Bastion','Handschellen · Bastion','Bangflash · Pepper Smoke · Tear Gas','EMP gegen Drohnen','Red Rock · Chamäleon']],
+    ['p','Sag vorher, dass du nichttödlich vorgehst. Das ändert Position und Effect, nicht die Gefahr für dich.']]},
+   {h:'Was ihr über die Sicherheit wisst',b:[
+    ['ul',['<b>Gala:</b> diskrete Sicherheitskräfte. Sie wollen vor den VIPs keinen sichtbaren Zwischenfall.','<b>Dorian Kade:</b> Sicherheitschef, verchromte Cyberarme, Pistole, wirkt blitzschnell.','<b>Tresorgeschoss:</b> unbemannt. Sensoren, Schleusen und autonome Sicherheitsdrohnen.']]]},
+   {h:'Klüger als kämpfen',b:[
+    ['p','Oft besser: umgehen, ablenken, einsperren, täuschen oder einfach schneller sein. Wer Probleme ohne Gewalt löst, hält die Alert Clock niedrig und Johnson zufrieden.']]},
+  ]},
+
+ {id:'magie',aud:'player',title:'Magie',c3:true,
+  lead:'Magie ist real, aber selten. Ein Erwachter ist für den Run nicht nötig, sieht aber Dinge, die sonst niemand sieht. Alles läuft über dieselben Action Rolls wie jede andere Handlung.',
+  boxes:[
+   {h:'Wer ist erwacht?',b:[
+    ['tbl',['Figur','Magie'],[['Ravn · Mage','Awakened (hermetisch) + Sorcerer: Assense und Zauber'],['Stille · Adept','Weg des Körpers: Mana im eigenen Körper, Adept Senses'],['alle anderen','mundan. Cyberware und Magie vertragen sich schlecht.']],'nw']]},
+   {h:'Assense',sm:'Action · nur Awakened',b:[
+    ['p','Du öffnest deinen Geist für den Astralraum: Auren, magische Spuren kürzlicher Ereignisse, Geister, Barrieren, magische Gegenstände.'],
+    ['ul',['Würfle Assense wie eine Action. Oft ist die Position schlechter als bei Survey, weil der Astralraum selbst gefährlich ist.','Bei einer <b>Desperate</b> Assense-Action markierst du 1 Karma auf der Willpower-Leiste.','Guter Effect: mehr Details, klarere Antworten.']]]},
+   {h:'Zauber wirken',sm:'Sorcerer',b:[
+    ['ol',['Sag, welchen Zauber du wirkst, auf wen und was er erreichen soll. Du brauchst die Verbindung, die er verlangt (Berührung, Sicht).','Ist das Zaubern gefährlich, würfelst du eine Action, meist <b>Assense</b>. Die SL nennt Position und Effect.','Danach zahlst du die <b>Kosten</b> (siehe unten).']],
+    ['p','<b>Spell Focus</b> (Ring aus Meteoreisen): Zauber mit außergewöhnlicher Kontrolle. <b>Arcane Reagents:</b> senken die Edge-Kosten um 1 oder verstärken den Zauber um eine Stufe, zerfallen danach.']]},
+   {h:'Kosten & Drain',sm:'Spell Potential = Assense',b:[
+    ['tbl',['Zauberstärke','Kosten'],[['unter deinem Potential','1 Edge <i>oder</i> Drain Stufe 1 (dann kein Widerstand)'],['gleich deinem Potential','1 Edge <i>und</i> Drain Stufe 1'],['darüber','1 Edge <i>und</i> Drain Stufe 2']]],
+    ['p','Drain ist Special Harm und eine übernatürliche Consequence: du darfst widerstehen. Ravn hat Assense 1, also Potential 1. Wie stark ein Zauber ist, schätzt die SL ein.']]},
+   {h:'Konzentration',b:[
+    ['p','Manche Zauber halten nur, solange du dich konzentrierst (Schleier). Wird die Konzentration gestört, würfelst du erneut Assense (Drain droht) oder lässt den Zauber fallen: wenn du einen weiteren Zauber wirkst, das Ziel Harm erleidet, Magie gegen dich wirkt oder das Ziel verzweifelt. Das Edge dafür bekommst du erst zurück, wenn der Zauber endet.']]},
+   {h:'Ravns Zauber',b:[
+    ['tbl',['Zauber','Wirkung'],[['Betäubungsblitz','mentaler Zauber: Ohnmacht statt Wunden. Nichttödlich, lautlos, nur für Erwachte sichtbar. Sichtlinie.'],['Schleier','Trugbild über Person oder Sache. Hält, solange du dich konzentrierst. Täuscht Menschen, <b>keine Kameras</b>.']],'nw']]},
+   {h:'Adept',sm:'Stille',b:[
+    ['ul',['<b>Adept Senses (1 Edge):</b> minutenlang übermenschlich wahrnehmen: Temperatur, Frequenz, Druck, Gefahr, Lügen.','Übernatürlichen Consequences darfst du mit <b>Body</b> widerstehen.','Deine Aura leuchtet im Astralraum hell wie die eines Magiers.']]]},
+   {h:'Gefahren der Magie',cls:'warnbx',b:[
+    ['p','Magie kann schiefgehen wie alles andere. Neben dem Drain sind möglich:'],
+    ['ul',['Harm durch astrale Rückwirkung (Verbrennung, Schock).','Der Zauber wirkt schwächer, zu stark oder auf das Falsche.','Astrale Aktivität <b>wird bemerkt</b>.']],
+    ['p','Resistance gegen Übernatürliches: <b>Ravn</b> als Hermetiker mit Intuition, <b>Stille</b> mit Body, sonst nach Art der Consequence.']]},
+   {h:'Magie hinterlässt Spuren',b:[
+    ['p','Jeder Zauber trägt deine astrale Signatur, am Ort des Wirkens und am Ziel. Sie verblasst nach wenigen Minuten, lässt sich bis dahin aber aufspüren. Wer leise bleiben will, zaubert gezielt statt ständig.']]},
+   {h:'Mundane Gegenmittel',b:[
+    ['p','Kein Erwachter dabei? Flashbacks, Study mit Wissen aus dem Netz oder Ausrüstung wie Kessels Search Protocol gleichen viel aus. Kein Hindernis im Turm verlangt zwingend Magie.']]},
+  ]},
+
+ {id:'heist',aud:'player',title:'Matrix, Technik & Alert',c3:true,
+  lead:'Der Meridian Spire ist voller vernetzter Technik. Hacker haben viele Gelegenheiten zu glänzen, aber kein exklusives Recht. Und: Die Gebäudesicherheit merkt sich, was ihr tut.',
+  boxes:[
+   {h:'Die Alert Clock',sm:'6 Segmente · sichtbar',b:[
+    ['ladder',[['0–1 Routine',C6,'Auffälligkeiten gelten als normale Event-Abweichung.'],['2–3 Verdacht',C45,'Kameras gleichen ab, Türen fragen erneut, Personal wird befragt.'],['4–5 Alarm','var(--alert2)','Drohnen suchen, Aufzüge halten, erkannte Runner werden verfolgt.'],['6 Lockdown',C13,'Fluchtwege zu, externe Response kommt. Eskalation, kein Game Over.']]],
+    ['p','Alert ist nicht Heat. Heat zählt erst nach dem Run.']]},
+   {h:'Was Alert treibt',b:[
+    ['ul',['Kameras oder Gäste sehen etwas','ein Sensor schlägt an','eine falsche Identität wird geprüft','eine Drohne sendet eine Warnung','Türen werden gewaltsam geöffnet','Schüsse, Explosionen, Geschrei','ein Hack hinterlässt eine Spur']]]},
+   {h:'Alert senken',sm:'tug-of-war',b:[
+    ['p','Nicht „ich würfle gegen Alert“, sondern eine Tat in der Welt:'],
+    ['ul',['Wache überzeugen, dass alles harmlos war (Influence)','Kamerabilder durch alte Aufnahmen ersetzen (Interface)','Sensor als Defekt tarnen (Engineer)','Drohne abfangen, bevor sie meldet (Fight, Stalk)','einen Partyzwischenfall inszenieren (Command, Consort)']],
+    ['p','Bei Erfolg sinkt Alert nach Effect oder ein Anstieg wird verhindert.']]},
+   {h:'Interface & Matrix',b:[
+    ['ul',['Einfache Dinge mit vernetzter Technik kann jede Figur mit Interface versuchen. Echtes Hacken (verborgene Geräte finden, Schwachstellen ausnutzen) braucht ein Cyberdeck.','Hacks werden nicht automatisch schwerer. Riskanter erst, wenn eine Gegenmaßnahme läuft, ein Trace begonnen hat oder ein System isoliert wurde.','Was offline ist, lässt sich nur per Kabel am versteckten Datenport hacken, oder mit Händen: Engineer, Finesse, Wreck.']]]},
+   {h:'Kessels Werkzeug',sm:'Hacker',b:[
+    ['ul',['<b>Search Protocol:</b> alle Online-Geräte in der Nähe sind dir bewusst; +1d beim Sammeln von Informationen über Hochtechnologie.','<b>Scratch-Built Cyberdeck</b> (smart: nicht gegen dich hackbar).','<b>Warez:</b> Armor, Arsenal und Mask nur in VR. Breach öffnet sofort eine Lücke, alarmiert aber das System. Mehrere Warez in einem Run ziehen Aufmerksamkeit.','<b>Blueprints:</b> sag im Run, welche Pläne du geladen hast.']]]},
+   {h:'Zephyrs Werkzeug',sm:'Rigger',b:[
+    ['ul',['<b>Ace:</b> jedes Fahrzeug mit Finesse starten, steuern und landen; Potency bei schwierigen Manövern.','<b>Libelle:</b> Rotordrohne mit Kamera und Mikro, passt durch den Drohnenschacht.','<b>Utility Harness:</b> u. a. Vehicular Override, Thermite, Hyperglue.']]]},
+   {h:'Wege in den Turm',b:[
+    ['tbl',['Weg','Stärke · Problem'],[['Glasaufzug','elegant, nah an Venn · Ausrüstung fällt auf, Aufzug protokolliert'],['Frachtaufzug','Werkzeug plausibel, nah an der Keycard · Dienstpläne, falscher Bereich'],['Dach','viel Ausrüstung · Wind, sichtbar, Glasdach'],['Fassadengondel','umgeht den Eingang · protokolliert, von innen sichtbar']],'nw']]},
+   {h:'Die Aufgabe',cls:'goldbx',b:[
+    ['ul',['Stehlt den <b>schwarzen Aktenkoffer</b> aus dem Tresor.','Er wird <b>ungeöffnet</b> übergeben.','<b>Nichts anderes</b> aus dem Tresor mitnehmen.','Der Tresor braucht die <b>Vault-Keycard</b> und den <b>Augenscan von Dr. Venn</b>.','Bezahlung: <b>6 Nuyen</b> für die Crew.']]]},
+  ]},
+
+ /* ================= SPIELLEITUNG ================= */
+ {id:'sl-wuerfe',aud:'gm',title:'Würfe leiten',c3:true,
+  lead:'Position und Effect ansagen, Consequences wählen, Clocks führen. Grundsatz: Consequences erzeugen neue Situationen, kein Game Over.',
+  boxes:[
+   {h:'Position im Turm',b:[
+    ['tbl',['Position','typisch hier'],[['Controlled','angemeldete Besichtigung, Tarnung sitzt, ruhige Werkstatt, Alert 0–1'],['Risky','Servicetrakt ohne Berechtigung, Gondel im Wind, Wachen in der Nähe'],['Desperate','offen im Sensorkorridor, Wächterdrohnen feuern, Kade im Nahkampf, Lockdown']],'nw'],
+    ['p','Alert selbst gibt keinen Würfelmalus; die veränderte Fiktion verschiebt Position und Effect.']]},
+   {h:'Consequences',sm:'vier Arten',b:[
+    ['ul',['<b>Reduced Effect:</b> eine Effect-Stufe weniger.','<b>Complication:</b> neue Gefahr, Tür verriegelt, Keycard verlegt, Venn misstrauisch. Auf einer Clock: klein 1, normal 2, ernst 3 Segmente.','<b>Lost Opportunity:</b> das Fenster schließt sich, andere Methode nötig.','<b>Harm:</b> siehe unten.']],
+    ['p','Eine Complication darf einen Erfolg nicht aufheben. Pro Consequence entweder Resistance oder Armor. Die SL entscheidet, ob Resistance abschwächt oder ganz verhindert, und setzt damit den Ton.']]},
+   {h:'Harm nach Position',sm:'Faustregel',b:[
+    ['tbl',['Position','Harm'],[['Controlled','Stufe 1'],['Risky','Stufe 2'],['Desperate','Stufe 3 (tödliche Waffen: bis 4)']],'nw'],
+    ['p','Das Regelwerk nennt nur Desperate = schwerer Harm; der Rest ist Blades-Praxis. Temporäres (benommen, in Panik) ist eine Complication, kein Harm.']]},
+   {h:'Effect-Faktoren',b:[
+    ['ul',['<b>Quality:</b> bessere Ausrüstung als der Gegner (Fine Items) = +1.','<b>Scale:</b> Gruppe gegen Einzelne, Drohnenschwarm = ±1.','<b>Potency:</b> Schwachstelle, Überraschung, Magie gegen Mundane, EMP gegen Drohnen = +1.']],
+    ['p','Ein dominanter Faktor schlägt alle anderen (einer gegen zwanzig). Zero Effect ist möglich, dann hilft nur ein Setup; über Great hinaus gibt es Extreme Effect.']]},
+   {h:'Clocks',b:[
+    ['tbl',['Größe','wofür'],[['4–5','komplex: Keycard-Kassette, Wachen im Servicetrakt'],['6–7','komplizierter: Wächterdrohnen, Alert Clock'],['8–10','abschreckend: Manabarriere durchbrechen, Tür ohne Faktoren']],'nw'],
+    ['p','Limited 1 · Standard 2 · Great 3 Segmente. Clocks gelten dem Hindernis, nicht der Methode („Wächterdrohnen“, nicht „Drohnen hacken“). Einfaches ohne Clock: ein Wurf entscheidet.']]},
+   {h:'Engagement Roll',sm:'Fortune Roll',b:[
+    ['p','1W6, je ±1d: kühn / zu verschachtelt · Detail trifft eine Schwäche / das Ziel ist dagegen gewappnet · Kontakte helfen / Rivalen stören. Sprawl Whisperer: +1d.'],
+    ['dice',[['6 + 6',CCR,'erstes Hindernis schon überwunden, dominanter Vorteil'],['6',C6,'dominanter Vorteil oder Initiative (Controlled)'],['4/5',C45,'Risky'],['1–3',C13,'Desperate']]],
+    ['p','Gilt nur für die ersten Actions. Nicht die Annäherung beschreiben, sondern direkt ins erste Hindernis schneiden.']]},
+   {h:'Fortune Roll',b:[
+    ['p','Für Ungewisses ohne Runner-Action: Merkt Kade den Ausfall? Würfle einen passenden Wert (Tier, Qualität, Magnitude) oder 1–4W6 nach Lage, ±1d für große Vor- und Nachteile. Critical außergewöhnlich · 6 gut · 4/5 gemischt · 1–3 schlecht.']]},
+   {h:'Dragon’s Deals',sm:'+1d für einen Haken',b:[
+    ['p','Darf die SL oder jemand am Tisch anbieten. Tritt ein, egal wie der Wurf ausgeht. Nicht zusätzlich zum Pushen.'],
+    ['ul',['Die Einladung ist echt, aber jemand erkennt deinen Alias.','Perfekter Scan, aber Venn wird sich an dein Gesicht erinnern.','Die Drohne geht offline, ihr letzter Datenburst ist raus.','Die Gondel bringt euch hin und verriegelt sich danach außen.','Du erreichst den Koffer, die Tresortür schließt sich hinter euch.']]]},
+   {h:'Flashback-Preise',b:[
+    ['p','0 Edge gewöhnlich, 1 komplex oder unwahrscheinlich, 2+ aufwendig mit Sonderchancen. Danach Action Roll, Fortune Roll oder gar kein Wurf, je nach Gefahr.']]},
+  ]},
+
+ {id:'sl-kampf',aud:'gm',title:'Kampf & Gegner',c3:true,
+  lead:'Gegner würfeln nicht. Ihr Verhalten und ihre Angriffe entstehen aus den Action Rolls der Runner. Die Sicherheit will isolieren, festhalten und Zeit gewinnen; getötet wird erst bei massiver Eskalation.',
+  boxes:[
+   {h:'Gala-Sicherheit',sm:'diskret · gut ausgerüstet',b:[
+    ['ul',['<b>Ziel:</b> kein sichtbarer Zwischenfall vor den VIPs.','<b>Taktik:</b> höflich ansprechen, trennen, zur Seite bitten, eskortieren. Taser erst hinter Türen.','<b>Clock:</b> ein Paar Wachen ausschalten 4.','<b>Harm:</b> nichttödlich, Stufe 1–2.','<b>Consequences:</b> Funkspruch (Alert +1), Verstärkung, Identität erfasst.']]]},
+   {h:'Dorian Kade',sm:'Sicherheitschef',cls:'gmbx',b:[
+    ['ul',['Cyberarme, augmentierte Reflexe, Pistole. Ein Meister: Die SL sagt, was er schon getan hat (Waffe gezogen, Ausgang versperrt), und die Runner müssen erst widerstehen, bevor sie handeln.','Offen gegen ihn: <b>Desperate</b>, Effect meist Limited (Qualität, Reflexe).','<b>Clock 6</b>, ihn niederzuringen. Besser: täuschen, ablenken, ihm nicht begegnen.','Schießt nicht in eine Menge. Will den Vorfall klein halten; zieht Leute lieber in einen Nebenraum.','Harm: Stufe 2, mit gezogener Waffe Stufe 3.']]]},
+   {h:'Aufklärungsdrohnen',sm:'klein · schnell',b:[
+    ['ul',['Kleiner Rahmen (−1 Scale), Flight, Sensor Array. Beobachten, Gesichter erfassen, markieren, verfolgen.','Leicht zu zerstören: ein Standard-Treffer reicht.','<b>Gefahr ist der Datenburst:</b> Alert +1, oder die Identität eines Runners ist erfasst.','Wer sie abfängt, bevor sie meldet, verhindert den Anstieg.']]]},
+   {h:'Wächterdrohnen',sm:'gepanzert · bewaffnet',b:[
+    ['ul',['Mittlerer Rahmen mit Plating und Turret. <b>Clock 4</b> pro Drohne (6 bei Alert 4+).','Holdout, Messer, Fäuste: Limited. Brutal Weapon, Wreck, EMP: Standard oder Potency.','<b>Schwachstellen:</b> Sensoren, Waffenmodul, Wartungsanschluss im Drohnenknoten.','<b>Nichttödlich zuerst:</b> blockieren, Taser, Sicherungsschaum.','<b>Tödlich</b> nur bei schwerer Bewaffnung der Runner oder massiver Eskalation.']]]},
+   {h:'Eskalation der Drohnen',b:[
+    ['ladder',[['Routine',C6,'Patrouille nach Muster'],['Besichtigung',C6,'begleiten, zählen, Identitäten vergleichen'],['Unregelmäßigkeit',C45,'dazwischenstellen, Re-Auth fordern, Wege blockieren, trennen'],['Körperlich','var(--alert2)','festhalten, Taser, Schaum'],['Waffen',C13,'nur bei schwerer Bewaffnung oder Massiv-Eskalation']]]]},
+   {h:'Externe Response',sm:'ab Alert 6',b:[
+    ['p','Viel Zeit übrig: <b>Response Clock 4</b>. Wenn voll, trifft ein schwer bewaffnetes Team ein, dann Flucht statt Kampf. Wenig Zeit: Die nächste große Consequence ist eintreffende Verstärkung.']]},
+   {h:'Harm im Turm',b:[
+    ['tbl',['Stufe','Beispiele'],[['1','Schnittwunde am Glas, verstauchter Knöchel, Pfeffer: „Sickened“'],['2','tiefer Schnitt, Gehirnerschütterung nach dem Sturz auf der Treppe'],['3','Schuss aus einer Wächterdrohne, Sturz durch das Glasdach'],['4','nur Desperate mit tödlichen Mitteln']],'nw'],
+    ['p','Bangflash, Taser-Zittern, im Schaum festgeklebt: temporäre Complication (benommen, festgehalten), kein Harm.']]},
+   {h:'Der Sprengsatz im Koffer',cls:'warnbx',b:[
+    ['ul',['Nur wer öffnet, riskiert ihn. Wer den Koffer zulässt, erfährt nie davon.','Entdecken: Survey, Study, Engineer oder Interface, je nach Methode.','Entschärfen: in Ruhe Risky, unter Drohnenbeschuss Desperate.','Detonation: Inhalt zerstört, Harm Stufe 3 für die haltende Person (keine Todesfalle), Alert steigt deutlich.']]]},
+   {h:'Gewalt & Payoff',cls:'goldbx',b:[
+    ['ul',['Verletzte oder tote Gäste oder Personal: mindestens wie High Alert (3 Nuyen).','Venn schwer verletzt oder getötet: Vertragsbruch.','<b>Veyrath kämpft nie.</b> Schießt jemand auf ihn, zieht er sich zurück.']]]},
+  ]},
+
+ {id:'sl-magie',aud:'gm',title:'Magie im Turm',c3:true,
+  lead:'Das Magische im Meridian Spire und was Erwachte dort sehen können. Magie ist ein weiterer Weg, keine Pflicht: Jedes Hindernis lässt sich auch mundan lösen.',
+  boxes:[
+   {h:'Die Vault-Hülle',sm:'Eigenkreation',cls:'gmbx',b:[
+    ['ul',['Kultiviertes lebendes Gewebe in den Wänden: dunkle Fasern wie Wurzeln oder Muskel.','Trägt eine <b>duale Manabarriere</b>: physisch und astral. Astrales Ausspähen oder Durchdringen ist erheblich erschwert.','Reagiert auf Bohren und Erschütterung, kleine Wunden schließen sich.','Bei Alarm verdichten sich die Fasern.','Beschädigung ist sichtbar: Fasern zucken, dunkle Flüssigkeit tritt aus.']]]},
+   {h:'Barriere überwinden',b:[
+    ['ul',['<b>Durchbrechen:</b> Clock 8, Desperate, jeder Wurf Alert +1. Laut und langsam.','<b>Tür studieren:</b> Assense oder Study am regulären Durchgang zeigt, wie die Barriere kontrolliert geöffnet wird. Das ist ein Setup: +1 Effect oder bessere Position für den eigenen Weg hinein.','<b>Wand angreifen:</b> Gewebe reagiert, heilt, verdichtet sich. Beschädigung der Hülle zählt für Veyrath wie Schaden an der Sammlung.']]]},
+   {h:'Der astrale Watcher',sm:'optional',b:[
+    ['ul',['Patrouilliert außen an der Barriere. Kein Kampfgegner.','Bemerkt ungewöhnliche astrale Aktivität in seiner Nähe: <b>Alert +1</b>.','Zählt dazu: Zauber, dauerhaftes Assense, Stilles helle Aura.','Ablenken (Assense, Influence) oder still bleiben. Banishing Focus: Potency, um ihn zu vertreiben.']]]},
+   {h:'Was Assense zeigt',b:[
+    ['tbl',['Effect','Erkenntnis'],[['Limited','Hier ist starke Magie; eine Wand „lebt“; etwas beobachtet astral.'],['Standard','Duale Barriere, Watcher und seine Runde, Koffer-Aura unter den Stücken.'],['Great','Wie sich die Barriere am Durchgang öffnet; welche Antiquitäten magisch sind; die Barriere ist alt und teuer, kein Konzern baut so etwas für Kunst.']],'nw']]},
+   {h:'Magisches im Hort',b:[
+    ['ul',['<b>Der Koffer:</b> schwache, alte, harmlose Aura. Auffällig für Erwachte, löst nichts aus.','<b>Magische Antiquitäten:</b> von teuren, mundanen Stücken zu unterscheiden. Eine davon ist verlockend leicht mitzunehmen. Keine Falle.']]]},
+   {h:'Zauber in der Praxis',b:[
+    ['ul',['<b>Betäubungsblitz</b> auf eine Wache: Assense, Risky, lautlos, nichttödlich. Eine Wache ist schwach: Kosten 1 Edge oder Drain 1. Nahe Ebene 110 bemerkt der Watcher ihn.','<b>Schleier:</b> Menschen sehen das Trugbild, <b>Kameras die Wahrheit</b>. Braucht Konzentration; wird sie gestört, erneut Assense oder der Schleier fällt.','Die Signatur des Zaubers bleibt Minuten lang an Ort und Ziel haften und lässt sich verfolgen.']]]},
+   {h:'Magische Consequences',b:[
+    ['ul',['<b>Drain</b> kommt aus den Zauberkosten (Spell Potential = Assense-Rating, Ravn 1): darunter 1 Edge oder Drain 1, gleich 1 Edge + Drain 1, darüber 1 Edge + Drain 2.','Aus dem Wurf: Harm durch Rückwirkung („leicht angesengt“, Stufe 1), Zauber außer Kontrolle.','Astrale Aufmerksamkeit: Watcher meldet, Alert +1.','Resistance: Ravn (hermetisch) Intuition, Stille Body. Desperate Assense: 1 Karma auf Willpower.']]]},
+   {h:'Spuren zu Veyrath',cls:'goldbx',b:[
+    ['ul',['<b>Ravn</b> erkennt die gezüchtete Dual-Barriere als Jahrzehnte-Arbeit: Hier sitzt jemand sehr Altes.','Vesna (Ravns Geist) sagte, der Turm „habe einen Herzschlag“.','<b>Stilles</b> Strange Trinket zeigt vor der Tresortür vielleicht einen gewaltigen Schatten über der Fassade.','Verdiente Wahrheit nicht künstlich zurückhalten.']]]},
+   {h:'Veyrath',sm:'Enthüllung',b:[
+    ['ul',['Erscheint erst bei oder nach der Flucht und spricht per Drachensprache direkt in die Gedanken.','<b>Anblick eines Drachen:</b> Wer ihn sieht, erstarrt oder flieht, außer bei Resistance mit Willpower. Hält er Abstand, reicht ein kurzer Schreck.','Drachen sind dual: ihr astrales Bewusstsein ist weithin sichtbar, außer sie verbergen es. Veyrath verbirgt sich im Turm.','Bewertet, droht nicht, blockiert nicht. <b>Nie eine Kampfbegegnung.</b>']]]},
+  ]},
+
+ {id:'sl-alert',aud:'gm',title:'Alert, Matrix & Payoff',c3:true,
+  lead:'Die Alert Clock ersetzt Heat während des Runs. Sie steigt, wenn eine Handlung plausibel Aufmerksamkeit erzeugt, und sinkt, wenn die Fiktion es zulässt.',
+  boxes:[
+   {h:'Alert-Stufen',sm:'6 Segmente',b:[
+    ['ladder',[['0–1 Routine',C6,'Event-Abweichung. Standardpatrouillen. Niemand sucht.'],['2–3 Verdacht',C45,'Kameras gleichen ab, Türen fordern Re-Auth, Drohnen beobachten, Personal wird befragt.'],['4–5 Alarm','var(--alert2)','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge halten oder leiten um, erfasste Runner werden verfolgt.'],['6 Lockdown',C13,'Alarm bestätigt, Fluchtwege zu, externe Response verständigt.']]]]},
+   {h:'Wie viel Alert?',b:[
+    ['tbl',['Auslöser','Alert'],[['kleine Complication: falscher Bereich, Watcher bemerkt Magie','+1'],['Complication: Identität geprüft und gescheitert, Drohnenmeldung','+2'],['ernste Complication: Tür aufgebrochen, Schüsse, Explosion','+3'],['Handlung wirkt direkt gegen die Clock','nach Effect 1/2/3']],'nw'],
+    ['p','Nicht jeder Fehlschlag erhöht Alert. Harm, verlorene Ausrüstung oder eine blockierte Tür sind oft passender.']]},
+   {h:'Alert senken',b:[
+    ['p','Nur mit einer konkreten Tat: überzeugende Erklärung, alte Kamerabilder, Sensor als Defekt, Drohne abgefangen, Türprotokoll als Wartung, Partyzwischenfall als Ausrede. Erfolg: Alert sinkt nach Effect oder ein drohender Anstieg entfällt.']]},
+   {h:'Vernetzte Systeme',b:[
+    ['tbl',['System','Hebel'],[['Gästeliste, Dienstpläne','Namen einschleusen, Schicht fälschen'],['Kameras','Loop, alte Aufnahmen, Blickwinkel'],['Aufzüge','anhalten, umleiten, Etage fälschen'],['Türprotokolle','Zugang als Wartung tarnen'],['Fassadengondel','Fahrbefehl, Andockpunkt 110'],['Drohnen','Zielerkennung täuschen, Befehle, Wartungsanschluss'],['Skycab-Transponder','Landefreigabe auf dem Dach']],'nw']]},
+   {h:'Offline',b:[
+    ['ul',['<b>Der Koffer</b> sendet nichts und ist nicht über die Matrix zu orten. Offline heißt: nur per Kabel direkt am Gerät hackbar.','<b>Keycard-Kassette</b> im Eventbüro: Entnahme wird protokolliert, aber das Schloss ist physisch.','Die <b>Tresortür</b> protokolliert jeden Versuch; ein sauberer Doppelzugang löst keinen Alarm aus.']]]},
+   {h:'Matrix-Consequences',b:[
+    ['ul',['ICe alarmiert oder stellt den Hacker; nächster Hack Desperate.','„Traced“-Clock: wenn voll, ist der Standort bekannt. Offline gehen löscht sie, bricht aber alle Übernahmen ab.','Gerät beschädigt, abgeschaltet oder gejackt; Ziel-Icon verborgen.','Exposure: verwertbare Spur, Alert +1 (nach dem Run Heat).','Breach öffnet sofort, alarmiert aber das System.']],
+    ['p','Wiederholte Versuche werden nur schwerer, wenn die Fiktion einen Grund liefert.']]},
+   {h:'Payoff',cls:'goldbx',b:[
+    ['tbl',['Alert am Ende','Nuyen'],[['Low 0–1','6'],['Medium 2–5','5'],['High / Lockdown 6','3']],'nw'],
+    ['ul',['Verletzte oder tote Gäste oder Personal: mindestens wie High Alert.','Venn schwer verletzt oder getötet: klarer Vertragsbruch.','Schaden an der Sammlung oder Zusatzbeute kann weiter kürzen und beendet Folgeaufträge.']]]},
+   {h:'Veyraths Urteil',b:[
+    ['tbl',['Ergebnis','wenn …'],[['Ideal','Koffer zu, keine Beute, Sammlung heil, Venn unverletzt, wenig Gewalt, Teamwork'],['Brauchbar','Auftrag erfüllt, aber Medium/High Alert oder vermeidbare Eskalation'],['Ungeeignet','Koffer geöffnet (auch fachgerecht), Inhalt zerstört, Venn verletzt, Beute, wahllose Tötungen']],'nw']]},
+   {h:'Heat danach',sm:'optional',b:[
+    ['p','Nur bei Weiterspiel: 0 smooth & quiet, 2 contained, 4 loud & chaotic, 6 wild. +1 hochprofiliges Ziel, +2 bei Tötungen (egal durch wen). Nicht von der Alert Clock übernehmen.']]},
+  ]},
+ ],
+};
+
+/* ---------- Cheat sheets: English data (same structure as SHEETS_DE) ---------- */
+const SHEETS_EN={
+ ui:{title:'Cheat Sheets',subtitle:'Combat, magic, Matrix and core rules for the Trial by Fire',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
+  all:'All',player:'Players',gm:'GM',home:'Home',guide:'GM Guide',print:'Print',audPlayer:'For players',audGm:'GM only',
+  foot:'Feuerprobe · Runners in the Shadows · Cheat sheet',
+  fine:'Fan material for the private gaming table. <i>Runners in the Shadows</i> is a Forged in the Dark game by Mark Cleveland Massengale; <i>Shadowrun</i> is a trademark of The Topps Company / Catalyst Game Labs. These sheets summarise the rules as this one-shot uses them; where it says “one-shot”, it is a recommendation for this run, not an official rule. When in doubt, the rulebook wins. To print, pick “Players” or “GM” above: every sheet is one A4 page.'},
+ sheets:[
+ /* ================= PLAYERS ================= */
+ {id:'grundregeln',aud:'player',title:'Core rules',c3:true,
+  lead:'Fiction first: say what your runner does and what they want to achieve. You only roll when something dangerous or uncertain is at stake.',
+  boxes:[
+   {h:'Action roll',sm:'as many d6 as your action rating',b:[
+    ['p','Roll and count only the <b>highest</b> die.'],
+    ['dice',[['6 + 6',CCR,'<b>Critical:</b> success with an extra benefit.'],['6',C6,'<b>Full success.</b> You get what you wanted.'],['4/5',C45,'<b>Success with a consequence.</b> It works, but it costs.'],['1–3',C13,'<b>Bad outcome.</b> No or the wrong success, plus a consequence.']]],
+    ['p','<b>0 dots</b> in the action: roll 2d6 and take the <b>lower</b>, no critical.']]},
+   {h:'Position',sm:'how bad can it get?',b:[
+    ['tbl',['Position','Meaning'],[['Controlled','You have the upper hand. Mild consequences; you can often back off.'],['Risky','The default. Things can go seriously wrong.'],['Desperate','You are in deep trouble. Consequences are severe.']],'nw'],
+    ['p','The GM states position and effect <b>before</b> the roll. You may negotiate or pick another approach.']]},
+   {h:'Effect',sm:'how much do you achieve?',b:[
+    ['tbl',['Effect','Clock segments'],[['Limited','1 · partial, half a job'],['Standard','2 · what you would expect'],['Great','3 · more than expected']],'nw'],
+    ['p','More effect from the right gear, surprise, good preparation. Less from superior numbers, armour, level 1 harm. You may trade position for effect: riskier for more impact.']]},
+   {h:'Edge',sm:'9 boxes · your reserve',b:[
+    ['ul',['<b>Push (2 edge per benefit):</b> +1d, +1 effect, or act despite level 3 harm.','<b>Assist (1 edge):</b> a teammate gets +1d. Only one assist per roll. You may suffer consequences yourself.','<b>Dragon’s deal:</b> instead of pushing, +1d if you accept a catch offered by the GM or anyone at the table. The catch happens whatever the roll.','<b>Resistance:</b> costs edge (see below).']],
+    ['note','warn','<b>Edge full?</b> You take a <b>trauma</b> (Cold, Haunted, Obsessed, Paranoid, Reckless, Soft, Unstable, Vicious) and are out for the rest of the scene. Edge clears.']]},
+   {h:'Resistance roll',sm:'soften a consequence',b:[
+    ['p','A consequence hits you? <b>Resistance always works</b>: the GM says whether it is reduced or avoided entirely. The roll only sets the price.'],
+    ['ul',['The GM names the matching <b>attribute</b> (value on your sheet).','Cost: <b>6 minus your highest die</b> in edge (5 at most).','Critical: you regain 1 edge.','Decide first, then roll. One roll per consequence, and not on top of armour.']],
+    ['tbl',['Attribute','against …'],[['Intuition','deception, surprise'],['Body','physical strain, injury'],['Willpower','mental strain, resolve, fear']],'nw']]},
+   {h:'Teamwork',sm:'better together',b:[
+    ['ul',['<b>Assist:</b> 1 edge, +1d for someone else.','<b>Setup:</b> your action prepares the next one. Success gives the team +1 effect or a better position.','<b>Group action:</b> one person leads, everyone rolls the same action, the best result counts. The leader pays 1 edge for each 1–3 in the group.','<b>Protect:</b> step in front of a consequence meant for someone else and take it yourself (resistance allowed).']]]},
+   {h:'Flashback',sm:'preparation after the fact',b:[
+    ['p','You don’t have to plan ahead. Mid-run, explain what you had already done.'],
+    ['tbl',['Edge','Example'],[['0','ordinary, easy opportunity: you scouted the way to the garage.'],['1','complex or unlikely: a weapon is already stashed in the penthouse.'],['2+','elaborate, special opportunities: your name is on the guest list.']],'nw'],
+    ['p','Then it works like any action: sometimes an action roll, sometimes a fortune roll, sometimes no roll at all. A flashback isn’t time travel and can’t undo anything.']]},
+   {h:'Load',sm:'choose before the run',b:[
+    ['tbl',['Load','Effect'],[['Light 3','faster, inconspicuous, fits the gala. Armoured clothing or one bulky item.'],['Normal 4–5','looks like trouble. Heavy armour or two bulky items.'],['Heavy 6','slower, looks like an operative. Up to three bulky items.']],'nw'],
+    ['p','You only decide which items you carry when you need them. Tick them off until your load is reached. Choosing your load restores your armour boxes.']]},
+   {h:'Plan & engagement',sm:'no hour-long planning',b:[
+    ['p','Pick a plan and name the detail. The GM rolls the <b>engagement roll</b> and cuts straight to the first danger.'],
+    ['tbl',['Plan','Detail'],[['Assault','point of attack'],['Deception','method'],['Social','connection'],['Stealth','entry point'],['Supernatural','magical method'],['Transport','route & means']],'nw'],
+    ['p','A bad engagement doesn’t mean you planned badly. Only that it starts hot.']]},
+  ]},
+
+ {id:'actions',aud:'player',title:'Which action?',c3:true,
+  lead:'Actions are things you do, not knowledge skills. Not “I roll Interface” but: what does your character do? That gives the action. Often several fit; your method sets position and effect.',
+  boxes:[
+   {h:'Intuition',sm:'resists deception & surprise',b:[
+    ['tbl',['Action','In the Meridian Spire'],[['Engineer','rewire the gondola controls, copy the keycard, build a retina duplicate, disarm a safeguard'],['Interface','loop cameras, edit the guest list, reroute a lift, forge a door log, take over a drone'],['Stalk','tail Dr. Venn unnoticed, pick up Kade’s trail, aimed shot at a drone’s optics'],['Survey','predict Kade’s round, spot the corridor sensors, find an escape route, read the crowd']]]]},
+   {h:'Body',sm:'resists injury & strain',b:[
+    ['tbl',['Action','In the Meridian Spire'],[['Fight','overpower a guard, melee a guardian drone, shove a pistol in someone’s face, hold a position'],['Finesse','lift the keycard from a pocket, steer the gondola in the wind, land a skycab, disarm'],['Prowl','sneak through the service wing, climb the façade, slip past light barriers, take someone out from ambush'],['Wreck','force a door, tear up cover, smash a drone, blast a wall']]]]},
+   {h:'Willpower',sm:'resists fear, pressure, magic',b:[
+    ['tbl',['Action','In the Meridian Spire'],[['Command','boss staff around, intimidate a guard, calm panicking guests'],['Consort','network with collectors, draw Venn into an expert talk, call a contact'],['Influence','fool the reception, talk Venn into the airlock, soothe a guard'],['Study','research provenance, analyse blueprints, detect lies, study a spell formula']]]]},
+   {h:'Assense',sm:'Awakened only',b:[
+    ['p','Perceive astrally: auras, emotions, spirits, barriers, magical objects. Counts towards the 7 action dots. Dangerous spellcasting is usually rolled with Assense. More on the <b>Magic</b> sheet.']]},
+   {h:'The right question',b:[
+    ['ol',['What do you want to achieve?','How exactly do you do it?','What is at stake?']],
+    ['p','The GM names action, position and effect. If the position sounds too bad, change your approach before you roll.']]},
+   {h:'No roll needed',b:[
+    ['p','You are professionals. Routine without danger just works: take a drink, look around the salon, use a commlink, call the lift.']]},
+   {h:'Knowledge, not dice',b:[
+    ['p','Whether your character knows something depends on their background. Just ask the GM. You roll when you <i>obtain</i> knowledge under pressure, for example with Study or Survey.']]},
+   {h:'Gather information',sm:'before the run',b:[
+    ['p','One or two pointed questions per person are enough. Good questions: Where is the keycard? How do I get to Dr. Venn? What gear stands out? Is there a second way in? What lies beneath the penthouse?']]},
+  ]},
+
+ {id:'kampf',aud:'player',title:'Combat',c3:true,
+  lead:'No initiative, no rounds, no hit points for enemies. You describe goal and method, roll one action, and enemies act through the consequences. One roll can cover a whole exchange.',
+  boxes:[
+   {h:'How a fight works',b:[
+    ['ol',['Say <b>what you want to achieve</b>: blind the drone, take the guard down, hold the corridor.','Say <b>how</b>: weapon, cover, timing, teamwork.','The GM names position and effect. Tough enemies get a <b>clock</b>.','Roll. The roll counts for both sides: <b>6</b> you win, <b>4/5</b> both have their effect, <b>1–3</b> the enemy wins.']],
+    ['p','Very dangerous enemies act first. Then you must resist before you can act yourself.']]},
+   {h:'Combat actions',b:[
+    ['tbl',['Action','for'],[['Fight','melee, brawling, a gun at speaking distance, holding a position'],['Stalk','precision shooting from a distance, arranging an ambush'],['Prowl','attack from hiding'],['Finesse','disarm, duel, drive a vehicle'],['Wreck','savage force, destroy cover and doors, sabotage'],['Command','intimidate, force surrender'],['Assense','spells under danger (Awakened only)']],'nw']]},
+   {h:'What changes effect',b:[
+    ['ul',['<b>Numbers:</b> more or bigger enemies = less effect.','<b>Armour:</b> a holdout pistol barely scratches an armoured drone.','<b>Potency:</b> the right weapon, surprise, a weak spot (EMP against drones, shooting out optics) = more effect.','<b>Preparation:</b> setup action or flashback.']]]},
+   {h:'Harm',sm:'level 4 = fatal',b:[
+    ['tbl',['Level','Effect','Example'],[['1 lesser','less effect','scraped, sprained, tired'],['2 moderate','−1d','deep cut, concussion'],['3 severe','incapacitated: only with help or pushing','shot in the chest, broken leg, blinded'],['4','fatal','dead unless you resist']]],
+    ['p','Levels 1 and 2 have two slots each, level 3 one. If a row is full, new harm moves up a level. The penalty applies when the injury fits the action. Short-lived states like dazed or panicked are not harm; they worsen position or effect.']]},
+   {h:'Armour',sm:'boxes on your sheet',b:[
+    ['ul',['<b>Armor:</b> mark to reduce or avoid a fitting consequence <b>instead of</b> rolling resistance. Needs Armor in your load (2) or Light Armor (1).','<b>Heavy:</b> a second box, heavy armour only (+2 load). Hardly plausible at the gala.','Marked boxes only come back with the next run.','<b>Special:</b> only for what your ability allows (Fizz: detection and escape).','<b>Troll armor:</b> Bastion’s extra box.']]]},
+   {h:'Johnson’s conditions',cls:'warnbx',b:[
+    ['ul',['<b>No wetwork:</b> avoidable deaths are explicitly unwanted.','<b>Dr. Venn</b> must not be harmed.','Injured or dead guests and staff cut the pay.','Fighting is loud: gunfire and explosions push the alert clock.']]]},
+   {h:'Non-lethal in the crew',b:[
+    ['chips',['Stunbolt · Ravn','Stunlock Vial · Fizz','Blowgun · Hush','Shock gloves · Bastion','Manacles · Bastion','Bangflash · Pepper Smoke · Tear Gas','EMP against drones','Red Rock · Chameleon']],
+    ['p','Say up front that you go non-lethal. That changes position and effect, not the danger to you.']]},
+   {h:'What you know about security',b:[
+    ['ul',['<b>Gala:</b> discreet security. They want no visible incident in front of the VIPs.','<b>Dorian Kade:</b> head of security, chrome cyberarms, pistol, lightning fast.','<b>Vault level:</b> unstaffed. Sensors, airlocks and autonomous security drones.']]]},
+   {h:'Smarter than fighting',b:[
+    ['p','Often better: bypass, distract, lock in, deceive or simply be faster. Solving problems without violence keeps the alert clock low and Johnson happy.']]},
+  ]},
+
+ {id:'magie',aud:'player',title:'Magic',c3:true,
+  lead:'Magic is real but rare. An Awakened runner is not required, but sees things nobody else does. Everything runs through the same action rolls as any other deed.',
+  boxes:[
+   {h:'Who is Awakened?',b:[
+    ['tbl',['Runner','Magic'],[['Ravn · Mage','Awakened (hermetic) + Sorcerer: Assense and spells'],['Hush · Adept','Way of the Body: mana in their own body, Adept Senses'],['everyone else','mundane. Cyberware and magic don’t mix well.']],'nw']]},
+   {h:'Assense',sm:'action · Awakened only',b:[
+    ['p','You open your mind to the astral: auras, arcane traces of recent events, spirits, barriers, magical objects.'],
+    ['ul',['Roll Assense like any action. The position is often worse than with Survey, because the astral itself is dangerous.','On a <b>desperate</b> Assense action, mark 1 karma on the Willpower track.','Good effect: more detail, clearer answers.']]]},
+   {h:'Casting spells',sm:'Sorcerer',b:[
+    ['ol',['Say which spell you cast, on whom, and what it should achieve. You need the link it requires (touch, sight).','If casting is dangerous, roll an action, usually <b>Assense</b>. The GM names position and effect.','Then pay the <b>cost</b> (see below).']],
+    ['p','<b>Spell Focus</b> (meteoric iron ring): spells with exceptional control. <b>Arcane Reagents:</b> reduce the edge cost by 1 or boost the spell by one level, crumble after use.']]},
+   {h:'Cost & drain',sm:'spell potential = Assense',b:[
+    ['tbl',['Spell strength','Cost'],[['below your potential','1 edge <i>or</i> level 1 drain (then no resisting)'],['equal to your potential','1 edge <i>and</i> level 1 drain'],['above it','1 edge <i>and</i> level 2 drain']]],
+    ['p','Drain is special harm and a supernatural consequence: you may resist it. Ravn has Assense 1, so potential 1. The GM judges how strong a spell is.']]},
+   {h:'Concentration',b:[
+    ['p','Some spells only last while you concentrate (Veil). When your concentration is challenged, re-roll Assense (risking drain) or drop the spell: when you cast another spell, the target takes harm, magic acts against you, or the target is driven to desperation. The edge for it only returns once the spell ends.']]},
+   {h:'Ravn’s spells',b:[
+    ['tbl',['Spell','Effect'],[['Stunbolt','mental spell: unconsciousness instead of wounds. Non-lethal, silent, visible only to the Awakened. Line of sight.'],['Veil','an illusion over a person or thing. Lasts while you concentrate. Fools people, <b>not cameras</b>.']],'nw']]},
+   {h:'Adept',sm:'Hush',b:[
+    ['ul',['<b>Adept Senses (1 edge):</b> superhuman perception for minutes: temperature, frequency, pressure, danger, lies.','You may resist supernatural consequences with <b>Body</b>.','Your aura shines in the astral as brightly as a mage’s.']]]},
+   {h:'Dangers of magic',cls:'warnbx',b:[
+    ['p','Magic can go wrong like anything else. Besides drain:'],
+    ['ul',['Harm from astral backlash (burns, shock).','The spell works weaker, too strong, or on the wrong thing.','Astral activity <b>gets noticed</b>.']],
+    ['p','Resisting the supernatural: <b>Ravn</b> as a hermetic with Intuition, <b>Hush</b> with Body, otherwise by the kind of consequence.']]},
+   {h:'Magic leaves traces',b:[
+    ['p','Every spell bears your astral signature, where it was cast and on its target. It fades within minutes but can be tracked until then. If you want to stay quiet, cast deliberately rather than constantly.']]},
+   {h:'Mundane answers',b:[
+    ['p','No Awakened in the crew? Flashbacks, Study with knowledge from the net, or gear like Kessel’s Search Protocol make up a lot. No obstacle in the tower strictly requires magic.']]},
+  ]},
+
+ {id:'heist',aud:'player',title:'Matrix, tech & alert',c3:true,
+  lead:'The Meridian Spire is full of networked tech. Hackers get many chances to shine, but no exclusive right. And building security remembers what you do.',
+  boxes:[
+   {h:'The alert clock',sm:'6 segments · visible',b:[
+    ['ladder',[['0–1 Routine',C6,'Anomalies count as normal event deviations.'],['2–3 Suspicion',C45,'Cameras cross-check, doors ask again, staff get questioned.'],['4–5 Alarm','var(--alert2)','Drones search, lifts stop, identified runners are tracked.'],['6 Lockdown',C13,'Exits sealed, external response called. Escalation, not game over.']]],
+    ['p','Alert is not heat. Heat only counts after the run.']]},
+   {h:'What drives alert',b:[
+    ['ul',['cameras or guests see something','a sensor trips','a fake identity gets checked','a drone sends a warning','doors are forced','gunfire, explosions, screams','a hack leaves a trace']]]},
+   {h:'Lowering alert',sm:'tug-of-war',b:[
+    ['p','Not “I roll against alert” but a deed in the world:'],
+    ['ul',['convince a guard it was harmless (Influence)','replace camera feeds with old footage (Interface)','disguise a sensor as a fault (Engineer)','intercept a drone before it reports (Fight, Stalk)','stage a party incident (Command, Consort)']],
+    ['p','On success, alert drops by effect or a rise is prevented.']]},
+   {h:'Interface & Matrix',b:[
+    ['ul',['Anyone can try simple things with networked tech using Interface. Real hacking (finding hidden devices, exploiting vulnerabilities) needs a cyberdeck.','Hacks don’t get harder automatically. Riskier only once a countermeasure runs, a trace has started or a system was isolated.','Offline things can only be hacked by cable at the hidden data port, or by hand: Engineer, Finesse, Wreck.']]]},
+   {h:'Kessel’s tools',sm:'Hacker',b:[
+    ['ul',['<b>Search Protocol:</b> you are aware of all online devices nearby; +1d to gather information about high tech.','<b>Scratch-built cyberdeck</b> (smart: can’t be hacked against you).','<b>Warez:</b> Armor, Arsenal and Mask need VR. Breach opens a gap at once but alerts the system. Several warez in one run draw attention.','<b>Blueprints:</b> say during the run which plans you loaded.']]]},
+   {h:'Zephyr’s tools',sm:'Rigger',b:[
+    ['ul',['<b>Ace:</b> start, fly and land any vehicle with Finesse; potency on difficult manoeuvres.','<b>Dragonfly:</b> rotor drone with camera and mic, fits the drone shaft.','<b>Utility harness:</b> incl. Vehicular Override, thermite, hyperglue.']]]},
+   {h:'Ways into the tower',b:[
+    ['tbl',['Route','Strength · problem'],[['Glass lift','elegant, close to Venn · gear stands out, lift logs arrivals'],['Freight lift','tools plausible, close to the keycard · rosters, wrong area'],['Roof','lots of gear · wind, visible, glass roof'],['Façade gondola','bypasses the entrance · logged, visible from inside']],'nw']]},
+   {h:'The job',cls:'goldbx',b:[
+    ['ul',['Steal the <b>black briefcase</b> from the vault.','It is handed over <b>unopened</b>.','Take <b>nothing else</b> from the vault.','The vault needs the <b>vault keycard</b> and <b>Dr. Venn’s eye scan</b>.','Pay: <b>6 nuyen</b> for the crew.']]]},
+  ]},
+
+ /* ================= GM ================= */
+ {id:'sl-wuerfe',aud:'gm',title:'Running rolls',c3:true,
+  lead:'State position and effect, choose consequences, run clocks. Principle: consequences create new situations, not game over.',
+  boxes:[
+   {h:'Position in the tower',b:[
+    ['tbl',['Position','typical here'],[['Controlled','registered viewing, cover holds, quiet workshop, alert 0–1'],['Risky','service wing without clearance, gondola in the wind, guards nearby'],['Desperate','in the open in the sensor corridor, guardian drones firing, Kade in melee, lockdown']],'nw'],
+    ['p','Alert itself gives no dice penalty; the changed fiction shifts position and effect.']]},
+   {h:'Consequences',sm:'four types',b:[
+    ['ul',['<b>Reduced effect:</b> one effect level less.','<b>Complication:</b> new danger, a door locks, the keycard is moved, Venn gets suspicious. On a clock: minor 1, normal 2, serious 3 segments.','<b>Lost opportunity:</b> the window closes, another method is needed.','<b>Harm:</b> see below.']],
+    ['p','A complication must not negate a success. Per consequence either resistance or armour. The GM decides whether resistance reduces or avoids, and so sets the tone.']]},
+   {h:'Harm by position',sm:'rule of thumb',b:[
+    ['tbl',['Position','Harm'],[['Controlled','level 1'],['Risky','level 2'],['Desperate','level 3 (lethal weapons: up to 4)']],'nw'],
+    ['p','The rulebook only states desperate = severe harm; the rest is Blades practice. Temporary states (dazed, panicked) are complications, not harm.']]},
+   {h:'Effect factors',b:[
+    ['ul',['<b>Quality:</b> better gear than the opposition (fine items) = +1.','<b>Scale:</b> group against individuals, drone swarm = ±1.','<b>Potency:</b> weak spot, surprise, magic against the mundane, EMP against drones = +1.']],
+    ['p','A dominant factor overrides the rest (one against twenty). Zero effect is possible, then only a setup helps; beyond great there is extreme effect.']]},
+   {h:'Clocks',b:[
+    ['tbl',['Size','for'],[['4–5','complex: the keycard lockbox, guards in the service wing'],['6–7','more complicated: guardian drones, the alert clock'],['8–10','daunting: break the mana barrier, the vault door without factors']],'nw'],
+    ['p','Limited 1 · standard 2 · great 3 segments. Clocks track the obstacle, not the method (“guardian drones”, not “hack the drones”). Simple things need no clock: one roll decides.']]},
+   {h:'Engagement roll',sm:'fortune roll',b:[
+    ['p','1d6, ±1d each: bold / overly complex · the detail hits a weakness / the target is strong against it · contacts help / rivals interfere. Sprawl Whisperer: +1d.'],
+    ['dice',[['6 + 6',CCR,'first obstacle already overcome, dominant advantage'],['6',C6,'dominant advantage or initiative (controlled)'],['4/5',C45,'Risky'],['1–3',C13,'Desperate']]],
+    ['p','Only holds for the first actions. Don’t describe the approach; cut straight to the first obstacle.']]},
+   {h:'Fortune roll',b:[
+    ['p','For uncertainty without a runner action: does Kade notice the outage? Roll a fitting trait (tier, quality, magnitude) or 1–4d6 by situation, ±1d for major advantages and disadvantages. Critical exceptional · 6 good · 4/5 mixed · 1–3 bad.']]},
+   {h:'Dragon’s deals',sm:'+1d for a catch',b:[
+    ['p','The GM or anyone at the table may offer one. It happens whatever the roll. Not on top of pushing.'],
+    ['ul',['The invitation is real, but someone recognises your alias.','Perfect scan, but Venn will remember your face.','The drone goes offline; its last data burst is already out.','The gondola gets you there, then locks itself outside.','You reach the briefcase; the vault door closes behind you.']]]},
+   {h:'Flashback prices',b:[
+    ['p','0 edge ordinary, 1 complex or unlikely, 2+ elaborate with special opportunities. Then an action roll, a fortune roll or no roll, depending on the danger.']]},
+  ]},
+
+ {id:'sl-kampf',aud:'gm',title:'Combat & opposition',c3:true,
+  lead:'Enemies don’t roll. Their behaviour and attacks come out of the runners’ action rolls. Security wants to isolate, hold and buy time; lethal force only on massive escalation.',
+  boxes:[
+   {h:'Gala security',sm:'discreet · well equipped',b:[
+    ['ul',['<b>Goal:</b> no visible incident in front of the VIPs.','<b>Tactics:</b> address politely, separate, ask aside, escort. Tasers only behind closed doors.','<b>Clock:</b> taking out a pair of guards 4.','<b>Harm:</b> non-lethal, level 1–2.','<b>Consequences:</b> radio call (alert +1), backup, identity recorded.']]]},
+   {h:'Dorian Kade',sm:'head of security',cls:'gmbx',b:[
+    ['ul',['Cyberarms, wired reflexes, pistol. A master: the GM says what he has already done (gun drawn, exit blocked), and the runners must resist before they can act.','Openly against him: <b>desperate</b>, effect usually limited (quality, reflexes).','<b>Clock 6</b> to bring him down. Better: deceive, distract, avoid him.','Won’t shoot into a crowd. Keeps incidents small; prefers to pull people into a side room.','Harm: level 2, with his gun drawn level 3.']]]},
+   {h:'Recon drones',sm:'small · fast',b:[
+    ['ul',['Small frame (−1 scale), flight, sensor array. Observe, capture faces, tag, follow.','Easy to destroy: one standard hit does it.','<b>The danger is the data burst:</b> alert +1, or a runner’s identity is recorded.','Intercept it before it reports and the rise is prevented.']]]},
+   {h:'Guardian drones',sm:'armoured · armed',b:[
+    ['ul',['Medium frame with plating and turret. <b>Clock 4</b> per drone (6 at alert 4+).','Holdout, knives, fists: limited. Brutal weapon, Wreck, EMP: standard or potency.','<b>Weak spots:</b> sensors, weapon module, maintenance port in the drone node.','<b>Non-lethal first:</b> block, taser, containment foam.','<b>Lethal</b> only if the runners are heavily armed or on massive escalation.']]]},
+   {h:'Drone escalation',b:[
+    ['ladder',[['Routine',C6,'patrol by pattern'],['Viewing',C6,'escort, count, compare identities'],['Irregularity',C45,'step in between, demand re-auth, block paths, separate'],['Physical','var(--alert2)','restrain, taser, foam'],['Weapons',C13,'only against heavy weapons or massive escalation']]]]},
+   {h:'External response',sm:'from alert 6',b:[
+    ['p','Lots of time left: <b>response clock 4</b>. When full, a heavily armed team arrives; escape instead of fighting. Little time: the next big consequence is arriving backup.']]},
+   {h:'Harm in the tower',b:[
+    ['tbl',['Level','Examples'],[['1','cut by glass, twisted ankle, pepper: “sickened”'],['2','deep cut, concussion after a fall on the stairs'],['3','shot by a guardian drone, fall through the glass roof'],['4','only desperate with lethal means']],'nw'],
+    ['p','Bangflash, taser jitters, stuck in foam: a temporary complication (dazed, held), not harm.']]},
+   {h:'The bomb in the briefcase',cls:'warnbx',b:[
+    ['ul',['Only those who open it risk it. Keep it closed and nobody ever learns of it.','Detect: Survey, Study, Engineer or Interface, depending on method.','Disarm: risky in calm, desperate under drone fire.','Detonation: contents destroyed, level 3 harm for the holder (not a death trap), alert rises sharply.']]]},
+   {h:'Violence & payoff',cls:'goldbx',b:[
+    ['ul',['Injured or dead guests or staff: at least as high alert (3 nuyen).','Venn seriously hurt or killed: breach of contract.','<b>Veyrath never fights.</b> If someone shoots at him, he withdraws.']]]},
+  ]},
+
+ {id:'sl-magie',aud:'gm',title:'Magic in the tower',c3:true,
+  lead:'What is magical in the Meridian Spire and what the Awakened can see there. Magic is one more way, never a must: every obstacle can be solved mundanely too.',
+  boxes:[
+   {h:'The vault shell',sm:'original creation',cls:'gmbx',b:[
+    ['ul',['Cultivated living tissue inside the walls: dark fibres like roots or muscle.','Carries a <b>dual mana barrier</b>: physical and astral. Astral scouting or passage is severely hampered.','Reacts to drilling and shocks; small wounds close.','On alarm the fibres thicken.','Damage is visible: fibres twitch, dark fluid seeps out.']]]},
+   {h:'Getting past the barrier',b:[
+    ['ul',['<b>Break through:</b> clock 8, desperate, each roll alert +1. Loud and slow.','<b>Study the door:</b> Assense or Study at the regular passage shows how the barrier opens in a controlled way. That is a setup: +1 effect or better position for your own way in.','<b>Attack the wall:</b> the tissue reacts, heals, thickens. Damage to the shell counts for Veyrath like damage to the collection.']]]},
+   {h:'The astral watcher',sm:'optional',b:[
+    ['ul',['Patrols outside the barrier. Not a combat enemy.','Notices unusual astral activity nearby: <b>alert +1</b>.','That includes spells, sustained assensing, Hush’s bright aura.','Distract it (Assense, Influence) or stay quiet. Banishing focus: potency to drive it off.']]]},
+   {h:'What Assense reveals',b:[
+    ['tbl',['Effect','Insight'],[['Limited','strong magic here; a wall is “alive”; something watches astrally.'],['Standard','dual barrier, the watcher and its round, the briefcase’s aura among the pieces.'],['Great','how the barrier opens at the passage; which antiques are magical; the barrier is old and costly, no corp builds this for art.']],'nw']]},
+   {h:'Magic in the hoard',b:[
+    ['ul',['<b>The briefcase:</b> faint, old, harmless aura. Stands out to the Awakened, triggers nothing.','<b>Magical antiques:</b> distinguishable from merely expensive pieces. One is temptingly easy to take. No trap.']]]},
+   {h:'Spells in practice',b:[
+    ['ul',['<b>Stunbolt</b> on a guard: Assense, risky, silent, non-lethal. A guard is weak: cost 1 edge or drain 1. Near level 110 the watcher notices.','<b>Veil:</b> people see the illusion, <b>cameras see the truth</b>. Needs concentration; when challenged, re-roll Assense or the veil drops.','The spell’s signature clings to caster’s spot and target for minutes and can be tracked.']]]},
+   {h:'Magical consequences',b:[
+    ['ul',['<b>Drain</b> comes from the spell cost (spell potential = Assense rating, Ravn 1): below it 1 edge or drain 1, equal 1 edge + drain 1, above 1 edge + drain 2.','From the roll: backlash harm (“lightly toasted”, level 1), spell out of control.','Astral attention: the watcher reports, alert +1.','Resistance: Ravn (hermetic) Intuition, Hush Body. Desperate Assense: 1 karma on Willpower.']]]},
+   {h:'Clues to Veyrath',cls:'goldbx',b:[
+    ['ul',['<b>Ravn</b> recognises the grown dual barrier as decades of work: someone very old lives here.','Vesna (Ravn’s spirit) said the tower “has a heartbeat”.','<b>Hush’s</b> strange trinket may show a vast shadow over the façade at the vault door.','Don’t hold back a truth the runners have earned.']]]},
+   {h:'Veyrath',sm:'reveal',b:[
+    ['ul',['Appears only during or after the escape and speaks straight into the runners’ minds with dragonspeech.','<b>Seeing a dragon:</b> onlookers freeze up or flee unless they resist with Willpower. If he keeps his distance, a brief shock is enough.','Dragons are dual-natured: their astral presence is visible from afar unless hidden. Veyrath hides his inside the tower.','Judges, doesn’t threaten, doesn’t block. <b>Never a combat encounter.</b>']]]},
+  ]},
+
+ {id:'sl-alert',aud:'gm',title:'Alert, Matrix & payoff',c3:true,
+  lead:'The alert clock replaces heat during the run. It rises when an action plausibly draws attention, and drops when the fiction allows it.',
+  boxes:[
+   {h:'Alert stages',sm:'6 segments',b:[
+    ['ladder',[['0–1 Routine',C6,'event deviation. Standard patrols. Nobody searches.'],['2–3 Suspicion',C45,'cameras cross-check, doors demand re-auth, drones watch, staff are questioned.'],['4–5 Alarm','var(--alert2)','drones search, service routes closed, lifts stop or reroute, identified runners are tracked.'],['6 Lockdown',C13,'alarm confirmed, exits sealed, external response called.']]]]},
+   {h:'How much alert?',b:[
+    ['tbl',['Trigger','Alert'],[['minor complication: wrong area, watcher notices magic','+1'],['complication: identity checked and failed, drone report','+2'],['serious complication: door forced, gunfire, explosion','+3'],['action works directly on the clock','by effect 1/2/3']],'nw'],
+    ['p','Not every failure raises alert. Harm, lost gear or a blocked door often fit better.']]},
+   {h:'Lowering alert',b:[
+    ['p','Only through a concrete deed: a convincing explanation, old camera footage, a sensor passed off as a fault, a drone intercepted, a door log posing as maintenance, a party incident as an excuse. Success: alert drops by effect or a looming rise is cancelled.']]},
+   {h:'Networked systems',b:[
+    ['tbl',['System','Lever'],[['Guest list, rosters','slip in names, forge a shift'],['Cameras','loop, old footage, angles'],['Lifts','stop, reroute, fake the floor'],['Door logs','pass access off as maintenance'],['Façade gondola','drive command, docking point 110'],['Drones','fool target recognition, orders, maintenance port'],['Skycab transponder','landing clearance on the roof']],'nw']]},
+   {h:'Offline',b:[
+    ['ul',['<b>The briefcase</b> transmits nothing and can’t be located via the Matrix. Offline means: only hackable by cable, directly at the device.','<b>Keycard lockbox</b> in the event office: removal is logged, but the lock is physical.','The <b>vault door</b> logs every attempt; a clean two-factor entry raises no alarm.']]]},
+   {h:'Matrix consequences',b:[
+    ['ul',['ICe alerted or corners the hacker; next hack desperate.','“Traced” clock: when full, the location is known. Going offline clears it but drops all control taken.','Device damaged, shut down or jacked; target icon hidden.','Exposure: usable trace, alert +1 (heat after the run).','Breach opens at once but alerts the system.']],
+    ['p','Repeated attempts only get harder when the fiction gives a reason.']]},
+   {h:'Payoff',cls:'goldbx',b:[
+    ['tbl',['Alert at the end','Nuyen'],[['Low 0–1','6'],['Medium 2–5','5'],['High / lockdown 6','3']],'nw'],
+    ['ul',['Injured or dead guests or staff: at least as high alert.','Venn seriously hurt or killed: clear breach of contract.','Damage to the collection or extra loot can cut further and ends follow-up jobs.']]]},
+   {h:'Veyrath’s verdict',b:[
+    ['tbl',['Result','if …'],[['Ideal','briefcase closed, no loot, collection intact, Venn unharmed, little violence, teamwork'],['Usable','job done, but medium/high alert or avoidable escalation'],['Unfit','briefcase opened (even expertly), contents destroyed, Venn hurt, loot, indiscriminate killing']],'nw']]},
+   {h:'Heat afterwards',sm:'optional',b:[
+    ['p','Only if you keep playing: 0 smooth & quiet, 2 contained, 4 loud & chaotic, 6 wild. +1 high-profile target, +2 if killing was involved (by anyone). Don’t copy it from the alert clock.']]},
+  ]},
+ ],
+};
+
+/* ---------- Cheat-Sheets: Renderer, Sprache, Spieler/SL-Filter ---------- */
+let lang='de',aud='all',only='',kOver=0;
+(function(){try{
+  const p=new URLSearchParams(location.search),q=p.get('lang'),a=p.get('aud')||p.get('print');
+  if(q==='en'||q==='de')lang=q;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}
+  // nur für tools/fit-sheets.js: ein einzelnes Sheet (?sheet=id) mit fester Druckskalierung (?k=1.3)
+  only=p.get('sheet')||'';kOver=parseFloat(p.get('k'))||0;
+  if(a==='player'||a==='gm'||a==='all')aud=a;else{const v=localStorage.getItem('fp-sheets-aud');if(v==='player'||v==='gm'||v==='all')aud=v;}
+}catch(e){}})();
+function save(){try{localStorage.setItem('fp-lang',lang);localStorage.setItem('fp-sheets-aud',aud);}catch(e){}}
+const D=()=>lang==='en'?SHEETS_EN:SHEETS_DE;
+const $=id=>document.getElementById(id);
+// Druckschrift je Sheet hochskalieren, damit jede A4-Seite gut gefüllt ist (gemessen an der längeren deutschen Fassung)
+const PRINT_K={grundregeln:1.1,actions:1.34,kampf:1.26,magie:1.28,heist:1.36,'sl-wuerfe':1.26,'sl-kampf':1.34,'sl-magie':1.34,'sl-alert':1.24};
+const list=(tag,items)=>items&&items.length?`<${tag}>${items.map(i=>`<li>${i}</li>`).join('')}</${tag}>`:'';
+
+function block(b){
+  const [t,a,b2,c]=b;
+  switch(t){
+    case 'p':return `<p>${a}</p>`;
+    case 'ul':return list('ul',a);
+    case 'ol':return list('ol',a);
+    case 'tbl':return `<table class="tb${c?' '+c:''}"><thead><tr>${a.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${b2.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+    case 'dice':return `<div class="dice">${a.map(([d,col,txt])=>`<div><span class="d" style="--dc:${col}">${d}</span><span>${txt}</span></div>`).join('')}</div>`;
+    case 'ladder':return `<div class="ladder">${a.map(([l,col,txt])=>`<div style="--lc:${col}"><b>${l}</b> <span>${txt}</span></div>`).join('')}</div>`;
+    case 'note':return `<div class="note${a?' '+a:''}">${b2}</div>`;
+    case 'chips':return `<div class="chips">${a.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`;
+  }
+  return '';
+}
+function box(x){
+  return `<section class="bx${x.cls?' '+x.cls:''}"><h4>${x.h}${x.sm?`<small>${x.sm}</small>`:''}</h4>${x.b.map(block).join('')}</section>`;
+}
+function sheet(s,i,n){
+  const U=D().ui,gm=s.aud==='gm';
+  return `<article class="sheet${gm?' gm':''}" id="${s.id}" style="--k:${kOver||PRINT_K[s.id]||1}"><header>
+    <div class="aud">${gm?U.audGm:U.audPlayer}</div><div class="no">${String(i+1).padStart(2,'0')}</div>
+    <h2>${s.title}</h2><p class="lead">${s.lead}</p></header>
+    <div class="cols${s.c3?' c3':''}">${s.boxes.map(box).join('')}</div>
+    <div class="foot">${U.foot} · ${s.title} · ${i+1}/${n}</div></article>`;
+}
+function render(){
+  const d=D(),U=d.ui;
+  document.documentElement.lang=lang;
+  document.title=(lang==='en'?'Feuerprobe Cheat Sheets':'Feuerprobe Cheat-Sheets');
+  $('eyebrow').textContent=U.eyebrow;$('title').textContent=U.title;$('subtitle').textContent=U.subtitle;
+  $('audAll').textContent=U.all;$('audPlayer').textContent=U.player;$('audGm').textContent=U.gm;
+  $('lnkHome').textContent=U.home;$('lnkHome').href='index.html?lang='+lang;
+  $('lnkGuide').textContent=U.guide;$('lnkGuide').href='feuerprobe-leitfaden.html?lang='+lang;
+  $('btnPrint').textContent=U.print;$('fine').innerHTML=U.fine;
+  $('langDE').setAttribute('aria-pressed',lang==='de');$('langEN').setAttribute('aria-pressed',lang==='en');
+  document.querySelectorAll('#audGroup button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.aud===aud));
+  const shown=d.sheets.filter(s=>only?s.id===only:(aud==='all'||s.aud===aud));
+  $('sheets').innerHTML=shown.map((s,i)=>sheet(s,i,shown.length)).join('');
+  $('index').innerHTML=shown.map(s=>`<a href="#${s.id}"${s.aud==='gm'?' class="gm"':''}><i>${s.aud==='gm'?U.gm:U.player}</i>${s.title}</a>`).join('');
+}
+$('langDE').addEventListener('click',()=>{lang='de';save();render();});
+$('langEN').addEventListener('click',()=>{lang='en';save();render();});
+document.querySelectorAll('#audGroup button').forEach(b=>b.addEventListener('click',()=>{aud=b.dataset.aud;save();render();}));
+$('btnPrint').addEventListener('click',()=>window.print());
+addEventListener('scroll',()=>$('toplink').classList.toggle('show',scrollY>600),{passive:true});
+render();
+
+</script>

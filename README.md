@@ -13,7 +13,8 @@ Eine kleine Crew soll während einer Gala im 112-stöckigen **Meridian Spire** e
 | `docs/feuerprobe-runner.html` | Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten, Spieltipps für den Turm und Welt-Einblicken. Klickbare Edge-, Harm- und Load-Tracker. Mit SL-Notizen. |
 | `docs/feuerprobe-runner-bogen.html` | Dieselben Runner als Spielerbögen zum Austeilen: ein Runner pro A4, ohne SL-Notizen, mit Schreiblinien für Straßenname, Name und Pronomen sowie Kästchen für Edge, Harm, Karma, Load und Nuyen. |
 | `docs/feuerprobe-leitfaden.html` | SL-Leitfaden: führt Schritt für Schritt durch den Run (Einstieg, Johnson, Recherche, Zugang, Party, Ebene 110, Tresor und Koffer, Flucht, Enthüllung, Payoff), dazu Werkzeuge und Schnellreferenz. Kurzbiographien von Mr. Johnson, Dr. Venn, Kade und Veyrath mit Porträt-Platzhaltern (eigenes Bild per Klick einfügen, bleibt im Browser). Klickbare Alert Clock, Payoff-Rechner, abhakbare Kapitel, Deutsch/Englisch, Druckansicht A4. |
-| `docs/pdf/de/`, `docs/pdf/en/` | Fertige PDFs: Spielerbögen (`feuerprobe-runner-alle.pdf` und `bogen-<runner>.pdf`; englisch `feuerprobe-runners-all.pdf`, `sheet-<runner>.pdf`) sowie die Pläne als SL-Version (`plaene-sl.pdf` / `plans-gm.pdf`) und Spielerversion (`plaene-spieler.pdf` / `plans-players.pdf`). |
+| `docs/feuerprobe-regeln.html` | Cheat-Sheets, je Sheet eine A4-Seite. Für Spieler:innen: Grundregeln, Welche Action?, Kampf, Magie, Matrix/Technik/Alert. Für die SL: Würfe leiten, Kampf & Gegner (Wachen, Kade, Drohnen, Watcher), Magie im Turm, Alert/Matrix/Payoff. Umschalter Alle/Spieler/SL und DE/EN; gedruckt wird die aktuelle Auswahl. |
+| `docs/pdf/de/`, `docs/pdf/en/` | Fertige PDFs: Spielerbögen (`feuerprobe-runner-alle.pdf` und `bogen-<runner>.pdf`; englisch `feuerprobe-runners-all.pdf`, `sheet-<runner>.pdf`) sowie die Pläne als SL-Version (`plaene-sl.pdf` / `plans-gm.pdf`) und Spielerversion (`plaene-spieler.pdf` / `plans-players.pdf`) und die Cheat-Sheets (`cheatsheets-spieler.pdf`, `cheatsheets-sl.pdf` / `cheatsheets-players.pdf`, `cheatsheets-gm.pdf`). |
 | `docs/index.html` | Startseite (DE/EN umschaltbar) mit Links auf alle Seiten und PDFs; die Sprachwahl wird an die verlinkten Seiten weitergegeben. |
 | `docs/artifact/` | Dieselben Seiten als Fragment ohne `<html>`-Gerüst, wie claude.ai-Artifacts sie erwarten. |
 | `src/` | Quellteile aller Seiten (Stylesheet, Gerüst, Renderer, Daten pro Ebene, pro Runner bzw. pro Sprache beim Leitfaden). |
@@ -43,13 +44,17 @@ Die Runner sind bewusst ohne Vornamen und Geschlecht geschrieben: Der große Tit
 
 **Deutsch und Englisch.** Pläne, Dossiers, Spielerbögen und Leitfaden haben oben einen Umschalter DE/EN. Bei den Plänen liegen die kurzen Beschriftungen als Wörterbuch in `src/plaene/p11_en_dict.js` (deutscher Text → englischer Text; fehlt ein Eintrag, bleibt der deutsche Text stehen), die langen Texte nach Ebene und Nummer in `p12`–`p14`. Bei Dossiers und Spielerbögen sind die deutschen Texte sind die Basis (`r3_data_a.js`, `r4_data_b.js`), die englischen liegen als Übersetzungsschicht daneben (`r3b_en_a.js`, `r4b_en_b.js`) und werden beim Umschalten über die Basis gelegt. Der Leitfaden hält beide Sprachen vollständig in `src/leitfaden/l3_de.js` und `l4_en.js`. Wer eine Datei direkt öffnet, kann die Sprache auch per `?lang=en` vorgeben; so erzeugt auch `tools/make-pdf.js` die englischen PDFs.
 
-PDFs der Spielerbögen erzeugt (mit installiertem Edge oder Chrome):
+PDFs der Spielerbögen, Pläne und Cheat-Sheets erzeugt (mit installiertem Edge oder Chrome; `node tools/make-pdf.js sheets` nur die Cheat-Sheets):
 
 ```bash
 node tools/make-pdf.js
 ```
 
 Ohne PDF-Skript: `docs/feuerprobe-runner-bogen.html` im Browser öffnen, oben einen Bogen wählen und mit Strg+P drucken (A4, Hochformat, ohne Kopf- und Fußzeilen).
+
+## Cheat-Sheets anpassen
+
+Die Inhalte stehen als Daten in `src/regeln/g3_de.js` und `g4_en.js` (gleicher Aufbau: Sheets → Kästen → Blöcke wie Tabelle, Liste, Würfelleiste). Jedes Sheet soll gedruckt genau eine A4-Seite füllen; die Druckschrift je Sheet skaliert `PRINT_K` in `g5_app.js`. Nach Textänderungen `node build.js && node tools/fit-sheets.js` (sucht per Edge/Chrome für jedes Sheet die größte Schrift, die auf eine Seite passt, und trägt sie in `PRINT_K` ein), dann erneut `node build.js` und `node tools/make-pdf.js sheets`. Die Sheets sind gegen das Regelwerk *Runners in the Shadows* abgeglichen. Wo ein Sheet vom Regelwerk abweicht oder etwas nur für diesen Oneshot festlegt (Clock-Größen der Gegner, Alert-Werte), ist das eine Empfehlung, keine offizielle Regel.
 
 ## Pläne anpassen
 

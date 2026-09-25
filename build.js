@@ -5,6 +5,7 @@
 //   docs/feuerprobe-runner.html       eigenständige Seite
 //   docs/feuerprobe-runner-bogen.html Spielerbögen, ein Runner pro A4 (PDFs: node tools/make-pdf.js)
 //   docs/feuerprobe-leitfaden.html    SL-Leitfaden durch den Run mit NPC-Dossiers
+//   docs/feuerprobe-regeln.html       Cheat-Sheets für Spieler und SL (Kampf, Magie, Matrix, Grundregeln)
 //   docs/feuerprobe-oneshot.html      das Abenteuer aus oneshot/*.md als lesbare Seite
 //   docs/artifact/*.html              Fragment ohne <html>/<head>/<body> für claude.ai-Artifacts
 const fs = require('fs');
@@ -36,6 +37,13 @@ const pages = [
     dir: 'src/leitfaden',
     html: ['l1_head.html', 'l2_body.html'],
     js: ['l3_de.js', 'l4_en.js', 'l5_app.js'],
+  },
+  {
+    // Cheat-Sheets: Grundregeln, Kampf, Magie, Matrix/Alert für Spieler und SL, je Sheet eine A4-Seite
+    name: 'feuerprobe-regeln',
+    dir: 'src/regeln',
+    html: ['g1_head.html', 'g2_body.html'],
+    js: ['g3_de.js', 'g4_en.js', 'g5_app.js'],
   },
 ];
 

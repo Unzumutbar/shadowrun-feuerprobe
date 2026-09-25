@@ -27,7 +27,8 @@ const all = ['mercer', 'chamaeleon', 'kessel', 'zephyr', 'bastion', 'fizz', 'sti
 const args = process.argv.slice(2);
 const onlyPlans = args.includes('plans');   // node tools/make-pdf.js plans  → nur die Plan-PDFs
 const langs = args.filter((a) => a === 'de' || a === 'en');
-const ids = args.filter((a) => a !== 'de' && a !== 'en' && a !== 'plans');
+const onlySheets = args.includes('sheets'); // node tools/make-pdf.js sheets → nur die Cheat-Sheet-PDFs
+const ids = args.filter((a) => a !== 'de' && a !== 'en' && a !== 'plans' && a !== 'sheets');
 const jobsLang = langs.length ? langs : ['de', 'en'];
 const jobsId = ids.length ? ids : ['alle', ...all];
 const names = {
@@ -41,7 +42,7 @@ const sleep = (ms) => { const end = Date.now() + ms; while (Date.now() < end) { 
 for (const lang of jobsLang) {
   const outDir = path.join(__dirname, '..', 'docs', 'pdf', lang);
   fs.mkdirSync(outDir, { recursive: true });
-  if (onlyPlans) break;
+  if (onlyPlans || onlySheets) break;
   for (const id of jobsId) {
     const file = path.join(outDir, id === 'alle' ? names[lang].all : names[lang].one(id));
     const target = url + '?lang=' + lang + (id === 'alle' ? '' : '#' + id);
@@ -63,7 +64,7 @@ for (const lang of jobsLang) {
 const plansPage = path.join(__dirname, '..', 'docs', 'meridian-spire-plaene.html');
 const plansUrl = 'file:///' + plansPage.replace(/\\/g, '/');
 const planNames = { de: { gm: 'plaene-sl.pdf', player: 'plaene-spieler.pdf' }, en: { gm: 'plans-gm.pdf', player: 'plans-players.pdf' } };
-if (fs.existsSync(plansPage) && !ids.length) {
+if (fs.existsSync(plansPage) && !ids.length && !onlySheets) {
   for (const lang of jobsLang) {
     const outDir = path.join(__dirname, '..', 'docs', 'pdf', lang);
     for (const variant of ['gm', 'player']) {
@@ -78,6 +79,31 @@ if (fs.existsSync(plansPage) && !ids.length) {
       ], { stdio: 'pipe', timeout: 180000 });
       let waited = 0;
       while (!fs.existsSync(file) && waited < 40000) { sleep(500); waited += 500; }
+      const ok = fs.existsSync(file) && fs.statSync(file).size > 1000;
+      console.log((ok ? 'PDF: ' : 'FEHLER: ') + path.relative(process.cwd(), file) + (ok ? ' (' + Math.round(fs.statSync(file).size / 1024) + ' KB)' : ' exit ' + r.status));
+    }
+  }
+}
+// Cheat-Sheets: Spieler- und SL-Version je Sprache, jedes Sheet eine A4-Seite
+const rulesPage = path.join(__dirname, '..', 'docs', 'feuerprobe-regeln.html');
+const rulesUrl = 'file:///' + rulesPage.replace(/\\/g, '/');
+const rulesNames = { de: { gm: 'cheatsheets-sl.pdf', player: 'cheatsheets-spieler.pdf' }, en: { gm: 'cheatsheets-gm.pdf', player: 'cheatsheets-players.pdf' } };
+if (fs.existsSync(rulesPage) && !ids.length && !onlyPlans) {
+  for (const lang of jobsLang) {
+    const outDir = path.join(__dirname, '..', 'docs', 'pdf', lang);
+    fs.mkdirSync(outDir, { recursive: true });
+    for (const variant of ['player', 'gm']) {
+      const file = path.join(outDir, rulesNames[lang][variant]);
+      if (fs.existsSync(file)) fs.unlinkSync(file);
+      const r = spawnSync(exe, [
+        '--headless=new', '--disable-gpu', '--no-first-run', '--no-default-browser-check',
+        '--disable-extensions', '--disable-background-networking', '--disable-crash-reporter',
+        '--user-data-dir=' + profile + '-rules-' + lang + '-' + variant,
+        '--run-all-compositor-stages-before-draw', '--virtual-time-budget=12000',
+        '--no-pdf-header-footer', '--print-to-pdf=' + file, rulesUrl + '?aud=' + variant + '&lang=' + lang,
+      ], { stdio: 'pipe', timeout: 120000 });
+      let waited = 0;
+      while (!fs.existsSync(file) && waited < 30000) { sleep(500); waited += 500; }
       const ok = fs.existsSync(file) && fs.statSync(file).size > 1000;
       console.log((ok ? 'PDF: ' : 'FEHLER: ') + path.relative(process.cwd(), file) + (ok ? ' (' + Math.round(fs.statSync(file).size / 1024) + ' KB)' : ' exit ' + r.status));
     }

@@ -38,6 +38,7 @@ p.fine{font-size:12.5px;color:var(--muted);margin-top:32px}
 <a class="card" id="lnkRunner" href="feuerprobe-runner.html"><b data-t="runnerT"></b><span data-t="runnerD"></span></a>
 <a class="card" id="lnkSheets" href="feuerprobe-runner-bogen.html"><b data-t="sheetsT"></b><span data-t="sheetsD"></span></a>
 <a class="card" id="lnkGuide" href="feuerprobe-leitfaden.html"><b data-t="guideT"></b><span data-t="guideD"></span></a>
+<a class="card" id="lnkRules" href="feuerprobe-regeln.html"><b data-t="rulesT"></b><span data-t="rulesD"></span></a>
 <a class="card" href="feuerprobe-oneshot.html"><b data-t="oneshotT"></b><span data-t="oneshotD"></span></a>
 <h2 data-t="pdfH"></h2>
 <ul class="pdfs" id="pdfs"></ul>
@@ -50,24 +51,26 @@ const T={
   runnerT:'Feuerprobe Runner',runnerD:'Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten und Welt-Einblicken. Mit SL-Notizen.',
   sheetsT:'Spielerbögen',sheetsD:'Dieselben Runner als Bogen zum Austeilen, ein Runner pro A4, ohne SL-Notizen. Straßenname, Name und Pronomen frei wählbar.',
   guideT:'SL-Leitfaden',guideD:'Führt die Spielleitung Schritt für Schritt durch den Run: Briefing, Party, Tresorgeschoss, Enthüllung, Payoff. Mit NPC-Kurzbiographien und Porträt-Platzhaltern, Alert Clock und Payoff-Rechner.',
+  rulesT:'Cheat-Sheets',rulesD:'Regeln zum Nachschlagen, je eine A4-Seite: für Spieler:innen Grundregeln, Actions, Kampf, Magie, Matrix und Alert; für die SL Würfe leiten, Gegner, Magie im Turm, Alert und Payoff.',
   oneshotT:'Das Abenteuer',oneshotD:'Der vollständige Oneshot-Text: Briefing, Gala, Tresorgeschoss, Alert Clock, Enthüllung und Payoff (nur auf Deutsch).',
   pdfH:'Fertige PDFs',fine:'Fan-Material für den privaten Spieltisch. Runners in the Shadows ist ein Spiel von Mark Cleveland Massengale; Shadowrun ist eine Marke von The Topps Company / Catalyst Game Labs.',
-  pdfs:[['Pläne, SL-Version','de/plaene-sl.pdf'],['Pläne, Spielerversion','de/plaene-spieler.pdf'],['Alle acht Spielerbögen','de/feuerprobe-runner-alle.pdf'],['Einzelbögen','de/bogen-mercer.pdf|Mercer','de/bogen-chamaeleon.pdf|Chamäleon','de/bogen-kessel.pdf|Kessel','de/bogen-zephyr.pdf|Zephyr','de/bogen-bastion.pdf|Bastion','de/bogen-fizz.pdf|Fizz','de/bogen-stille.pdf|Stille','de/bogen-ravn.pdf|Ravn']]},
+  pdfs:[['Pläne, SL-Version','de/plaene-sl.pdf'],['Pläne, Spielerversion','de/plaene-spieler.pdf'],['Cheat-Sheets','de/cheatsheets-spieler.pdf|Spieler','de/cheatsheets-sl.pdf|SL'],['Alle acht Spielerbögen','de/feuerprobe-runner-alle.pdf'],['Einzelbögen','de/bogen-mercer.pdf|Mercer','de/bogen-chamaeleon.pdf|Chamäleon','de/bogen-kessel.pdf|Kessel','de/bogen-zephyr.pdf|Zephyr','de/bogen-bastion.pdf|Bastion','de/bogen-fizz.pdf|Fizz','de/bogen-stille.pdf|Stille','de/bogen-ravn.pdf|Ravn']]},
  en:{sub:'One-shot for Runners in the Shadows · Seattle 2080 · Meridian Spire',
   plansT:'Meridian Spire Plans',plansD:'Section, parking garage, levels 111 and 112, roof, vault level 110. GM and player view, routes, play situations, print view for GM and player plans.',
   runnerT:'Feuerprobe Runners',runnerD:'Eight pregenerated runners with stats, abilities, gear, contacts and insights into the world. With GM notes.',
   sheetsT:'Player sheets',sheetsD:'The same runners as handout sheets, one runner per A4 page, without GM notes. Street name, name and pronouns free to choose.',
   guideT:'GM Guide',guideD:'Walks the GM through the run step by step: briefing, party, vault level, reveal, payoff. With NPC bios and portrait placeholders, alert clock and payoff calculator.',
+  rulesT:'Cheat sheets',rulesD:'Rules at a glance, one A4 page each: for players core rules, actions, combat, magic, Matrix and alert; for the GM running rolls, opposition, magic in the tower, alert and payoff.',
   oneshotT:'The adventure',oneshotD:'The complete one-shot text: briefing, gala, vault level, alert clock, reveal and payoff (German only).',
   pdfH:'Ready-made PDFs',fine:'Fan material for the private gaming table. Runners in the Shadows is a game by Mark Cleveland Massengale; Shadowrun is a trademark of The Topps Company / Catalyst Game Labs.',
-  pdfs:[['Plans, GM version','en/plans-gm.pdf'],['Plans, player version','en/plans-players.pdf'],['All eight player sheets','en/feuerprobe-runners-all.pdf'],['Single sheets','en/sheet-mercer.pdf|Mercer','en/sheet-chamaeleon.pdf|Chameleon','en/sheet-kessel.pdf|Kessel','en/sheet-zephyr.pdf|Zephyr','en/sheet-bastion.pdf|Bastion','en/sheet-fizz.pdf|Fizz','en/sheet-stille.pdf|Hush','en/sheet-ravn.pdf|Ravn']]},
+  pdfs:[['Plans, GM version','en/plans-gm.pdf'],['Plans, player version','en/plans-players.pdf'],['Cheat sheets','en/cheatsheets-players.pdf|Players','en/cheatsheets-gm.pdf|GM'],['All eight player sheets','en/feuerprobe-runners-all.pdf'],['Single sheets','en/sheet-mercer.pdf|Mercer','en/sheet-chamaeleon.pdf|Chameleon','en/sheet-kessel.pdf|Kessel','en/sheet-zephyr.pdf|Zephyr','en/sheet-bastion.pdf|Bastion','en/sheet-fizz.pdf|Fizz','en/sheet-stille.pdf|Hush','en/sheet-ravn.pdf|Ravn']]},
 };
 let lang='de';
 try{const q=new URLSearchParams(location.search).get('lang');const v=localStorage.getItem('fp-lang');lang=(q==='en'||q==='de')?q:((v==='en'||v==='de')?v:'de');}catch(e){}
 function render(){
   const t=T[lang];document.documentElement.lang=lang;
   document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=t[el.dataset.t]||'';});
-  ['lnkPlans','lnkRunner','lnkSheets','lnkGuide'].forEach(id=>{const a=document.getElementById(id);a.href=a.href.split('?')[0]+'?lang='+lang;});
+  ['lnkPlans','lnkRunner','lnkSheets','lnkGuide','lnkRules'].forEach(id=>{const a=document.getElementById(id);a.href=a.href.split('?')[0]+'?lang='+lang;});
   document.getElementById('pdfs').innerHTML=t.pdfs.map(row=>{const [label,...links]=row;return `<li><span>${label}</span>${links.map(l=>{const [f,n]=l.split('|');return `<a href="pdf/${f}">${n||f.split('/').pop()}</a>`;}).join('')}</li>`;}).join('');
   document.getElementById('langDE').setAttribute('aria-pressed',lang==='de');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en');
 }
