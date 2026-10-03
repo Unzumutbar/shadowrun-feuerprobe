@@ -1,6 +1,6 @@
 /* ---------- Dossiers: Renderer, DE + EN ---------- */
 const UI={
- de:{subtitle:'Acht vorgefertigte Runner für den Oneshot im Meridian Spire · Seattle 2080',gmOn:'SL-Notizen anzeigen',gmOff:'Spieleransicht',plans:'Zu den Plänen des Meridian Spire',
+ de:{subtitle:'Acht vorgefertigte Runner für den Oneshot im Meridian Spire · Seattle 2080',gmOn:'SL-Notizen anzeigen',gmOff:'Spieleransicht',shineBtn:'Spieltipps „So glänzt du“',plans:'Zu den Plänen des Meridian Spire',
   role:'Rolle im Run:',profile:'Profil',look:'Aussehen',heritage:'Herkunft',background:'Hintergrund',vice:'Laster',idn:'IDN (SIN)',contacts:'Kontakte',metatype:'Metatyp:',implants:'Implantate & Körper',
   karma:'Karma-Auslöser',karmaAlways:'Dazu immer: Überzeugung, Herkunft oder Hintergrund ausgespielt · Laster oder Trauma haben Ärger gemacht.',
   actions:'Actions · 7 Punkte',sup:'Übernatürlich',resist:'Resistance',edgeSub:'Kästchen · pushen 2 · assistieren 1',harm:'Harm',harmSub:'Stufe 4 = tödlich',lvl:'Stufe',h1:'weniger Effect',h2:'−1d',h3:'braucht Hilfe',
@@ -12,7 +12,7 @@ const UI={
   fine:'Fan-Material für den privaten Spieltisch. <i>Runners in the Shadows</i> ist ein Forged-in-the-Dark-Spiel von Mark Cleveland Massengale; <i>Shadowrun</i> ist eine Marke von The Topps Company / Catalyst Game Labs. Fähigkeiten, Gegenstände und Metatyp-Merkmale folgen der RitS-Version 0.998, ins Deutsche übertragen; Namen, Kontakte und Geheimnisse sind Eigenkreationen für die Feuerprobe.',
   glosses:{engineer:'Technik, Basteln, Reparieren',interface:'Matrix, Hacken, Geräte steuern',stalk:'Aufspüren, Verfolgen, Zielen',survey:'Beobachten, Lage erfassen',fight:'Kämpfen, Nahkampf, Schusswechsel',finesse:'Geschick, Präzision, Fahrzeuge',prowl:'Schleichen, Klettern, Verstecken',wreck:'Zerstören, Sprengen, rohe Gewalt',command:'Befehlen, Einschüchtern',consort:'Umgang, Netzwerken, Kontakte',influence:'Überzeugen, Täuschen, Charme',study:'Analysieren, Wissen, Zaubern'},
   attrDe:{Intuition:'Intuition',Body:'Körper',Willpower:'Wille'}},
- en:{subtitle:'Eight pregenerated runners for the one-shot in the Meridian Spire · Seattle 2080',gmOn:'Show GM notes',gmOff:'Player view',plans:'To the Meridian Spire plans (German)',
+ en:{subtitle:'Eight pregenerated runners for the one-shot in the Meridian Spire · Seattle 2080',gmOn:'Show GM notes',gmOff:'Player view',shineBtn:'Play tips “How you shine”',plans:'To the Meridian Spire plans (German)',
   role:'Role in the run:',profile:'Profile',look:'Look',heritage:'Heritage',background:'Background',vice:'Vice',idn:'IDN (SIN)',contacts:'Contacts',metatype:'Metatype:',implants:'Implants & body',
   karma:'Karma triggers',karmaAlways:'Always in addition: you expressed your beliefs, heritage or background · your vice or trauma caused trouble.',
   actions:'Actions · 7 dots',sup:'Supernatural',resist:'Resistance',edgeSub:'boxes · push 2 · assist 1',harm:'Harm',harmSub:'level 4 = fatal',lvl:'Level',h1:'less effect',h2:'−1d',h3:'needs help',
@@ -78,8 +78,8 @@ const STORE='fp-runner';
 let saved={};try{saved=JSON.parse(localStorage.getItem(STORE)||'{}')||{};}catch(e){saved={};}
 function save(){try{localStorage.setItem(STORE,JSON.stringify(saved));}catch(e){}}
 function st(id){return saved[id]||(saved[id]={edge:[],armor:{},harm:{},load:'normal'});}
-let lang='de',gm=true;
-(function(){try{const q=new URLSearchParams(location.search).get('lang');if(q==='en'||q==='de')lang=q;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}const g=localStorage.getItem('fp-runner-gm');if(g!==null)gm=g==='1';}catch(e){}})();
+let lang='de',gm=true,shine=false; // shine: Abschnitt „So glänzt du im Meridian Spire“, standardmäßig aus
+(function(){try{const q=new URLSearchParams(location.search).get('lang');if(q==='en'||q==='de')lang=q;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}const g=localStorage.getItem('fp-runner-gm');if(g!==null)gm=g==='1';const sh=new URLSearchParams(location.search).get('shine')??localStorage.getItem('fp-shine');shine=sh==='1';}catch(e){}})();
 
 function renderDossier(R0){
   const T=UI[lang],R=loc(R0,lang),a=R.actions||{},s=st(R.id),lb=R.loadBonus||0,loadBase={light:3,normal:5,heavy:6};
@@ -127,7 +127,7 @@ function renderDossier(R0){
   <div class="dfoot">
     <div><h3>${T.friend}</h3><p><b>${esc(R.friend.n)}.</b> ${R.friend.t}</p><h3 style="margin-top:12px">${T.rival}</h3><p><b>${esc(R.rival.n)}.</b> ${R.rival.t}</p></div>
     <div><h3>${T.why}</h3><p>${R.why}</p></div>
-    <div><h3>${T.shine}</h3><ul>${R.shine.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="shinesec"><h3>${T.shine}</h3><ul>${R.shine.map(x=>`<li>${x}</li>`).join('')}</ul></div>
     <div class="lore"><h3>${T.lore} ${esc(R.lore.h)}</h3>${R.lore.t}</div>
     <div class="gmnote"><h3>${T.gm}</h3>${R.gm}</div>
   </div>
@@ -146,6 +146,8 @@ function renderAll(){
   document.getElementById('fine').innerHTML=T.fine;
   document.body.classList.toggle('player',!gm);
   const bg=document.getElementById('btnGM');bg.setAttribute('aria-pressed',gm?'true':'false');bg.lastChild.textContent=gm?T.gmOn:T.gmOff;
+  document.body.classList.toggle('shine-on',shine);
+  const bs=document.getElementById('btnShine');bs.setAttribute('aria-pressed',shine?'true':'false');bs.lastChild.textContent=T.shineBtn;
   bind();
 }
 function bind(){
@@ -158,6 +160,7 @@ function bind(){
 (function boot(){
   const btn=document.getElementById('btnGM');
   btn.addEventListener('click',()=>{gm=!gm;try{localStorage.setItem('fp-runner-gm',gm?'1':'0');}catch(e){}renderAll();});
+  document.getElementById('btnShine').addEventListener('click',()=>{shine=!shine;try{localStorage.setItem('fp-shine',shine?'1':'0');}catch(e){}renderAll();});
   const setLang=l=>{lang=l;try{localStorage.setItem('fp-lang',l);}catch(e){}renderAll();};
   document.getElementById('langDE').addEventListener('click',()=>setLang('de'));
   document.getElementById('langEN').addEventListener('click',()=>setLang('en'));

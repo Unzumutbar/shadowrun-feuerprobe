@@ -165,6 +165,9 @@ header.top h1 small{display:block;font-size:.42em;font-weight:500;color:var(--in
 .gmnote{grid-column:1/-1;border-left:3px solid var(--gm);background:var(--gm-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:13.5px;color:var(--ink)}
 .gmnote h3{color:var(--gm);margin-bottom:4px}
 body.player .gmnote,body.player .gmonly{display:none}
+body:not(.shine-on) .shinesec{display:none}
+.tog button.shinetog[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.tog button.shinetog[aria-pressed="true"] .dot{background:var(--accent)}
 .fine{font-size:12.5px;color:var(--muted);margin-top:22px;max-width:90ch}
 .fine a{color:var(--accent)}
 @media print{

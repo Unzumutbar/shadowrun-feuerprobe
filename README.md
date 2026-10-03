@@ -42,6 +42,8 @@ node tools/serve.js
 
 Die Runner sind bewusst ohne Vornamen und Geschlecht geschrieben: Der große Titel ist nur der Straßenname, Name und Pronomen tragen die Spielenden oben im Bogen selbst ein. Auf den Spielerbögen ist auch der Straßenname eine Schreiblinie; der Vorschlag steht klein daneben.
 
+Der Abschnitt „So glänzt du im Meridian Spire“ (Spieltipps je Runner) ist auf Dossiers und Spielerbögen standardmäßig ausgeblendet. Oben lässt er sich per Schalter einblenden (die Wahl merkt sich der Browser), per URL mit `?shine=1`. Die fertigen PDFs enthalten ihn nicht.
+
 **Deutsch und Englisch.** Pläne, Dossiers, Spielerbögen und Leitfaden haben oben einen Umschalter DE/EN. Bei den Plänen liegen die kurzen Beschriftungen als Wörterbuch in `src/plaene/p11_en_dict.js` (deutscher Text → englischer Text; fehlt ein Eintrag, bleibt der deutsche Text stehen), die langen Texte nach Ebene und Nummer in `p12`–`p14`. Bei Dossiers und Spielerbögen sind die deutschen Texte sind die Basis (`r3_data_a.js`, `r4_data_b.js`), die englischen liegen als Übersetzungsschicht daneben (`r3b_en_a.js`, `r4b_en_b.js`) und werden beim Umschalten über die Basis gelegt. Der Leitfaden hält beide Sprachen vollständig in `src/leitfaden/l3_de.js` und `l4_en.js`. Wer eine Datei direkt öffnet, kann die Sprache auch per `?lang=en` vorgeben; so erzeugt auch `tools/make-pdf.js` die englischen PDFs.
 
 PDFs der Spielerbögen, Pläne und Cheat-Sheets erzeugt (mit installiertem Edge oder Chrome; `node tools/make-pdf.js sheets` nur die Cheat-Sheets):

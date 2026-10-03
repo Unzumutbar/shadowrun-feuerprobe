@@ -111,6 +111,7 @@ body.only .sheet.show{display:flex}
 .items td b{color:var(--ink);font-weight:600}
 .items tr.rec td b::after{content:" ●";color:var(--pb)}
 .std{font-size:6.2pt;color:var(--muted);margin-top:1mm;line-height:1.35}
+body:not(.shine-on) .shinesec{display:none}
 .shine{margin:0;padding-left:3.2mm;font-size:6.8pt;color:var(--ink-2);display:grid;gap:.6mm}
 .shine li::marker{color:var(--pb)}
 .shine b{color:var(--ink)}
@@ -137,6 +138,7 @@ body.only .sheet.show{display:flex}
   <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
   <label for="selRunner"><select id="selRunner"></select></label>
   <label><input type="checkbox" id="chkStreet"> <span id="lblStreet">Straßennamen vorausfüllen</span></label>
+  <label><input type="checkbox" id="chkShine"> <span id="lblShine">Spieltipps „So glänzt du“</span></label>
   <button type="button" id="btnClear">Eingaben leeren</button>
   <button type="button" class="primary" id="btnPrint">Drucken</button>
   <p class="hint" id="tbHint"></p>
@@ -593,7 +595,7 @@ const CREWS_EN=[
 
 /* ---------- Spielerbögen / player sheets: ein Runner pro A4, DE + EN ---------- */
 const UI={
- de:{sub:'ein Runner pro A4',selAll:'Alle acht',chkStreet:'Straßennamen vorausfüllen',btnClear:'Eingaben leeren',btnPrint:'Drucken',
+ de:{sub:'ein Runner pro A4',selAll:'Alle acht',chkStreet:'Straßennamen vorausfüllen',chkShine:'Spieltipps „So glänzt du“',btnClear:'Eingaben leeren',btnPrint:'Drucken',
   hint:'Straßenname, Name und Pronomen lassen sich hier eintippen und werden mitgedruckt; leer gelassen bleiben Schreiblinien für den Tisch. Drucken funktioniert aus der Datei im Repo oder den fertigen PDFs, nicht aus der claude.ai-Ansicht.',
   street:'Straßenname',suggest:'Vorschlag',name:'Name',pron:'Pronomen',meta:'Feuerprobe · Runners in the Shadows',
   profile:'Profil',look:'Aussehen',heritage:'Herkunft',background:'Hintergrund',vice:'Laster',idn:'IDN (SIN)',contacts:'Kontakte',metatype:'Metatyp',implants:'Implantate & Körper',
@@ -607,7 +609,7 @@ const UI={
   dice:'<b>Würfeln:</b> nur der höchste W6 zählt · 6 Erfolg · 4/5 Erfolg mit Consequence · 1–3 Fehlschlag · zwei 6en Critical · Position tauschen gegen Effect',sheet:'Bogen',
   glosses:{engineer:'Technik, Basteln',interface:'Matrix, Hacken',stalk:'Aufspüren, Zielen',survey:'Beobachten, Lage',fight:'Kämpfen',finesse:'Geschick, Fahrzeuge',prowl:'Schleichen, Klettern',wreck:'Zerstören, Gewalt',command:'Befehlen, Drohen',consort:'Umgang, Kontakte',influence:'Überzeugen, Täuschen',study:'Analysieren, Zaubern'},
   attrDe:{Intuition:'Intuition',Body:'Körper',Willpower:'Wille'}},
- en:{sub:'one runner per A4 page',selAll:'All eight',chkStreet:'Prefill street names',btnClear:'Clear entries',btnPrint:'Print',
+ en:{sub:'one runner per A4 page',selAll:'All eight',chkStreet:'Prefill street names',chkShine:'Play tips “How you shine”',btnClear:'Clear entries',btnPrint:'Print',
   hint:'Street name, name and pronouns can be typed here and are printed with the sheet; left empty they remain writing lines for the table. Printing works from the file in the repo or the ready-made PDFs, not from the claude.ai view.',
   street:'Street name',suggest:'Suggestion',name:'Name',pron:'Pronouns',meta:'Feuerprobe · Runners in the Shadows',
   profile:'Profile',look:'Look',heritage:'Heritage',background:'Background',vice:'Vice',idn:'IDN (SIN)',contacts:'Contacts',metatype:'Metatype',implants:'Implants & body',
@@ -684,7 +686,7 @@ function renderSheet(R0,idx,total){
     <div class="col">
       <section><h3>${T.abilities}</h3><ul class="ab">${R.abilities.map(ab=>`<li><b>${esc(ab.n)}<i>${esc(ab.tag)}</i></b>${ab.t}</li>`).join('')}</ul></section>
       <section><h3>${T.gear}</h3><table class="items"><tbody>${R.items.map(it=>`<tr class="${it.rec?'rec':''}"><td class="ck"><i class="bx sm"></i></td><td class="ld">${it.l}</td><td><b>${esc(it.n)}</b> ${esc(short(it.t,80))}</td></tr>`).join('')}</tbody></table><p class="std"><b>${T.std}</b> ${T.stdList}</p></section>
-      <section><h3>${T.shine}</h3><ul class="shine">${R.shine.map(x=>`<li>${x}</li>`).join('')}</ul></section>
+      <section class="shinesec"><h3>${T.shine}</h3><ul class="shine">${R.shine.map(x=>`<li>${x}</li>`).join('')}</ul></section>
       <div class="trk" style="margin-top:2mm"><div class="grp"><div><h5>${T.nuyen} <span style="font:400 5.8pt 'IBM Plex Mono',monospace;text-transform:none;letter-spacing:0;color:var(--muted)">${T.nuyenSub}</span></h5><div class="boxes">${bx(4)}</div></div><div><h5>${T.stash}</h5><div class="stash">${bx(20,'xs')}</div></div></div></div>
     </div>
   </div>
@@ -716,7 +718,7 @@ window.fpCheck=()=>[...document.querySelectorAll('.sheet')].map(s=>({id:s.id,she
 function renderAll(){
   const T=UI[lang];document.documentElement.lang=lang;
   document.getElementById('tbSub').textContent=T.sub;document.getElementById('tbHint').textContent=T.hint;
-  document.getElementById('lblStreet').textContent=T.chkStreet;document.getElementById('btnClear').textContent=T.btnClear;document.getElementById('btnPrint').textContent=T.btnPrint;
+  document.getElementById('lblStreet').textContent=T.chkStreet;document.getElementById('lblShine').textContent=T.chkShine;document.getElementById('btnClear').textContent=T.btnClear;document.getElementById('btnPrint').textContent=T.btnPrint;
   document.getElementById('langDE').setAttribute('aria-pressed',lang==='de'?'true':'false');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en'?'true':'false');
   const sel=document.getElementById('selRunner');sel.innerHTML=`<option value="">${T.selAll}</option>`+RUNNERS.map(R=>{const L=loc(R,lang);return `<option value="${R.id}">${esc(L.street)} · ${esc(R.pb)} · ${esc(R.meta)}</option>`;}).join('');
   document.getElementById('stack').innerHTML=RUNNERS.map((R,i)=>renderSheet(R,i,RUNNERS.length)).join('');
@@ -731,6 +733,11 @@ function renderAll(){
   const chk=document.getElementById('chkStreet');
   let pre=false;try{pre=localStorage.getItem('fp-bogen-street')==='1';}catch(e){}
   chk.checked=pre;
+  // Abschnitt „So glänzt du im Meridian Spire“: standardmäßig aus, ?shine=1 oder Häkchen blendet ihn ein
+  const cs=document.getElementById('chkShine');
+  let sh=false;try{sh=(new URLSearchParams(location.search).get('shine')??localStorage.getItem('fp-shine'))==='1';}catch(e){}
+  cs.checked=sh;document.body.classList.toggle('shine-on',sh);
+  cs.addEventListener('change',()=>{document.body.classList.toggle('shine-on',cs.checked);try{localStorage.setItem('fp-shine',cs.checked?'1':'0');}catch(e){}});
   chk.addEventListener('change',()=>{fillStreets(chk.checked);try{localStorage.setItem('fp-bogen-street',chk.checked?'1':'0');}catch(e){}});
   document.getElementById('btnClear').addEventListener('click',()=>{document.querySelectorAll('.sheet input').forEach(i=>{i.value='';delete i.dataset.auto;const s=st(i.closest('.sheet').id);delete s[i.dataset.k];});chk.checked=false;save();try{localStorage.setItem('fp-bogen-street','0');}catch(e){}});
   document.getElementById('btnPrint').addEventListener('click',()=>{try{window.print();}catch(e){}});
