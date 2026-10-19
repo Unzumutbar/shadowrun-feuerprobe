@@ -95,6 +95,14 @@ aside.key{display:flex;flex-direction:column;gap:18px;min-width:0}
 .stage .views{position:absolute;right:10px;top:10px;display:flex;gap:6px}
 .stage .views button{appearance:none;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:500 12.5px/1 "IBM Plex Sans",sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer}
 .stage .views button:hover{border-color:var(--accent)}
+.stage .views button.walk{border-color:var(--accent);color:var(--accent-ink)}
+.stage .views button.walk[aria-pressed="true"]{background:var(--accent);color:#fff}
+.stage .pad{position:absolute;right:14px;bottom:62px;display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:6px;touch-action:none;user-select:none}
+.stage .pad[hidden]{display:none}
+.stage .pad button{appearance:none;border:1px solid var(--line-2);background:color-mix(in srgb,var(--surface) 88%,transparent);color:var(--ink);border-radius:10px;font-size:16px;cursor:pointer}
+.stage .pad button:active{background:var(--accent);color:#fff}
+.stage .pad [data-d="f"]{grid-column:2;grid-row:1}.stage .pad [data-d="l"]{grid-column:1;grid-row:2}.stage .pad [data-d="b"]{grid-column:2;grid-row:2}.stage .pad [data-d="r"]{grid-column:3;grid-row:2}
+.tog .langs.off{opacity:.45;pointer-events:none}
 .stage .err{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--ink-2)}
 .toprow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .toprow a.back{font:500 13px/1 "IBM Plex Sans",sans-serif;color:var(--accent-ink);text-decoration:none;border:1px solid var(--line-2);border-radius:999px;padding:8px 12px;background:var(--surface)}

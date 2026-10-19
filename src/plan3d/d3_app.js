@@ -21,11 +21,13 @@ const EXTRA3D={
 const UI={
  de:{subtitle:'3-D-Ansicht von Tiefgarage, Penthouse, Dach und Tresorgeschoss · Seattle 2080',gmOn:'SL-Ansicht',gmOff:'Spieleransicht',routes:'Wege einblenden',walls:'Wände',wallSteps:{low:'niedrig',mid:'halb',full:'voll'},labels:'Beschriftung',guests:'Gäste zeigen',
   back:'← 2-D-Pläne',reset:'Ansicht zurücksetzen',top:'Draufsicht',hint:'Ziehen: drehen · Rechtsklick/zwei Finger: verschieben · Mausrad: zoomen · Nummer anklicken: Ort',
+  walk:'Begehen',walkExit:'Rundgang beenden',walkHint:'W/A/S/D oder Pfeiltasten: gehen · Shift: schneller · Ziehen: umsehen · Doppelklick auf den Boden: dorthin springen · Esc: beenden',
   spots:'Orte auf dem Plan',gmTag:'SL',noGl:'Die 3-D-Ansicht braucht WebGL und eine Verbindung zum Laden von Three.js.',
   lg:[['public','Öffentlich / Gäste'],['service','Service / Personal'],['secure','Gesichert'],['private','Privat (Veyrath)'],['outdoor','Außen / Terrasse'],['core','Kern (Aufzug, Treppe, Schacht)'],['tech','Technik'],['drive','Fahrbahn'],['roof','Dach'],['vault','Vault (lebendes Gewebe)'],['glass','Glas'],['guard','Sicherheit'],['staff','Personal','round'],['guest','Gäste','round'],['venn','Dr. Venn','round'],['kade','Kade','','gm'],['sec','Kamera-Sichtfeld, Sensoren'],['drone','Drohnen','round'],['astral','Astral (nur SL)','','gm'],['hidden','Verborgen (nur SL)','','gm']],
   fine:'Fan-Material für den privaten Spieltisch. <i>Runners in the Shadows</i> ist ein Spiel von Mark Cleveland Massengale; <i>Shadowrun</i> ist eine Marke von The Topps Company / Catalyst Game Labs. Die 3-D-Ansicht ist schematisch: Wandhöhen, Türen und Möbel sind aus dem Grundriss abgeleitet.'},
  en:{subtitle:'3D view of parking garage, penthouse, roof and vault level · Seattle 2080',gmOn:'GM view',gmOff:'Player view',routes:'Show routes',walls:'Walls',wallSteps:{low:'low',mid:'half',full:'full'},labels:'Labels',guests:'Show guests',
   back:'← 2D plans',reset:'Reset view',top:'Top view',hint:'Drag: rotate · right-click/two fingers: pan · wheel: zoom · click a number: location',
+  walk:'Walk through',walkExit:'End walk',walkHint:'W/A/S/D or arrow keys: walk · Shift: faster · drag: look around · double-click the floor: jump there · Esc: exit',
   spots:'Locations on the plan',gmTag:'GM',noGl:'The 3D view needs WebGL and a connection to load Three.js.',
   lg:[['public','Public / guests'],['service','Service / staff'],['secure','Secured'],['private','Private (Veyrath)'],['outdoor','Outdoor / terrace'],['core','Core (lift, stairs, shaft)'],['tech','Utilities'],['drive','Driveway'],['roof','Roof'],['vault','Vault (living tissue)'],['glass','Glass'],['guard','Security'],['staff','Staff','round'],['guest','Guests','round'],['venn','Dr. Venn','round'],['kade','Kade','','gm'],['sec','Camera field of view, sensors'],['drone','Drones','round'],['astral','Astral (GM only)','','gm'],['hidden','Hidden (GM only)','','gm']],
   fine:'Fan material for the private gaming table. <i>Runners in the Shadows</i> is a game by Mark Cleveland Massengale; <i>Shadowrun</i> is a trademark of The Topps Company / Catalyst Game Labs. The 3D view is schematic: wall heights, doors and furniture are derived from the floor plan.'},
@@ -39,6 +41,7 @@ const spotOf=(L,s)=>{if(lang==='en'){const e=(PLAN_EN.spots[L.id]||{})[s.n];if(e
 
 /* ---------- Szene ---------- */
 let renderer,scene,camera,controls,world,pickables=[],selected=null;
+let colliders=[];// Grundrissrechtecke [x0,z0,x1,z1], die beim Begehen nicht betreten werden können
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim()||'#888';
 const col=n=>new THREE.Color(css(n));
 const matCache=new Map();
@@ -80,7 +83,8 @@ function buildLevel(L){
   const S=L.scale||20,X=EXTRA3D[L.id]||{},gm=state.gm;
   const H={wall:3.2*S,low:1.15*S,mid:2.0*S,door:2.3*S,sill:.9*S,rail:1.1*S,open:2.8*S,eye:2.7*S};
   // Wandstufen: niedrig = Blick in jeden Raum, halb = Türöffnungen erkennbar, voll = echte Sichtlinien
-  const top={low:H.low,mid:H.mid,full:H.wall}[state.walls],T=6;
+  const top=walk.on?H.wall:{low:H.low,mid:H.mid,full:H.wall}[state.walls],T=6;
+  colliders=[];
   const clampTop=y=>Math.min(y,top);
   const g=new THREE.Group();
   const rooms=(L.rooms||[]).filter(r=>gm||!r.gm);
@@ -94,7 +98,7 @@ function buildLevel(L){
   // Böden: je Raum eine Platte; Lufträume als dunkle Grube, Glasdächer durchsichtig, Rampen schräg
   rooms.forEach((r,i)=>{
     const y1=0.2+i*0.06;
-    if(isVoid(r)){const p=box(g,r.x,r.y,r.x+r.w,r.y+r.h,slab-2*S,slab-1.95*S,mat('floor-void',{opacity:.85}),false);if(p)p.renderOrder=1;return;}
+    if(isVoid(r)){colliders.push([r.x,r.y,r.x+r.w,r.y+r.h]);const p=box(g,r.x,r.y,r.x+r.w,r.y+r.h,slab-2*S,slab-1.95*S,mat('floor-void',{opacity:.85}),false);if(p)p.renderOrder=1;return;}
     if(r.t==='glass'){
       if((X.pyramids||[]).includes(r.label)){const mn=Math.min(r.w,r.h),py=new THREE.Mesh(new THREE.ConeGeometry(mn/2*Math.SQRT2,3*S,4,1,true),mat('glass',{opacity:.3,roughness:.1,side:THREE.DoubleSide}));
         py.rotation.y=Math.PI/4;py.position.set(r.x+r.w/2,1.5*S,r.y+r.h/2);g.add(py);
@@ -158,7 +162,7 @@ function buildLevel(L){
 
   // Raumbeschriftung
   if(state.labels)rooms.forEach(r=>{if(!r.label)return;
-    const s=sprite(g,tr(r.label),{world:r.small?11:16,bg:css('surface'),fg:css('ink'),depthTest:false});
+    const s=sprite(g,tr(r.label),{world:r.small?11:16,bg:css('surface'),fg:css('ink'),depthTest:walk.on});
     s.position.set(r.lx??(r.x+r.w/2),top+(r.small?14:22),r.ly??(r.y+r.h/2));s.renderOrder=20;
   });
 
@@ -166,7 +170,7 @@ function buildLevel(L){
   pickables=[];
   (L.marks||[]).forEach(m=>{if(m.gm&&!gm)return;
     const hl=selected===m.n;
-    const s=sprite(g,String(m.n),{round:true,world:22,size:56,weight:700,bg:hl?css('accent'):css('surface'),fg:hl?css('surface'):css('ink'),ring:m.gm?css('gmnote'):css('ink'),depthTest:false,renderOrder:30});
+    const s=sprite(g,String(m.n),{round:true,world:22,size:56,weight:700,bg:hl?css('accent'):css('surface'),fg:hl?css('surface'):css('ink'),ring:m.gm?css('gmnote'):css('ink'),depthTest:walk.on,renderOrder:30});
     const y=top+40;s.position.set(m.x,y,m.y);s.userData.n=m.n;pickables.push(s);
     const pin=new THREE.Mesh(new THREE.CylinderGeometry(.8,.8,y,6),new THREE.MeshBasicMaterial({color:col('ink'),transparent:true,opacity:.35}));pin.position.set(m.x,y/2,m.y);g.add(pin);
   });
@@ -174,7 +178,8 @@ function buildLevel(L){
 }
 
 function wallPiece(g,hz,c,a,b,kind,o,{H,top,T,clampTop,gm}){
-  const seg=(y0,y1,m,t=T,sh=true)=>hz?box(g,a,c-t/2,b,c+t/2,y0,clampTop(y1),m,sh):box(g,c-t/2,a,c+t/2,b,y0,clampTop(y1),m,sh);
+  // block: Bauteil steht am Boden und versperrt den Weg (Türblätter, Glastüren und Schranken lassen durch)
+  const seg=(y0,y1,m,t=T,sh=true,block=true)=>{if(block&&y0<=0)colliders.push(hz?[a,c-t/2,b,c+t/2]:[c-t/2,a,c+t/2,b]);return hz?box(g,a,c-t/2,b,c+t/2,y0,clampTop(y1),m,sh):box(g,c-t/2,a,c+t/2,b,y0,clampTop(y1),m,sh);};
   const glass=mat('glass',{opacity:.28,roughness:.1,metalness:.1}),wall=mat('wall',{roughness:.7}),frame=mat('ink-2');
   if(!o){
     if(kind==='wall')seg(0,H.wall,wall);
@@ -186,19 +191,19 @@ function wallPiece(g,hz,c,a,b,kind,o,{H,top,T,clampTop,gm}){
   }
   const k=o.k||'door',solid=kind==='wall'||kind==='vault';
   const lintel=(y)=>{if(solid)seg(y,H.wall,wall);else if(kind==='glass')seg(y,H.wall,glass,2,false);};
-  const leaf=(m)=>seg(0,H.door,m,2.5);
+  const leaf=(m)=>seg(0,H.door,m,2.5,true,false);
   switch(k){
     case 'open':if(solid)seg(H.open,H.wall,wall);break;
-    case 'glass':lintel(H.door);seg(0,H.door,glass,2,false);break;
+    case 'glass':lintel(H.door);seg(0,H.door,glass,2,false,false);break;
     case 'window':seg(0,H.sill,solid?wall:glass,solid?T:2);seg(H.sill,H.door,glass,2,false);lintel(H.door);break;
-    case 'hidden':{seg(0,H.wall,gm?mat('wall',{emissive:col('hidden'),emissiveIntensity:.55}):wall);break;}
+    case 'hidden':{seg(0,H.wall,gm?mat('wall',{emissive:col('hidden'),emissiveIntensity:.55}):wall,T,true,!gm);break;}// die SL kennt den Weg
     case 'lift':lintel(H.door);leaf(mat('line-2',{metalness:.6,roughness:.35}));break;
     case 'fire':lintel(H.door);leaf(mat('sec',{roughness:.6}));break;
     case 'mech':lintel(H.door);leaf(mat('venn',{roughness:.6}));break;
     case 'reader':lintel(H.door);leaf(mat('line-2'));
       {const cx=(a+b)/2;const p=hz?[a-3,c-5,a+3,c+5]:[c-5,a-3,c+5,a+3];box(g,p[0],p[1],p[2],p[3],H.sill+4,Math.min(H.sill+14,top),mat('sec',{emissive:col('sec'),emissiveIntensity:.6}),false);}break;
     case 'vault':case 'secure':lintel(H.door);leaf(mat('wall',{metalness:.5,roughness:.4}));break;
-    case 'gate':lintel(H.door);seg(0,H.door,mat('ink-2',{opacity:.55}),2,false);break;
+    case 'gate':lintel(H.door);seg(0,H.door,mat('ink-2',{opacity:.55}),2,false,false);break;
     default:lintel(H.door);leaf(mat('surface-2'));
   }
 }
@@ -341,6 +346,38 @@ function item(g,it,{S,H,top,gm,L}){
   }
 }
 
+/* ---------- Begehen: Ich-Perspektive in Augenhöhe, Wände und Geländer halten auf ---------- */
+const walk={on:false,yaw:0,pitch:0,keys:new Set(),pad:new Set(),last:0};
+const eye=()=>1.65*(level().scale||20);
+function blocked(x,z){const r=.28*(level().scale||20);return colliders.some(c=>x+r>c[0]&&x-r<c[2]&&z+r>c[1]&&z-r<c[3]);}
+function placeAt(x,z){
+  // liegt der Punkt in einer Wand, im näheren Umkreis einen freien suchen
+  for(let d=0;d<=60;d+=4)for(let i=0;i<(d?16:1);i++){const a=i*Math.PI/8,px=x+Math.cos(a)*d,pz=z+Math.sin(a)*d;if(!blocked(px,pz)){camera.position.set(px,eye(),pz);return true;}}
+  return false;
+}
+function spawn(){
+  const L=level(),r=(L.routes||[]).find(r=>state.gm||!r.gm);
+  const p0=r?r.pts[0]:[L.plate[0]+L.plate[2]/2,L.plate[1]+L.plate[3]/2],p1=r&&r.pts[1];
+  walk.yaw=p1?Math.atan2(-(p1[0]-p0[0]),-(p1[1]-p0[1])):0;walk.pitch=0;
+  placeAt(p0[0],p0[1]);camera.rotation.set(walk.pitch,walk.yaw,0,'YXZ');
+}
+function setWalk(on){
+  if(!controls||walk.on===on)return;
+  walk.on=on;walk.keys.clear();walk.pad.clear();controls.enabled=!on;
+  camera.fov=on?72:38;camera.near=on?2:5;camera.updateProjectionMatrix();
+  rebuild();if(on){spawn();renderer.domElement.focus();}else{camera.rotation.order='XYZ';frameView(false);}
+  renderUI();
+}
+function stepWalk(dt){
+  const S=level().scale||20,k=walk.keys,p=walk.pad,has=(...c)=>c.some(x=>k.has(x)||p.has(x));
+  const fwd=(has('KeyW','ArrowUp','f')?1:0)-(has('KeyS','ArrowDown','b')?1:0);
+  const side=(has('KeyD')?1:0)-(has('KeyA')?1:0);
+  walk.yaw+=((has('ArrowLeft','l')?1:0)-(has('ArrowRight','r')?1:0))*1.9*dt;
+  const n=Math.hypot(fwd,side)||1,sp=(has('ShiftLeft','ShiftRight')?3.4:1.6)*S*dt/n;
+  const dx=(-Math.sin(walk.yaw)*fwd+Math.cos(walk.yaw)*side)*sp,dz=(-Math.cos(walk.yaw)*fwd-Math.sin(walk.yaw)*side)*sp;
+  const c=camera.position;if(dx&&!blocked(c.x+dx,c.z))c.x+=dx;if(dz&&!blocked(c.x,c.z+dz))c.z+=dz;
+  c.y=eye();camera.rotation.set(walk.pitch,walk.yaw,0,'YXZ');
+}
 function frameView(top){
   const L=level(),[px,py,pw,ph]=L.plate,cx=px+pw/2,cz=py+ph/2,d=Math.max(pw,ph);
   controls.target.set(cx,0,cz);
@@ -379,7 +416,25 @@ function initGL(){
     const r=renderer.domElement.getBoundingClientRect();const v=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
     const rc=new THREE.Raycaster();rc.setFromCamera(v,camera);const hit=rc.intersectObjects(pickables)[0];
     if(hit)select(hit.object.userData.n,true);});
-  (function loop(){requestAnimationFrame(loop);controls.update();renderer.render(scene,camera);})();
+  // Begehen: umsehen per Ziehen, gehen per Tastatur oder Steuerkreuz, Doppelklick springt
+  let look=null;
+  renderer.domElement.addEventListener('pointerdown',e=>{if(walk.on){look=[e.clientX,e.clientY];try{renderer.domElement.setPointerCapture(e.pointerId);}catch(_){}}});
+  renderer.domElement.addEventListener('pointermove',e=>{if(!walk.on||!look)return;walk.yaw-=(e.clientX-look[0])*.0045;walk.pitch=Math.max(-1.2,Math.min(1.2,walk.pitch-(e.clientY-look[1])*.0045));look=[e.clientX,e.clientY];});
+  ['pointerup','pointercancel'].forEach(t=>renderer.domElement.addEventListener(t,()=>{look=null;}));
+  renderer.domElement.addEventListener('dblclick',e=>{if(!walk.on)return;
+    const r=renderer.domElement.getBoundingClientRect();const v=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
+    const rc=new THREE.Raycaster();rc.setFromCamera(v,camera);const S=level().scale||20;
+    const hit=rc.intersectObjects(world.children,false).find(h=>h.object.isMesh&&h.face&&h.point.y<.5*S&&h.face.normal.y>.5);
+    if(hit)placeAt(hit.point.x,hit.point.z);});
+  const walkKeys=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight'];
+  window.addEventListener('keydown',e=>{if(!walk.on||e.target.closest&&e.target.closest('input,textarea'))return;if(e.code==='Escape'){setWalk(false);return;}if(walkKeys.includes(e.code)){walk.keys.add(e.code);e.preventDefault();}});
+  window.addEventListener('keyup',e=>walk.keys.delete(e.code));
+  window.addEventListener('blur',()=>walk.keys.clear());
+  const pad=document.getElementById('pad');
+  pad.addEventListener('pointerdown',e=>{const b=e.target.closest('button');if(b){walk.pad.add(b.dataset.d);e.preventDefault();}});
+  ['pointerup','pointerleave','pointercancel'].forEach(t=>pad.addEventListener(t,()=>walk.pad.clear()));
+  (function loop(t){requestAnimationFrame(loop);const dt=Math.min(.05,((t||0)-walk.last)/1000)||0;walk.last=t||0;
+    if(walk.on)stepWalk(dt);else controls.update();renderer.render(scene,camera);})();
   try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',rebuild);}catch(e){}
 }
 function ariaLabel(){const L=level();return (lang==='en'&&PLAN_EN.aria&&PLAN_EN.aria[L.id])||L.aria||L.name;}
@@ -398,7 +453,9 @@ function renderUI(){
   setT('btnGM',state.gm,state.gm?t.gmOn:t.gmOff);setT('btnRoutes',state.routes,t.routes);setT('btnGuests',state.guests,t.guests);document.getElementById('wallsLbl').textContent=t.walls;document.querySelectorAll('#walls button').forEach(b=>{b.textContent=t.wallSteps[b.dataset.w];b.setAttribute('aria-pressed',b.dataset.w===state.walls?'true':'false');});setT('btnLabels',state.labels,t.labels);
   document.getElementById('langDE').setAttribute('aria-pressed',lang==='de'?'true':'false');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en'?'true':'false');
   const back=document.getElementById('lnk2d');back.textContent=t.back;back.href='meridian-spire-plaene.html?lang='+lang;
-  document.getElementById('vReset').textContent=t.reset;document.getElementById('vTop').textContent=t.top;document.getElementById('hint').textContent=t.hint;
+  document.getElementById('vReset').textContent=t.reset;document.getElementById('vTop').textContent=t.top;document.getElementById('hint').textContent=walk.on?t.walkHint:t.hint;
+  const vw=document.getElementById('vWalk');vw.textContent=walk.on?t.walkExit:t.walk;vw.setAttribute('aria-pressed',walk.on?'true':'false');
+  document.getElementById('pad').hidden=!walk.on;document.getElementById('walls').classList.toggle('off',walk.on);
   document.getElementById('mapTitle').innerHTML=`${esc(tr(L.name))}<span>${esc(tr(L.sub))}</span>`;
   document.getElementById('chips').innerHTML=(L.chips||[]).map(c=>`<span class="chip">${esc(tr(c))}</span>`).join('');
   const sw={glass:'glass',guard:'guard',staff:'r-staff',guest:'muted',venn:'venn',kade:'kade',sec:'sec',hidden:'hidden',drone:'drone',astral:'astral'};
@@ -416,9 +473,10 @@ document.getElementById('btnGuests').addEventListener('click',()=>set('guests',!
 document.getElementById('btnLabels').addEventListener('click',()=>set('labels',!state.labels));
 document.getElementById('langDE').addEventListener('click',()=>{lang='de';save();renderUI();rebuild();});
 document.getElementById('langEN').addEventListener('click',()=>{lang='en';save();renderUI();rebuild();});
-document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.id===state.cur)return;state.cur=b.dataset.id;selected=null;save();renderUI();rebuild();if(controls)frameView(false);});
-document.getElementById('vReset').addEventListener('click',()=>frameView(false));
-document.getElementById('vTop').addEventListener('click',()=>frameView(true));
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.id===state.cur)return;state.cur=b.dataset.id;selected=null;save();renderUI();rebuild();if(controls){if(walk.on)spawn();else frameView(false);}});
+document.getElementById('vReset').addEventListener('click',()=>{setWalk(false);frameView(false);});
+document.getElementById('vTop').addEventListener('click',()=>{setWalk(false);frameView(true);});
+document.getElementById('vWalk').addEventListener('click',()=>setWalk(!walk.on));
 document.getElementById('spots').addEventListener('click',e=>{const li=e.target.closest('li');if(li)select(+li.dataset.n,false);});
 document.getElementById('spots').addEventListener('keydown',e=>{const li=e.target.closest('li');if(li&&(e.key==='Enter'||e.key===' ')){e.preventDefault();select(+li.dataset.n,false);}});
 renderUI();

@@ -21,7 +21,8 @@
   <section class="mappanel">
     <div class="maphead"><h2 id="mapTitle"></h2><div class="chips" id="chips"></div></div>
     <div class="stage" id="stage">
-      <div class="views"><button type="button" id="vReset"></button><button type="button" id="vTop"></button></div>
+      <div class="views"><button type="button" id="vWalk" class="walk" aria-pressed="false"></button><button type="button" id="vReset"></button><button type="button" id="vTop"></button></div>
+      <div class="pad" id="pad" hidden><button type="button" data-d="f" aria-label="vor">▲</button><button type="button" data-d="l" aria-label="links drehen">◀</button><button type="button" data-d="b" aria-label="zurück">▼</button><button type="button" data-d="r" aria-label="rechts drehen">▶</button></div>
       <div class="hint" id="hint"></div>
     </div>
     <div class="legend3d" id="legend"></div>
