@@ -2,7 +2,7 @@
 const LEVELS=[LSCHNITT,LGARAGE,L111,L112,LDACH,L110];
 const UI_DE={
  subtitle:'Pläne für Tiefgarage, Penthouse, Dach und Tresorgeschoss · Seattle 2080',tabs:{schnitt:'Vertikale Wege',garage:'Tiefgarage',111:'Gala-Ebene',112:'Lounge & Suite',dach:'Landeplattform',110:'Tresorgeschoss'},
- short:{schnitt:'Schnitt',dach:'Dach'},gmOn:'SL-Ansicht',gmOff:'Spieleransicht',routes:'Wege einblenden',print:'Druckansicht',back:'Zurück zu den Plänen',
+ short:{schnitt:'Schnitt',dach:'Dach'},gmOn:'SL-Ansicht',gmOff:'Spieleransicht',routes:'Wege einblenden',print:'Druckansicht',back:'Zurück zu den Plänen',to3d:'3-D-Ansicht →',
  spots:'Orte auf dem Plan',routesH:'Von A nach B',sits:'Spielsituationen',cons:'Vertikale Verbindungen',
  routesHint:'Die Buchstaben markieren den Startpunkt jedes Wegs im Plan. „Wege einblenden“ schaltet das Overlay.',
  consHint:'Kreise = Haltepunkte, rotes Kreuz = Ebene wird passiert, aber nicht erreicht. Gestrichelt = nur Gegenstände oder Seil.',
@@ -64,10 +64,13 @@ function renderChrome(){
   const tabs=document.getElementById('tabs');tabs.innerHTML='';
   LEVELS.forEach(L=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.id='tab-'+L.id;b.innerHTML=`${esc(t.short[L.id]||L.short)}<small>${esc(t.tabs[L.id]||'')}</small>`;b.addEventListener('click',()=>{state.cur=L.id;renderMain();});tabs.appendChild(b);});
   document.getElementById('btnRoutes').lastChild.textContent=t.routes;document.getElementById('btnPrint').lastChild.textContent=t.print;
+  document.getElementById('lnk3d').textContent=t.to3d;link3d();
   document.getElementById('fine').innerHTML=t.fine;
 }
+// Die 3-D-Ansicht kennt alle Ebenen außer dem Schnitt; dorthin geht es mit der gerade gewählten
+function link3d(){const a=document.getElementById('lnk3d');if(!a)return;a.href='meridian-spire-3d.html?lang='+lang+(state.cur!=='schnitt'?'&level='+state.cur:'');}
 function renderMain(){
-  const t=T();const L=LEVELS.find(l=>l.id===state.cur);
+  const t=T();const L=LEVELS.find(l=>l.id===state.cur);link3d();
   document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.id==='tab-'+L.id?'true':'false'));
   document.getElementById('mapTitle').innerHTML=`${esc(tr(L.name))}<span>${esc(tr(L.sub))}</span>`;
   document.getElementById('chips').innerHTML=(L.chips||[]).map(c=>`<span class="chip">${esc(tr(c))}</span>`).join('');

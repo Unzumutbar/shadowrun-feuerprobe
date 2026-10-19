@@ -49,7 +49,7 @@ const PLAN_EN={dict:{
 },
 ui:{
  subtitle:'Plans for the parking garage, penthouse, roof and vault level · Seattle 2080',tabs:{schnitt:'Vertical routes',garage:'Parking garage',111:'Gala level',112:'Lounge & suite',dach:'Landing pad',110:'Vault level'},
- short:{schnitt:'Section',dach:'Roof'},gmOn:'GM view',gmOff:'Player view',routes:'Show routes',print:'Print view',back:'Back to the plans',
+ short:{schnitt:'Section',dach:'Roof'},gmOn:'GM view',gmOff:'Player view',routes:'Show routes',print:'Print view',back:'Back to the plans',to3d:'3D view →',
  spots:'Locations on the plan',routesH:'From A to B',sits:'Play situations',cons:'Vertical connections',
  routesHint:'The letters mark the starting point of each route on the plan. “Show routes” toggles the overlay.',
  consHint:'Circles = stops, red cross = level passed but not reached. Dashed = items only or rope.',

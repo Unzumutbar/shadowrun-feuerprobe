@@ -125,6 +125,7 @@ body:not(.gm) .spots .gmn,body:not(.gm) .spots li.gmonly{display:none}
       <button id="btnGM" class="gmtog" aria-pressed="true" type="button"><span class="dot"></span><span></span></button>
       <button id="btnRoutes" aria-pressed="true" type="button"><span class="dot"></span><span></span></button>
       <span class="langs" role="group" id="walls" aria-labelledby="wallsLbl"><span class="lbl" id="wallsLbl"></span><button type="button" data-w="low"></button><button type="button" data-w="mid"></button><button type="button" data-w="full"></button></span>
+      <button id="btnGuests" aria-pressed="true" type="button"><span class="dot"></span><span></span></button>
       <button id="btnLabels" aria-pressed="true" type="button"><span class="dot"></span><span></span></button>
       <a class="back" id="lnk2d" href="meridian-spire-plaene.html"></a>
     </div>
@@ -335,6 +336,542 @@ sits:[
 ],
 };
 
+const L112={
+id:'112',name:'Ebene 112',short:'112',sub:'Penthouse · VIP-Lounge, Suite & Skycab-Lobby',tb:'EBENE 112 · OBERE PENTHOUSE-EBENE',view:[1040,790],plate:[40,40,920,680],scale:20,
+aria:'Grundriss Ebene 112: VIP-Lounge als Umgang um den Luftraum des Atriums, private Suite im Osten, Sky-Terrasse mit Pool im Süden, Skycab-Lobby im Südwesten, Wartungsgalerie und Technik im Westen.',
+chips:['~15 VIP-Gäste','2 Sicherheit','2 Kameras','Suite: leer, Bewegungsmelder','Skycab-Lobby prüft Buchungen','Speiseaufzug ↔ Küche 111'],
+rooms:[
+ {x:300,y:150,w:400,h:420,t:'public',label:'VIP-Lounge & Umgang',sub:'Balkon um das Atrium · Freitreppe ↓ 111',lx:500,ly:222},
+ {x:225,y:150,w:165,h:90,t:'service',label:'Pantry & Lounge-Bar',small:true,lx:320,ly:198},
+ {x:225,y:165,w:35,h:35,t:'core'},
+ {x:400,y:250,w:220,h:220,t:'void',label:'Luftraum Atrium',sub:'6 m hinab in den Salon · Glasdach 5 m darüber',lx:510,ly:360},
+ {x:260,y:40,w:440,h:110,t:'void',label:'Luftraum',sub:'Terrasse 111 liegt 4 m tiefer',lx:480,ly:95},
+ {x:700,y:40,w:260,h:190,t:'void',label:'Glasdach Wintergarten',sub:'Luftraum · darunter Venns Rückzugsort',lx:830,ly:130},
+ {x:700,y:230,w:260,h:490,t:'private',label:'Private Suite',sub:'Schlafraum · Veyrath · verschlossen · dunkel',lx:830,ly:400},
+ {x:700,y:450,w:100,h:120,t:'private',label:'Bad',small:true},
+ {x:800,y:450,w:160,h:120,t:'private',label:'Ankleide',small:true,lx:880,ly:500},
+ {x:700,y:570,w:260,h:150,t:'private',label:'Privatsalon',small:true,lx:860,ly:610},
+ {x:300,y:570,w:400,h:150,t:'outdoor',label:'Sky-Terrasse',sub:'Pool · Glasbalustrade · 112 Stockwerke Aussicht',lx:500,ly:602},
+ {x:40,y:500,w:260,h:220,t:'secure',label:'Skycab-Lobby',sub:'Ankunft per Luft · Empfang · Reader',lx:150,ly:540},
+ {x:250,y:660,w:50,h:60,t:'core',label:'Treppe|↑ Dach',small:true},
+ {x:60,y:680,w:70,h:40,t:'core',label:'Maschinenraum|Glasaufzug',small:true,lx:95,ly:696},
+ {x:110,y:165,w:115,h:335,t:'tech',label:'Wartungs-|galerie',sub:'Lüftung · Technik · Bodenluke',lx:167,ly:250},
+ {x:40,y:40,w:185,h:125,t:'tech',label:'Lüftung & Küchenabluft',small:true,lx:132,ly:150},
+ {x:40,y:165,w:35,h:35,t:'core'},
+ {x:75,y:165,w:35,h:35,t:'core'},
+ {x:40,y:200,w:70,h:70,t:'core',label:'Maschinen-|raum Fracht',small:true,lx:75,ly:232},
+ {x:40,y:270,w:70,h:90,t:'core',label:'Personal-|treppe',small:true,sub:'↑ Dach ↓ 111',lx:75,ly:308},
+ {x:40,y:360,w:70,h:40,t:'core',label:'Technikschacht',small:true,lx:75,ly:372},
+ {x:40,y:400,w:70,h:100,t:'tech',label:'Lager',small:true,lx:75,ly:488},
+ {x:225,y:240,w:75,h:260,t:'service',label:'Technikflur',rot:-90,lx:262,ly:370},
+],
+ops:[
+ {x:420,y:566,w:60,h:8,k:'glass'},{x:540,y:566,w:60,h:8,k:'glass'},
+ {x:696,y:300,w:8,h:40,k:'reader',flip:true,lbl:'Privat',lx:672,ly:292},
+ {x:696,y:620,w:8,h:40,k:'glass'},
+ {x:730,y:446,w:30,h:8,k:'door'},{x:860,y:446,w:30,h:8,k:'door'},{x:860,y:566,w:30,h:8,k:'door'},
+ {x:386,y:180,w:8,h:35,k:'door'},
+ {x:240,y:236,w:35,h:8,k:'door'},
+ {x:296,y:300,w:8,h:35,k:'door',lbl:'Personal',lx:334,ly:298},
+ {x:296,y:520,w:8,h:35,k:'reader',flip:true},
+ {x:296,y:620,w:8,h:40,k:'glass'},
+ {x:240,y:496,w:35,h:8,k:'reader',flip:true},
+ {x:221,y:300,w:8,h:40,k:'door'},
+ {x:106,y:430,w:8,h:40,k:'door',flip:true},
+ {x:150,y:161,w:40,h:8,k:'door',flip:true},
+ {x:106,y:300,w:8,h:40,k:'door'},
+ {x:246,y:675,w:8,h:30,k:'door',flip:true},
+ {x:80,y:676,w:30,h:8,k:'door',flip:true},
+ {x:256,y:172,w:8,h:22,k:'lift'},
+],
+items:[
+ // Lounge
+ {k:'rect',x:394,y:244,w:232,h:232,cls:'glyph'},
+ {k:'rect',x:640,y:170,w:50,h:70,rx:4,lbl:'Lounge'},{k:'rect',x:640,y:270,w:50,h:60,rx:4},{k:'rect',x:640,y:350,w:50,h:60,rx:4},
+ {k:'rect',x:420,y:170,w:60,h:40,rx:4},{k:'rect',x:540,y:170,w:60,h:40,rx:4},
+ {k:'rect',x:310,y:300,w:50,h:60,rx:4},{k:'rect',x:310,y:400,w:50,h:60,rx:4},
+ {k:'rect',x:420,y:500,w:60,h:40,rx:4},{k:'rect',x:540,y:500,w:60,h:40,rx:4},
+ {k:'stair',x:620,y:470,w:70,h:90,dir:'v'},{k:'text',x:655,y:462,text:'Freitreppe ↓ 111'},
+ {k:'guests',x:400,y:160,w:230,h:60,n:7,seed:31},{k:'guests',x:310,y:250,w:80,h:200,n:5,seed:32},{k:'guests',x:630,y:250,w:60,h:200,n:5,seed:33},
+ {k:'guard',x:600,y:548},
+ {k:'cam',x:305,y:245,a:20,len:120,spread:20},{k:'cam',x:695,y:565,a:-135,len:110,spread:22},
+ // Pantry
+ {k:'rect',x:280,y:158,w:100,h:14,cls:'furn-dark'},{k:'staff',x:300,y:222},{k:'staff',x:340,y:222},
+ {k:'shaft',x:225,y:165,w:35,h:35},{k:'text',x:242,y:190,text:'Speise-|aufzug ↓',cls:'note'},
+ // Sky-Terrasse
+ {k:'pool',x:400,y:640,w:200,h:56},{k:'text',x:500,y:672,text:'Pool'},
+ {k:'rect',x:320,y:660,w:14,h:34},{k:'rect',x:345,y:660,w:14,h:34},{k:'rect',x:630,y:588,w:14,h:34},{k:'rect',x:655,y:588,w:14,h:34},
+ {k:'rail',pts:[[302,717],[698,717]]},
+ {k:'guests',x:320,y:590,w:290,h:40,n:5,seed:34},
+ {k:'text',x:560,y:702,text:'Abseilpunkt: Privatbalkon 111|3 m östlich, 5 m tiefer',cls:'gmtxt',gm:true},
+ // Skycab-Lobby
+ {k:'rect',x:120,y:600,w:80,h:22,lbl:'Empfang'},{k:'guard',x:160,y:640},
+ {k:'cam',x:294,y:506,a:225,len:100,spread:24},
+ {k:'stair',x:250,y:660,w:50,h:60,dir:'v'},
+ {k:'rack',x:70,y:690,w:50,h:20},
+ {k:'text',x:150,y:585,text:'Buchungen ↔ Gästeliste',cls:'gmtxt',gm:true},
+ // Suite
+ {k:'rect',x:760,y:270,w:130,h:80,rx:4,lbl:'Bett'},{k:'rect',x:810,y:456,w:140,h:12,cls:'furn-dark'},
+ {k:'circle',x:730,y:520,r:8},{k:'rect',x:760,y:480,w:30,h:60,rx:6},
+ {k:'spiral',x:735,y:686,r:22},{k:'text',x:735,y:654,text:'Privattreppe ↓ 111'},
+ {k:'rect',x:800,y:660,w:100,h:30,rx:4,lbl:'Sofa'},
+ {k:'motion',x:712,y:242,a:45,r:40,spread:40,gm:true},{k:'motion',x:948,y:242,a:135,r:40,spread:40,gm:true},{k:'motion',x:948,y:708,a:-135,r:40,spread:40,gm:true},
+ {k:'text',x:830,y:426,text:'Boden spürbar warm · keine Kameras|Türen und Möbel leicht zu groß',cls:'gmtxt',gm:true},
+ // Wartungsgalerie / Technik
+ {k:'rect',x:120,y:180,w:95,h:30,cls:'furn-dark'},{k:'text',x:167,y:199,text:'Lüftungskanal',cls:'furn-t'},
+ {k:'rect',x:120,y:300,w:36,h:180,cls:'furn-dark'},
+ {k:'shaft',x:40,y:360,w:70,h:40},{k:'hatch',x:96,y:390,gm:true},
+ {k:'shaft',x:40,y:165,w:35,h:35},{k:'text',x:57,y:190,text:'Drohnen-|schacht',cls:'note'},
+ {k:'shaft',x:75,y:165,w:35,h:35},
+ {k:'stair',x:40,y:270,w:70,h:90,dir:'v'},
+ {k:'rack',x:50,y:210,w:50,h:20},
+ {k:'circle',x:80,y:95,r:20,cls:'glyph'},{k:'circle',x:132,y:95,r:20,cls:'glyph'},{k:'circle',x:184,y:95,r:20,cls:'glyph'},
+ {k:'text',x:167,y:470,text:'Abluftlärm überdeckt Werkzeug',cls:'gmtxt',gm:true},
+ {k:'crate',x:48,y:410,w:54,h:24},{k:'crate',x:48,y:440,w:54,h:24},
+ {k:'text',x:262,y:470,text:'keine Kamera',cls:'gmtxt',gm:true},
+ {k:'text',x:830,y:205,text:'Lüftungsflügel: mechanisch, ohne Sensor, klemmt',cls:'gmtxt',gm:true},
+],
+marks:[
+ {n:1,x:610,y:236},{n:2,x:375,y:224},{n:3,x:350,y:602},{n:4,x:62,y:650},{n:5,x:760,y:380},{n:6,x:200,y:420},{n:7,x:262,y:275},{n:8,x:740,y:80},{n:9,x:520,y:410},
+],
+spots:[
+ {n:1,t:'VIP-Lounge & Umgang',p:'Ein Balkon läuft um das Atrium. Wenige, sehr gut vernetzte Gäste, Lounge-Möbel, die Freitreppe hinunter in den Salon. Vom Geländer sieht man die ganze Party.',g:'Weniger Gäste heißt mehr Aufmerksamkeit pro Person: Wer hier nicht hingehört, fällt in Minuten auf. Eine Sicherheitskraft, zwei Kameras. Das Geländer ist Overwatch für einen Trigger und der schnellste Weg nach unten (Seil ins Atrium, 6 m). Servicedrohnen fliegen durch den Luftraum.'},
+ {n:2,t:'Pantry & Speiseaufzug',p:'Kleine Bar-Küche für die Lounge, Nachschub kommt per Speiseaufzug aus der Küche auf 111.',g:'Speiseaufzug 60×60 cm: Gegenstände, Keycard-Übergabe zwischen zwei Runnern auf verschiedenen Ebenen, notfalls ein sehr schlanker Runner (Desperate). Zwei Servicekräfte, die selten hochschauen.'},
+ {n:3,t:'Sky-Terrasse & Pool',p:'Außenterrasse mit beheiztem Pool, Glasbalustrade, Wind. Türen zur Lounge, zur Skycab-Lobby und zur Suite.',g:'Keine Kamera außer der an der Lobby-Tür. Die Balustrade ist ein Abseilpunkt zum Privatbalkon 111 (3 m östlich, 5 m tiefer) und Fluchtweg für alles, was fliegt. Die Fassadengondel fährt an der Ostkante vorbei. Die Suite-Tür ist verriegelt, aber Glas.'},
+ {n:4,t:'Skycab-Lobby',p:'Ankunft für Gäste, die per Skycab kommen: Empfang, Reader, Treppe zur Landeplattform auf dem Dach.',g:'Eine Sicherheitskraft prüft Skycab-Buchungen gegen die Gästeliste; wer eine Buchung eingetragen hat, gilt als erwartet. Der Reader zur Lounge braucht den Gästebadge. Fluchtweg Nummer eins bei niedrigem Alert: Skycab bestellen, Treppe hoch, weg. Kamera über der Tür.'},
+ {n:5,t:'Private Suite',p:'Verschlossen, dunkel, nicht Teil der Gala.',g:'Leer. Bewegungsmelder in drei Ecken, keine Kameras (Veyrath duldet keine in seinen Räumen). Die Privattreppe im Privatsalon führt direkt ins Arbeitszimmer 111: der Weg zum Privatlift, der Galerie und Bibliothek komplett umgeht. Hinweise auf den Besitzer: warmer Boden, überdimensionierte Türen und Möbel, Maßanzüge ohne Etikett in der Ankleide.'},
+ {n:6,t:'Wartungsgalerie & Technik',p:'Lüftungsanlage, Kanäle, Personaltreppe, ein Lager mit Möbeln. Laut.',g:'Bodenluke in den Technikschacht: der Wartungsschacht führt hinunter zum Lager 111 und weiter zur Löschzentrale 110, hinauf zum Dach. Die Personaltreppe geht weiter zum Dach (Tür mit Alarmkontakt). Der Abluftlärm überdeckt Werkzeuggeräusche.'},
+ {n:7,t:'Technikflur',p:'Personalverbindung zwischen Pantry und Skycab-Lobby.',g:'Keine Kamera. Hier kreuzen sich Servicepersonal und VIP-Empfang: die beste Stelle, Uniform gegen Anzug zu tauschen oder umgekehrt.'},
+ {n:8,t:'Glasdach Wintergarten (Luftraum)',p:'Von hier sieht man durch das Glas hinunter in den Wintergarten.',g:'Vom Dach aus: Öffnungsflügel für die Lüftung, mechanisch, ohne Sensor, klemmt (Prowl oder Engineer, Controlled bei Ruhe). Darunter Venns kamerafreier Rückzugsort. 5 m Abseilhöhe in Pflanzen.'},
+ {n:9,t:'Luftraum Atrium',p:'Blick 6 m hinab auf die Party, 5 m hinauf zum Glasdach.',g:'Sturzgefahr für Consequences. Seil vom Geländer ist der schnellste Weg nach unten und nach oben (Glasdach-Wartungsflügel). Wer hier hängt, wird gesehen.'},
+],
+routes:[
+ {id:'A',c:'public',pts:[[275,708],[275,640],[232,606],[288,538],[350,538],[350,485],[600,485],[640,505]]},
+ {id:'B',c:'private',gm:true,pts:[[678,320],[740,320],[820,400],[875,440],[875,520],[875,600],[800,650],[752,680]]},
+ {id:'C',c:'tech',gm:true,pts:[[340,205],[300,225],[258,238],[262,320],[224,320],[185,335],[150,380],[104,392]]},
+ {id:'D',c:'out',gm:true,dash:true,pts:[[570,575],[650,650],[698,712]]},
+ {id:'E',c:'staff',pts:[[75,346],[110,322],[170,320],[224,320],[262,320],[298,318],[330,318]]},
+],
+routeText:[
+ {id:'A',c:'public',t:'Per Skycab in die Party',d:'Landeplattform → Treppe → Skycab-Lobby (Buchung + Badge) → Lounge → Freitreppe → Salon. Umgekehrt der eleganteste Fluchtweg.'},
+ {id:'B',c:'private',t:'Lounge → Suite → Privattreppe → Arbeitszimmer',d:'Reader an der Suite-Tür, drei Bewegungsmelder, sonst nichts. Landet direkt neben dem Privatlift, ohne Galerie und Bibliothek.',gm:true},
+ {id:'C',c:'tech',t:'Pantry → Technikflur → Wartungsgalerie → Bodenluke',d:'Kamerafrei bis zum Schacht. Hinunter zum Lager 111 oder bis 110.',gm:true},
+ {id:'D',c:'out',t:'Sky-Terrasse → abseilen zum Privatbalkon 111',d:'Wind, Regen, Glas. Prowl, Risky. Unten wartet der Bewegungsmelder im Arbeitszimmer.',gm:true},
+ {id:'E',c:'staff',t:'Personaltreppe → Technikflur → Lounge',d:'Der Weg des Servicepersonals: von 111 oder vom Dach kommend ohne Reader bis in die Lounge.'},
+],
+sits:[
+ '<b>Wer gehört hierher?</b> In der VIP-Lounge kennt jeder jeden. Ein fremdes Gesicht wird angesprochen, nicht gemeldet: „Und Sie sind mit wem hier?“ Ein Face glänzt, ein Muscle schwitzt.',
+ '<b>Skycab-Buchung.</b> Ein Hacker trägt vor dem Run eine Buchung in das Ankunftssystem ein. Dann erwartet die Lobby-Wache Gäste, nicht Eindringlinge. Ohne Buchung: höfliche Rückfrage, Alert +1.',
+ '<b>Die Suite riecht nach Drache.</b> Wer hineinkommt, findet nichts Nützliches, aber viele Hinweise: warmer Boden, riesiges Bett, Maßanzüge. Ein Mage spürt eine alte, ruhige Präsenz. Kein Alarm, aber Ahnung.',
+ '<b>Von oben nach unten.</b> Vier Wege von 112 nach 111: Freitreppe (öffentlich), Privattreppe (verborgen), Personaltreppe (Personal), Seil ins Atrium (spektakulär).',
+ '<b>Pool-Party.</b> Eine Consequence auf der Sky-Terrasse: jemand fällt in den Pool, alle schauen hin. Zwei Minuten, in denen niemand auf die Lounge achtet.',
+],
+};
+
+const LDACH={
+id:'dach',name:'Dach',short:'Dach',sub:'Landeplattform, Glasdächer, Gondel & drei Wege nach unten',tb:'DACH · 112 STOCKWERKE ÜBER SEATTLE',view:[1040,790],plate:[40,40,920,680],scale:20,
+aria:'Dachplan: Skycab-Landeplattform im Südwesten, Technikaufbauten im Westen, Glaspyramide über dem Atrium in der Mitte, Glasdach über dem Wintergarten im Nordosten, Antennenmast und Fassadenbefahranlage im Osten, Lufträume über Terrasse und Sky-Terrasse.',
+chips:['2 Kameras','Wind & Regen: Risky im Freien','Skycab-Pad mit Transponder','Gondel geparkt (Ostfassade)','3 vertikale Wege nach unten','2 Glasdächer'],
+rooms:[
+ {x:40,y:40,w:260,h:680,t:'roof'},
+ {x:300,y:150,w:400,h:420,t:'roof',label:'Flachdach über Lounge',small:true,lx:500,ly:182},
+ {x:700,y:230,w:260,h:490,t:'roof',label:'Flachdach über Suite',small:true,lx:830,ly:680},
+ {x:400,y:250,w:220,h:220,t:'glass',label:'Glasdach Atrium',sub:'Glaspyramide · von unten sichtbar · 12 m bis zum Salonboden',lx:510,ly:360},
+ {x:700,y:40,w:260,h:190,t:'glass',label:'Glasdach Wintergarten',sub:'flacher · dunkler · 5 m bis in die Pflanzen',lx:830,ly:130},
+ {x:260,y:40,w:440,h:110,t:'void',label:'Luftraum',sub:'Terrasse 111 · 8 m tiefer',lx:480,ly:95},
+ {x:300,y:570,w:400,h:150,t:'void',label:'Luftraum',sub:'Sky-Terrasse 112 · 4 m tiefer',lx:500,ly:645},
+ {x:40,y:270,w:70,h:90,t:'core',label:'Dach-|ausstieg',small:true,sub:'Personaltreppe',lx:75,ly:305},
+ {x:40,y:360,w:70,h:40,t:'core',label:'Schachtkopf',small:true,lx:75,ly:372},
+ {x:40,y:150,w:70,h:60,t:'core',label:'Drohnen-|port',small:true,lx:92,ly:175},
+ {x:250,y:660,w:50,h:60,t:'core',label:'Treppe|↓ 112',small:true},
+ {x:962,y:590,w:34,h:60,t:'outdoor',thin:true,label:'Gondel',small:true,lx:979,ly:580},
+],
+ops:[
+ {x:106,y:300,w:8,h:40,k:'reader',lbl:'Alarmkontakt',lx:175,ly:284},
+ {x:246,y:675,w:8,h:30,k:'door',flip:true},
+],
+items:[
+ // Skycab pad
+ {k:'pad',x:160,y:600,r:88},{k:'text',x:160,y:706,text:'Skycab-Landeplattform'},
+ {k:'rect',x:50,y:500,w:22,h:14,cls:'furn-dark'},{k:'text',x:110,y:530,text:'Anflug-|transponder',cls:'gmtxt',gm:true},
+ {k:'stair',x:250,y:660,w:50,h:60,dir:'v'},
+ {k:'cam',x:245,y:664,a:200,len:110,spread:22},
+ // Stair head, shaft head, drone port
+ {k:'stair',x:40,y:270,w:70,h:90,dir:'v'},{k:'cam',x:120,y:262,a:70,len:80,spread:22},{k:'motion',x:114,y:320,a:0,r:40,spread:40,gm:true},
+ {k:'shaft',x:40,y:360,w:70,h:40},{k:'hatch',x:96,y:390,gm:true},{k:'text',x:100,y:414,text:'Schacht ↓ 112 · 111 · 110',cls:'gmtxt',gm:true},
+ {k:'shaft',x:40,y:165,w:35,h:35},{k:'staff',x:92,y:195,t:'d'},{k:'text',x:150,y:228,text:'Drohnenschacht ↓ Küche · Garage',cls:'note'},
+ // Technik
+ {k:'circle',x:160,y:185,r:28,cls:'glyph-fill'},{k:'circle',x:215,y:232,r:22,cls:'glyph-fill'},{k:'text',x:185,y:272,text:'Kühltürme'},
+ {k:'rack',x:150,y:330,w:90,h:40,lbl:'Lüftungsgeräte'},{k:'rack',x:150,y:420,w:90,h:40,lbl:'Notstrom / USV'},
+ {k:'ladder',x:268,y:152,dir:'h',len:22},{k:'text',x:300,y:190,text:'Steigleiter|↓ Terrasse 111'},
+ // Glasdach Atrium
+ {k:'rail',pts:[[384,234],[636,234],[636,486],[384,486],[384,234]]},{k:'text',x:510,y:228,text:'Wartungssteg'},
+ {k:'line',x1:400,y1:250,x2:620,y2:470,cls:'glassline'},{k:'line',x1:620,y1:250,x2:400,y2:470,cls:'glassline'},
+ {k:'text',x:510,y:398,text:'Scheiben tragen eine Person · Streben tragen mehr',cls:'gmtxt',gm:true},
+ {k:'text',x:510,y:262,text:'Wartungsflügel Nordseite: Kontakt → Alert +1',cls:'gmtxt',gm:true},
+ // Glasdach Wintergarten
+ {k:'line',x1:700,y1:40,x2:960,y2:230,cls:'glassline'},{k:'line',x1:960,y1:40,x2:700,y2:230,cls:'glassline'},
+ {k:'text',x:830,y:205,text:'Lüftungsflügel: mechanisch, ohne Sensor, klemmt',cls:'gmtxt',gm:true},
+ // East roof
+ {k:'mast',x:880,y:300},{k:'text',x:880,y:342,text:'Antennen- & Blitzschutzmast'},
+ {k:'rect',x:740,y:380,w:180,h:240,cls:'lz',gm:true},{k:'text',x:830,y:495,text:'Landezone Ost|flach · keine Kamera|Windschatten des Masts',cls:'gmtxt',gm:true},
+ {k:'text',x:830,y:250,text:'Attika 1,1 m · Böen: im Freien Position Risky',cls:'gmtxt',gm:true},
+ {k:'line',x1:948,y1:240,x2:948,y2:700,cls:'gateline'},{k:'line',x1:946,y1:620,x2:992,y2:620,cls:'vaultleaf'},
+ {k:'rect',x:880,y:600,w:50,h:36,lbl:'BMU-|Steuerung',ly:612},
+ {k:'text',x:938,y:470,text:'Schiene der Fassadenbefahranlage',rot:-90},
+ {k:'arrow',x1:330,y1:530,x2:380,y2:530},{k:'text',x:355,y:548,text:'Wind aus SW'},
+],
+marks:[
+ {n:1,x:60,y:555},{n:2,x:150,y:306},{n:3,x:150,y:380},{n:4,x:60,y:228},{n:5,x:600,y:300},{n:6,x:720,y:196},{n:7,x:850,y:662},{n:8,x:380,y:175},{n:9,x:760,y:366,gm:true},{n:10,x:270,y:250},
+],
+spots:[
+ {n:1,t:'Skycab-Landeplattform',p:'Beleuchtete Plattform mit Wartehäuschen und Treppe hinunter in die Skycab-Lobby 112. Nachts landen hier autonome Skycabs mit VIP-Gästen.',g:'Der Anflugtransponder erteilt autonomen Skycabs die Landefreigabe: gehackt landet jedes Cab als „angemeldete Ankunft“; ohne Freigabe kreist es 90 Sekunden und meldet sich (Alert +1). Kamera am Häuschen. Landezone B für Fallschirme: eben, aber hell beleuchtet.'},
+ {n:2,t:'Dachausstieg Personaltreppe',p:'Der einzige reguläre Weg aufs Dach: Stahltür, Reader.',g:'Alarmkontakt: Öffnen ohne Badge meldet still (Alert +1). Kamera und Bewegungsmelder davor. Die Treppe führt hinunter bis P2: 112 Wartungsgalerie, 111 Kernflur, an 110 vorbei (verriegelte Brandschutztür), EG-Lobby, Garage.'},
+ {n:3,t:'Schachtkopf Technikschacht',p:'Unauffällige Luke zwischen den Technikaufbauten.',g:'Darunter der Wartungsschacht (80×80 cm) mit Steigleiter: Ausstiege auf 112 (Bodenluke Wartungsgalerie), 111 (Revisionstür Lager) und 110 (Löschzentrale). Kein Sensor bis 110. Der direkteste Weg vom Dach zur Vault, ohne die Party zu berühren.'},
+ {n:4,t:'Drohnenport',p:'Lieferdrohnen landen hier und verschwinden in einem Schacht ins Gebäude.',g:'Drohnenschacht 40×40 cm bis zur Küche 111 und weiter in die Garage. Ein Rigger schickt Ausrüstung portionsweise hinunter oder hinauf. Der ständige Drohnenverkehr überdeckt kleine eigene Fluggeräte. Keine Kamera.'},
+ {n:5,t:'Glasdach Atrium',p:'Beleuchtete Glaspyramide über dem Salon. Von unten sieht man jede Silhouette auf dem Glas.',g:'Streben tragen, Scheiben tragen eine Person. Wartungsflügel an der Nordseite mit Kontakt. Wer hier steht, wird bei Blitzen von unten gesehen (Consequence: ein Gast zeigt nach oben). Abseilen: 12 m bis zum Salonboden. Ein Sturz durch das Glas ist eine mögliche Consequence, nie das automatische Ergebnis.'},
+ {n:6,t:'Glasdach Wintergarten',p:'Flacheres, dunkles Glasdach über dem Wintergarten.',g:'Lüftungsflügel mechanisch, ohne Sensor, klemmt (Prowl/Engineer). Darunter Venns Rückzugsort ohne Kamera, 5 m Abseilhöhe in weiche Pflanzen. Der leise Dacheinstieg.'},
+ {n:7,t:'Fassadenbefahranlage (Gondel)',p:'Wartungskran mit Reinigungsgondel, geparkt an der Ostkante. Fährt auf einer Schiene an der Fassade.',g:'Steuerung manuell am Kasten oder per Interface. Die Gondel fährt an der Ostfassade bis zur Technischen Schleuse 110 (Andockpunkt) und weiter bis zum EG. Fahrten werden protokolliert; Abweichung vom Wartungsplan → stille Prüfung. Dragon’s Deal: „Sie bringt euch exakt ans Ziel und verriegelt sich danach außen.“'},
+ {n:8,t:'Steigleiter',p:'Wartungsleiter an der Nordkante, hinunter zur Terrasse 111.',g:'8 m, Käfig oben verschlossen, außen herum kletterbar. Die Terrassenkamera zeigt nur den Drohnen-Landeplatz, nicht die Leiter. Wer hier ankommt, steht direkt neben der angelehnten Küchen-Servicetür.'},
+ {n:9,t:'Landezone Ost',p:'',g:'Flaches Dach über der Suite, keine Kamera, Windschatten des Masts. Der beste Absprungpunkt für Fallschirm oder Gleiter. Achtung: Attika nur 1,1 m, Böen. Von hier zu Fuß um die Glaspyramide herum zum Dachausstieg.',gm:true},
+ {n:10,t:'Technikaufbauten',p:'Kühltürme, Lüftungsgeräte, Notstrom. Laut, warm, dampfend.',g:'Deckung und Lärm. Notstrom/USV sabotieren löst Notbeleuchtung und Lockdown-Protokoll aus (Alert +2): schlechte Idee als Einstieg, gute Ablenkung bei der Flucht.'},
+],
+routes:[
+ {id:'A',c:'public',pts:[[160,610],[220,660],[248,690]]},
+ {id:'B',c:'staff',pts:[[200,326],[118,326]]},
+ {id:'C',c:'tech',gm:true,pts:[[200,394],[118,394]]},
+ {id:'D',c:'out',dash:true,pts:[[760,60],[760,120],[760,178]]},
+ {id:'E',c:'out',dash:true,pts:[[905,650],[960,650],[979,660],[979,715]]},
+ {id:'F',c:'out',dash:true,pts:[[350,165],[300,158],[282,152]]},
+ {id:'G',c:'private',gm:true,dash:true,pts:[[830,440],[720,520],[360,520],[322,440],[322,330],[200,330],[114,320]]},
+ {id:'H',c:'out',dash:true,pts:[[452,292],[500,340],[540,380]]},
+],
+routeText:[
+ {id:'A',c:'public',t:'Skycab-Plattform → Treppe → Lobby 112',d:'Der offizielle Weg. Mit Buchung freundlich empfangen, ohne Buchung höflich befragt.'},
+ {id:'B',c:'staff',t:'Dachausstieg → Personaltreppe',d:'Reader + Alarmkontakt + Kamera. Führt zu 112, 111 und weiter. Der Weg, den die Sicherheit erwartet.'},
+ {id:'C',c:'tech',t:'Schachtkopf → Wartungsschacht',d:'Eng, dunkel, kein Sensor bis 110. Ausstiege auf 112, 111, 110. Der Weg um die Party herum.',gm:true},
+ {id:'D',c:'out',t:'Glasdach Wintergarten → Wintergarten 111',d:'Flügel klemmt, kein Sensor, 5 m Seil in Pflanzen. Unten Venn ohne Kamera.'},
+ {id:'E',c:'out',t:'Gondel → Technische Schleuse 110',d:'Außen an der Fassade hinunter. Protokolliert, sichtbar für Gäste an den Ostfenstern, aber sie umgeht das ganze Penthouse.'},
+ {id:'F',c:'out',t:'Steigleiter → Terrasse 111',d:'8 m Leiter im Regen. Landet neben der Küchentür.'},
+ {id:'G',c:'private',t:'Landezone Ost → um die Pyramide → Dachausstieg',d:'Zu Fuß über das Dach: Windschatten, dann offen. Kamera am Dachausstieg sieht euch kommen.',gm:true},
+ {id:'H',c:'out',t:'Glasdach Atrium → Salon',d:'Spektakulär: Wartungsflügel, 12 m Seil mitten in die Party. Jeder sieht es. Nur bei vollem Alert oder als Auftritt.'},
+],
+sits:[
+ '<b>Anflug ohne Freigabe.</b> Das Skycab kreist, die Gebäudesicherheit fragt nach. Mit gehackter Freigabe erwartet die Lobby-Wache „Gäste“ und hält die Tür auf.',
+ '<b>Silhouetten.</b> Blitz über Seattle. Wer auf dem Atrium-Glas steht, wird von unten gesehen: „Ein Gast zeigt nach oben“ ist die Consequence, nicht sofort Alarm.',
+ '<b>Böe.</b> Bei 4/5 im Freien: Ausrüstung rutscht Richtung Attika, der Gleiter verfängt sich am Mast, die Gondel schwankt. Harm oder verlorenes Equipment statt Alert.',
+ '<b>Die Gondel fährt nur einmal.</b> Dragon’s Deal: exakt ans Ziel, danach verriegelt sie sich außen am Gebäude. Für die Flucht braucht die Crew etwas anderes.',
+ '<b>Drei Wege nach unten.</b> Treppe (Alarmkontakt, Kamera), Wartungsschacht (eng, Sensor erst auf 110), Leiter (Terrasse, Küchentür). Die Wahl entscheidet, wo die Crew ankommt und wer sie sieht.',
+],
+};
+
+const L110={
+id:'110',name:'Ebene 110',short:'110',sub:'Tresorgeschoss · offiziell „technische Ebene“',tb:'EBENE 110 · TRESORGESCHOSS',view:[1040,790],plate:[40,40,920,680],scale:20,
+aria:'Grundriss Ebene 110: Zugangsschleuse mit beiden Liften im Südosten, Sensorkorridor nach Westen und Norden zum Authentifizierungspunkt, Vault in der Mitte, Technikring um die Vault, Technische Schleuse für die Gondel an der Ostfassade, Kernvorraum mit Frachtschacht und Treppe im Westen.',
+chips:['kein Personal','2 Aufklärer + 2 Wächter','3 Lichtschranken · Druckplatten · RFID','Tür: Karte + Iris, 90 s Fenster','Manabarriere + Watcher','5 Wege hinein'],
+rooms:[
+ {x:820,y:490,w:80,h:210,t:'secure',label:'Zugangs-|schleuse',lx:860,ly:676},
+ {x:900,y:500,w:60,h:70,t:'core',label:'Sammler-|lift',small:true,lx:930,ly:526},
+ {x:900,y:640,w:60,h:60,t:'core',label:'Privat-|lift',small:true,sub:'↑ 111',lx:930,ly:664},
+ {x:480,y:570,w:340,h:60,t:'secure',label:'Sensorkorridor',small:true,lx:560,ly:594},
+ {x:480,y:470,w:60,h:100,t:'secure'},
+ {x:480,y:380,w:180,h:90,t:'secure',label:'Authentifizierungspunkt',small:true,sub:'Karte + Iris · 90 s Fenster',lx:600,ly:446},
+ {x:340,y:120,w:420,h:260,t:'vault',label:'Sammlung',sub:'kuratiert · nichts liegt zufällig',lx:530,ly:246},
+ {x:660,y:630,w:160,h:90,t:'tech',label:'Drohnen-|knoten',small:true,lx:700,ly:652},
+ {x:300,y:640,w:360,h:80,t:'tech',label:'Technikflur Süd',small:true,lx:480,ly:700},
+ {x:300,y:50,w:40,h:590,t:'tech',label:'Technikflur West',rot:-90,small:true,lx:320,ly:330},
+ {x:340,y:50,w:620,h:70,t:'tech',label:'Technikflur Nord · Rohrleitungen',small:true,lx:650,ly:88},
+ {x:760,y:120,w:60,h:450,t:'tech',label:'Technikflur Ost',rot:-90,small:true,lx:790,ly:420},
+ {x:820,y:120,w:140,h:160,t:'tech',label:'Klimatechnik Vault',small:true,lx:890,ly:270},
+ {x:820,y:280,w:140,h:80,t:'secure',label:'Technische Schleuse',small:true,sub:'Gondel-Andockpunkt',lx:890,ly:312},
+ {x:820,y:360,w:140,h:130,t:'tech',label:'Drohnenwerkstatt',small:true,lx:890,ly:482},
+ {x:340,y:380,w:140,h:260,t:'tech',label:'Sicherheits-|server',sub:'Host-Knoten 110',lx:410,ly:590},
+ {x:660,y:380,w:100,h:90,t:'secure',label:'Kuratoren-|vorbereitung',small:true,lx:710,ly:440},
+ {x:540,y:470,w:220,h:100,t:'tech',label:'Sensorzentrale',small:true,lx:650,ly:548},
+ {x:40,y:40,w:260,h:160,t:'tech',label:'Lüftungszentrale 110',lx:170,ly:160},
+ {x:40,y:200,w:70,h:70,t:'core',label:'Fracht-|aufzug',small:true,sub:'kein Halt',lx:75,ly:228},
+ {x:110,y:200,w:190,h:160,t:'tech',label:'Kernvorraum',sub:'Treppe · Frachtschacht',lx:230,ly:262},
+ {x:40,y:270,w:70,h:90,t:'core',label:'Personal-|treppe',small:true,sub:'verriegelt',lx:75,ly:308},
+ {x:40,y:360,w:70,h:40,t:'core'},
+ {x:110,y:360,w:190,h:120,t:'tech',label:'Löschzentrale',lx:230,ly:395},
+ {x:110,y:480,w:190,h:120,t:'tech',label:'USV / Notstrom',small:true,lx:205,ly:580},
+ {x:40,y:600,w:260,h:120,t:'tech',label:'Kühlwassertanks',small:true,lx:170,ly:708},
+ {x:40,y:400,w:70,h:200,t:'tech',label:'Kabelschacht',small:true,rot:-90,lx:75,ly:500},
+],
+ops:[
+ {x:896,y:520,w:8,h:30,k:'lift'},{x:896,y:655,w:8,h:30,k:'lift'},
+ {x:816,y:585,w:8,h:30,k:'secure'},
+ {x:485,y:566,w:50,h:8,k:'open'},{x:485,y:466,w:50,h:8,k:'open'},
+ {x:585,y:368,w:30,h:24,k:'vault',lbl:'Tresortür',lx:646,ly:402},
+ {x:656,y:410,w:8,h:35,k:'door'},
+ {x:680,y:626,w:60,h:8,k:'open'},
+ {x:656,y:665,w:8,h:35,k:'reader',gm:true,lbl:'Wartungstür',lx:614,ly:662},
+ {x:775,y:566,w:30,h:8,k:'reader',gm:true,flip:true},
+ {x:756,y:505,w:8,h:35,k:'reader'},
+ {x:816,y:140,w:8,h:35,k:'door'},
+ {x:816,y:305,w:8,h:35,k:'reader'},
+ {x:956,y:300,w:8,h:40,k:'gate'},
+ {x:816,y:400,w:8,h:35,k:'door'},
+ {x:765,y:116,w:50,h:8,k:'open'},{x:336,y:55,w:8,h:60,k:'open'},{x:305,y:636,w:30,h:8,k:'open'},
+ {x:336,y:480,w:8,h:35,k:'reader',lbl:'Server',lx:370,ly:472},
+ {x:296,y:220,w:8,h:35,k:'door'},{x:296,y:400,w:8,h:35,k:'door'},{x:296,y:520,w:8,h:35,k:'door'},{x:296,y:660,w:8,h:35,k:'door'},{x:296,y:70,w:8,h:35,k:'door'},
+ {x:106,y:215,w:8,h:40,k:'hidden',gm:true,lbl:'Schachttür (kein Halt)',lx:170,ly:214},
+ {x:106,y:300,w:8,h:40,k:'fire',lbl:'Brandschutztür|verriegelt',lx:215,ly:330},
+ {x:106,y:365,w:8,h:30,k:'hidden',gm:true},
+],
+items:[
+ // Schleuse
+ {k:'lift',x:900,y:500,w:60,h:70},{k:'lift',x:900,y:640,w:60,h:60},
+ {k:'plate',x:828,y:498,w:64,h:22,gm:true},{k:'text',x:860,y:512,text:'Gewichtsplatte',cls:'gmtxt',gm:true},
+ {k:'rfid',x:826,y:552,w:50,h:22,gm:true},{k:'text',x:851,y:566,text:'Geräte-Scan',cls:'gmtxt',gm:true},
+ {k:'cam',x:826,y:496,a:80,len:110,spread:16},
+ {k:'rect',x:832,y:600,w:14,h:20,cls:'furn-dark'},{k:'text',x:852,y:632,text:'ID-Terminal'},
+ // Korridor
+ {k:'beam',x1:790,y1:572,x2:790,y2:628,gm:true},{k:'beam',x1:745,y1:572,x2:745,y2:628,gm:true},{k:'beam',x1:700,y1:572,x2:700,y2:628,gm:true},
+ {k:'plate',x:610,y:572,w:40,h:56,gm:true},
+ {k:'rfid',x:486,y:512,w:48,h:16,gm:true},
+ {k:'cam',x:815,y:575,a:180,len:130,spread:12},{k:'cam',x:485,y:475,a:90,len:90,spread:16},{k:'cam',x:655,y:385,a:180,len:110,spread:20},
+ {k:'droneR',x:660,y:600,gm:true},
+ // Vorraum
+ {k:'rect',x:588,y:392,w:24,h:12,cls:'furn-dark'},
+ // Kuratoren
+ {k:'rect',x:672,y:392,w:58,h:16},{k:'crate',x:672,y:414,w:22,h:14},{k:'crate',x:700,y:414,w:22,h:14},
+ {k:'text',x:710,y:462,text:'Werkzeug · Versteck',cls:'gmtxt',gm:true},
+ // Vault
+ {k:'barrier',x:340,y:120,w:420,h:260,gm:true},
+ {k:'text',x:550,y:166,text:'lebendes Gewebe + duale Manabarriere',cls:'gmtxt',gm:true},
+ {k:'plinth',x:380,y:142,w:40,h:8,dark:true},{k:'plinth',x:440,y:142,w:40,h:8,dark:true},{k:'plinth',x:620,y:142,w:40,h:8,dark:true},{k:'plinth',x:680,y:142,w:40,h:8,dark:true},
+ {k:'plinth',x:390,y:180,w:44,h:26,lbl:'Cybertech',light:true},
+ {k:'plinth',x:480,y:178,w:40,h:40,lbl:'Skulptur',light:true},
+ {k:'plinth',x:580,y:180,w:34,h:34,lbl:'mag. Antiquität',light:true,aura:true},
+ {k:'plinth',x:560,y:270,w:90,h:24,lbl:'Waffen',light:true},
+ {k:'plinth',x:470,y:318,w:26,h:18,lbl:'Schatulle',light:true},
+ {k:'plinth',x:660,y:290,w:70,h:28,lbl:'Bücher · Archive',light:true},
+ {k:'plinth',x:696,y:186,w:34,h:22,lbl:'Koffer',light:true,star:true},
+ {k:'rect',x:366,y:296,w:80,h:52,cls:'furn-dark',lbl:'Packtisch|Werkzeug',ly:318},
+ {k:'grille',x:735,y:205,gm:true},
+ // Duct & Klimatechnik
+ {k:'rack',x:832,y:140,w:46,h:64,lbl:'Klimagerät'},
+ {k:'duct',pts:[[878,205],[748,205]],gm:true},
+ {k:'text',x:915,y:200,text:'Kanal 60×60|Gitter + Kontakt|Gewebe zuckt',cls:'gmtxt',gm:true},
+ // Tech-Schleuse
+ {k:'cam',x:826,y:286,a:20,len:90,spread:20},{k:'text',x:890,y:346,text:'Außentür nur mit Wartungsauftrag',cls:'gmtxt',gm:true},
+ // Werkstatt
+ {k:'rack',x:830,y:372,w:60,h:20},{k:'droneW',x:930,y:430,gm:true},{k:'text',x:890,y:448,text:'zerlegter Wächter|Wartungstransponder',cls:'gmtxt',gm:true},
+ // Drohnenknoten
+ {k:'rect',x:670,y:690,w:22,h:22,cls:'furn-dark'},{k:'rect',x:700,y:690,w:22,h:22,cls:'furn-dark'},
+ {k:'droneR',x:681,y:676,gm:true},{k:'droneR',x:711,y:676,gm:true},{k:'droneW',x:798,y:652,gm:true},{k:'droneW',x:798,y:692,gm:true},
+ // Server
+ {k:'rack',x:360,y:400,w:24,h:120},{k:'rack',x:400,y:400,w:24,h:120},{k:'rack',x:440,y:400,w:24,h:120},
+ {k:'cam',x:346,y:386,a:45,len:80,spread:22,gm:true},
+ {k:'grille',x:478,y:430,gm:true},{k:'text',x:410,y:626,text:'Kabeldurchführung 30 cm',cls:'gmtxt',gm:true},
+ {k:'text',x:420,y:396,text:'astraler Watcher (Patrouille)',cls:'gmtxt',gm:true},
+ // Sensorzentrale
+ {k:'rack',x:560,y:490,w:120,h:20,lbl:'Sensorsteuerung'},
+ // Kern
+ {k:'lift',x:40,y:200,w:70,h:70},{k:'stair',x:40,y:270,w:70,h:90,dir:'v'},{k:'shaft',x:40,y:360,w:70,h:40},
+ {k:'hatch',x:126,y:376,gm:true},{k:'motion',x:134,y:396,a:0,r:36,spread:35,gm:true},
+ {k:'circle',x:170,y:420,r:16,cls:'glyph-fill'},{k:'circle',x:210,y:420,r:16,cls:'glyph-fill'},{k:'circle',x:250,y:420,r:16,cls:'glyph-fill'},
+ {k:'text',x:215,y:474,text:'Schachtausstieg · Bewegungssensor',cls:'gmtxt',gm:true},
+ {k:'rack',x:130,y:500,w:150,h:20},{k:'rack',x:130,y:530,w:150,h:20},
+ {k:'circle',x:100,y:660,r:26,cls:'glyph-fill'},{k:'circle',x:170,y:660,r:26,cls:'glyph-fill'},{k:'circle',x:240,y:660,r:26,cls:'glyph-fill'},
+ {k:'circle',x:100,y:100,r:26,cls:'glyph'},{k:'circle',x:170,y:100,r:26,cls:'glyph'},{k:'circle',x:240,y:100,r:26,cls:'glyph'},
+ // Ring
+ {k:'line',x1:345,y1:62,x2:955,y2:62,cls:'duct2'},{k:'line',x1:345,y1:108,x2:955,y2:108,cls:'duct2'},
+ {k:'cam',x:766,y:126,a:90,len:120,spread:10},
+ {k:'motion',x:320,y:58,a:90,r:40,spread:25,gm:true},{k:'motion',x:652,y:700,a:180,r:40,spread:25,gm:true},
+ {k:'watcher',pts:[[326,104],[776,104],[776,396],[326,396]],gm:true},
+],
+marks:[
+ {n:1,x:880,y:640},{n:2,x:560,y:616},{n:3,x:505,y:398},{n:4,x:760,y:700},{n:5,x:400,y:250},{n:6,x:852,y:292},{n:7,x:838,y:126},{n:8,x:465,y:540},{n:9,x:740,y:490},{n:10,x:270,y:340},{n:11,x:275,y:380},{n:12,x:935,y:378},{n:13,x:370,y:86,gm:true},
+],
+spots:[
+ {n:1,t:'Zugangsschleuse',p:'Beide Lifte enden in derselben mattschwarzen Schleuse. Sensoren registrieren Bewegung, Gewicht und Geräte. Ein Terminal fragt nach Identität.',g:'Gewichtsplatte zählt Personen und vergleicht mit der Anmeldung. Geräte-Scan markiert Funk und Metall. Kamera mit Gesichtsabgleich erkennt Venn und begrüßt sie namentlich. Abweichung → stiller Alarm, die Schleusentür verriegelt hinter der Crew (Consequence, keine Sackgasse: die Tür lässt sich von innen mit Engineer oder Gewalt öffnen).'},
+ {n:2,t:'Sensorkorridor',p:'Ein langer, überraschend leerer Korridor. Museale Beleuchtung, dann ein Knick nach Norden.',g:'Drei Lichtschranken (x-Positionen markiert), Druckplatten vor dem Knick, RFID-Bogen im Knick, drei Kameras. Bei „autorisierter Besichtigung“ bleibt alles scharf, aber die Bewertung ist gnädiger: Position Controlled statt Risky. Schaumdüsen in der Decke füllen den Korridor bei Alarm (Sicht und Bewegung erschwert, auch für Drohnensensoren). Ein Aufklärer schwebt hier auf Patrouille.'},
+ {n:3,t:'Authentifizierungspunkt & Tresortür',p:'Konsole mit Kartenleser und Irisscanner vor einer massiven Tür.',g:'Reihenfolge egal, 90-Sekunden-Fenster. Bei nur einem Faktor: „BIOMETRISCHER FAKTOR: BESTÄTIGT · PHYSISCHER FAKTOR: AUSSTEHEND“. Jeder Versuch wird protokolliert. Ohne Faktoren: 40 cm Verbund, Gewebe und Barriere, also laut, lang oder magisch anspruchsvoll, nie unmöglich. Die Kuratorenvorbereitung nebenan ist ein Versteck mit Werkzeug.'},
+ {n:4,t:'Drohnenknoten',p:'Seitliche Nische mit Ladeplätzen. Es summt.',g:'Zwei Aufklärer, zwei Wächter. Drei Zustände: Routine (patrouillieren), Besichtigung (begleiten, zählen), Unregelmäßigkeit (blockieren, trennen, erst dann Waffen). Die Wartungsanschlüsse sind ein Interface-Punkt. Die Wartungstür auf der Rückseite führt zum Technikflur Süd: der Hintereingang in den Korridor, mitten durch das Nest.'},
+ {n:5,t:'Sammlung (Vault)',p:'',g:'Wände aus lebendem Gewebe als Träger einer dualen Manabarriere (reagiert auf Bohren und Erschütterung, heilt kleine Wunden, verdichtet sich bei Alarm). Der Koffer liegt auf einem niedrigen Sockel ganz hinten: der Weg dorthin führt an der Schatulle mit Edelsteinen direkt neben der Tür, der Cybertech und der magischen Antiquität vorbei. Packtisch mit Werkzeug und Verpackung. Lüftungsgitter innen an der Ostwand.',gm:true},
+ {n:6,t:'Technische Schleuse (Gondel)',p:'Von außen als Andockpunkt der Fassadengondel sichtbar.',g:'Außentür öffnet nur mit Wartungsauftrag im System (Interface oder gefälschter Auftrag) oder mit Gewalt (laut). Kamera innen. Von hier: Technikflur Ost → Wartungstür in den Korridor (Alarmkontakt) oder Klimatechnik → Lüftungskanal.'},
+ {n:7,t:'Klimatechnik & Lüftungskanal',p:'',g:'Der Kanal (60×60 cm) führt durch die Ostwand in die Sammlung. Gitter mit Kontakt und Vibrationssensor, das Gewebe umwächst den Kanal und zuckt beim Schneiden (Alert +1, sichtbare Spur). Die Barriere schließt den Kanal astral. Eine gemeldete Klimastörung am „empfindlichen Objekt“ ist der perfekte Vorwand, Venn zur Schleuse zu locken.',gm:true},
+ {n:8,t:'Sicherheitsserver / Host-Knoten',p:'',g:'Physischer Zugriff auf Türen, Sensoren und Drohnenlogik dieser Ebene (nicht auf 111, eigenes System). Kabeldurchführung 30 cm zum Vorraum: Mikrodrohne oder Kabel passt. Interface hier ist Controlled, aber jeder Login wird protokolliert: kein Alert jetzt, dafür Heat später.',gm:true},
+ {n:9,t:'Sensorzentrale',p:'',g:'Lokale Steuerung der Korridorsensoren. Wer hier steht, kann Sensoren als „in Wartung“ markieren (Engineer oder Interface): Korridor fünf Minuten blind. Tür mit Reader vom Technikflur Ost.',gm:true},
+ {n:10,t:'Kernvorraum, Frachtschacht & Personaltreppe',p:'Die Personaltreppe führt an dieser Ebene vorbei; die Brandschutztür ist verriegelt.',g:'Frachtaufzug hält hier nicht, aber die Schachttür existiert: Kabine per Interface oder Rigger auf 110 stoppen, Tür manuell öffnen. Die Brandschutztür entriegelt bei Feueralarm (Alert +2, Gäste werden evakuiert, aber Chaos ist Deckung). Technikschacht: Wartungsschacht-Ausstieg in die Löschzentrale, dort ein Bewegungssensor.'},
+ {n:11,t:'Löschzentrale',p:'',g:'Vorrat des Sicherungsschaums für den Korridor. Wer die Anlage kontrolliert, löst den Schaum selbst aus oder verhindert ihn. Ausstieg des Wartungsschachts mit Bewegungssensor.',gm:true},
+ {n:12,t:'Drohnenwerkstatt',p:'',g:'Ersatzteile, ein zerlegter Wächter, Wartungstransponder: Drohnen ignorieren, was als „Wartungsgerät“ sendet (Täuschung der Zielerkennung, Engineer oder Interface). Werkzeug für alles, was oben fehlte.',gm:true},
+ {n:13,t:'Astraler Watcher & Manabarriere',p:'',g:'Der Watcher patrouilliert astral um die Vault (violette Schleife), meldet ungewöhnliche astrale Aktivität (Alert +1) und kämpft nicht. Am Türdurchgang wird die Barriere kontrolliert geöffnet: ein Mage kann den Mechanismus mit Assense studieren und daraus einen Vorteil für einen eigenen Weg gewinnen.',gm:true},
+],
+routes:[
+ {id:'A',c:'public',pts:[[930,556],[885,556],[885,598],[824,598],[600,600],[510,600],[510,440],[555,412],[598,408]]},
+ {id:'B',c:'out',gm:true,pts:[[985,320],[940,320],[880,320],[822,320],[800,330],[800,520],[800,566],[795,602]]},
+ {id:'C',c:'tech',gm:true,pts:[[75,380],[126,380],[140,400],[140,452],[270,452],[298,418],[320,418],[320,600],[320,680],[500,680],[640,682],[700,680],[710,634]]},
+ {id:'D',c:'private',gm:true,dash:true,pts:[[900,205],[850,205],[770,205],[742,205]]},
+ {id:'E',c:'staff',pts:[[75,346],[110,335],[160,335],[160,238],[298,238],[320,238],[320,120],[320,90]]},
+],
+routeText:[
+ {id:'A',c:'public',t:'Regulär: Lift → Schleuse → Korridor → Tresortür',d:'Der vorgesehene Weg mit beiden Faktoren. Mit Venn und Anmeldung Controlled, als Eindringling Risky bis Desperate.'},
+ {id:'B',c:'out',t:'Gondel → Technische Schleuse → Technikflur Ost → Wartungstür',d:'Umgeht Schleuse und Lifte, endet im Korridor hinter den Lichtschranken. Alarmkontakt an der Wartungstür.',gm:true},
+ {id:'C',c:'tech',t:'Wartungsschacht → Löschzentrale → Technikring → Drohnenknoten (Rückseite)',d:'Lang, dunkel, ohne Kameras im Ring. Endet mitten im Drohnennest; bei Routine schlafen die Drohnen an den Docks.',gm:true},
+ {id:'D',c:'private',t:'Klimatechnik → Lüftungskanal → Sammlung',d:'60×60 cm, Gitter mit Kontakt, Gewebe zuckt. Umgeht die Tresortür komplett, aber nicht die Barriere (astral geschlossen).',gm:true},
+ {id:'E',c:'staff',t:'Feueralarm: Personaltreppe → Kernvorraum → Technikring',d:'Die Brandschutztür entriegelt nur bei Alarm. Laut, aber das Chaos oben ist Deckung.'},
+],
+sits:[
+ '<b>Drei Zustände.</b> Die Drohnen reagieren auf den Kontext: Routine, Besichtigung oder Unregelmäßigkeit. Ein sozialer Erfolg oben verändert, wie diese Ebene die Crew begrüßt, beseitigt die Drohnen aber nicht.',
+ '<b>Der Weg zum Koffer führt an allem vorbei.</b> Schatulle neben der Tür, Cybertech links, Antiquität mit Aura in der Mitte. Beschreibe alles, bevor der Koffer überhaupt sichtbar wird.',
+ '<b>Faktor fehlt.</b> Venn scannt, die Anzeige sagt „PHYSISCHER FAKTOR: AUSSTEHEND“. 90 Sekunden. Wo ist die Karte gerade, und wer steht neben Venn?',
+ '<b>Hintereingang durchs Nest.</b> Wer über den Technikring kommt, betritt den Korridor durch den Drohnenknoten. Controlled, wenn niemand etwas berührt; Desperate, wenn die Wächter schon wach sind.',
+ '<b>Schaum.</b> Consequence im Korridor: Sicherungsschaum aus der Decke. Sicht und Bewegung erschwert, für alle. Wer die Löschzentrale kontrolliert, entscheidet, wann.',
+ '<b>Der Watcher sieht euch.</b> Astrale Aktivität → Meldung (Alert +1), kein Angriff. Ein Mage kann ihn ablenken, täuschen oder einfach still bleiben.',
+ '<b>Tür fällt zu.</b> Dragon’s Deal: „Ihr erreicht den Koffer ohne Widerstand. Dafür schließt sich die Tresortür hinter euch.“ Jetzt zählen Lüftungskanal, Kabeldurchführung und der Packtisch mit Werkzeug.',
+],
+};
+
+const LGARAGE={
+id:'garage',name:'Tiefgarage P2',short:'P2',sub:'Anlieferung, Frachtaufzug & VIP-Vorfahrt (Ausschnitt)',tb:'TIEFGARAGE P2 · ANLIEFERUNG (AUSSCHNITT)',view:[1040,790],plate:[40,40,920,680],scale:20,
+aria:'Grundriss Tiefgarage P2: Rampe im Nordosten, Fahrgasse quer durch die Mitte, Lieferdrohnen-Depot und Frachtaufzug im Nordwesten, Laderampe mit drei Ladetoren im Südwesten, Rangierfläche in der Mitte, VIP-Vorfahrt mit Lobbyaufzug im Südosten.',
+chips:['4 Sicherheit + Rollbot','6 Kameras','Uniformen: Umkleide','Frachtaufzug ↑ 111 (110 kein Halt)','Kisten: eine Person passt','Kunsttransporter wartet bis 05:00'],
+rooms:[
+ {x:800,y:40,w:160,h:260,t:'ramp',label:'Rampe',sub:'↑ P1 · Straße',lx:880,ly:120},
+ {x:260,y:300,w:700,h:100,t:'drive',label:'Fahrgasse',small:true,lx:620,ly:352},
+ {x:260,y:40,w:540,h:160,t:'drive',label:'Stellplätze Bewohner',small:true,lx:530,ly:172},
+ {x:640,y:200,w:160,h:100,t:'drive'},
+ {x:720,y:240,w:80,h:60,t:'secure',label:'Pförtner',small:true},
+ {x:260,y:200,w:140,h:100,t:'service',label:'Umkleide',sub:'Spinde · Uniformen',small:true,lx:330,ly:245},
+ {x:400,y:200,w:120,h:100,t:'secure',label:'Sicherheits-|büro Garage',small:true,lx:460,ly:260},
+ {x:520,y:200,w:120,h:100,t:'tech',label:'Technikraum',sub:'Trafo · GLT-Knoten',small:true,lx:580,ly:288},
+ {x:40,y:40,w:220,h:160,t:'service',label:'Lieferdrohnen-Depot',sub:'Racks · Ladeplätze',lx:150,ly:158},
+ {x:40,y:165,w:35,h:35,t:'core'},
+ {x:40,y:200,w:70,h:70,t:'core',label:'Fracht-|aufzug',small:true,sub:'↑ 111',lx:75,ly:228},
+ {x:110,y:200,w:150,h:200,t:'service',label:'Frachtvorraum',sub:'Scan · Lieferscheine',lx:185,ly:225},
+ {x:40,y:270,w:70,h:90,t:'core',label:'Personal-|treppe',small:true,sub:'↑ EG … Dach',lx:75,ly:306},
+ {x:40,y:360,w:70,h:40,t:'core',label:'GLT-|Verteiler',small:true,lx:75,ly:376},
+ {x:110,y:400,w:150,h:320,t:'service',label:'Laderampe',sub:'Kisten · Rollwagen',lx:185,ly:440},
+ {x:40,y:400,w:70,h:160,t:'service',label:'Kisten-|lager',small:true,lx:75,ly:500},
+ {x:40,y:560,w:70,h:160,t:'service',label:'Müll-|raum',small:true,lx:75,ly:650},
+ {x:260,y:400,w:360,h:320,t:'drive',label:'Anlieferung · Rangierfläche',small:true,lx:470,ly:440},
+ {x:620,y:400,w:340,h:320,t:'drive',label:'VIP-Vorfahrt',sub:'Valets · Limousinen · roter Teppich',lx:790,ly:562},
+ {x:900,y:620,w:60,h:100,t:'core',label:'VIP-|Lobby-|aufzug',small:true,sub:'↑ EG',lx:930,ly:660},
+ {x:620,y:620,w:100,h:100,t:'public',label:'Fahrer-|Lounge',small:true,lx:670,ly:640},
+],
+ops:[
+ {x:150,y:196,w:40,h:8,k:'double'},
+ {x:256,y:100,w:8,h:40,k:'door',lbl:'Personal',lx:288,ly:152},
+ {x:120,y:36,w:40,h:8,k:'gate',lbl:'Drohneneinflug 1×1 m',lx:200,ly:30},
+ {x:106,y:215,w:8,h:40,k:'lift'},
+ {x:106,y:300,w:8,h:40,k:'fire',lbl:'Notausgang',lx:152,ly:296},
+ {x:106,y:365,w:8,h:30,k:'reader',lbl:'GLT',lx:132,ly:366},
+ {x:256,y:320,w:8,h:60,k:'gate'},
+ {x:150,y:396,w:70,h:8,k:'gate'},
+ {x:256,y:440,w:8,h:60,k:'gate'},{x:256,y:540,w:8,h:60,k:'gate'},{x:256,y:640,w:8,h:60,k:'gate'},
+ {x:106,y:460,w:8,h:40,k:'door',flip:true},{x:106,y:620,w:8,h:40,k:'door',flip:true},
+ {x:365,y:296,w:30,h:8,k:'door'},
+ {x:256,y:240,w:8,h:35,k:'door'},
+ {x:450,y:296,w:30,h:8,k:'reader'},{x:490,y:296,w:25,h:8,k:'window'},
+ {x:570,y:296,w:30,h:8,k:'reader',lbl:'Technik',lx:585,ly:320},
+ {x:645,y:296,w:70,h:8,k:'open'},{x:645,y:196,w:150,h:8,k:'open'},
+ {x:716,y:260,w:8,h:30,k:'door',flip:true},{x:760,y:296,w:35,h:8,k:'window'},
+ {x:805,y:296,w:150,h:8,k:'open'},
+ {x:265,y:396,w:350,h:8,k:'open'},{x:625,y:396,w:330,h:8,k:'open'},
+ {x:896,y:650,w:8,h:40,k:'lift'},
+ {x:716,y:650,w:8,h:40,k:'door'},
+ {x:616,y:560,w:8,h:30,k:'door',lbl:'Valets',lx:598,ly:552},
+],
+items:[
+ // Rampe & Schranke
+ {k:'arrow',x1:845,y1:280,x2:845,y2:160},{k:'arrow',x1:915,y1:160,x2:915,y2:280},
+ {k:'cam',x:952,y:48,a:110,len:130,spread:14},
+ {k:'line',x1:808,y1:300,x2:952,y2:300,cls:'gateline'},{k:'rect',x:812,y:280,w:14,h:10,cls:'furn-dark'},
+ {k:'text',x:880,y:320,text:'Schranke · Kennzeichenscanner'},
+ {k:'text',x:860,y:390,text:'Abgleich: Lieferplan & Bewohnerliste',cls:'gmtxt',gm:true},
+ {k:'guard',x:735,y:288},
+ // Stellplätze
+ {k:'line',x1:290,y1:44,x2:290,y2:100,cls:'rail'},{k:'line',x1:335,y1:44,x2:335,y2:100,cls:'rail'},{k:'line',x1:380,y1:44,x2:380,y2:100,cls:'rail'},{k:'line',x1:425,y1:44,x2:425,y2:100,cls:'rail'},{k:'line',x1:470,y1:44,x2:470,y2:100,cls:'rail'},{k:'line',x1:515,y1:44,x2:515,y2:100,cls:'rail'},{k:'line',x1:560,y1:44,x2:560,y2:100,cls:'rail'},{k:'line',x1:605,y1:44,x2:605,y2:100,cls:'rail'},{k:'line',x1:650,y1:44,x2:650,y2:100,cls:'rail'},{k:'line',x1:695,y1:44,x2:695,y2:100,cls:'rail'},{k:'line',x1:740,y1:44,x2:740,y2:100,cls:'rail'},
+ {k:'car',x:296,y:48,w:33,h:48},{k:'car',x:341,y:48,w:33,h:48},{k:'car',x:431,y:48,w:33,h:48},{k:'car',x:566,y:48,w:33,h:48},{k:'car',x:611,y:48,w:33,h:48},{k:'car',x:701,y:48,w:33,h:48},
+ {k:'cam',x:265,y:46,a:20,len:140,spread:12},
+ // Umkleide, Büro, Technik
+ {k:'rect',x:266,y:210,w:10,h:80,cls:'furn-dark'},{k:'rect',x:388,y:210,w:8,h:80,cls:'furn-dark'},{k:'text',x:325,y:288,text:'Badges hängen an den Spinden',cls:'gmtxt',gm:true},
+ {k:'rect',x:410,y:208,w:100,h:10,cls:'furn-dark'},{k:'text',x:460,y:290,text:'Monitore: nur Garage',cls:'note'},
+ {k:'guard',x:690,y:262},{k:'text',x:700,y:236,text:'plaudert mit dem Pförtner',cls:'gmtxt',gm:true},
+ {k:'rack',x:530,y:210,w:24,h:60},{k:'rack',x:565,y:210,w:24,h:60},{k:'rack',x:600,y:210,w:24,h:60},
+ // Depot
+ {k:'rack',x:50,y:50,w:120,h:20},{k:'rack',x:50,y:80,w:120,h:20},{k:'rack',x:50,y:110,w:120,h:20},
+ {k:'staff',x:200,y:60,t:'d'},{k:'staff',x:215,y:85,t:'d'},{k:'staff',x:200,y:110,t:'d'},
+ {k:'shaft',x:40,y:165,w:35,h:35},{k:'text',x:57,y:190,text:'Drohnen-|schacht',cls:'note'},
+ {k:'text',x:215,y:182,text:'keine Kamera',cls:'gmtxt',gm:true},
+ // Frachtvorraum & Kern
+ {k:'guard',x:150,y:278},{k:'rect',x:170,y:272,w:20,h:12,cls:'furn-dark'},{k:'text',x:180,y:298,text:'Scan'},
+ {k:'cam',x:255,y:206,a:200,len:120,spread:18},
+ {k:'crate',x:120,y:368,w:30,h:22},{k:'crate',x:160,y:368,w:30,h:22},
+ {k:'text',x:155,y:352,text:'nur Außenscan',cls:'gmtxt',gm:true},
+ {k:'lift',x:40,y:200,w:70,h:70},{k:'stair',x:40,y:270,w:70,h:90,dir:'v'},{k:'shaft',x:40,y:360,w:70,h:40},
+ // Laderampe
+ {k:'crate',x:120,y:470,w:36,h:26},{k:'crate',x:162,y:470,w:36,h:26},{k:'crate',x:204,y:470,w:36,h:26},{k:'crate',x:120,y:504,w:36,h:26},{k:'crate',x:162,y:504,w:36,h:26},
+ {k:'rect',x:130,y:560,w:50,h:26,lbl:'Rollwagen'},
+ {k:'staff',x:230,y:522,t:'L'},{k:'staff',x:232,y:562},{k:'staff',x:215,y:592},{k:'staff',x:240,y:612},
+ {k:'cam',x:116,y:406,a:80,len:140,spread:12},
+ {k:'text',x:185,y:672,text:'Tablet: Schichtliste,|fremder Name fällt auf',cls:'gmtxt',gm:true},
+ // Bays
+ {k:'rect',x:270,y:440,w:120,h:55,cls:'outline-acc',lbl:'frei · Rückführung 05:00',ly:472},
+ {k:'car',x:270,y:540,w:120,h:55,lbl:'Catering-Van'},
+ {k:'car',x:270,y:640,w:150,h:58,lbl:'Vesperline Kunsttransporter (gepanzert)'},
+ {k:'staff',x:350,y:622,t:'V'},{k:'staff',x:380,y:622,t:'V'},
+ {k:'blind',x:430,y:640,w:80,h:56,lbl:'toter Winkel'},
+ {k:'text',x:520,y:612,text:'Fahrer schläft in der Kabine',cls:'gmtxt',gm:true},
+ {k:'droneR',x:470,y:378},{k:'text',x:470,y:394,text:'Rollbot (Patrouille, 4 Min.)'},
+ {k:'cam',x:265,y:306,a:10,len:150,spread:12},{k:'cam',x:955,y:394,a:190,len:150,spread:12},
+ // VIP
+ {k:'line',x1:630,y1:400,x2:950,y2:400,cls:'gateline'},{k:'text',x:790,y:418,text:'Schranke VIP'},
+ {k:'cam',x:626,y:406,a:40,len:130,spread:20},
+ {k:'car',x:700,y:440,w:110,h:45,lbl:'Limousine'},{k:'car',x:830,y:440,w:110,h:45,lbl:'Limousine'},
+ {k:'rect',x:630,y:440,w:50,h:20,lbl:'Valet'},{k:'staff',x:640,y:480},{k:'staff',x:662,y:480},
+ {k:'text',x:655,y:508,text:'Schlüsselboard:|Fluchtfahrzeuge',cls:'gmtxt',gm:true},
+ {k:'rect',x:830,y:640,w:60,h:20,lbl:'Empfang P2'},{k:'guard',x:860,y:690},
+ {k:'lift',x:900,y:620,w:60,h:100},
+ {k:'rect',x:626,y:626,w:40,h:8,cls:'furn-dark'},{k:'circle',x:645,y:665,r:7},{k:'circle',x:672,y:690,r:7},{k:'circle',x:698,y:665,r:7},{k:'staff',x:660,y:678},
+ // Kistenlager & Müll
+ {k:'crate',x:48,y:410,w:54,h:24},{k:'crate',x:48,y:440,w:54,h:24},{k:'text',x:75,y:545,text:'keine Kamera',cls:'gmtxt',gm:true},
+ {k:'rack',x:50,y:580,w:50,h:40,lbl:'Presse'},
+],
+marks:[
+ {n:1,x:880,y:230},{n:2,x:500,y:236},{n:3,x:150,y:620},{n:4,x:240,y:262},{n:5,x:130,y:346},{n:6,x:580,y:236},{n:7,x:235,y:130},{n:8,x:330,y:222},{n:9,x:790,y:690},{n:10,x:75,y:700},
+],
+spots:[
+ {n:1,t:'Rampe, Schranke & Pförtnerloge',p:'Die Rampe kommt von P1 herunter. Kennzeichenscanner, Schranke, ein gelangweilter Pförtner mit laufendem Trid.',g:'Der Scanner gleicht Kennzeichen mit Lieferplan und Bewohnerliste ab (Hacker: Fahrzeug eintragen). Der Pförtner winkt durch, was „wie Caterer aussieht“. Die Loge sieht Rampe und Fahrgasse Ost, nicht die Anlieferung. Zu Fuß über die Rampe hinein: niemand fragt.'},
+ {n:2,t:'Fahrgasse & Sicherheitsbüro Garage',p:'Hauptfahrweg mit zwei Kameras. Ein rollender Sicherheitsroboter patrouilliert. Das Sicherheitsbüro hat ein Fenster zur Fahrgasse.',g:'Der Rollbot fährt eine 4-Minuten-Runde Fahrgasse ↔ Rangierfläche; wer sie kennt, weiß, wann die Anlieferung unbeobachtet ist. Die Monitore zeigen nur die Garage, nicht den Turm. Die eine Wache aus dem Büro steht meist beim Pförtner.'},
+ {n:3,t:'Anlieferung & Laderampe',p:'Catering lädt aus, eine Schichtleiterin mit Tablet koordiniert, Vesperline-Kisten stapeln sich. Drei Ladetore, ein Van, ein gepanzerter Kunsttransporter.',g:'Die Schichtliste kennt jeden Namen; ein fremder fällt auf („Springer, kurzfristig“ ist die Antwort). Eine leere Vesperline-Kiste fasst eine Person. Um 01:30 fahren drei Kisten „Bühnentechnik“ mit dem Frachtaufzug nach 111. Der Kunsttransporter holt um 05:00 die Stücke; sein Fahrer schläft in der Kabine. Toter Winkel hinter dem Transporter.'},
+ {n:4,t:'Frachtvorraum & Frachtaufzug',p:'Eine Wache scannt Badges, Lieferscheine und Kisten. Der Frachtaufzug fährt bis in den Kernflur des Penthouses.',g:'Kisten werden nur außen gescannt (Metall und Funk fallen auf, „Bühnentechnik“ erklärt vieles). Ebene 110 ist nicht anwählbar, aber die Schachttür dort existiert. Die Wache wechselt alle zwei Stunden; die Ablösung kennt die Gesichter der Frühschicht nicht.'},
+ {n:5,t:'Personaltreppe (Notausgang)',p:'Fluchttreppe durch das ganze Gebäude.',g:'111 Stockwerke zu Fuß sind keine Option, aber zwei Ebenen bis zur EG-Lobby sind es: dort wartet der Glasaufzug, und aus Personal werden Gäste. Oben endet die Treppe am Dach (Alarmkontakt), an 110 führt sie mit verriegelter Brandschutztür vorbei.'},
+ {n:6,t:'Technikraum / GLT-Knoten',p:'Verschlossen, Schild „Technik“. Trafo, Verteiler.',g:'Physischer Zugang zur Gebäudeleittechnik: Aufzüge, Türen, Kameras der Garage und des Kernflurs 111. Eine Hackerposition außer Sicht. Ebene 110 hat einen eigenen Host und ist von hier nicht erreichbar, aber der Frachtaufzug lässt sich auf 110 anhalten.'},
+ {n:7,t:'Lieferdrohnen-Depot & Drohnenschacht',p:'Drohnen summen, laden, starten durch eine Einflugöffnung zur Straße. Ein Schacht führt nach oben.',g:'Der Drohnenschacht (40×40 cm) endet in der Küche 111 und am Drohnenport auf dem Dach. Ein Rigger übernimmt eine Lieferdrohne und schickt Waffe, Werkzeug oder Keycard durchs Gebäude. Der Drohneneinflug ist ein Weg für Mikrodrohnen ohne Pförtner. Keine Kamera.'},
+ {n:8,t:'Umkleide Personal',p:'Spinde, Uniformen, ein Waschbecken.',g:'Uniformen von Catering und Haustechnik, Badges hängen an den Spinden. Keine Kamera. Türen zum Frachtvorraum und zur Fahrgasse: der Wechsel zwischen Gast und Personal in beide Richtungen.'},
+ {n:9,t:'VIP-Vorfahrt & Lobbyaufzug',p:'Limousinen, Valets, roter Teppich zum Aufzug ins Erdgeschoss, wo der Glasaufzug wartet. Eine Fahrer-Lounge mit Trid.',g:'Einladungen werden erst oben geprüft; hier zählt Auftreten. In der Fahrer-Lounge: Klatsch über Gäste, über Venn („die Kuratorin mit dem schwarzen Auge“) und Kade („der mit den Chromarmen sieht alles“). Valet-Schlüsselboard = Fluchtfahrzeuge. Kamera an der Schranke.'},
+ {n:10,t:'Kistenlager & Müllraum',p:'Leergut, eine Müllpresse.',g:'Kein Kamerablick, gutes Versteck. Der Pressenlärm überdeckt vieles. Leere Kisten sind Verkleidung für Ausrüstung, die nicht durch den Scan soll.'},
+],
+routes:[
+ {id:'A',c:'staff',pts:[[330,570],[262,570],[215,560],[200,520],[200,404],[200,330],[200,262],[130,236],[114,235]]},
+ {id:'B',c:'public',pts:[[880,420],[880,560],[860,640],[898,670]]},
+ {id:'C',c:'tech',pts:[[940,60],[940,290],[940,345],[600,350],[380,345],[380,275],[300,275],[262,258],[222,258]]},
+ {id:'D',c:'out',dash:true,pts:[[190,80],[130,120],[75,160],[57,182]]},
+ {id:'E',c:'private',pts:[[245,318],[180,320],[114,320]]},
+ {id:'F',c:'staff',gm:true,dash:true,pts:[[345,690],[262,672],[220,660],[185,600],[185,420]]},
+],
+routeText:[
+ {id:'A',c:'staff',t:'Als Personal: Laderampe → Frachtvorraum → Frachtaufzug',d:'Uniform, Kiste, Lieferschein. Der Scan prüft Badge und Ladung, nicht Gesichter. Landet im Kernflur 111.'},
+ {id:'B',c:'public',t:'Als Gast: VIP-Vorfahrt → Lobbyaufzug → EG → Glasaufzug',d:'Auftreten statt Ausweis. Die eigentliche Prüfung wartet oben im Foyer.'},
+ {id:'C',c:'tech',t:'Zu Fuß über die Rampe → Umkleide → Frachtvorraum',d:'Niemand fragt Fußgänger. In der Umkleide wird aus dem Fremden Personal, Tür 2 führt direkt zur Wache mit dem Scanner.'},
+ {id:'D',c:'out',t:'Drohnenschacht (nur Gegenstände)',d:'Rigger oder Hacker schickt Ausrüstung in die Küche 111 oder aufs Dach. Nichts davon passiert den Scan.'},
+ {id:'E',c:'private',t:'Personaltreppe → EG-Lobby',d:'Zwei Ebenen hoch, dann Wechsel in den Glasaufzug. Der leise Weg, wenn die Garage zu heiß wird.'},
+ {id:'F',c:'staff',t:'In der Kiste nach oben',d:'Um 01:30 oder 05:00 fahren Kisten. Wer drinsitzt, kommt ungescannt im Kernflur an. Eng, blind, Desperate bei Kontrolle.',gm:true},
+],
+sits:[
+ '<b>Ausladen unter Zeitdruck.</b> Der Catering-Van muss in zehn Minuten die Rampe frei machen. Wer mit anpackt, wird nicht gefragt, wer er ist.',
+ '<b>Falscher Name.</b> Die Schichtleiterin scannt ihr Tablet: „Sie stehen hier nicht.“ Sway oder Deception: „Springer, kurzfristig.“ Bei 4/5 ruft sie beim Caterer an, der gerade nicht erreichbar ist. Zehn Minuten Frist.',
+ '<b>Kiste geht hoch.</b> Um 01:30 fahren drei Kisten „Bühnentechnik“ nach 111. Wer in einer sitzt, kommt im Kernflur an. Kisten werden nur außen gescannt.',
+ '<b>Rollbot.</b> Vier Minuten Runde. Wer den Rhythmus kennt, hat zwei Minuten unbeobachtete Rangierfläche.',
+ '<b>Fluchtfahrzeug.</b> Valet-Schlüsselboard, gepanzerter Kunsttransporter mit schlafendem Fahrer, Limousinen mit Fahrern in der Lounge. Drei Optionen, drei Lautstärken.',
+ '<b>Hacker im Keller.</b> Vom GLT-Knoten aus: Aufzüge, Türen, Garagenkameras. Nicht Ebene 110. Aber den Frachtaufzug auf 110 stoppen, das geht.',
+],
+};
+
 /* English layer for the plans. dict: German label → English (rooms, notes, legend, section, chips). Long texts by level/number in p12–p14. */
 const PLAN_EN={dict:{
  // levels
@@ -386,7 +923,7 @@ const PLAN_EN={dict:{
 },
 ui:{
  subtitle:'Plans for the parking garage, penthouse, roof and vault level · Seattle 2080',tabs:{schnitt:'Vertical routes',garage:'Parking garage',111:'Gala level',112:'Lounge & suite',dach:'Landing pad',110:'Vault level'},
- short:{schnitt:'Section',dach:'Roof'},gmOn:'GM view',gmOff:'Player view',routes:'Show routes',print:'Print view',back:'Back to the plans',
+ short:{schnitt:'Section',dach:'Roof'},gmOn:'GM view',gmOff:'Player view',routes:'Show routes',print:'Print view',back:'Back to the plans',to3d:'3D view →',
  spots:'Locations on the plan',routesH:'From A to B',sits:'Play situations',cons:'Vertical connections',
  routesHint:'The letters mark the starting point of each route on the plan. “Show routes” toggles the overlay.',
  consHint:'Circles = stops, red cross = level passed but not reached. Dashed = items only or rope.',
@@ -455,32 +992,139 @@ PLAN_EN.sits['112']=[
  '<b>Pool party.</b> A consequence on the sky terrace: someone falls into the pool, everyone looks. Two minutes in which nobody watches the lounge.',
 ];
 
+/* English long texts for the roof and level 110. */
+PLAN_EN.spots['dach']={
+1:{t:'Skycab landing pad',p:'Lit platform with a shelter and stairs down to the skycab lobby on 112. At night autonomous skycabs land here with VIP guests.',g:'The approach transponder grants autonomous skycabs landing clearance: hacked, every cab lands as a “registered arrival”; without clearance it circles for 90 seconds and calls in (Alert +1). Camera at the shelter. Landing zone B for parachutes: flat, but brightly lit.'},
+2:{t:'Roof access, staff stairs',p:'The only regular way onto the roof: steel door, reader.',g:'Alarm contact: opening without a badge reports silently (Alert +1). Camera and motion sensor in front. The stairs lead down to P2: 112 maintenance gallery, 111 core corridor, past 110 (locked fire door), ground-floor lobby, garage.'},
+3:{t:'Utility shaft head',p:'An inconspicuous hatch between the plant rooms.',g:'Below it the maintenance shaft (80×80 cm) with a ladder: exits on 112 (floor hatch, maintenance gallery), 111 (inspection door, storeroom) and 110 (suppression plant). No sensor until 110. The most direct way from the roof to the vault without touching the party.'},
+4:{t:'Drone port',p:'Delivery drones land here and disappear into a shaft into the building.',g:'Drone shaft 40×40 cm down to the kitchen on 111 and on to the garage. A rigger sends gear down or up in portions. The constant drone traffic covers small flying devices of your own. No camera.'},
+5:{t:'Atrium glass roof',p:'A lit glass pyramid above the salon. From below every silhouette on the glass is visible.',g:'Struts carry, panes carry one person. Maintenance vent on the north side with a contact. Anyone standing here is seen from below during lightning (consequence: a guest points up). Rappelling: 12 m to the salon floor. A fall through the glass is a possible consequence, never the automatic result.'},
+6:{t:'Conservatory glass roof',p:'A flatter, dark glass roof above the conservatory.',g:'Vent flap mechanical, no sensor, sticks (Prowl/Engineer). Below, Venn’s retreat without a camera, 5 m of rappelling into soft plants. The quiet roof entry.'},
+7:{t:'Building maintenance unit (gondola)',p:'Maintenance crane with a cleaning gondola, parked at the east edge. Runs on a rail along the facade.',g:'Controls manual at the box or via Interface. The gondola runs along the east facade down to the technical airlock on 110 (docking point) and on to the ground floor. Rides are logged; deviation from the maintenance schedule → silent check. Dragon’s Deal: “It takes you exactly to the target and then locks itself to the outside.”'},
+8:{t:'Access ladder',p:'Maintenance ladder at the north edge, down to the terrace on 111.',g:'8 m, cage locked at the top, climbable around the outside. The terrace camera only sees the drone landing pad, not the ladder. Whoever arrives here stands right next to the kitchen service door left ajar.'},
+9:{t:'Landing zone east',p:'',g:'Flat roof above the suite, no camera, lee of the mast. The best drop point for parachute or glider. Caution: parapet only 1.1 m, gusts. From here on foot around the glass pyramid to the roof access.'},
+10:{t:'Plant rooms',p:'Cooling towers, air handlers, backup power. Loud, warm, steaming.',g:'Cover and noise. Sabotaging backup power/UPS triggers emergency lighting and the lockdown protocol (Alert +2): a bad idea as an entry, a good distraction for the escape.'},
+};
+PLAN_EN.routes['dach']={
+A:{t:'Skycab pad → stairs → lobby 112',d:'The official way. Welcomed warmly with a booking, politely questioned without one.'},
+B:{t:'Roof access → staff stairs',d:'Reader + alarm contact + camera. Leads to 112, 111 and beyond. The route security expects.'},
+C:{t:'Shaft head → maintenance shaft',d:'Tight, dark, no sensor until 110. Exits on 112, 111, 110. The way around the party.'},
+D:{t:'Conservatory glass roof → conservatory 111',d:'Flap sticks, no sensor, 5 m of rope into plants. Venn below without a camera.'},
+E:{t:'Gondola → technical airlock 110',d:'Down the outside of the facade. Logged, visible to guests at the east windows, but it bypasses the whole penthouse.'},
+F:{t:'Access ladder → terrace 111',d:'8 m of ladder in the rain. Lands next to the kitchen door.'},
+G:{t:'Landing zone east → around the pyramid → roof access',d:'On foot across the roof: lee first, then open. The camera at the roof access sees you coming.'},
+H:{t:'Atrium glass roof → salon',d:'Spectacular: maintenance vent, 12 m of rope into the middle of the party. Everyone sees it. Only at full Alert or as a grand entrance.'},
+};
+PLAN_EN.sits['dach']=[
+ '<b>Approach without clearance.</b> The skycab circles, building security asks questions. With hacked clearance the lobby guard expects “guests” and holds the door.',
+ '<b>Silhouettes.</b> Lightning over Seattle. Anyone standing on the atrium glass is seen from below: “a guest points up” is the consequence, not an alarm right away.',
+ '<b>Gust.</b> On a 4/5 outdoors: gear slides toward the parapet, the glider snags on the mast, the gondola sways. Harm or lost equipment instead of Alert.',
+ '<b>The gondola runs only once.</b> Dragon’s Deal: exactly to the target, then it locks itself to the outside of the building. The crew needs something else for the escape.',
+ '<b>Three ways down.</b> Stairs (alarm contact, camera), maintenance shaft (tight, sensor only on 110), ladder (terrace, kitchen door). The choice decides where the crew arrives and who sees them.',
+];
+PLAN_EN.spots['110']={
+1:{t:'Access airlock',p:'Both lifts end in the same matte-black airlock. Sensors register movement, weight and devices. A terminal asks for identity.',g:'The weight plate counts people and compares with the registration. The device scan flags radio and metal. A camera with face matching recognizes Venn and greets her by name. Deviation → silent alarm, the airlock door locks behind the crew (a consequence, not a dead end: the door opens from inside with Engineer or force).'},
+2:{t:'Sensor corridor',p:'A long, surprisingly empty corridor. Museum lighting, then a turn to the north.',g:'Three light barriers (x positions marked), pressure plates before the turn, RFID arch in the turn, three cameras. During an “authorized viewing” everything stays armed, but the judgement is kinder: position controlled instead of risky. Foam nozzles in the ceiling flood the corridor on alarm (vision and movement impaired, drone sensors too). A recon drone patrols here.'},
+3:{t:'Authentication point & vault door',p:'A console with card reader and iris scanner in front of a massive door.',g:'Order does not matter, 90-second window. With only one factor: “BIOMETRIC FACTOR: CONFIRMED · PHYSICAL FACTOR: PENDING”. Every attempt is logged. Without factors: 40 cm of composite, tissue and barrier, so loud, long or magically demanding, never impossible. The curators’ prep room next door is a hiding place with tools.'},
+4:{t:'Drone node',p:'A side niche with charging bays. It hums.',g:'Two recon drones, two guardians. Three states: routine (patrol), viewing (escort, count), irregularity (block, separate, only then weapons). The maintenance ports are an Interface point. The maintenance door at the back leads to the south service corridor: the back entrance into the corridor, right through the nest.'},
+5:{t:'Collection (vault)',p:'',g:'Walls of living tissue carrying a dual mana barrier (reacts to drilling and shock, heals small wounds, densifies on alarm). The case lies on a low plinth at the very back: the way there passes the jewel casket right next to the door, the cybertech and the magical antique. Packing table with tools and packaging. Ventilation grille inside on the east wall.'},
+6:{t:'Technical airlock (gondola)',p:'Visible from outside as the facade gondola’s docking point.',g:'The outer door opens only with a maintenance order in the system (Interface or forged order) or with force (loud). Camera inside. From here: east service corridor → maintenance door into the corridor (alarm contact) or climate control → ventilation duct.'},
+7:{t:'Climate control & ventilation duct',p:'',g:'The duct (60×60 cm) leads through the east wall into the collection. Grille with contact and vibration sensor; the tissue grows around the duct and twitches when cut (Alert +1, visible trace). The barrier closes the duct astrally. A reported climate fault at the “sensitive object” is the perfect pretext to lure Venn to the airlock.'},
+8:{t:'Security server / host node',p:'',g:'Physical access to doors, sensors and drone logic of this level (not 111, separate system). Cable pass-through 30 cm to the authentication room: a micro drone or a cable fits. Interface here is controlled, but every login is logged: no Alert now, Heat later.'},
+9:{t:'Sensor control',p:'',g:'Local controller of the corridor sensors. Anyone standing here can mark sensors as “under maintenance” (Engineer or Interface): corridor blind for five minutes. Door with reader from the east service corridor.'},
+10:{t:'Core lobby, freight shaft & staff stairs',p:'The staff stairs pass this level; the fire door is locked.',g:'The freight elevator does not stop here, but the shaft door exists: stop the cab on 110 via Interface or a rigger, open the door manually. The fire door unlocks during a fire alarm (Alert +2, guests are evacuated, but chaos is cover). Utility shaft: maintenance shaft exit into the suppression plant, motion sensor there.'},
+11:{t:'Suppression plant',p:'',g:'Stock of the security foam for the corridor. Whoever controls the plant releases the foam or prevents it. Exit of the maintenance shaft with a motion sensor.'},
+12:{t:'Drone workshop',p:'',g:'Spare parts, a disassembled guardian, maintenance transponders: drones ignore whatever broadcasts as a “maintenance device” (spoofing target recognition, Engineer or Interface). Tools for everything that was missing upstairs.'},
+13:{t:'Astral watcher & mana barrier',p:'',g:'The watcher patrols astrally around the vault (violet loop), reports unusual astral activity (Alert +1) and does not fight. At the doorway the barrier is opened in a controlled way: a mage can study the mechanism with Assense and gain an advantage for a route of their own.'},
+};
+PLAN_EN.routes['110']={
+A:{t:'Regular: lift → airlock → corridor → vault door',d:'The intended way with both factors. With Venn and a registration controlled, as an intruder risky to desperate.'},
+B:{t:'Gondola → technical airlock → east service corridor → maintenance door',d:'Bypasses airlock and lifts, ends in the corridor behind the light barriers. Alarm contact on the maintenance door.'},
+C:{t:'Maintenance shaft → suppression plant → service ring → drone node (rear)',d:'Long, dark, no cameras in the ring. Ends in the middle of the drone nest; on routine the drones sleep at their docks.'},
+D:{t:'Climate control → ventilation duct → collection',d:'60×60 cm, grille with contact, the tissue twitches. Bypasses the vault door completely, but not the barrier (closed astrally).'},
+E:{t:'Fire alarm: staff stairs → core lobby → service ring',d:'The fire door only unlocks on alarm. Loud, but the chaos upstairs is cover.'},
+};
+PLAN_EN.sits['110']=[
+ '<b>Three states.</b> The drones react to context: routine, viewing or irregularity. A social success upstairs changes how this level greets the crew, but does not remove the drones.',
+ '<b>The way to the case passes everything.</b> Casket next to the door, cybertech on the left, antique with an aura in the middle. Describe it all before the case is even visible.',
+ '<b>Factor missing.</b> Venn scans, the display says “PHYSICAL FACTOR: PENDING”. 90 seconds. Where is the card right now, and who is standing next to Venn?',
+ '<b>Back entrance through the nest.</b> Whoever comes via the service ring enters the corridor through the drone node. Controlled if nobody touches anything; desperate if the guardians are already awake.',
+ '<b>Foam.</b> A consequence in the corridor: security foam from the ceiling. Vision and movement impaired, for everyone. Whoever controls the suppression plant decides when.',
+ '<b>The watcher sees you.</b> Astral activity → report (Alert +1), no attack. A mage can distract it, fool it or simply stay still.',
+ '<b>The door slams shut.</b> Dragon’s Deal: “You reach the case without resistance. In return the vault door closes behind you.” Now the ventilation duct, the cable pass-through and the packing table with tools matter.',
+];
+
+/* English long texts for the parking garage and the section. */
+PLAN_EN.spots['garage']={
+1:{t:'Ramp, barrier & gatekeeper',p:'The ramp comes down from P1. Plate scanner, barrier, a bored gatekeeper with the trid running.',g:'The scanner matches plates against the delivery schedule and resident list (hacker: enter a vehicle). The gatekeeper waves through anything that “looks like catering”. The booth sees the ramp and the east end of the drive aisle, not the deliveries. Walking in over the ramp: nobody asks.'},
+2:{t:'Drive aisle & garage security office',p:'Main driveway with two cameras. A rolling security robot patrols. The security office has a window onto the drive aisle.',g:'The rollbot runs a 4-minute loop drive aisle ↔ maneuvering area; whoever knows it knows when the deliveries are unwatched. The monitors show only the garage, not the tower. The one guard from the office mostly stands with the gatekeeper.'},
+3:{t:'Deliveries & loading dock',p:'Catering unloads, a shift supervisor with a tablet coordinates, Vesperline crates pile up. Three dock gates, one van, one armored art transport.',g:'The shift list knows every name; an unknown one stands out (“temp, last minute” is the answer). An empty Vesperline crate holds one person. At 01:30 three crates of “stage equipment” ride the freight elevator to 111. The art transport collects the pieces at 05:00; its driver sleeps in the cab. Blind spot behind the transport.'},
+4:{t:'Freight lobby & freight elevator',p:'A guard scans badges, delivery notes and crates. The freight elevator goes up to the penthouse core corridor.',g:'Crates are only scanned from the outside (metal and radio stand out; “stage equipment” explains a lot). Level 110 cannot be selected, but the shaft door there exists. The guard changes every two hours; the relief does not know the early shift’s faces.'},
+5:{t:'Staff stairs (emergency exit)',p:'Escape stairs through the whole building.',g:'111 floors on foot are not an option, but two levels to the ground-floor lobby are: the glass elevator waits there, and staff becomes guests. At the top the stairs end at the roof (alarm contact); they pass 110 with a locked fire door.'},
+6:{t:'Utility room / building control node',p:'Locked, sign “Utilities”. Transformer, distribution.',g:'Physical access to the building automation: elevators, doors, cameras of the garage and the core corridor on 111. A hacker position out of sight. Level 110 has its own host and cannot be reached from here, but the freight elevator can be stopped at 110.'},
+7:{t:'Delivery drone depot & drone shaft',p:'Drones hum, charge, launch through an entry opening to the street. A shaft leads upward.',g:'The drone shaft (40×40 cm) ends in the kitchen on 111 and at the drone port on the roof. A rigger takes over a delivery drone and sends a weapon, tool or keycard through the building. The drone entry is a way for micro drones past the gatekeeper. No camera.'},
+8:{t:'Staff locker room',p:'Lockers, uniforms, a sink.',g:'Uniforms of catering and building services, badges hang on the lockers. No camera. Doors to the freight lobby and the drive aisle: the change between guest and staff in both directions.'},
+9:{t:'VIP drop-off & lobby elevator',p:'Limousines, valets, a red carpet to the elevator up to the ground floor, where the glass elevator waits. A drivers’ lounge with a trid.',g:'Invitations are only checked upstairs; here appearance counts. In the drivers’ lounge: gossip about guests, about Venn (“the curator with the black eye”) and Kade (“the one with the chrome arms sees everything”). Valet key board = getaway vehicles. Camera at the barrier.'},
+10:{t:'Crate storage & waste room',p:'Empties, a waste compactor.',g:'No camera coverage, a good hiding place. The compactor noise covers a lot. Empty crates disguise gear that should not pass the scan.'},
+};
+PLAN_EN.routes['garage']={
+A:{t:'As staff: loading dock → freight lobby → freight elevator',d:'Uniform, crate, delivery note. The scan checks badge and load, not faces. Ends in the core corridor on 111.'},
+B:{t:'As a guest: VIP drop-off → lobby elevator → ground floor → glass elevator',d:'Appearance instead of ID. The real check waits upstairs in the foyer.'},
+C:{t:'On foot over the ramp → locker room → freight lobby',d:'Nobody questions pedestrians. In the locker room the stranger becomes staff; door 2 leads straight to the guard with the scanner.'},
+D:{t:'Drone shaft (items only)',d:'A rigger or hacker sends gear to the kitchen on 111 or the roof. None of it passes the scan.'},
+E:{t:'Staff stairs → ground-floor lobby',d:'Two levels up, then switch to the glass elevator. The quiet way when the garage gets too hot.'},
+F:{t:'Up in a crate',d:'Crates ride at 01:30 or 05:00. Whoever sits inside arrives unscanned in the core corridor. Tight, blind, desperate if checked.'},
+};
+PLAN_EN.sits['garage']=[
+ '<b>Unloading under pressure.</b> The catering van has to clear the dock in ten minutes. Whoever lends a hand is not asked who they are.',
+ '<b>Wrong name.</b> The shift supervisor scans her tablet: “You are not on here.” Sway or Deception: “Temp, last minute.” On a 4/5 she calls the caterer, who is not reachable right now. Ten minutes’ grace.',
+ '<b>Crate goes up.</b> At 01:30 three crates of “stage equipment” ride to 111. Whoever sits inside arrives in the core corridor. Crates are only scanned from the outside.',
+ '<b>Rollbot.</b> Four-minute loop. Whoever knows the rhythm has two minutes of unwatched maneuvering area.',
+ '<b>Getaway vehicle.</b> Valet key board, armored art transport with a sleeping driver, limousines with drivers in the lounge. Three options, three volume levels.',
+ '<b>Hacker in the basement.</b> From the building control node: elevators, doors, garage cameras. Not level 110. But stopping the freight elevator at 110, that works.',
+];
+PLAN_EN.sits['schnitt']=[
+ '<b>Every level has at least three connections up and down.</b> If a route gets blocked (elevator stopped, door locked), do not show the group the section, but let them ask: “What else is there?” The answer is here.',
+ '<b>Two routes carry items only.</b> Drone shaft and dumbwaiter separate gear from people: the crew walks unarmed through the arch, the weapons follow via the kitchen.',
+ '<b>Level 110 is the bottleneck.</b> Only collector lift, private lift, maintenance shaft and gondola reach it regularly; freight elevator and stairs need a trick (Interface, fire alarm). That is exactly why it is the vault.',
+ '<b>A split crew.</b> If the group gets separated (consequence), give each part its own vertical route: one in the freight elevator, one on the access ladder, one in the gondola. They meet on 110 from three directions.',
+];
+
 /* ---------- 3-D-Ansicht der Ebenen (Three.js), gebaut aus denselben Daten wie die 2-D-Pläne ---------- */
 let lang='de';
 function tr(s){if(lang!=='en'||!s)return s;return PLAN_EN.dict[s]??s;}
 function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function seeded(s){let x=s||1;return()=>{x=(x*1103515245+12345)&0x7fffffff;return x/0x7fffffff;};}
 
-const LEVELS3D=[L111];
-// Was der Grundriss nicht hergibt: Glasräume, und ob der Luftraum hier Boden ist (111 = unterstes Atriumgeschoss).
+const LEVELS3D=[LGARAGE,L111,L112,LDACH,L110];
+// Was der Grundriss nicht hergibt:
+//  glassRooms   Räume mit Glaswänden nach außen
+//  voidIsFloor  Luftraum ist hier Boden (111 = unterstes Atriumgeschoss)
+//  outsideVoids Lufträume außerhalb der Fassade: zählen für die Wände als „draußen“
+//  openTypes    Raumtypen ohne Wände untereinander (Fahrgassen der Garage)
+//  parapet      Dachrand als massive Brüstung statt Glasgeländer
+//  pyramids     Glasdächer als Pyramide; ramps: Rampe steigt nach Norden an
 const EXTRA3D={
+ 'garage':{openTypes:['drive','ramp'],ramps:['Rampe']},
  '111':{glassRooms:['Wintergarten'],voidIsFloor:true},
+ '112':{outsideVoids:['Luftraum','Glasdach Wintergarten']},
+ 'dach':{outsideVoids:['Luftraum'],parapet:true,pyramids:['Glasdach Atrium']},
 };
 const UI={
- de:{subtitle:'3-D-Ansicht · Probe: Gala-Ebene · Seattle 2080',gmOn:'SL-Ansicht',gmOff:'Spieleransicht',routes:'Wege einblenden',walls:'Wände',wallSteps:{low:'niedrig',mid:'halb',full:'voll'},labels:'Beschriftung',
+ de:{subtitle:'3-D-Ansicht von Tiefgarage, Penthouse, Dach und Tresorgeschoss · Seattle 2080',gmOn:'SL-Ansicht',gmOff:'Spieleransicht',routes:'Wege einblenden',walls:'Wände',wallSteps:{low:'niedrig',mid:'halb',full:'voll'},labels:'Beschriftung',guests:'Gäste zeigen',
   back:'← 2-D-Pläne',reset:'Ansicht zurücksetzen',top:'Draufsicht',hint:'Ziehen: drehen · Rechtsklick/zwei Finger: verschieben · Mausrad: zoomen · Nummer anklicken: Ort',
   spots:'Orte auf dem Plan',gmTag:'SL',noGl:'Die 3-D-Ansicht braucht WebGL und eine Verbindung zum Laden von Three.js.',
-  lg:[['public','Öffentlich / Gäste'],['service','Service / Personal'],['secure','Gesichert'],['private','Privat (Veyrath)'],['outdoor','Außen / Terrasse'],['core','Kern (Aufzug, Treppe, Schacht)'],['glass','Glas'],['guard','Sicherheit'],['staff','Personal','round'],['guest','Gäste','round'],['venn','Dr. Venn','round'],['kade','Kade','','gm'],['sec','Kamera-Sichtfeld'],['hidden','Verborgen (nur SL)','','gm']],
+  lg:[['public','Öffentlich / Gäste'],['service','Service / Personal'],['secure','Gesichert'],['private','Privat (Veyrath)'],['outdoor','Außen / Terrasse'],['core','Kern (Aufzug, Treppe, Schacht)'],['tech','Technik'],['drive','Fahrbahn'],['roof','Dach'],['vault','Vault (lebendes Gewebe)'],['glass','Glas'],['guard','Sicherheit'],['staff','Personal','round'],['guest','Gäste','round'],['venn','Dr. Venn','round'],['kade','Kade','','gm'],['sec','Kamera-Sichtfeld, Sensoren'],['drone','Drohnen','round'],['astral','Astral (nur SL)','','gm'],['hidden','Verborgen (nur SL)','','gm']],
   fine:'Fan-Material für den privaten Spieltisch. <i>Runners in the Shadows</i> ist ein Spiel von Mark Cleveland Massengale; <i>Shadowrun</i> ist eine Marke von The Topps Company / Catalyst Game Labs. Die 3-D-Ansicht ist schematisch: Wandhöhen, Türen und Möbel sind aus dem Grundriss abgeleitet.'},
- en:{subtitle:'3D view · preview: gala level · Seattle 2080',gmOn:'GM view',gmOff:'Player view',routes:'Show routes',walls:'Walls',wallSteps:{low:'low',mid:'half',full:'full'},labels:'Labels',
+ en:{subtitle:'3D view of parking garage, penthouse, roof and vault level · Seattle 2080',gmOn:'GM view',gmOff:'Player view',routes:'Show routes',walls:'Walls',wallSteps:{low:'low',mid:'half',full:'full'},labels:'Labels',guests:'Show guests',
   back:'← 2D plans',reset:'Reset view',top:'Top view',hint:'Drag: rotate · right-click/two fingers: pan · wheel: zoom · click a number: location',
   spots:'Locations on the plan',gmTag:'GM',noGl:'The 3D view needs WebGL and a connection to load Three.js.',
-  lg:[['public','Public / guests'],['service','Service / staff'],['secure','Secured'],['private','Private (Veyrath)'],['outdoor','Outdoor / terrace'],['core','Core (lift, stairs, shaft)'],['glass','Glass'],['guard','Security'],['staff','Staff','round'],['guest','Guests','round'],['venn','Dr. Venn','round'],['kade','Kade','','gm'],['sec','Camera field of view'],['hidden','Hidden (GM only)','','gm']],
+  lg:[['public','Public / guests'],['service','Service / staff'],['secure','Secured'],['private','Private (Veyrath)'],['outdoor','Outdoor / terrace'],['core','Core (lift, stairs, shaft)'],['tech','Utilities'],['drive','Driveway'],['roof','Roof'],['vault','Vault (living tissue)'],['glass','Glass'],['guard','Security'],['staff','Staff','round'],['guest','Guests','round'],['venn','Dr. Venn','round'],['kade','Kade','','gm'],['sec','Camera field of view, sensors'],['drone','Drones','round'],['astral','Astral (GM only)','','gm'],['hidden','Hidden (GM only)','','gm']],
   fine:'Fan material for the private gaming table. <i>Runners in the Shadows</i> is a game by Mark Cleveland Massengale; <i>Shadowrun</i> is a trademark of The Topps Company / Catalyst Game Labs. The 3D view is schematic: wall heights, doors and furniture are derived from the floor plan.'},
 };
-const state={gm:true,routes:true,walls:'low',labels:true,cur:'111'};
+const state={gm:true,routes:true,walls:'low',labels:true,guests:true,cur:'111'};
 try{const s=JSON.parse(localStorage.getItem('ms-3d')||'{}');if(s&&typeof s==='object'){if('full' in s){s.walls=s.full?'full':'low';delete s.full;}Object.assign(state,s);}if(!['low','mid','full'].includes(state.walls))state.walls='low';const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}catch(e){}
-try{const l=new URLSearchParams(location.search).get('lang');if(l==='en'||l==='de')lang=l;}catch(e){}
+try{const q=new URLSearchParams(location.search),l=q.get('lang'),lv=q.get('level');if(l==='en'||l==='de')lang=l;if(lv&&LEVELS3D.some(L=>L.id===lv))state.cur=lv;}catch(e){}
 function save(){try{localStorage.setItem('ms-3d',JSON.stringify(state));localStorage.setItem('fp-lang',lang);}catch(e){}}
 const level=()=>LEVELS3D.find(L=>L.id===state.cur)||LEVELS3D[0];
 const spotOf=(L,s)=>{if(lang==='en'){const e=(PLAN_EN.spots[L.id]||{})[s.n];if(e)return Object.assign({},s,e);}return s;};
@@ -533,18 +1177,29 @@ function buildLevel(L){
   const g=new THREE.Group();
   const rooms=(L.rooms||[]).filter(r=>gm||!r.gm);
   const isGlass=r=>r&&(X.glassRooms||[]).includes(r.label);
-  const isOut=r=>!r||r.t==='outdoor';
+  const isOut=r=>!r||['outdoor','roof','glass'].includes(r.t);
   const isVoid=r=>r&&r.t==='void'&&!X.voidIsFloor;
+  const isOpen=r=>r&&(X.openTypes||[]).includes(r.t);
+  const outside=r=>r&&(X.outsideVoids||[]).includes(r.label)?null:r;
+  const slab=-0.6*S;
 
-  // Deckenplatte und Böden
-  const [px,py,pw,ph]=L.plate;
-  box(g,px-20,py-20,px+pw+20,py+ph+20+40,-0.6*S,-1,mat('line-2'),false).receiveShadow=true;
+  // Böden: je Raum eine Platte; Lufträume als dunkle Grube, Glasdächer durchsichtig, Rampen schräg
   rooms.forEach((r,i)=>{
-    if(isVoid(r))return;
+    const y1=0.2+i*0.06;
+    if(isVoid(r)){const p=box(g,r.x,r.y,r.x+r.w,r.y+r.h,slab-2*S,slab-1.95*S,mat('floor-void',{opacity:.85}),false);if(p)p.renderOrder=1;return;}
+    if(r.t==='glass'){
+      if((X.pyramids||[]).includes(r.label)){const mn=Math.min(r.w,r.h),py=new THREE.Mesh(new THREE.ConeGeometry(mn/2*Math.SQRT2,3*S,4,1,true),mat('glass',{opacity:.3,roughness:.1,side:THREE.DoubleSide}));
+        py.rotation.y=Math.PI/4;py.position.set(r.x+r.w/2,1.5*S,r.y+r.h/2);g.add(py);
+        const ed=new THREE.LineSegments(new THREE.EdgesGeometry(py.geometry),new THREE.LineBasicMaterial({color:col('ink-2')}));ed.rotation.copy(py.rotation);ed.position.copy(py.position);g.add(ed);}
+      const p=box(g,r.x,r.y,r.x+r.w,r.y+r.h,0,y1,mat('floor-glass',{opacity:.55,roughness:.1}),false);if(p)p.renderOrder=2;return;}
     const ftype=r.t==='void'?'void':r.t;
-    const m=mat('floor-'+ftype,{roughness:.95});
-    const f=box(g,r.x,r.y,r.x+r.w,r.y+r.h,-1,0.2+i*0.06,m,false);
-    if(r.gm&&f)f.material=mat('floor-'+ftype,{emissive:col('hidden'),emissiveIntensity:.18});
+    const m=r.gm?mat('floor-'+ftype,{roughness:.95,emissive:col('hidden'),emissiveIntensity:.18}):mat('floor-'+ftype,{roughness:.95});
+    if((X.ramps||[]).includes(r.label)){
+      box(g,r.x,r.y,r.x+r.w,r.y+r.h,slab,0,mat('line-2'),false);
+      const hN=H.wall,v=[r.x,hN,r.y, r.x+r.w,hN,r.y, r.x+r.w,y1,r.y+r.h, r.x,y1,r.y+r.h];
+      const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(v,3));geo.setIndex([0,3,1,1,3,2]);geo.computeVertexNormals();
+      const rm=new THREE.Mesh(geo,mat('floor-'+ftype,{roughness:.95,side:THREE.DoubleSide}));rm.receiveShadow=true;g.add(rm);return;}
+    box(g,r.x,r.y,r.x+r.w,r.y+r.h,slab,y1,m,false);
   });
 
   // Wände aus den Raumkanten: jede Kante wird beidseitig abgetastet, Öffnungen schneiden sie auf
@@ -560,21 +1215,23 @@ function buildLevel(L){
     for(let i=0;i<bps.length-1;i++){
       const a=bps[i],b=bps[i+1],m=(a+b)/2;if(b-a<0.5)continue;
       if(!ln.iv.some(v=>m>v[0]&&m<v[1]))continue;
-      const A=hz?roomAt(rooms,m,c-1):roomAt(rooms,c-1,m),B=hz?roomAt(rooms,m,c+1):roomAt(rooms,c+1,m);
+      const A=outside(hz?roomAt(rooms,m,c-1):roomAt(rooms,c-1,m)),B=outside(hz?roomAt(rooms,m,c+1):roomAt(rooms,c+1,m));
       let kind;
       if(A===B)kind=null;
+      else if(isOpen(A)&&isOpen(B))kind=null;
       else if((A&&A.t==='void')||(B&&B.t==='void'))kind=X.voidIsFloor?null:'rail';
+      else if((A&&A.t==='vault')||(B&&B.t==='vault'))kind='vault';
       else if((isGlass(A)&&isOut(B))||(isGlass(B)&&isOut(A)))kind='glass';
-      else if(isOut(A)&&isOut(B))kind='rail';
+      else if(isOut(A)&&isOut(B))kind=A&&B?null:(X.parapet?'parapet':'rail');
       else kind='wall';
       const op=ln.ops.find(o=>m>o.a&&m<o.b);
       if(!kind&&!op)continue;
       const last=pieces[pieces.length-1];
-      if(last&&last.b===a&&last.kind===kind&&last.op===op)last.b=b;else pieces.push({a,b,kind:kind||'wall',op});
+      if(last&&last.b===a&&last.kind===kind&&last.op===op)last.b=b;else pieces.push({a,b,kind:kind||'none',op});
     }
     pieces.forEach((p,i)=>{
       const prevOp=i>0&&pieces[i-1].b===p.a&&pieces[i-1].op,nextOp=i<pieces.length-1&&pieces[i+1].a===p.b&&pieces[i+1].op;
-      const ext=p.op?0:T/2;const a=p.a-(prevOp?0:ext),b=p.b+(nextOp?0:ext);
+      const ext=p.op?0:(p.kind==='vault'?6:T/2);const a=p.a-(prevOp?0:ext),b=p.b+(nextOp?0:ext);
       wallPiece(g,hz,c,a,b,p.kind,p.op&&p.op.o,{H,top,T,clampTop,gm});
     });
   }
@@ -613,11 +1270,13 @@ function wallPiece(g,hz,c,a,b,kind,o,{H,top,T,clampTop,gm}){
   const glass=mat('glass',{opacity:.28,roughness:.1,metalness:.1}),wall=mat('wall',{roughness:.7}),frame=mat('ink-2');
   if(!o){
     if(kind==='wall')seg(0,H.wall,wall);
+    else if(kind==='vault')seg(0,H.wall,mat('floor-vault',{roughness:.5,emissive:col('astral'),emissiveIntensity:.25}),12);
+    else if(kind==='parapet')seg(0,H.rail,wall,8);
     else if(kind==='glass'){seg(0,H.wall,glass,2,false);seg(H.wall-6,H.wall,frame,4);}
     else if(kind==='rail'){seg(0,H.rail,glass,2,false);seg(H.rail-3,H.rail,frame,4);}
     return;
   }
-  const k=o.k||'door',solid=kind==='wall';
+  const k=o.k||'door',solid=kind==='wall'||kind==='vault';
   const lintel=(y)=>{if(solid)seg(y,H.wall,wall);else if(kind==='glass')seg(y,H.wall,glass,2,false);};
   const leaf=(m)=>seg(0,H.door,m,2.5);
   switch(k){
@@ -698,19 +1357,23 @@ function item(g,it,{S,H,top,gm,L}){
   const fh=(h)=>Math.min(h,top+0.4*S);
   switch(it.k){
     case 'rect':{
+      if(it.cls==='lz'){const p=box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,1.5,mat('accent',{opacity:.3}),false);if(p)p.renderOrder=3;break;}// Landezone: nur Bodenmarkierung
       if(it.cls==='outline'){if(!gm)break;const m=mat('hidden',{opacity:.16});const b=box(g,it.x,it.y,it.x+it.w,it.y+it.h,H.wall-.5*S,H.wall,m,false);if(b)b.renderOrder=3;break;}
       const thin=Math.min(it.w,it.h)<=12,dark=it.cls==='furn-dark';
       const lbl=(it.lbl||'').toLowerCase();
       let h=dark?(thin?2.0*S:1.0*S):.78*S;if(lbl.startsWith('bühne'))h=.45*S;if(lbl==='bar')h=1.1*S;if(lbl==='buffet')h=.9*S;
       box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,fh(h),mat(dark?'line-2':'surface',{roughness:.8}));break;}
     case 'plinth':box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,1.0*S,mat('surface'));
-      {const s=Math.min(it.w,it.h)*.55;box(g,it.x+it.w/2-s/2,it.y+it.h/2-s/2,it.x+it.w/2+s/2,it.y+it.h/2+s/2,1.0*S,1.0*S+s*.9,mat('venn',{roughness:.4,metalness:.3}));}break;
+      {const s=Math.min(it.w,it.h)*.55;box(g,it.x+it.w/2-s/2,it.y+it.h/2-s/2,it.x+it.w/2+s/2,it.y+it.h/2+s/2,1.0*S,1.0*S+s*.9,mat(it.dark?'line-2':'venn',{roughness:.4,metalness:.3}));
+        if(it.aura&&gm){const a=box(g,it.x-4,it.y-4,it.x+it.w+4,it.y+it.h+4,0,1.6*S,mat('astral',{opacity:.22,emissive:col('astral'),emissiveIntensity:.5}),false);if(a)a.renderOrder=3;}
+        if(it.star&&gm){const st=new THREE.Mesh(new THREE.OctahedronGeometry(6),mat('venn',{emissive:col('venn'),emissiveIntensity:1}));st.position.set(it.x+it.w/2,1.0*S+s+12,it.y+it.h/2);g.add(st);}}break;
     case 'crate':box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,fh(1.0*S),mat('floor-service',{roughness:.9}));break;
     case 'tree':{const r=it.r||9;const t=new THREE.Mesh(new THREE.CylinderGeometry(1.5,2,1.2*S,6),mat('ink-2'));t.position.set(it.x,.6*S,it.y);g.add(t);
       const c=new THREE.Mesh(new THREE.SphereGeometry(r,12,8),mat('plant',{roughness:.9}));c.position.set(it.x,1.2*S+r*.6,it.y);c.castShadow=true;g.add(c);break;}
-    case 'circle':{if(it.cls==='glyph'){const ring=new THREE.Mesh(new THREE.RingGeometry(it.r-1.5,it.r,40),new THREE.MeshBasicMaterial({color:col('ink'),side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.set(it.x,1,it.y);g.add(ring);}
+    case 'circle':{if(it.cls==='glyph-fill'){const h=fh(Math.min(2.4*S,it.r*2.2));const c=new THREE.Mesh(new THREE.CylinderGeometry(it.r,it.r,h,20),mat('line-2',{metalness:.3,roughness:.5}));c.position.set(it.x,h/2,it.y);c.castShadow=true;g.add(c);break;}
+      if(it.cls==='glyph'){const ring=new THREE.Mesh(new THREE.RingGeometry(it.r-1.5,it.r,40),new THREE.MeshBasicMaterial({color:col('ink'),side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.set(it.x,1,it.y);g.add(ring);}
       else{const c=new THREE.Mesh(new THREE.CylinderGeometry(it.r,it.r,.45*S,14),mat('surface'));c.position.set(it.x,.225*S,it.y);c.castShadow=true;g.add(c);}break;}
-    case 'guests':{const rnd=seeded(it.seed||7);const look=seeded((it.seed||7)*31+5);// eigene Folge, damit die Positionen wie im 2-D-Plan bleiben
+    case 'guests':{if(!state.guests)break;const rnd=seeded(it.seed||7);const look=seeded((it.seed||7)*31+5);// eigene Folge, damit die Positionen wie im 2-D-Plan bleiben
       for(let i=0;i<(it.n||12);i++){const x=it.x+rnd()*it.w,z=it.y+rnd()*it.h;guest(g,x,z,S,look);}break;}
     case 'guard':guardFig(g,it.x,it.y,S);break;
     case 'kade':kadeFig(g,it.x,it.y,S);break;
@@ -731,11 +1394,42 @@ function item(g,it,{S,H,top,gm,L}){
       for(let y=10;y<hgt;y+=10)along?box(g,x0,z0-1,x0+L2,z0+1,y,y+1.5,mat('ink-2'),false):box(g,x0-1,z0,x0+1,z0+L2,y,y+1.5,mat('ink-2'),false);break;}
     case 'fireplace':box(g,it.x-16,it.y-6,it.x+16,it.y+6,0,fh(1.1*S),mat('line-2'));box(g,it.x-8,it.y-7,it.x+8,it.y-5,4,14,mat('drone',{emissive:col('drone'),emissiveIntensity:1.2}),false);break;
     case 'key':box(g,it.x-9,it.y-6,it.x+9,it.y+6,.78*S,.78*S+4,mat('venn',{emissive:col('venn'),emissiveIntensity:.8}),false);break;
-    case 'droneR':case 'droneW':box(g,it.x-5,it.y-5,it.x+5,it.y+5,1.4*S,1.4*S+4,mat('drone'),true);break;
-    case 'car':box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,1.4*S,mat('surface-2',{metalness:.4,roughness:.4}));break;
+    // Drohnen: Rotordrohne als flaches Kreuz mit vier Rotoren, Wachdrohne als Sechseck-Scheibe mit rotem Auge
+    case 'droneR':{const y=1.6*S,m=mat('drone',{roughness:.5});box(g,it.x-7,it.y-1.2,it.x+7,it.y+1.2,y,y+1.6,m,true);box(g,it.x-1.2,it.y-7,it.x+1.2,it.y+7,y,y+1.6,m,true);
+      [[-7,-7],[7,-7],[-7,7],[7,7]].forEach(([dx,dz])=>{const r=new THREE.Mesh(new THREE.CylinderGeometry(3.5,3.5,.6,12),mat('ink-2',{opacity:.6}));r.position.set(it.x+dx*.75,y+2,it.y+dz*.75);g.add(r);});break;}
+    case 'droneW':{const d=new THREE.Mesh(new THREE.CylinderGeometry(8,8,4,6),mat('drone',{roughness:.5}));d.position.set(it.x,1.2*S,it.y);d.castShadow=true;g.add(d);
+      const eye=new THREE.Mesh(new THREE.SphereGeometry(2.5,10,8),mat('sec',{emissive:col('sec'),emissiveIntensity:1}));eye.position.set(it.x,1.2*S-2.5,it.y);g.add(eye);break;}
+    case 'car':{const v=it.h>it.w,m=mat('surface-2',{metalness:.45,roughness:.35}),gl=mat('ink-2',{roughness:.2,metalness:.4});
+      box(g,it.x,it.y,it.x+it.w,it.y+it.h,.2*S,.85*S,m);
+      if(v)box(g,it.x+2,it.y+it.h*.28,it.x+it.w-2,it.y+it.h*.72,.85*S,1.4*S,gl);else box(g,it.x+it.w*.28,it.y+2,it.x+it.w*.72,it.y+it.h-2,.85*S,1.4*S,gl);break;}
     case 'rack':box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,fh(2.0*S),mat('line-2'));break;
     case 'pool':box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,1,mat('glass',{opacity:.6}),false);break;
-    case 'barrier':box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,1.0*S,mat('sec'));break;
+    // Astrale Barriere: durchscheinende Hülle um den ganzen Raum (nur SL)
+    case 'barrier':{const b=box(g,it.x+3,it.y+3,it.x+it.w-3,it.y+it.h-3,0,H.wall+.4*S,mat('astral',{opacity:.1,emissive:col('astral'),emissiveIntensity:.6}),false);if(b)b.renderOrder=3;break;}
+    case 'watcher':{const pts=it.pts;const shp=new THREE.Shape(pts.map(p=>new THREE.Vector2(p[0],p[1])));const m=new THREE.Mesh(new THREE.ShapeGeometry(shp),mat('astral',{opacity:.25,side:THREE.DoubleSide}));m.rotation.x=Math.PI/2;m.position.y=1.5;m.renderOrder=3;g.add(m);
+      const cx=pts.reduce((a,p)=>a+p[0],0)/pts.length,cz=pts.reduce((a,p)=>a+p[1],0)/pts.length;const o=new THREE.Mesh(new THREE.SphereGeometry(7,16,12),mat('astral',{opacity:.7,emissive:col('astral'),emissiveIntensity:1.2}));o.position.set(cx,2*S,cz);g.add(o);break;}
+    // Drucksensorplatte, Lichtschranke, RFID-Schleuse
+    case 'plate':{const p=box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,2,mat('sec',{opacity:.35}),false);if(p)p.renderOrder=3;break;}
+    case 'beam':{const m=mat('sec',{emissive:col('sec'),emissiveIntensity:1.5});const x0=Math.min(it.x1,it.x2),x1=Math.max(it.x1,it.x2),z0=Math.min(it.y1,it.y2),z1=Math.max(it.y1,it.y2);[.5,1.1].forEach(h=>box(g,x0-.6,z0-.6,x1+.6,z1+.6,h*S,h*S+1.2,m,false));break;}
+    case 'rfid':{const m=mat('hidden',{opacity:.7});[[it.x,it.y],[it.x+it.w,it.y],[it.x,it.y+it.h],[it.x+it.w,it.y+it.h]].forEach(([x,z])=>box(g,x-1.5,z-1.5,x+1.5,z+1.5,0,2.2*S,m,false));break;}
+    case 'duct':{const y=2.75*S;for(let i=0;i<it.pts.length-1;i++){const a=it.pts[i],b=it.pts[i+1];box(g,Math.min(a[0],b[0])-5,Math.min(a[1],b[1])-5,Math.max(a[0],b[0])+5,Math.max(a[1],b[1])+5,y,y+10,mat('line-2',{metalness:.5,roughness:.4}));}break;}
+    case 'grille':box(g,it.x-5,it.y-7,it.x+5,it.y+7,2.6*S,2.6*S+3,mat('ink-2'),false);break;
+    case 'hatch':box(g,it.x-7,it.y-7,it.x+7,it.y+7,0,1.2,mat(it.gm?'hidden':'ink-2'),false);break;
+    // Linien aus dem Plan: Stellplatzmarkierung, Schranken; die Glaslinien ersetzt die Glasfläche
+    case 'line':{const x0=Math.min(it.x1,it.x2),x1=Math.max(it.x1,it.x2),z0=Math.min(it.y1,it.y2),z1=Math.max(it.y1,it.y2);
+      if(it.cls==='rail')box(g,x0-.8,z0-.8,x1+.8,z1+.8,0,1.2,mat('surface'),false);
+      else if(it.cls==='gateline'){box(g,x0-1,z0-1,x1+1,z1+1,1.0*S,1.0*S+2.5,mat('venn'),false);box(g,x0-2,z0-2,x0+2,z0+2,0,1.0*S,mat('ink-2'),false);}
+      break;}
+    case 'rail':{for(let i=0;i<it.pts.length-1;i++){const a=it.pts[i],b=it.pts[i+1];const x0=Math.min(a[0],b[0]),x1=Math.max(a[0],b[0]),z0=Math.min(a[1],b[1]),z1=Math.max(a[1],b[1]);
+      box(g,x0-1,z0-1,x1+1,z1+1,0,H.rail,mat('glass',{opacity:.28,roughness:.1}),false);box(g,x0-2,z0-2,x1+2,z1+2,H.rail-3,H.rail,mat('ink-2'),false);}break;}
+    case 'mast':{const m=new THREE.Mesh(new THREE.CylinderGeometry(1.2,2.5,7*S,8),mat('ink-2',{metalness:.5}));m.position.set(it.x,3.5*S,it.y);m.castShadow=true;g.add(m);
+      const l=new THREE.Mesh(new THREE.SphereGeometry(2.5,10,8),mat('sec',{emissive:col('sec'),emissiveIntensity:1.5}));l.position.set(it.x,7*S,it.y);g.add(l);break;}
+    // Landeplattform: flache Scheibe, Ring, H, Randlichter
+    case 'pad':{const d=new THREE.Mesh(new THREE.CylinderGeometry(it.r,it.r,.3*S,48),mat('line-2',{roughness:.7}));d.position.set(it.x,.15*S,it.y);d.receiveShadow=true;g.add(d);
+      const ring=new THREE.Mesh(new THREE.RingGeometry(it.r*.68,it.r*.72,64),new THREE.MeshBasicMaterial({color:col('venn'),side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.set(it.x,.3*S+.5,it.y);g.add(ring);
+      const cv=document.createElement('canvas');cv.width=cv.height=128;const c2=cv.getContext('2d');c2.fillStyle=css('venn');c2.font='700 110px "Barlow Condensed",sans-serif';c2.textAlign='center';c2.textBaseline='middle';c2.fillText('H',64,70);
+      const h=new THREE.Mesh(new THREE.PlaneGeometry(it.r*.9,it.r*.9),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cv),transparent:true}));h.rotation.x=-Math.PI/2;h.position.set(it.x,.3*S+.6,it.y);g.add(h);
+      for(let i=0;i<12;i++){const a=i*Math.PI/6;const l=new THREE.Mesh(new THREE.SphereGeometry(2,8,6),mat('venn',{emissive:col('venn'),emissiveIntensity:1.2}));l.position.set(it.x+Math.cos(a)*(it.r+6),2,it.y+Math.sin(a)*(it.r+6));g.add(l);}break;}
   }
 }
 
@@ -791,15 +1485,15 @@ function select(n,scroll){
 function renderUI(){
   const t=UI[lang],L=level();document.documentElement.lang=lang;document.body.classList.toggle('gm',state.gm);
   document.getElementById('subtitle').textContent=t.subtitle;
-  document.getElementById('tabs').innerHTML=LEVELS3D.map(l=>`<button role="tab" aria-selected="${l.id===state.cur}">${esc(tr(l.name))}<small>${esc(tr(l.sub))}</small></button>`).join('');
+  document.getElementById('tabs').innerHTML=LEVELS3D.map(l=>`<button role="tab" data-id="${l.id}" aria-selected="${l.id===state.cur}">${esc(tr(l.name))}<small>${esc(tr(l.sub))}</small></button>`).join('');
   const setT=(id,on,txt)=>{const b=document.getElementById(id);b.setAttribute('aria-pressed',on?'true':'false');b.lastChild.textContent=txt;};
-  setT('btnGM',state.gm,state.gm?t.gmOn:t.gmOff);setT('btnRoutes',state.routes,t.routes);document.getElementById('wallsLbl').textContent=t.walls;document.querySelectorAll('#walls button').forEach(b=>{b.textContent=t.wallSteps[b.dataset.w];b.setAttribute('aria-pressed',b.dataset.w===state.walls?'true':'false');});setT('btnLabels',state.labels,t.labels);
+  setT('btnGM',state.gm,state.gm?t.gmOn:t.gmOff);setT('btnRoutes',state.routes,t.routes);setT('btnGuests',state.guests,t.guests);document.getElementById('wallsLbl').textContent=t.walls;document.querySelectorAll('#walls button').forEach(b=>{b.textContent=t.wallSteps[b.dataset.w];b.setAttribute('aria-pressed',b.dataset.w===state.walls?'true':'false');});setT('btnLabels',state.labels,t.labels);
   document.getElementById('langDE').setAttribute('aria-pressed',lang==='de'?'true':'false');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en'?'true':'false');
   const back=document.getElementById('lnk2d');back.textContent=t.back;back.href='meridian-spire-plaene.html?lang='+lang;
   document.getElementById('vReset').textContent=t.reset;document.getElementById('vTop').textContent=t.top;document.getElementById('hint').textContent=t.hint;
   document.getElementById('mapTitle').innerHTML=`${esc(tr(L.name))}<span>${esc(tr(L.sub))}</span>`;
   document.getElementById('chips').innerHTML=(L.chips||[]).map(c=>`<span class="chip">${esc(tr(c))}</span>`).join('');
-  const sw={glass:'glass',guard:'guard',staff:'r-staff',guest:'muted',venn:'venn',kade:'kade',sec:'sec',hidden:'hidden'};
+  const sw={glass:'glass',guard:'guard',staff:'r-staff',guest:'muted',venn:'venn',kade:'kade',sec:'sec',hidden:'hidden',drone:'drone',astral:'astral'};
   document.getElementById('legend').innerHTML=t.lg.map(([k,n,round,g])=>`<span class="lg${g?' gm':''}"><span class="sw${round?' round':''}" style="background:${k==='guest'?`conic-gradient(${GUEST_TONES.join(',')})`:`var(--${sw[k]||'floor-'+k})`}"></span>${esc(n)}</span>`).join('');
   document.getElementById('spotsHead').textContent=t.spots;
   document.getElementById('spots').innerHTML=(L.spots||[]).map(s=>spotOf(L,s)).map(s=>`<li data-n="${s.n}" tabindex="0" class="${s.gm?'gmonly':''}${selected===s.n?' hl':''}"><span class="n">${s.n}</span><div><b>${esc(s.t)}</b><p>${esc(s.p)}</p>${s.g?`<div class="gmn" data-l="${t.gmTag}">${esc(s.g)}</div>`:''}</div></li>`).join('');
@@ -810,9 +1504,11 @@ function set(k,v){state[k]=v;save();renderUI();rebuild();}
 document.getElementById('btnGM').addEventListener('click',()=>set('gm',!state.gm));
 document.getElementById('btnRoutes').addEventListener('click',()=>set('routes',!state.routes));
 document.getElementById('walls').addEventListener('click',e=>{const b=e.target.closest('button');if(b)set('walls',b.dataset.w);});
+document.getElementById('btnGuests').addEventListener('click',()=>set('guests',!state.guests));
 document.getElementById('btnLabels').addEventListener('click',()=>set('labels',!state.labels));
 document.getElementById('langDE').addEventListener('click',()=>{lang='de';save();renderUI();rebuild();});
 document.getElementById('langEN').addEventListener('click',()=>{lang='en';save();renderUI();rebuild();});
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.id===state.cur)return;state.cur=b.dataset.id;selected=null;save();renderUI();rebuild();if(controls)frameView(false);});
 document.getElementById('vReset').addEventListener('click',()=>frameView(false));
 document.getElementById('vTop').addEventListener('click',()=>frameView(true));
 document.getElementById('spots').addEventListener('click',e=>{const li=e.target.closest('li');if(li)select(+li.dataset.n,false);});

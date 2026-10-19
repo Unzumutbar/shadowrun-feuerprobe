@@ -24,7 +24,7 @@ const pages = [
     name: 'meridian-spire-3d',
     dir: 'src/plan3d',
     html: ['d1_head.html', 'd2_body.html'],
-    js: ['../plaene/p4_111.js', '../plaene/p11_en_dict.js', '../plaene/p12_en_111_112.js', 'd3_app.js'],
+    js: ['../plaene/p4_111.js', '../plaene/p5_112.js', '../plaene/p6_dach.js', '../plaene/p7_110.js', '../plaene/p8_garage.js', '../plaene/p11_en_dict.js', '../plaene/p12_en_111_112.js', '../plaene/p13_en_dach_110.js', '../plaene/p14_en_garage_schnitt.js', 'd3_app.js'],
   },
   {
     name: 'feuerprobe-runner',
