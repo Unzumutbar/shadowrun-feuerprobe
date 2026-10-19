@@ -12,6 +12,8 @@
       <button id="btnRoutes" aria-pressed="true" type="button"><span class="dot"></span><span></span></button>
       <span class="langs" role="group" id="walls" aria-labelledby="wallsLbl"><span class="lbl" id="wallsLbl"></span><button type="button" data-w="low"></button><button type="button" data-w="mid"></button><button type="button" data-w="full"></button></span>
       <button id="btnGuests" aria-pressed="true" type="button"><span class="dot"></span><span></span></button>
+      <button id="btnPatrol" aria-pressed="false" type="button"><span class="dot"></span><span></span></button>
+      <button id="btnNight" aria-pressed="false" type="button"><span class="dot"></span><span></span></button>
       <button id="btnLabels" aria-pressed="true" type="button"><span class="dot"></span><span></span></button>
       <a class="back" id="lnk2d" href="meridian-spire-plaene.html"></a>
     </div>
@@ -21,7 +23,12 @@
   <section class="mappanel">
     <div class="maphead"><h2 id="mapTitle"></h2><div class="chips" id="chips"></div></div>
     <div class="stage" id="stage">
-      <div class="views"><button type="button" id="vWalk" class="walk" aria-pressed="false"></button><button type="button" id="vReset"></button><button type="button" id="vTop"></button></div>
+      <div class="views"><button type="button" id="vWalk" class="walk" aria-pressed="false"></button><button type="button" id="vReset"></button><button type="button" id="vTop"></button><button type="button" id="vFull"></button><button type="button" id="vShare"></button></div>
+      <div class="alertfx" id="alertfx" aria-hidden="true"></div>
+      <button type="button" class="alerthud" id="alerthud" hidden></button>
+      <div class="note" id="note" hidden aria-live="polite"></div>
+      <canvas class="minimap" id="minimap" hidden aria-hidden="true"></canvas>
+      <div class="portal" id="portal" hidden></div>
       <div class="pad" id="pad" hidden><button type="button" data-d="f" aria-label="vor">▲</button><button type="button" data-d="l" aria-label="links drehen">◀</button><button type="button" data-d="b" aria-label="zurück">▼</button><button type="button" data-d="r" aria-label="rechts drehen">▶</button></div>
       <div class="hint" id="hint"></div>
     </div>
