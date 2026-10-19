@@ -2,6 +2,7 @@
 //   node build.js
 // Ergebnis:
 //   docs/meridian-spire-plaene.html   eigenständige Seite (im Browser öffnen)
+//   docs/meridian-spire-3d.html       3-D-Ansicht der Ebenen (Three.js kommt vom CDN)
 //   docs/feuerprobe-runner.html       eigenständige Seite
 //   docs/feuerprobe-runner-bogen.html Spielerbögen, ein Runner pro A4 (PDFs: node tools/make-pdf.js)
 //   docs/feuerprobe-leitfaden.html    SL-Leitfaden durch den Run mit NPC-Dossiers
@@ -17,6 +18,13 @@ const pages = [
     dir: 'src/plaene',
     html: ['p1_head.html', 'p2_body.html'],
     js: ['p3_render.js', 'p4_111.js', 'p5_112.js', 'p6_dach.js', 'p7_110.js', 'p8_garage.js', 'p9_schnitt.js', 'p11_en_dict.js', 'p12_en_111_112.js', 'p13_en_dach_110.js', 'p14_en_garage_schnitt.js', 'p10_app.js'],
+  },
+  {
+    // 3-D-Ansicht der Ebenen aus denselben Plandaten (Three.js vom CDN)
+    name: 'meridian-spire-3d',
+    dir: 'src/plan3d',
+    html: ['d1_head.html', 'd2_body.html'],
+    js: ['../plaene/p4_111.js', '../plaene/p11_en_dict.js', '../plaene/p12_en_111_112.js', 'd3_app.js'],
   },
   {
     name: 'feuerprobe-runner',
