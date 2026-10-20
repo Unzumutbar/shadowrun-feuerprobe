@@ -21,6 +21,8 @@ const EXTRA3D={
 // Übergänge zwischen den Ebenen, nach dem Schnitt (nur Wege für Personen; das EG ist nicht modelliert).
 // at: je Ebene die Fläche [x,y,w,h], die den Übergang anbietet; man kommt in ihrer Mitte an. gmAt: Halt nur in der SL-Ansicht.
 const ORDER=['garage','110','111','112','dach'];
+// Turmebenen übereinander, Geschosshöhe 4 m (3,2 m Raum + 0,8 m Decke); die Tiefgarage liegt weit darunter und steht allein
+const TOWER=['110','111','112','dach'],FLOOR_M=4,ELEV={'110':-4,'111':0,'112':4,'dach':8};
 const LINKS=[
  {name:'Frachtaufzug',c:'staff',at:{garage:[40,200,70,70],'111':[40,200,70,70]}},
  {name:'Personaltreppe',c:'staff',at:{garage:[40,270,70,90],'110':[40,270,70,90],'111':[40,270,70,90],'112':[40,270,70,90],dach:[40,270,70,90]},gmAt:['110']},
@@ -75,7 +77,7 @@ let flightsWalk=[];// Treppenläufe für die Augenhöhe beim Begehen
 
 /* ---------- Treppen: Richtung aus den Übergängen ---------- */
 // Eine Treppe führt hinauf, wenn ihr Übergang einen Halt über dieser Ebene hat, hinab bei einem darunter.
-// Ein Treppenhaus mit beidem wird in zwei Läufe geteilt: links hinauf, rechts hinab (bei Ost-West-Treppen oben/unten).
+// Ein Treppenhaus mit beidem wird in zwei Läufe geteilt, hinauf und hinab nebeneinander; die Seiten wechseln je Ebene.
 // Antritt (entry S/N/W/E): aufwärts von Süden bzw. Westen, abwärts vom anderen Ende, denn dort kommt dieselbe Treppe
 // auf der Ebene darüber an. Steht dort eine Wand, wird die andere Seite genommen (siehe pickEntry).
 function stairFlights(L,items){
@@ -87,7 +89,8 @@ function stairFlights(L,items){
     const up=stops.filter(i=>i>lv).sort((a,b)=>a-b)[0],down=stops.filter(i=>i<lv).sort((a,b)=>b-a)[0];
     const dirs=[];if(up!==undefined||down===undefined)dirs.push({d:1,to:up});if(down!==undefined)dirs.push({d:-1,to:down});
     const rect=sp?[it.x-it.r,it.y-it.r,2*it.r,2*it.r]:[it.x,it.y,it.w,it.h],v=sp||it.dir!=='h';
-    const fl=dirs.map((o,i)=>{let [x,y,w,h]=rect;if(dirs.length===2&&!sp){if(v){w/=2;x+=i*w;}else{h/=2;y+=i*h;}}return {d:o.d,to:o.to,x,y,w,h,v,sp};});
+    // Seite wechselt je Ebene, damit der Aufwärtslauf genau unter der Öffnung der Ebene darüber endet
+    const fl=dirs.map(o=>{let [x,y,w,h]=rect;const i=o.d>0?lv%2:1-lv%2;if(dirs.length===2&&!sp){if(v){w/=2;x+=i*w;}else{h/=2;y+=i*h;}}return {d:o.d,to:o.to,x,y,w,h,v,sp};});
     out.set(it,fl);});
   return out;
 }
@@ -151,11 +154,13 @@ function roomAt(rooms,x,y){
   return null;
 }
 
-function buildLevel(L){
+// primary: die gewählte Ebene (Beschriftung, Nummern, Kollision, Sensoren); sonst nur Bauwerk und Figuren.
+// below: die Ebene darunter wird mitgezeichnet, Lufträume und Treppenöffnungen bleiben dann offen.
+function buildLevel(L,primary=true,below=false){
   const S=L.scale||20,X=EXTRA3D[L.id]||{},gm=state.gm;
   const H={wall:3.2*S,low:1.15*S,mid:2.0*S,door:2.3*S,sill:.9*S,rail:1.1*S,open:2.8*S,eye:2.7*S};
   // Wandstufen: niedrig = Blick in jeden Raum, halb = Türöffnungen erkennbar, voll = echte Sichtlinien
-  const top=walk.on?H.wall:{low:H.low,mid:H.mid,full:H.wall}[state.walls],T=6;
+  const top=walk.on||!primary?H.wall:{low:H.low,mid:H.mid,full:H.wall}[state.walls],T=6;
   colliders=[];sensors=[];actors=[];doorPicks=[];
   const clampTop=y=>Math.min(y,top);
   const g=new THREE.Group();
@@ -165,14 +170,15 @@ function buildLevel(L){
   const isVoid=r=>r&&r.t==='void'&&!X.voidIsFloor;
   const isOpen=r=>r&&(X.openTypes||[]).includes(r.t);
   const outside=r=>r&&(X.outsideVoids||[]).includes(r.label)?null:r;
-  const slab=-0.6*S;
+  const slab=-(FLOOR_M-3.2)*S;
   const flights=stairFlights(L,(L.items||[]).filter(it=>gm||!it.gm));flightsWalk=[];
-  const holes=[...flights.values()].flat().filter(f=>f.d<0);
+  // Öffnungen in den Bodenplatten: abwärts führende Treppen, Lufträume und Glasdächer (die liegen oft über einem größeren Raum)
+  const holes=[...[...flights.values()].flat().filter(f=>f.d<0),...rooms.filter(r=>isVoid(r)||r.t==='glass').map(r=>({x:r.x,y:r.y,w:r.w,h:r.h}))];
 
   // Böden: je Raum eine Platte; Lufträume als dunkle Grube, Glasdächer durchsichtig, Rampen schräg
   rooms.forEach((r,i)=>{
     const y1=0.2+i*0.06;
-    if(isVoid(r)){colliders.push([r.x,r.y,r.x+r.w,r.y+r.h,0]);const p=box(g,r.x,r.y,r.x+r.w,r.y+r.h,slab-2*S,slab-1.95*S,mat('floor-void',{opacity:.85}),false);if(p)p.renderOrder=1;return;}
+    if(isVoid(r)){colliders.push([r.x,r.y,r.x+r.w,r.y+r.h,0]);if(below)return;const p=box(g,r.x,r.y,r.x+r.w,r.y+r.h,slab-2*S,slab-1.95*S,mat('floor-void',{opacity:.85}),false);if(p)p.renderOrder=1;return;}
     if(r.t==='glass'){
       if((X.pyramids||[]).includes(r.label)){const mn=Math.min(r.w,r.h),py=new THREE.Mesh(new THREE.ConeGeometry(mn/2*Math.SQRT2,3*S,4,1,true),mat('glass',{opacity:.3,roughness:.1,side:THREE.DoubleSide}));
         py.rotation.y=Math.PI/4;py.position.set(r.x+r.w/2,1.5*S,r.y+r.h/2);g.add(py);
@@ -223,8 +229,9 @@ function buildLevel(L){
   }
 
   // Einrichtung, Personen, Sensoren
-  (L.items||[]).forEach(it=>{if(it.gm&&!gm)return;item(g,it,{S,H,top,gm,L,flights});});
+  (L.items||[]).forEach(it=>{if(it.gm&&!gm)return;item(g,it,{S,H,top,gm,L,flights,below,primary});});
 
+  if(!primary)return g;
   // Wege
   if(state.routes)(L.routes||[]).forEach(r=>{if(r.gm&&!gm)return;
     const path=new THREE.CurvePath();const y=0.35*S;
@@ -241,12 +248,12 @@ function buildLevel(L){
   // Übergänge zu anderen Ebenen: farbige Bodenfläche, beim Begehen mit Schild
   linksOn(L.id).forEach(({link,r})=>{const c='r-'+link.c,m=mat(c,{opacity:.7,emissive:col(c),emissiveIntensity:.5}),[x0,z0,x1,z1]=[r[0],r[1],r[0]+r[2],r[1]+r[3]],b=3;// nur ein Rahmen, damit Treppenöffnungen sichtbar bleiben
     [[x0,z0,x1,z0+b],[x0,z1-b,x1,z1],[x0,z0,x0+b,z1],[x1-b,z0,x1,z1]].forEach(q=>{const p=box(g,q[0],q[1],q[2],q[3],0,2.4,m,false);if(p)p.renderOrder=3;});
-    if(walk.on){const s=sprite(g,tr(link.name),{world:9,bg:css(c),fg:'#fff',upper:false});s.position.set(r[0]+r[2]/2,H.wall+.5*S,r[1]+r[3]/2);}});
+    if(walk.on){const s=sprite(g,tr(link.name),{world:9,bg:css(c),fg:'#fff',upper:false});s.position.set(r[0]+r[2]/2,2.75*S,r[1]+r[3]/2);}});
 
   // Raumbeschriftung
   if(state.labels)rooms.forEach(r=>{if(!r.label)return;
     const s=sprite(g,tr(r.label),{world:r.small?11:16,bg:css('surface'),fg:css('ink'),depthTest:walk.on});
-    s.position.set(r.lx??(r.x+r.w/2),top+(r.small?14:22),r.ly??(r.y+r.h/2));s.renderOrder=20;
+    s.position.set(r.lx??(r.x+r.w/2),walk.on?2.55*S:top+(r.small?14:22),r.ly??(r.y+r.h/2));s.renderOrder=20;
   });
 
   // Nummern (anklickbar)
@@ -254,7 +261,7 @@ function buildLevel(L){
   (L.marks||[]).forEach(m=>{if(m.gm&&!gm)return;
     const hl=selected===m.n;
     const s=sprite(g,String(m.n),{round:true,world:22,size:56,weight:700,bg:hl?css('accent'):css('surface'),fg:hl?css('surface'):css('ink'),ring:m.gm?css('gmnote'):css('ink'),depthTest:walk.on,renderOrder:30});
-    const y=top+40;s.position.set(m.x,y,m.y);s.userData.n=m.n;pickables.push(s);
+    const y=walk.on?2.9*S:top+40;s.position.set(m.x,y,m.y);s.userData.n=m.n;pickables.push(s);
     const pin=new THREE.Mesh(new THREE.CylinderGeometry(.8,.8,y,6),new THREE.MeshBasicMaterial({color:col('ink'),transparent:true,opacity:.35}));pin.position.set(m.x,y/2,m.y);g.add(pin);
   });
   return g;
@@ -354,7 +361,7 @@ function sector(g,x,z,a,len,spread,color,yApex,opFloor,opSide){
   mk(fl,opFloor);if(sd.length)mk(sd,opSide);
 }
 function item(g,it,ctx){
-  const {S,H,top,gm,L,flights}=ctx;
+  const {S,H,top,gm,L,flights,below,primary}=ctx;
   // Wachen, Kade, Venn und Drohnen als eigene Gruppe, damit Patrouillen sie bewegen können
   if(['guard','kade','venn','droneR','droneW'].includes(it.k)&&!it._local){
     if(it.k==='venn'&&it.gm&&state.patrol)return;// Venns Rückzugsort zeigt die Patrouille selbst
@@ -363,6 +370,7 @@ function item(g,it,ctx){
   const fh=(h)=>Math.min(h,top+0.4*S);
   switch(it.k){
     case 'rect':{
+      if(it.cls==='glyph')break;// im Plan nur eine Umrisslinie (z. B. Atriumkante), in 3-D schon durch Geländer gezeigt
       if(it.cls==='lz'){const p=box(g,it.x,it.y,it.x+it.w,it.y+it.h,0,1.5,mat('accent',{opacity:.3}),false);if(p)p.renderOrder=3;break;}// Landezone: nur Bodenmarkierung
       if(it.cls==='outline'){if(!gm)break;const m=mat('hidden',{opacity:.16});const b=box(g,it.x,it.y,it.x+it.w,it.y+it.h,H.wall-.5*S,H.wall,m,false);if(b)b.renderOrder=3;break;}
       const thin=Math.min(it.w,it.h)<=12,dark=it.cls==='furn-dark';
@@ -391,22 +399,24 @@ function item(g,it,ctx){
     // Treppen: aufwärts steigen die Stufen über den Boden, abwärts führen sie durch eine Öffnung mit Geländer nach unten
     case 'stair':case 'spiral':{
       (flights.get(it)||[]).forEach(f=>{pickEntry(f);
-        const deep=-H.wall-.4*S,stepM=mat(f.d>0?'surface-2':'muted'),pit=mat('floor-core');
-        if(f.sp){const n=14;const p=new THREE.Mesh(new THREE.CylinderGeometry(2.5,2.5,H.wall,8),mat('ink-2'));p.position.set(it.x,f.d*H.wall/2,it.y);g.add(p);
-          for(let i=0;i<n;i++){const st=new THREE.Mesh(new THREE.BoxGeometry(it.r,3,9),stepM);const a=i*Math.PI*2/12;st.position.set(it.x+Math.cos(a)*it.r/2,f.d*(i+1)*H.wall/n-(f.d<0?3:0),it.y+Math.sin(a)*it.r/2);st.rotation.y=-a;st.castShadow=true;g.add(st);}}
-        else{const len=f.v?f.h:f.w,n=Math.max(4,Math.floor(len/8)),step=len/n,rise=H.wall/n;
+        const FH=FLOOR_M*S,deep=-FH-.4*S,stepM=mat(f.d>0?'surface-2':'muted'),pit=mat('floor-core');
+        const shown=f.d>0||!below;
+        if(f.sp){if(shown){const n=14;const p=new THREE.Mesh(new THREE.CylinderGeometry(2.5,2.5,FH,8),mat('ink-2'));p.position.set(it.x,f.d*FH/2,it.y);g.add(p);
+          for(let i=0;i<n;i++){const st=new THREE.Mesh(new THREE.BoxGeometry(it.r,3,9),stepM);const a=i*Math.PI*2/12;st.position.set(it.x+Math.cos(a)*it.r/2,f.d*(i+1)*FH/n-(f.d<0?3:0),it.y+Math.sin(a)*it.r/2);st.rotation.y=-a;st.castShadow=true;g.add(st);}}}
+        else{const len=f.v?f.h:f.w,n=Math.max(4,Math.floor(len/8)),step=len/n,rise=FH/n;
+          if(shown)
           for(let i=0;i<n;i++){const y1=f.d>0?rise*(i+1):-rise*(i+1),y0=f.d>0?0:deep;
             // Stufe i zählt vom Antritt aus
             const e=f.entry,a=step*i,b=step*(i+1),up=f.d>0,st=
               e==='S'?box(g,f.x+2,f.y+f.h-b,f.x+f.w-2,f.y+f.h-a,y0,y1,stepM,up):e==='N'?box(g,f.x+2,f.y+a,f.x+f.w-2,f.y+b,y0,y1,stepM,up):
               e==='W'?box(g,f.x+a,f.y+2,f.x+b,f.y+f.h-2,y0,y1,stepM,up):box(g,f.x+f.w-b,f.y+2,f.x+f.w-a,f.y+f.h-2,y0,y1,stepM,up);
             if(st&&f.d<0)st.receiveShadow=false;}// unter der Decke läge sonst alles im Schatten
-          flightsWalk.push(f);}
+          if(primary)flightsWalk.push(f);}
         if(f.d<0){// Schacht unter der Öffnung und Geländer an den drei Seiten ohne Antritt
           const {x,y,w,h}=f,t=3,gl=mat('glass',{opacity:.3,roughness:.1}),rail=(a,b,c,d)=>{box(g,a,b,c,d,0,H.rail,gl,false);box(g,a-.5,b-.5,c+.5,d+.5,H.rail-3,H.rail,mat('ink-2'),false);colliders.push([a,b,c,d,0]);};
-          box(g,x-t,y,x,y+h,deep,0,pit,false);box(g,x+w,y,x+w+t,y+h,deep,0,pit,false);box(g,x,y-t,x+w,y,deep,0,pit,false);box(g,x,y+h,x+w,y+h+t,deep,0,pit,false);
+          if(!below){box(g,x-t,y,x,y+h,deep,0,pit,false);box(g,x+w,y,x+w+t,y+h,deep,0,pit,false);box(g,x,y-t,x+w,y,deep,0,pit,false);box(g,x,y+h,x+w,y+h+t,deep,0,pit,false);}
           if(f.entry!=='W')rail(x-1,y,x+1,y+h);if(f.entry!=='E')rail(x+w-1,y,x+w+1,y+h);if(f.entry!=='N')rail(x,y-1,x+w,y+1);if(f.entry!=='S')rail(x,y+h-1,x+w,y+h+1);}
-        stairMark(g,f,S);
+        if(primary)stairMark(g,f,S);
       });break;}
     case 'shaft':box(g,it.x+2,it.y+2,it.x+it.w-2,it.y+it.h-2,0,.3,new THREE.MeshBasicMaterial({color:0x05070a}),false);break;
     case 'lift':box(g,it.x+4,it.y+4,it.x+it.w-4,it.y+it.h-4,0,.4,mat('ink-2',{metalness:.5,roughness:.4}),false);break;
@@ -466,7 +476,7 @@ function pickEntry(f){
 }
 function stairHeight(x,z){
   const f=flightsWalk.find(f=>x>f.x&&x<f.x+f.w&&z>f.y&&z<f.y+f.h);if(!f)return 0;
-  const p={S:(f.y+f.h-z)/f.h,N:(z-f.y)/f.h,W:(x-f.x)/f.w,E:(f.x+f.w-x)/f.w}[f.entry],H=3.2*(level().scale||20);return f.d*H*Math.max(0,Math.min(1,p));
+  const p={S:(f.y+f.h-z)/f.h,N:(z-f.y)/f.h,W:(x-f.x)/f.w,E:(f.x+f.w-x)/f.w}[f.entry],H=FLOOR_M*(level().scale||20);return f.d*H*Math.max(0,Math.min(1,p));
 }
 function blocked(x,z){const r=.28*(level().scale||20);return colliders.some(c=>x+r>c[0]&&x-r<c[2]&&z+r>c[1]&&z-r<c[3]);}
 function placeAt(x,z){
@@ -643,7 +653,13 @@ function rebuild(){
   matCache.forEach(m=>m.dispose());matCache.clear();
   if(world){scene.remove(world);world.traverse(o=>{if(o.geometry&&!o.geometry.userData.keep)o.geometry.dispose();if(o.material&&o.material.map)o.material.map.dispose();});}
   scene.background=col('bg');
-  world=buildLevel(level());scene.add(world);
+  world=new THREE.Group();scene.add(world);
+  const L=level(),S=L.scale||20,cur=L.id,inTower=TOWER.includes(cur);
+  // Begehen: der ganze Turm; Ansicht von außen: gewählte Ebene und alles darunter (darüber abgeschnitten)
+  const ids=!inTower?[cur]:TOWER.filter(id=>walk.on||ELEV[id]<=ELEV[cur]);
+  const has=id=>ids.includes(id),below=id=>{const i=TOWER.indexOf(id);return i>0&&has(TOWER[i-1]);};
+  ids.filter(id=>id!==cur).forEach(id=>{const o=LEVELS3D.find(l=>l.id===id);const g=buildLevel(o,false,below(id));g.position.y=(ELEV[id]-ELEV[cur])*S;world.add(g);});
+  world.add(buildLevel(L,true,inTower&&below(cur)));// zuletzt, damit Kollision, Sensoren und Figuren zur gewählten Ebene gehören
   updatePatrols(0);applyMood();
   if(walk.on)drawMiniBase();
 }
@@ -683,7 +699,7 @@ function initGL(){
   renderer.domElement.addEventListener('dblclick',e=>{if(!walk.on)return;
     const r=renderer.domElement.getBoundingClientRect();const v=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
     const rc=new THREE.Raycaster();rc.setFromCamera(v,camera);const S=level().scale||20;
-    const hit=rc.intersectObjects(world.children,false).find(h=>h.object.isMesh&&h.face&&h.point.y<.5*S&&h.face.normal.y>.5);
+    const hit=rc.intersectObjects(world.children,true).find(h=>h.object.isMesh&&h.face&&Math.abs(h.point.y)<.5*S&&h.face.normal.y>.5);
     if(hit)placeAt(hit.point.x,hit.point.z);});
   const mm=document.getElementById('minimap');
   mm.addEventListener('click',e=>{const r=mm.getBoundingClientRect();placeAt(mini.ox+(e.clientX-r.left)/mini.k,mini.oy+(e.clientY-r.top)/mini.k);});
