@@ -8,6 +8,9 @@ Eine kleine Crew soll während einer Gala im 112-stöckigen **Meridian Spire** e
 
 | Ordner | Inhalt |
 |---|---|
+| `docs/index.html` | Startseite (DE/EN), gegliedert nach Zweck: *Vorbereiten* (SL), *Am Tisch*, *Austeilen & Drucken*, dazu „Wo finde ich was?“ mit Direktlinks. Quelle in `src/start/`. |
+| Navigationsleiste und Suche | Jede Seite in `docs/` hat oben dieselbe Leiste (Run, Leitfaden, Pläne 2D/3D, Dossiers/Bögen, Cheat-Sheets, Drucken; SL-Inhalte markiert) mit Suche über alles: Orte auf den Plänen, Wege, Kapitel, Personen, Runner, Regeln und den Run-Text (`Strg+K` oder `/`). Die Leiste folgt der Sprache der Seite und gibt sie an alle Links weiter. Quelle in `src/shared/`; `build.js` setzt sie ein (nicht in `docs/artifact/`) und erzeugt den Suchindex `docs/search-index.js` aus den Daten, geladen wird er erst beim ersten Suchen. |
+| `docs/drucken.html` | Druckseite: SL-Mappe und Spielerpaket als je eine Gesamt-PDF, darunter jedes Teil einzeln zum Abhaken (Seitenzahl, Hoch/Quer, empfohlene Exemplare), Einzelbögen und Drucktipps. Was in welcher Mappe steckt, steht in `src/drucken/k0_mappen.js` (gilt auch für `tools/make-pdf.js`). |
 | `oneshot/` | Das Abenteuer als Markdown: Briefing, Gala, Tresorgeschoss, Alert Clock, Enthüllung, Payoff. `build.js` rendert daraus `docs/feuerprobe-oneshot.html` (Renderer in `tools/md2html.js`). |
 | `docs/meridian-spire-plaene.html` | Interaktive Pläne: Schnitt, Tiefgarage P2, Ebene 111 (Gala), Ebene 112 (Lounge & Suite), Dach, Ebene 110 (Tresorgeschoss). SL-/Spieleransicht, Wege-Overlay, nummerierte Orte mit SL-Notizen, Deutsch/Englisch. Die Druckansicht liefert SL-Pläne (Kartenblatt plus Notizblatt je Ebene) oder Spielerpläne (nur Kartenblatt), A4 quer. |
 | `docs/meridian-spire-3d.html` | 3-D-Ansicht von Tiefgarage P2, Ebene 111, Ebene 112, Dach und Ebene 110, gebaut aus denselben Plandaten. Die Turmebenen 110, 111, 112 und Dach stehen in 4 m Geschosshöhe übereinander (die Tiefgarage für sich): Von außen sieht man die gewählte Ebene und alles darunter, beim Begehen den ganzen Turm, sodass man durch Atrium, Lufträume, Treppenöffnungen und Glasdächer nach oben und unten schauen kann. Was der Grundriss nicht hergibt (Glasräume, Lufträume außerhalb der Fassade, Rampe, Glaspyramide), steht je Ebene in `EXTRA3D` in `src/plan3d/d3_app.js`. Drehen, zoomen, begehen (Ich-Perspektive mit W/A/S/D oder Steuerkreuz, Wände und Geländer halten auf, Minikarte, Vollbild, Kamera-Warnung mit Alert-Zähler, Ortsnotizen, Position als Link teilen (`?level=111&pos=520,540&dir=90&walk=1&view=player`); Treppen, Aufzüge, Schächte, Leiter und Gondel führen auf die anderen Ebenen, Liste `LINKS` in `src/plan3d/d3_app.js`). Treppen zeigen ihre Richtung: aufwärts steigen die Stufen über den Boden, abwärts führen sie durch eine Bodenöffnung mit Geländer hinab; am Antritt steht „↑ 112“ bzw. „↓ 111“, Treppenhäuser mit beidem sind in zwei Läufe geteilt. Schaltbar: Patrouillen (Kade, Wache, Venn, Rollbot; `PATROLS`, Zeit gerafft) und Nachtmodus mit Gewitter. Reader- und Tresortüren sind in der Spieleransicht verriegelt, bis die SL sie per Klick öffnet, Wandhöhe in drei Stufen, SL-/Spieleransicht, Wege, anklickbare Orte, Deutsch/Englisch. Three.js kommt vom CDN, die Seite braucht also eine Internetverbindung. |
@@ -15,8 +18,7 @@ Eine kleine Crew soll während einer Gala im 112-stöckigen **Meridian Spire** e
 | `docs/feuerprobe-runner-bogen.html` | Dieselben Runner als Spielerbögen zum Austeilen: ein Runner pro A4, ohne SL-Notizen, mit Schreiblinien für Straßenname, Name und Pronomen sowie Kästchen für Edge, Harm, Karma, Load und Nuyen. |
 | `docs/feuerprobe-leitfaden.html` | SL-Leitfaden: führt Schritt für Schritt durch den Run (Einstieg, Johnson, Recherche, Zugang, Party, Ebene 110, Tresor und Koffer, Flucht, Enthüllung, Payoff), dazu Werkzeuge und Schnellreferenz. Kurzbiographien von Mr. Johnson (zwei Varianten zur Wahl: erfahrener elfischer Profi oder Rookie-Fixer, den Veyrath ebenfalls prüft), Dr. Venn, Kade (Mensch oder Troll) und Veyrath mit Porträts (Dateien in `src/leitfaden/img/`, Dateiname = NPC-id, von `build.js` eingebettet; Veyrath im Breitformat). Per Klick lässt sich ein eigenes Bild einsetzen, das nur im Browser bleibt; „entfernen“ stellt das mitgelieferte Porträt wieder her. Klickbare Alert Clock, Payoff-Rechner, abhakbare Kapitel, Deutsch/Englisch, Druckansicht A4. |
 | `docs/feuerprobe-regeln.html` | Cheat-Sheets, je Sheet eine A4-Seite. Für Spieler:innen: Grundregeln, Welche Action?, Kampf, Magie, Matrix/Technik/Alert. Für die SL: Würfe leiten, Kampf & Gegner (Wachen, Kade, Drohnen, Watcher), Magie im Turm, Alert/Matrix/Payoff. Umschalter Alle/Spieler/SL und DE/EN; gedruckt wird die aktuelle Auswahl. |
-| `docs/pdf/de/`, `docs/pdf/en/` | Fertige PDFs: Spielerbögen (`feuerprobe-runner-alle.pdf` und `bogen-<runner>.pdf`; englisch `feuerprobe-runners-all.pdf`, `sheet-<runner>.pdf`) sowie die Pläne als SL-Version (`plaene-sl.pdf` / `plans-gm.pdf`) und Spielerversion (`plaene-spieler.pdf` / `plans-players.pdf`) und die Cheat-Sheets (`cheatsheets-spieler.pdf`, `cheatsheets-sl.pdf` / `cheatsheets-players.pdf`, `cheatsheets-gm.pdf`). |
-| `docs/index.html` | Startseite (DE/EN umschaltbar) mit Links auf alle Seiten und PDFs; die Sprachwahl wird an die verlinkten Seiten weitergegeben. |
+| `docs/pdf/de/`, `docs/pdf/en/` | Fertige PDFs: **Gesamt-PDFs** `sl-mappe.pdf` / `gm-binder.pdf` (Deckblatt mit Inhalt, Leitfaden, SL-Pläne, SL-Cheat-Sheets, Runner-Dossiers, auf Deutsch auch der Run-Text; Lesezeichen und Seitenzahlen) und `spielerpaket.pdf` / `player-pack.pdf` (Spieler-Cheat-Sheets, Spielerpläne, alle Bögen); dazu einzeln Leitfaden (`leitfaden.pdf` / `gm-guide.pdf`), Dossiers mit SL-Notizen (`runner-dossiers.pdf`), Run-Text (`feuerprobe-run.pdf`, nur Deutsch), Spielerbögen (`feuerprobe-runner-alle.pdf` und `bogen-<runner>.pdf`; englisch `feuerprobe-runners-all.pdf`, `sheet-<runner>.pdf`) sowie die Pläne als SL-Version (`plaene-sl.pdf` / `plans-gm.pdf`) und Spielerversion (`plaene-spieler.pdf` / `plans-players.pdf`) und die Cheat-Sheets (`cheatsheets-spieler.pdf`, `cheatsheets-sl.pdf` / `cheatsheets-players.pdf`, `cheatsheets-gm.pdf`). |
 | `docs/artifact/` | Dieselben Seiten als Fragment ohne `<html>`-Gerüst, wie claude.ai-Artifacts sie erwarten. |
 | `src/` | Quellteile aller Seiten (Stylesheet, Gerüst, Renderer, Daten pro Ebene, pro Runner bzw. pro Sprache beim Leitfaden). |
 | `build.js` | Fügt die Quellteile zu den Seiten in `docs/` zusammen. |
@@ -27,9 +29,9 @@ Der Ordner `docs/` ist eine fertige statische Website. Für GitHub Pages in den 
 
 ## Benutzen
 
-Die fertigen Seiten in `docs/` lassen sich direkt im Browser öffnen, brauchen keinen Server und funktionieren offline (nur die Schriften kommen von Google Fonts). Zum Drucken die Druckfunktion des Browsers verwenden: Die Pläne liegen je Ebene auf einer A4-Querseite, die Runner je Figur auf ein bis zwei Seiten.
+Die fertigen Seiten in `docs/` lassen sich direkt im Browser öffnen, brauchen keinen Server und funktionieren offline (nur die Schriften kommen von Google Fonts). Am einfachsten druckt man über `docs/drucken.html`: SL-Mappe und Spielerpaket als je eine fertige PDF. Wer aus den Seiten selbst druckt, nimmt die Druckfunktion des Browsers: Die Pläne liegen je Ebene auf einer A4-Querseite, die Runner je Figur auf ein bis zwei Seiten.
 
-Nach Änderungen an den Quellteilen:
+Nach Änderungen an den Quellteilen (auch an `src/start/`, `src/drucken/`, `src/shared/`):
 
 ```bash
 node build.js
@@ -47,11 +49,26 @@ Der Abschnitt „So glänzt du im Meridian Spire“ (Spieltipps je Runner) ist a
 
 **Deutsch und Englisch.** Pläne, Dossiers, Spielerbögen und Leitfaden haben oben einen Umschalter DE/EN. Bei den Plänen liegen die kurzen Beschriftungen als Wörterbuch in `src/plaene/p11_en_dict.js` (deutscher Text → englischer Text; fehlt ein Eintrag, bleibt der deutsche Text stehen), die langen Texte nach Ebene und Nummer in `p12`–`p14`. Bei Dossiers und Spielerbögen sind die deutschen Texte sind die Basis (`r3_data_a.js`, `r4_data_b.js`), die englischen liegen als Übersetzungsschicht daneben (`r3b_en_a.js`, `r4b_en_b.js`) und werden beim Umschalten über die Basis gelegt. Der Leitfaden hält beide Sprachen vollständig in `src/leitfaden/l3_de.js` und `l4_en.js`. Wer eine Datei direkt öffnet, kann die Sprache auch per `?lang=en` vorgeben; so erzeugt auch `tools/make-pdf.js` die englischen PDFs.
 
-PDFs der Spielerbögen, Pläne und Cheat-Sheets erzeugt (mit installiertem Edge oder Chrome; `node tools/make-pdf.js sheets` nur die Cheat-Sheets):
+**Direktlinks.** Die Seiten verstehen Adressen, die auf eine Stelle zeigen; Leitfaden, Startseite und Suche nutzen sie:
+
+| Adresse | zeigt |
+|---|---|
+| `meridian-spire-plaene.html?level=110&spot=3` | Ebene 110, Ort 3 hervorgehoben (die gewählte Ebene steht beim Umschalten in der Adresse) |
+| `meridian-spire-3d.html?level=111&spot=2` | 3-D-Ansicht, Ort 2 ausgewählt; außerdem `pos`, `dir`, `walk`, `view` (siehe oben) |
+| `feuerprobe-leitfaden.html#party`, `#npc-kade`, `#alertPanel` | Kapitel, Person, Alert Clock |
+| `feuerprobe-runner.html#ravn`, `feuerprobe-runner-bogen.html#ravn` | Dossier bzw. Bogen eines Runners (beide verlinken aufeinander) |
+| `feuerprobe-regeln.html?aud=all#kampf` | ein Cheat-Sheet |
+
+Jedes Leitfaden-Kapitel hat unter der Überschrift eine Zeile „Dazu“ mit den passenden Planebenen (2D/3D), Cheat-Sheets und Personen (Tabelle `XREF` in `src/leitfaden/l5_app.js`); jeder Ort in der 2D-Ortsliste springt per „3D“ in die 3-D-Ansicht.
+
+**PDFs und Druckmappen** erzeugt (mit installiertem Edge oder Chrome; für die Gesamt-PDFs einmal `npm install`, das holt pdf-lib):
 
 ```bash
+npm install
 node tools/make-pdf.js
 ```
+
+Einzelne Gruppen: `node tools/make-pdf.js plans` (Pläne), `sheets` (Cheat-Sheets), `boegen`, `guide` (Leitfaden), `dossiers`, `oneshot` (Run-Text), `mappen` (nur die Gesamt-PDFs aus den vorhandenen Teilen); kombinierbar, mit `de`/`en` auf eine Sprache beschränkt, mit Runner-ids (`de mercer ravn`) nur diese Bögen. Am Ende schreibt das Skript `docs/pdf/manifest.js` (Seitenzahl, Größe, Format) für die Druckseite. Leitfaden und Dossiers haben dafür eine Druckfassung per `?print=1` (alle Antworten aufgeklappt bzw. SL-Notizen und Spieltipps an).
 
 Ohne PDF-Skript: `docs/feuerprobe-runner-bogen.html` im Browser öffnen, oben einen Bogen wählen und mit Strg+P drucken (A4, Hochformat, ohne Kopf- und Fußzeilen).
 

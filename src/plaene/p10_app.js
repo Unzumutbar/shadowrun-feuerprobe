@@ -2,7 +2,7 @@
 const LEVELS=[LSCHNITT,LGARAGE,L111,L112,LDACH,L110];
 const UI_DE={
  subtitle:'Pläne für Tiefgarage, Penthouse, Dach und Tresorgeschoss · Seattle 2080',tabs:{schnitt:'Vertikale Wege',garage:'Tiefgarage',111:'Gala-Ebene',112:'Lounge & Suite',dach:'Landeplattform',110:'Tresorgeschoss'},
- short:{schnitt:'Schnitt',dach:'Dach'},gmOn:'SL-Ansicht',gmOff:'Spieleransicht',routes:'Wege einblenden',print:'Druckansicht',back:'Zurück zu den Plänen',to3d:'3-D-Ansicht →',
+ short:{schnitt:'Schnitt',dach:'Dach'},gmOn:'SL-Ansicht',gmOff:'Spieleransicht',routes:'Wege einblenden',print:'Druckansicht',back:'Zurück zu den Plänen',to3d:'3-D-Ansicht →',to3dSpot:'Diesen Ort in der 3-D-Ansicht zeigen',
  spots:'Orte auf dem Plan',routesH:'Von A nach B',sits:'Spielsituationen',cons:'Vertikale Verbindungen',
  routesHint:'Die Buchstaben markieren den Startpunkt jedes Wegs im Plan. „Wege einblenden“ schaltet das Overlay.',
  consHint:'Kreise = Haltepunkte, rotes Kreuz = Ebene wird passiert, aber nicht erreicht. Gestrichelt = nur Gegenstände oder Seil.',
@@ -19,7 +19,9 @@ function ariaOf(L){return (lang==='en'&&PLAN_EN.aria[L.id])||L.aria||L.name;}
 const state={gm:true,routes:true,cur:'111',variant:'gm'};
 try{const s=JSON.parse(localStorage.getItem('ms-plaene')||'{}');if(s&&typeof s==='object')Object.assign(state,s);const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}catch(e){}
 let printMode=false;
-(function(){try{const q=new URLSearchParams(location.search);const l=q.get('lang');if(l==='en'||l==='de')lang=l;const p=q.get('print');if(p==='gm'||p==='player'){printMode=true;state.variant=p;}}catch(e){}})();
+let focusSpot=null; // ?spot=<n>: Ort nach dem Laden hervorheben (Deep Link aus Suche, Leitfaden, 3D)
+(function(){try{const q=new URLSearchParams(location.search);const l=q.get('lang');if(l==='en'||l==='de')lang=l;const p=q.get('print');if(p==='gm'||p==='player'){printMode=true;state.variant=p;}
+  const lv=q.get('level');if(lv)state.cur=lv;const sp=q.get('spot');if(sp)focusSpot=sp;}catch(e){}})();
 if(!LEVELS.some(l=>l.id===state.cur))state.cur='111';
 function save(){try{localStorage.setItem('ms-plaene',JSON.stringify({gm:state.gm,routes:state.routes,cur:state.cur,variant:state.variant}));localStorage.setItem('fp-lang',lang);}catch(e){}}
 function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');}
@@ -28,7 +30,8 @@ function card(title,cls){const c=document.createElement('section');c.className='
 function buildSpots(L,forPrint){
   const t=T();const c=card(t.spots);const ol=document.createElement('ol');ol.className='spots'+(forPrint?' keygrid':'');
   (L.spots||[]).map(s=>spotOf(L,s)).forEach(s=>{const li=document.createElement('li');li.dataset.n=s.n;if(s.gm)li.classList.add('gmonly');
-    li.innerHTML=`<span class="n">${s.n}</span><div><b>${esc(s.t)}</b>${s.p?`<p>${esc(s.p)}</p>`:''}${s.g?`<div class="gmn" data-l="${t.gmTag}">${esc(s.g)}</div>`:''}</div>`;ol.appendChild(li);});
+    const to3d=!forPrint&&L.kind!=='section'?`<a class="to3d" href="meridian-spire-3d.html?lang=${lang}&level=${L.id}&spot=${s.n}" title="${esc(t.to3dSpot)}">3D</a>`:'';
+    li.innerHTML=`<span class="n">${s.n}</span><div>${to3d}<b>${esc(s.t)}</b>${s.p?`<p>${esc(s.p)}</p>`:''}${s.g?`<div class="gmn" data-l="${t.gmTag}">${esc(s.g)}</div>`:''}</div>`;ol.appendChild(li);});
   c.appendChild(ol);return c;
 }
 function buildRoutes(L){
@@ -84,6 +87,16 @@ function renderMain(){
   document.getElementById('btnRoutes').setAttribute('aria-pressed',state.routes?'true':'false');
   buildLegend(document.getElementById('legend'));
   save();
+  // Gewählte Ebene in der Adresse festhalten, damit der Link geteilt werden kann
+  if(!printMode){try{const u=new URL(location.href);u.searchParams.set('level',state.cur);u.searchParams.delete('spot');history.replaceState(null,'',u.href);}catch(e){}}
+}
+// Ort aus ?spot= hervorheben: Liste hinscrollen, Marker und Eintrag einige Sekunden markieren
+function showSpot(n){
+  const li=document.querySelector(`#key .spots li[data-n="${n}"]`);if(!li)return;
+  const mks=[...document.querySelectorAll(`#svgbox .mk[data-n="${n}"]`)];
+  li.classList.add('hl');mks.forEach(m=>m.classList.add('hl'));
+  li.scrollIntoView({block:'center',behavior:'instant'});
+  setTimeout(()=>{li.classList.remove('hl');mks.forEach(m=>m.classList.remove('hl'));},4000);
 }
 /* ---------- Druckansicht ---------- */
 function legendStrip(hideGm){
@@ -131,4 +144,5 @@ function renderAll(){renderChrome();renderMain();renderPrint();}
   document.getElementById('langDE').addEventListener('click',()=>setLang('de'));document.getElementById('langEN').addEventListener('click',()=>setLang('en'));
   renderAll();
   if(printMode)setPrintMode(true);
+  else if(focusSpot)showSpot(focusSpot);
 })();

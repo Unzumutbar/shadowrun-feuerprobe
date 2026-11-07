@@ -2,84 +2,308 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Shadowrun: Feuerprobe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-:root{--bg:#E4E8EC;--surface:#FBFBFC;--ink:#161C26;--ink-2:#3C4756;--muted:#66717F;--line:#CBD1D8;--line-2:#AEB7C1;--accent:#0F7B86}
-@media (prefers-color-scheme:dark){:root{--bg:#0D1218;--surface:#151B23;--ink:#E7EBF0;--ink-2:#C4CCD6;--muted:#8E9AA9;--line:#293441;--line-2:#3B4756;--accent:#3FC1CC}}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:720px;margin:0 auto;padding:40px 16px 56px}
-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:28px}
-h1{font-size:40px;line-height:1;margin:0 0 6px}
-p.sub{color:var(--muted);margin:0}
+:root{--bg:#E4E8EC;--surface:#FBFBFC;--surface-2:#F0F2F5;--ink:#161C26;--ink-2:#3C4756;--muted:#66717F;--line:#CBD1D8;--line-2:#AEB7C1;--accent:#0F7B86;--accent-soft:rgba(15,123,134,.12);--gm:#8A3FB3;--gm-soft:rgba(138,63,179,.10)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1218;--surface:#151B23;--surface-2:#1B222C;--ink:#E7EBF0;--ink-2:#C4CCD6;--muted:#8E9AA9;--line:#293441;--line-2:#3B4756;--accent:#3FC1CC;--accent-soft:rgba(63,193,204,.16);--gm:#CD85FF;--gm-soft:rgba(205,133,255,.12)}}
+:root[data-theme="dark"]{--bg:#0D1218;--surface:#151B23;--surface-2:#1B222C;--ink:#E7EBF0;--ink-2:#C4CCD6;--muted:#8E9AA9;--line:#293441;--line-2:#3B4756;--accent:#3FC1CC;--accent-soft:rgba(63,193,204,.16);--gm:#CD85FF;--gm-soft:rgba(205,133,255,.12)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:1120px;margin:0 auto;padding:34px 16px 56px}
+a{color:var(--accent)}
+header.hero{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 28px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.eyebrow{font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+h1{font:700 clamp(38px,6vw,58px)/.95 "Barlow Condensed","Arial Narrow",sans-serif;margin:0 0 8px}
+p.sub{color:var(--ink-2);margin:0;max-width:62ch}
 .langs{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden;flex:none}
-.langs button{appearance:none;border:0;background:transparent;color:var(--ink);font:600 13px system-ui,sans-serif;padding:8px 13px;cursor:pointer;letter-spacing:.04em}
+.langs button{appearance:none;border:0;background:transparent;color:var(--ink);font:600 13px "IBM Plex Sans",sans-serif;padding:8px 13px;cursor:pointer;letter-spacing:.04em}
 .langs button+button{border-left:1px solid var(--line-2)}
 .langs button[aria-pressed="true"]{background:var(--accent);color:#fff}
-a.card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px;text-decoration:none;color:var(--ink)}
-a.card b{display:block;font-size:20px;margin-bottom:4px}
-a.card span{color:var(--muted);font-size:14.5px}
+.tip{margin:18px 0 0;font-size:14px;color:var(--muted)}
+.tip kbd{font:500 12px "IBM Plex Mono",monospace;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:var(--surface);color:var(--ink)}
+section.grp{margin-top:34px}
+section.grp>h2{font:700 26px/1 "Barlow Condensed",sans-serif;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+section.grp>p{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--ink);position:relative}
 a.card:hover{border-color:var(--accent)}
-h2{font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:32px 0 10px}
-ul.pdfs{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:14.5px}
-ul.pdfs li{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
-ul.pdfs li span{color:var(--ink-2);min-width:170px}
-ul.pdfs a{color:var(--accent)}
-p.fine{font-size:12.5px;color:var(--muted);margin-top:32px}
+.card b{font:700 22px/1.05 "Barlow Condensed",sans-serif;display:flex;align-items:center;gap:8px}
+.card span.d{color:var(--ink-2);font-size:14.5px}
+.card .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px}
+.card .btns a{border:1px solid var(--line-2);border-radius:999px;padding:6px 13px;font:600 13.5px "IBM Plex Sans",sans-serif;text-decoration:none;color:var(--ink);background:var(--surface-2)}
+.card .btns a:hover{border-color:var(--accent);color:var(--accent)}
+.card .btns a.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.gmb{font:600 10px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--gm);border:1px solid currentColor;border-radius:4px;padding:3px 5px;background:var(--gm-soft)}
+.faq{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0 22px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 18px}
+.faq div{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.faq div span{color:var(--ink-2)}
+.faq div a{white-space:nowrap;font-weight:600;font-size:14px;text-decoration:none}
+.faq div a:hover{text-decoration:underline}
+p.fine{font-size:12.5px;color:var(--muted);margin-top:34px;max-width:90ch}
+</style>
+<style>
+/* ---------- Gemeinsame Navigationsleiste (alle Seiten in docs/) ---------- */
+.fpnav{--n-bg:#0F151D;--n-bg2:#18212C;--n-ink:#E7EBF0;--n-muted:#93A0AF;--n-line:#2A3542;--n-acc:#3FC1CC;--n-gm:#CD85FF;
+  position:relative;z-index:900;background:var(--n-bg);color:var(--n-ink);border-bottom:1px solid var(--n-line);
+  font:500 14px/1.2 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.fpnav *{box-sizing:border-box}
+.fpnav .fn-in{max-width:1480px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:6px;min-height:46px}
+.fpnav a{color:inherit;text-decoration:none}
+.fpnav .fn-brand{font:700 19px/1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.02em;white-space:nowrap;margin-right:8px;display:flex;align-items:center;gap:7px}
+.fpnav .fn-brand i{width:9px;height:9px;border-radius:2px;background:var(--n-acc);transform:rotate(45deg);display:inline-block}
+.fpnav .fn-links{display:flex;align-items:center;gap:2px;flex-wrap:wrap;flex:1;min-width:0}
+.fpnav .fn-a{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:7px;color:var(--n-ink);white-space:nowrap}
+.fpnav .fn-a:hover{background:var(--n-bg2)}
+.fpnav .fn-a[aria-current="page"]{background:var(--n-bg2);box-shadow:inset 0 -2px 0 var(--n-acc)}
+.fpnav .fn-grp{display:inline-flex;align-items:center;gap:2px;padding:3px 3px 3px 10px;border-radius:8px;white-space:nowrap}
+.fpnav .fn-grp>span{color:var(--n-muted);margin-right:4px}
+.fpnav .fn-grp .fn-a{padding:5px 9px;border:1px solid var(--n-line)}
+.fpnav .fn-grp .fn-a+.fn-a{margin-left:-1px}
+.fpnav .fn-gm{font:600 9.5px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--n-gm);border:1px solid currentColor;border-radius:4px;padding:2px 4px}
+.fpnav .fn-search{position:relative;flex:0 1 260px;min-width:150px}
+.fpnav .fn-search input{width:100%;appearance:none;background:var(--n-bg2);color:var(--n-ink);border:1px solid var(--n-line);border-radius:8px;padding:8px 10px 8px 30px;font:inherit;font-size:13.5px}
+.fpnav .fn-search input::placeholder{color:var(--n-muted)}
+.fpnav .fn-search input:focus{outline:2px solid var(--n-acc);outline-offset:0;border-color:transparent}
+.fpnav .fn-search svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--n-muted);fill:none;stroke-width:2;pointer-events:none}
+.fpnav .fn-res{position:absolute;right:0;top:calc(100% + 6px);width:min(520px,calc(100vw - 24px));max-height:min(70vh,560px);overflow:auto;background:var(--n-bg);border:1px solid var(--n-line);border-radius:10px;box-shadow:0 14px 40px rgba(0,0,0,.45);padding:6px}
+.fpnav .fn-res[hidden]{display:none}
+.fpnav .fn-res h4{margin:8px 8px 4px;font:600 10.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--n-muted)}
+.fpnav .fn-res a{display:block;padding:7px 9px;border-radius:7px}
+.fpnav .fn-res a b{display:flex;gap:7px;align-items:center;font-weight:600}
+.fpnav .fn-res a small{display:block;color:var(--n-muted);font-size:12.5px;line-height:1.35;margin-top:2px}
+.fpnav .fn-res a mark{background:transparent;color:var(--n-acc)}
+.fpnav .fn-res a.sel,.fpnav .fn-res a:hover{background:var(--n-bg2)}
+.fpnav .fn-res p{margin:10px;color:var(--n-muted);font-size:13px}
+.fpnav .fn-menu{display:none;appearance:none;background:transparent;border:1px solid var(--n-line);color:var(--n-ink);border-radius:8px;padding:7px 10px;font:inherit;cursor:pointer;margin-left:auto}
+@media (max-width:980px){
+  .fpnav .fn-in{flex-wrap:wrap;padding-block:6px}
+  .fpnav .fn-menu{display:inline-flex}
+  .fpnav .fn-search{order:3;flex:1 1 100%;margin-bottom:2px}
+  .fpnav .fn-links{order:4;flex:1 1 100%;display:none;flex-direction:column;align-items:stretch;padding:4px 0 8px}
+  .fpnav.open .fn-links{display:flex}
+  .fpnav .fn-grp{padding-left:10px}
+}
+@media print{.fpnav{display:none!important}}
 </style>
 </head>
 <body>
+<nav class="fpnav" id="fpnav" data-page="start" aria-label="Feuerprobe"></nav>
+<script>
+/* ---------- Gemeinsame Navigationsleiste mit Suche (von build.js in jede Seite in docs/ eingesetzt) ----------
+   Sprache: ?lang=, sonst localStorage 'fp-lang', sonst <html lang>; folgt danach jeder Änderung von <html lang>.
+   Suche: lädt search-index.js (von build.js erzeugt) beim ersten Fokus aufs Suchfeld; Strg+K oder / fokussiert. */
+(function(){
+  const nav=document.getElementById('fpnav');if(!nav)return;
+  const page=nav.dataset.page||'';
+  const L={
+    de:{home:'Start',run:'Der Run',guide:'SL-Leitfaden',plans:'Pläne',runner:'Runner',dossiers:'Dossiers',sheets:'Bögen',rules:'Cheat-Sheets',print:'Drucken',
+      search:'Suchen …  (Strg+K)',menu:'Menü',none:'Nichts gefunden.',loading:'Suche wird geladen …',gm:'SL',failed:'Suchindex nicht gefunden (search-index.js).',
+      k:{plan:'Orte auf den Plänen',route:'Wege',chapter:'SL-Leitfaden',npc:'Personen',runner:'Runner',rule:'Cheat-Sheets',run:'Der Run (Text)',page:'Seiten'}},
+    en:{home:'Home',run:'The run',guide:'GM guide',plans:'Plans',runner:'Runners',dossiers:'Dossiers',sheets:'Sheets',rules:'Cheat sheets',print:'Print',
+      search:'Search …  (Ctrl+K)',menu:'Menu',none:'No results.',loading:'Loading search …',gm:'GM',failed:'Search index not found (search-index.js).',
+      k:{plan:'Places on the plans',route:'Routes',chapter:'GM guide',npc:'People',runner:'Runners',rule:'Cheat sheets',run:'The run (text)',page:'Pages'}},
+  };
+  let lang='de';
+  try{const q=new URLSearchParams(location.search).get('lang');const v=localStorage.getItem('fp-lang');const h=document.documentElement.lang;
+    lang=(q==='en'||q==='de')?q:((v==='en'||v==='de')?v:(h==='en'?'en':'de'));}catch(e){}
+  const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+  function withLang(u){
+    if(!u||/^(https?:|mailto:)/.test(u)||/\.pdf(#|$)/.test(u))return u;
+    const h=u.indexOf('#');const hash=h>=0?u.slice(h):'';let base=h>=0?u.slice(0,h):u;
+    if(!base)return u;
+    base=base.replace(/([?&])lang=[a-z]+&?/,'$1').replace(/[?&]$/,'');
+    return base+(base.includes('?')?'&':'?')+'lang='+lang+hash;
+  }
+  const a=(id,href,label,gm)=>`<a class="fn-a" data-href="${href}" href="${href}"${page===id?' aria-current="page"':''}>${label}${gm?` <span class="fn-gm">${L[lang].gm}</span>`:''}</a>`;
+  function render(){
+    const t=L[lang];
+    const q=nav.querySelector('.fn-search input');const keep=q?q.value:'';
+    nav.innerHTML=`<div class="fn-in">
+      <a class="fn-brand" data-href="index.html" href="index.html"><i></i>Feuerprobe</a>
+      <button type="button" class="fn-menu" aria-expanded="false">☰ ${t.menu}</button>
+      <div class="fn-links">
+        ${a('run','feuerprobe-oneshot.html',t.run,true)}
+        ${a('guide','feuerprobe-leitfaden.html',t.guide,true)}
+        <span class="fn-grp"><span>${t.plans}</span>${a('plans','meridian-spire-plaene.html','2D')}${a('plans3d','meridian-spire-3d.html','3D')}</span>
+        <span class="fn-grp"><span>${t.runner}</span>${a('runner','feuerprobe-runner.html',t.dossiers)}${a('sheets','feuerprobe-runner-bogen.html',t.sheets)}</span>
+        ${a('rules','feuerprobe-regeln.html',t.rules)}
+        ${a('print','drucken.html','🖨 '+t.print)}
+      </div>
+      <div class="fn-search" role="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input type="search" placeholder="${esc(t.search)}" aria-label="${esc(t.search)}" autocomplete="off" spellcheck="false">
+        <div class="fn-res" hidden role="listbox"></div></div>
+    </div>`;
+    nav.querySelectorAll('[data-href]').forEach(el=>{el.href=withLang(el.dataset.href);});
+    const inp=nav.querySelector('.fn-search input');inp.value=keep;
+    nav.querySelector('.fn-menu').addEventListener('click',e=>{const o=nav.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',o);});
+    bindSearch(inp,nav.querySelector('.fn-res'));
+  }
+
+  /* ---------- Suche ---------- */
+  const norm=s=>String(s||'').toLowerCase().replace(/ß/g,'ss').normalize('NFD').replace(/[̀-ͯ]/g,'');
+  let idx=null,loading=false,failed=false;
+  function load(cb){
+    if(idx||failed){cb();return;}
+    if(window.FP_INDEX){prep();cb();return;}
+    if(loading)return;loading=true;
+    const s=document.createElement('script');s.src='search-index.js';
+    s.onload=()=>{prep();cb();};s.onerror=()=>{failed=true;cb();};document.head.appendChild(s);
+  }
+  function prep(){idx=(window.FP_INDEX||[]).map(e=>Object.assign({},e,{nt:norm(e.t),ns:norm(e.s),nx:norm(e.x||'')}));}
+  function score(e,toks){
+    let sc=0;
+    for(const tk of toks){
+      const wb=new RegExp('(^|[^a-z0-9])'+tk.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+      if(e.nt===tk)sc+=30;
+      else if(wb.test(e.nt))sc+=12;else if(e.nt.includes(tk))sc+=7;
+      else if(wb.test(e.ns))sc+=4;else if(e.ns.includes(tk))sc+=2;
+      else if(wb.test(e.nx))sc+=2;else if(tk.length>3&&e.nx.includes(tk))sc+=1;
+      else return 0;
+    }
+    return sc+(e.w||0);
+  }
+  function hl(s,toks){
+    let out=esc(s);
+    toks.forEach(tk=>{if(tk.length<2)return;const n=norm(out);const i=n.indexOf(tk);if(i>=0&&n.length===out.length)out=out.slice(0,i)+'<mark>'+out.slice(i,i+tk.length)+'</mark>'+out.slice(i+tk.length);});
+    return out;
+  }
+  function bindSearch(inp,res){
+    let sel=-1;
+    const run=()=>{
+      const t=L[lang];const q=norm(inp.value).trim();
+      if(!q){res.hidden=true;res.innerHTML='';return;}
+      if(failed){res.hidden=false;res.innerHTML=`<p>${t.failed}</p>`;return;}
+      if(!idx){res.hidden=false;res.innerHTML=`<p>${t.loading}</p>`;load(run);return;}
+      const toks=q.split(/\s+/).filter(Boolean);
+      const hits=idx.filter(e=>e.l===lang||e.l==='*').map(e=>[score(e,toks),e]).filter(x=>x[0]>0).sort((x,y)=>y[0]-x[0]).slice(0,40);
+      if(!hits.length){res.hidden=false;res.innerHTML=`<p>${t.none}</p>`;return;}
+      const order=[];const groups={};
+      hits.forEach(([,e])=>{if(!groups[e.k]){groups[e.k]=[];order.push(e.k);}groups[e.k].push(e);});
+      res.innerHTML=order.map(k=>`<h4>${t.k[k]||k}</h4>`+groups[k].map(e=>`<a href="${esc(withLang(e.u))}" role="option"><b><span>${hl(e.t,toks)}</span>${e.gm?` <span class="fn-gm">${t.gm}</span>`:''}</b>${e.s?`<small>${hl(e.s,toks)}</small>`:''}</a>`).join('')).join('');
+      res.hidden=false;sel=-1;
+    };
+    inp.addEventListener('focus',()=>load(()=>{if(inp.value)run();}));
+    inp.addEventListener('input',run);
+    inp.addEventListener('keydown',e=>{
+      const items=[...res.querySelectorAll('a')];
+      if(e.key==='ArrowDown'||e.key==='ArrowUp'){if(!items.length)return;e.preventDefault();sel=(sel+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;
+        items.forEach((x,i)=>x.classList.toggle('sel',i===sel));items[sel].scrollIntoView({block:'nearest'});}
+      else if(e.key==='Enter'){const it=items[sel>=0?sel:0];if(it){e.preventDefault();go(it.href);}}
+      else if(e.key==='Escape'){inp.value='';res.hidden=true;inp.blur();}
+    });
+    res.addEventListener('click',e=>{const it=e.target.closest('a');if(it){e.preventDefault();go(it.href);}});
+    document.addEventListener('click',e=>{if(!nav.contains(e.target))res.hidden=true;});
+  }
+  // Treffer auf derselben Seite: Hash/Query wechseln und neu laden, damit die Seiten-App den Deep Link auswertet.
+  function go(href){
+    const u=new URL(href,location.href);
+    if(u.pathname===location.pathname&&u.search===location.search&&u.hash){location.hash=u.hash;
+      const el=document.getElementById(decodeURIComponent(u.hash.slice(1)));if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+      nav.querySelector('.fn-res').hidden=true;return;}
+    location.href=href;
+  }
+  document.addEventListener('keydown',e=>{
+    const tag=(e.target.tagName||'').toLowerCase();const typing=tag==='input'||tag==='textarea'||tag==='select'||e.target.isContentEditable;
+    if(((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')||(!typing&&e.key==='/')){e.preventDefault();const i=nav.querySelector('.fn-search input');i.focus();i.select();}
+  });
+  render();
+  // Sprachwechsel der Seite übernehmen
+  new MutationObserver(()=>{const h=document.documentElement.lang==='en'?'en':'de';if(h!==lang){lang=h;render();}})
+    .observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+})();
+</script>
+
+
 <main>
-<header>
-  <div><h1>Shadowrun: Feuerprobe</h1><p class="sub" data-t="sub"></p></div>
+<header class="hero">
+  <div>
+    <div class="eyebrow">Shadowrun · Runners in the Shadows · Seattle 2080</div>
+    <h1>Feuerprobe</h1>
+    <p class="sub" data-t="sub"></p>
+  </div>
   <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE">DE</button><button type="button" id="langEN">EN</button></span>
 </header>
-<a class="card" href="feuerprobe-oneshot.html"><b data-t="oneshotT"></b><span data-t="oneshotD"></span></a>
-<a class="card" id="lnkGuide" href="feuerprobe-leitfaden.html"><b data-t="guideT"></b><span data-t="guideD"></span></a>
-<a class="card" id="lnkPlans" href="meridian-spire-plaene.html"><b data-t="plansT"></b><span data-t="plansD"></span></a>
-<a class="card" id="lnk3d" href="meridian-spire-3d.html"><b data-t="plans3dT"></b><span data-t="plans3dD"></span></a>
-<a class="card" id="lnkRunner" href="feuerprobe-runner.html"><b data-t="runnerT"></b><span data-t="runnerD"></span></a>
-<a class="card" id="lnkSheets" href="feuerprobe-runner-bogen.html"><b data-t="sheetsT"></b><span data-t="sheetsD"></span></a>
-<a class="card" id="lnkRules" href="feuerprobe-regeln.html"><b data-t="rulesT"></b><span data-t="rulesD"></span></a>
-<h2 data-t="pdfH"></h2>
-<ul class="pdfs" id="pdfs"></ul>
+<p class="tip" data-h="tip"></p>
+<div id="groups"></div>
+<section class="grp"><h2 data-t="faqH"></h2><p data-t="faqD"></p><div class="faq" id="faq"></div></section>
 <p class="fine" data-t="fine"></p>
 </main>
+
 <script>
-const T={
- de:{sub:'Oneshot für Runners in the Shadows · Seattle 2080 · Meridian Spire',
-  plans3dT:'Meridian Spire Pläne 3D',plans3dD:'Dieselben Ebenen zum Drehen und Zoomen: Tiefgarage, 111, 112, Dach, 110. Wandhöhe in drei Stufen, Kamera-Sichtkegel, Wege, SL- und Spieleransicht. Braucht eine Internetverbindung.',
-  plansT:'Meridian Spire Pläne 2D',plansD:'Schnitt, Tiefgarage, Ebene 111 und 112, Dach, Tresorgeschoss 110. SL- und Spieleransicht, Wege, Spielsituationen, Druckansicht für SL- und Spielerpläne.',
-  runnerT:'Runner',runnerD:'Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten und Welt-Einblicken. Mit SL-Notizen.',
-  sheetsT:'Runnerbögen',sheetsD:'Dieselben Runner als Bogen zum Austeilen, ein Runner pro A4, ohne SL-Notizen. Straßenname, Name und Pronomen frei wählbar.',
-  guideT:'SL-Leitfaden',guideD:'Führt die Spielleitung Schritt für Schritt durch den Run: Briefing, Party, Tresorgeschoss, Enthüllung, Payoff. Mit NPC-Kurzbiographien und Porträts, Alert Clock und Payoff-Rechner.',
-  rulesT:'Cheat-Sheets',rulesD:'Regeln zum Nachschlagen, je eine A4-Seite: für Spieler:innen Grundregeln, Actions, Kampf, Magie, Matrix und Alert; für die SL Würfe leiten, Gegner, Magie im Turm, Alert und Payoff.',
-  oneshotT:'Der Run',oneshotD:'Der vollständige Oneshot-Text: Briefing, Gala, Tresorgeschoss, Alert Clock, Enthüllung und Payoff (nur auf Deutsch).',
-  pdfH:'Fertige PDFs',fine:'Fan-Material für den privaten Spieltisch. Runners in the Shadows ist ein Spiel von Mark Cleveland Massengale; Shadowrun ist eine Marke von The Topps Company / Catalyst Game Labs.',
-  pdfs:[['Pläne, SL-Version','de/plaene-sl.pdf'],['Pläne, Spielerversion','de/plaene-spieler.pdf'],['Cheat-Sheets','de/cheatsheets-spieler.pdf|Spieler','de/cheatsheets-sl.pdf|SL'],['Alle acht Spielerbögen','de/feuerprobe-runner-alle.pdf'],['Einzelbögen','de/bogen-mercer.pdf|Mercer','de/bogen-chamaeleon.pdf|Chamäleon','de/bogen-kessel.pdf|Kessel','de/bogen-zephyr.pdf|Zephyr','de/bogen-bastion.pdf|Bastion','de/bogen-fizz.pdf|Fizz','de/bogen-stille.pdf|Stille','de/bogen-ravn.pdf|Ravn']]},
- en:{sub:'One-shot for Runners in the Shadows · Seattle 2080 · Meridian Spire',
-  plans3dT:'Meridian Spire Plans 3D',plans3dD:'The same levels to rotate and zoom: parking garage, 111, 112, roof, 110. Wall height in three steps, camera cones, routes, GM and player view. Needs an internet connection.',
-  plansT:'Meridian Spire Plans 2D',plansD:'Section, parking garage, levels 111 and 112, roof, vault level 110. GM and player view, routes, play situations, print view for GM and player plans.',
-  runnerT:'Runners',runnerD:'Eight pregenerated runners with stats, abilities, gear, contacts and insights into the world. With GM notes.',
-  sheetsT:'Runner sheets',sheetsD:'The same runners as handout sheets, one runner per A4 page, without GM notes. Street name, name and pronouns free to choose.',
-  guideT:'GM Guide',guideD:'Walks the GM through the run step by step: briefing, party, vault level, reveal, payoff. With NPC bios and portraits, alert clock and payoff calculator.',
-  rulesT:'Cheat sheets',rulesD:'Rules at a glance, one A4 page each: for players core rules, actions, combat, magic, Matrix and alert; for the GM running rolls, opposition, magic in the tower, alert and payoff.',
-  oneshotT:'The run',oneshotD:'The complete one-shot text: briefing, gala, vault level, alert clock, reveal and payoff (German only).',
-  pdfH:'Ready-made PDFs',fine:'Fan material for the private gaming table. Runners in the Shadows is a game by Mark Cleveland Massengale; Shadowrun is a trademark of The Topps Company / Catalyst Game Labs.',
-  pdfs:[['Plans, GM version','en/plans-gm.pdf'],['Plans, player version','en/plans-players.pdf'],['Cheat sheets','en/cheatsheets-players.pdf|Players','en/cheatsheets-gm.pdf|GM'],['All eight player sheets','en/feuerprobe-runners-all.pdf'],['Single sheets','en/sheet-mercer.pdf|Mercer','en/sheet-chamaeleon.pdf|Chameleon','en/sheet-kessel.pdf|Kessel','en/sheet-zephyr.pdf|Zephyr','en/sheet-bastion.pdf|Bastion','en/sheet-fizz.pdf|Fizz','en/sheet-stille.pdf|Hush','en/sheet-ravn.pdf|Ravn']]},
+/* ---------- Startseite: Inhalte nach Zweck, „Wo finde ich was?“ ---------- */
+const START={
+ de:{sub:'Oneshot für Runners in the Shadows im Meridian Spire. Eine Crew soll während einer Gala einen Aktenkoffer aus dem Tresorgeschoss stehlen und ahnt nicht, wem Turm und Koffer gehören.',
+  tip:'Tipp: <kbd>Strg</kbd> + <kbd>K</kbd> oder <kbd>/</kbd> durchsucht alles: Orte auf den Plänen, Personen, Runner, Regeln und Kapitel.',
+  gm:'SL',faqH:'Wo finde ich was?',faqD:'Typische Fragen am Spieltisch und wo die Antwort steht.',
+  groups:[
+   {h:'Vorbereiten',gm:true,d:'Für die Spielleitung, vor dem Abend. Enthält die Auflösung.',cards:[
+    {t:'SL-Leitfaden',gm:true,d:'Der Run Schritt für Schritt: Einstieg, Johnson, Recherche, Party, Tresorgeschoss, Flucht, Enthüllung, Payoff. Mit NPCs und Porträts.',u:'feuerprobe-leitfaden.html',btns:[['Öffnen','feuerprobe-leitfaden.html',1],['Personen','feuerprobe-leitfaden.html#npc-johnson']]},
+    {t:'Der Run',gm:true,d:'Der vollständige Oneshot-Text zum Durchlesen (nur auf Deutsch).',u:'feuerprobe-oneshot.html'},
+    {t:'SL-Cheat-Sheets',gm:true,d:'Würfe leiten, Kampf & Gegner, Magie im Turm, Alert/Matrix/Payoff. Je eine A4-Seite.',u:'feuerprobe-regeln.html?aud=gm'}]},
+   {h:'Am Tisch',d:'Was während des Spiels offen liegt.',cards:[
+    {t:'Pläne des Meridian Spire',d:'Schnitt, Tiefgarage, Ebene 111 und 112, Dach, Tresorgeschoss 110. Als Grundriss mit Orten und Wegen oder in 3-D zum Drehen und Begehen. Beide mit SL- und Spieleransicht.',btns:[['2D-Pläne','meridian-spire-plaene.html',1],['3D-Ansicht','meridian-spire-3d.html'],['Ebene 110','meridian-spire-plaene.html?level=110']]},
+    {t:'Runner-Dossiers',d:'Acht vorgefertigte Runner mit Werten, Fähigkeiten, Ausrüstung, Kontakten. Klickbare Tracker, SL-Notizen schaltbar.',u:'feuerprobe-runner.html'},
+    {t:'Cheat-Sheets',d:'Grundregeln, Welche Action?, Kampf, Magie, Matrix/Technik/Alert für alle am Tisch.',u:'feuerprobe-regeln.html?aud=player'},
+    {t:'Alert Clock & Payoff',gm:true,d:'Klickbare Alert Clock und Payoff-Rechner in der Seitenleiste des Leitfadens.',btns:[['Alert Clock','feuerprobe-leitfaden.html#alertPanel',1],['Payoff-Rechner','feuerprobe-leitfaden.html#calcPanel']]}]},
+   {h:'Austeilen & Drucken',d:'Alles auf Papier: fertige Mappen oder einzeln.',cards:[
+    {t:'Druckmappen',d:'SL-Mappe und Spielerpaket als je eine PDF, dazu alle Einzel-PDFs, Checkliste und Drucktipps.',u:'drucken.html',btns:[['Zur Druckseite','drucken.html',1]]},
+    {t:'Runnerbögen',d:'Ein Runner pro A4 zum Austeilen, ohne SL-Notizen. Straßenname, Name und Pronomen tragen die Spielenden selbst ein.',u:'feuerprobe-runner-bogen.html'}]}],
+  faq:[['Wie sieht Ebene 110 aus?','Pläne 2D','meridian-spire-plaene.html?level=110'],['Kann ich durch den Turm laufen?','3D-Ansicht','meridian-spire-3d.html?level=111'],
+   ['Wie kommt man vom Dach nach unten?','Schnitt','meridian-spire-plaene.html?level=schnitt'],['Wer ist Dorian Kade?','Leitfaden','feuerprobe-leitfaden.html#npc-kade'],
+   ['Wer ist Dr. Venn?','Leitfaden','feuerprobe-leitfaden.html#npc-venn'],['Was steht im Briefing?','Leitfaden','feuerprobe-leitfaden.html#johnson'],
+   ['Welche Werte hat Ravn?','Dossier','feuerprobe-runner.html#ravn'],['Wie funktioniert ein Action Roll?','Cheat-Sheet','feuerprobe-regeln.html?aud=all#grundregeln'],
+   ['Wie läuft Kampf?','Cheat-Sheet','feuerprobe-regeln.html?aud=all#kampf'],['Was passiert bei Alert 4?','Alert Clock','feuerprobe-leitfaden.html#alertPanel'],
+   ['Wie viel zahlt Johnson?','Payoff','feuerprobe-leitfaden.html#payoff'],['Was drucke ich für die Runde?','Drucken','drucken.html']],
+  fine:'Fan-Material für den privaten Spieltisch. Runners in the Shadows ist ein Spiel von Mark Cleveland Massengale; Shadowrun ist eine Marke von The Topps Company / Catalyst Game Labs.'},
+ en:{sub:'One-shot for Runners in the Shadows in the Meridian Spire. During a gala a crew is hired to steal a briefcase from the vault level, unaware of who owns the tower and the case.',
+  tip:'Tip: <kbd>Ctrl</kbd> + <kbd>K</kbd> or <kbd>/</kbd> searches everything: places on the plans, people, runners, rules and chapters.',
+  gm:'GM',faqH:'Where do I find …?',faqD:'Typical questions at the table and where the answer is.',
+  groups:[
+   {h:'Prepare',gm:true,d:'For the GM, before the session. Contains the reveal.',cards:[
+    {t:'GM guide',gm:true,d:'The run step by step: entry, Johnson, legwork, party, vault level, escape, reveal, payoff. With NPCs and portraits.',u:'feuerprobe-leitfaden.html',btns:[['Open','feuerprobe-leitfaden.html',1],['People','feuerprobe-leitfaden.html#npc-johnson']]},
+    {t:'The run',gm:true,d:'The complete one-shot text to read through (German only).',u:'feuerprobe-oneshot.html'},
+    {t:'GM cheat sheets',gm:true,d:'Running rolls, combat & opposition, magic in the tower, alert/Matrix/payoff. One A4 page each.',u:'feuerprobe-regeln.html?aud=gm'}]},
+   {h:'At the table',d:'What stays open during play.',cards:[
+    {t:'Plans of the Meridian Spire',d:'Section, parking garage, levels 111 and 112, roof, vault level 110. As floor plans with places and routes or in 3D to rotate and walk. Both with GM and player view.',btns:[['2D plans','meridian-spire-plaene.html',1],['3D view','meridian-spire-3d.html'],['Level 110','meridian-spire-plaene.html?level=110']]},
+    {t:'Runner dossiers',d:'Eight pregenerated runners with stats, abilities, gear, contacts. Clickable trackers, GM notes switchable.',u:'feuerprobe-runner.html'},
+    {t:'Cheat sheets',d:'Core rules, which action?, combat, magic, Matrix/tech/alert for everyone at the table.',u:'feuerprobe-regeln.html?aud=player'},
+    {t:'Alert clock & payoff',gm:true,d:'Clickable alert clock and payoff calculator in the guide’s sidebar.',btns:[['Alert clock','feuerprobe-leitfaden.html#alertPanel',1],['Payoff calculator','feuerprobe-leitfaden.html#calcPanel']]}]},
+   {h:'Hand out & print',d:'Everything on paper: ready-made binders or one by one.',cards:[
+    {t:'Print binders',d:'GM binder and player pack as one PDF each, plus all single PDFs, a checklist and print tips.',u:'drucken.html',btns:[['Go to print page','drucken.html',1]]},
+    {t:'Runner sheets',d:'One runner per A4 page to hand out, without GM notes. Players fill in street name, name and pronouns.',u:'feuerprobe-runner-bogen.html'}]}],
+  faq:[['What does level 110 look like?','Plans 2D','meridian-spire-plaene.html?level=110'],['Can I walk through the tower?','3D view','meridian-spire-3d.html?level=111'],
+   ['How do you get down from the roof?','Section','meridian-spire-plaene.html?level=schnitt'],['Who is Dorian Kade?','Guide','feuerprobe-leitfaden.html#npc-kade'],
+   ['Who is Dr. Venn?','Guide','feuerprobe-leitfaden.html#npc-venn'],['What is in the briefing?','Guide','feuerprobe-leitfaden.html#johnson'],
+   ['What are Ravn’s stats?','Dossier','feuerprobe-runner.html#ravn'],['How does an action roll work?','Cheat sheet','feuerprobe-regeln.html?aud=all#grundregeln'],
+   ['How does combat work?','Cheat sheet','feuerprobe-regeln.html?aud=all#kampf'],['What happens at alert 4?','Alert clock','feuerprobe-leitfaden.html#alertPanel'],
+   ['How much does Johnson pay?','Payoff','feuerprobe-leitfaden.html#payoff'],['What do I print for the group?','Print','drucken.html']],
+  fine:'Fan material for the private gaming table. Runners in the Shadows is a game by Mark Cleveland Massengale; Shadowrun is a trademark of The Topps Company / Catalyst Game Labs.'},
 };
 let lang='de';
 try{const q=new URLSearchParams(location.search).get('lang');const v=localStorage.getItem('fp-lang');lang=(q==='en'||q==='de')?q:((v==='en'||v==='de')?v:'de');}catch(e){}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+// Sprache an interne Links anhängen (Hash bleibt hinten)
+function L(u){if(/\.pdf(#|$)/.test(u))return u;const h=u.indexOf('#');const hash=h>=0?u.slice(h):'';const b=h>=0?u.slice(0,h):u;return b+(b.includes('?')?'&':'?')+'lang='+lang+hash;}
 function render(){
-  const t=T[lang];document.documentElement.lang=lang;
+  const t=START[lang];document.documentElement.lang=lang;
   document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=t[el.dataset.t]||'';});
-  ['lnkPlans','lnk3d','lnkRunner','lnkSheets','lnkGuide','lnkRules'].forEach(id=>{const a=document.getElementById(id);a.href=a.href.split('?')[0]+'?lang='+lang;});
-  document.getElementById('pdfs').innerHTML=t.pdfs.map(row=>{const [label,...links]=row;return `<li><span>${label}</span>${links.map(l=>{const [f,n]=l.split('|');return `<a href="pdf/${f}">${n||f.split('/').pop()}</a>`;}).join('')}</li>`;}).join('');
+  document.querySelectorAll('[data-h]').forEach(el=>{el.innerHTML=t[el.dataset.h]||'';});
+  const gmb=`<span class="gmb">${t.gm}</span>`;
+  document.getElementById('groups').innerHTML=t.groups.map(g=>`<section class="grp"><h2>${esc(g.h)}${g.gm?gmb:''}</h2><p>${esc(g.d)}</p><div class="cards">${
+    g.cards.map(c=>{const head=`<b>${esc(c.t)}${c.gm&&!g.gm?gmb:''}</b><span class="d">${esc(c.d)}</span>`;
+      if(c.btns)return `<div class="card">${head}<div class="btns">${c.btns.map(([l,u,p])=>`<a href="${esc(L(u))}"${p?' class="pri"':''}>${esc(l)}</a>`).join('')}</div></div>`;
+      return `<a class="card" href="${esc(L(c.u))}">${head}</a>`;}).join('')}</div></section>`).join('');
+  document.getElementById('faq').innerHTML=t.faq.map(([q,l,u])=>`<div><span>${esc(q)}</span><a href="${esc(L(u))}">${esc(l)} →</a></div>`).join('');
   document.getElementById('langDE').setAttribute('aria-pressed',lang==='de');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en');
 }
 document.getElementById('langDE').addEventListener('click',()=>{lang='de';try{localStorage.setItem('fp-lang','de');}catch(e){}render();});
 document.getElementById('langEN').addEventListener('click',()=>{lang='en';try{localStorage.setItem('fp-lang','en');}catch(e){}render();});
 render();
+
 </script>
+
 </body>
 </html>

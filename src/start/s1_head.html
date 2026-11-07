@@ -1,0 +1,41 @@
+<title>Shadowrun: Feuerprobe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#E4E8EC;--surface:#FBFBFC;--surface-2:#F0F2F5;--ink:#161C26;--ink-2:#3C4756;--muted:#66717F;--line:#CBD1D8;--line-2:#AEB7C1;--accent:#0F7B86;--accent-soft:rgba(15,123,134,.12);--gm:#8A3FB3;--gm-soft:rgba(138,63,179,.10)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1218;--surface:#151B23;--surface-2:#1B222C;--ink:#E7EBF0;--ink-2:#C4CCD6;--muted:#8E9AA9;--line:#293441;--line-2:#3B4756;--accent:#3FC1CC;--accent-soft:rgba(63,193,204,.16);--gm:#CD85FF;--gm-soft:rgba(205,133,255,.12)}}
+:root[data-theme="dark"]{--bg:#0D1218;--surface:#151B23;--surface-2:#1B222C;--ink:#E7EBF0;--ink-2:#C4CCD6;--muted:#8E9AA9;--line:#293441;--line-2:#3B4756;--accent:#3FC1CC;--accent-soft:rgba(63,193,204,.16);--gm:#CD85FF;--gm-soft:rgba(205,133,255,.12)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:1120px;margin:0 auto;padding:34px 16px 56px}
+a{color:var(--accent)}
+header.hero{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 28px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.eyebrow{font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+h1{font:700 clamp(38px,6vw,58px)/.95 "Barlow Condensed","Arial Narrow",sans-serif;margin:0 0 8px}
+p.sub{color:var(--ink-2);margin:0;max-width:62ch}
+.langs{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden;flex:none}
+.langs button{appearance:none;border:0;background:transparent;color:var(--ink);font:600 13px "IBM Plex Sans",sans-serif;padding:8px 13px;cursor:pointer;letter-spacing:.04em}
+.langs button+button{border-left:1px solid var(--line-2)}
+.langs button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.tip{margin:18px 0 0;font-size:14px;color:var(--muted)}
+.tip kbd{font:500 12px "IBM Plex Mono",monospace;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:var(--surface);color:var(--ink)}
+section.grp{margin-top:34px}
+section.grp>h2{font:700 26px/1 "Barlow Condensed",sans-serif;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+section.grp>p{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--ink);position:relative}
+a.card:hover{border-color:var(--accent)}
+.card b{font:700 22px/1.05 "Barlow Condensed",sans-serif;display:flex;align-items:center;gap:8px}
+.card span.d{color:var(--ink-2);font-size:14.5px}
+.card .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px}
+.card .btns a{border:1px solid var(--line-2);border-radius:999px;padding:6px 13px;font:600 13.5px "IBM Plex Sans",sans-serif;text-decoration:none;color:var(--ink);background:var(--surface-2)}
+.card .btns a:hover{border-color:var(--accent);color:var(--accent)}
+.card .btns a.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.gmb{font:600 10px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--gm);border:1px solid currentColor;border-radius:4px;padding:3px 5px;background:var(--gm-soft)}
+.faq{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0 22px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 18px}
+.faq div{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.faq div span{color:var(--ink-2)}
+.faq div a{white-space:nowrap;font-weight:600;font-size:14px;text-decoration:none}
+.faq div a:hover{text-decoration:underline}
+p.fine{font-size:12.5px;color:var(--muted);margin-top:34px;max-width:90ch}
+</style>

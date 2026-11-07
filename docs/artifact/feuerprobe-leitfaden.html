@@ -97,6 +97,12 @@ nav.steps li.sep{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)
 .chap>header h2{font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1.02}
 .chap>header .lead{grid-column:1;color:var(--ink-2);max-width:78ch;margin-top:6px;font-size:14.5px}
 .chap>header .meta{display:flex;flex-direction:column;gap:6px;align-items:flex-end;grid-row:1/3}
+.chap>header .xref{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:8px;font-size:13px}
+.chap>header .xref b{font:600 10.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.chap>header .xref>a,.chap>header .xref .xp{border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--surface);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chap>header .xref a{color:var(--accent);text-decoration:none}
+.chap>header .xref>a:hover{border-color:var(--accent)}
+.chap>header .xref a:hover{text-decoration:underline}
 .chap .time{font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
 .done{display:inline-flex;align-items:center;gap:6px;font:500 12.5px "IBM Plex Sans",sans-serif;border:1px solid var(--line-2);border-radius:999px;padding:5px 10px;cursor:pointer;background:var(--box);color:var(--ink)}
 .done input{margin:0;accent-color:var(--accent)}
@@ -199,15 +205,21 @@ details.qa .a{padding:10px 14px 4px 44px}
 @media print{
   @page{size:A4;margin:11mm}
   body{background:#fff;font-size:11.5px}
-  .tog,.side,.toplink,.done,.npc .por .rm{display:none!important}
+  .tog,.side,.toplink,.done,.npc .por .rm,.npc .por .lbl,.npc .por .pick{display:none!important}
+  .chap>header .xref{font-size:10px;gap:3px 6px}
+  .chap>header .xref>a,.chap>header .xref .xp{padding:1px 6px;border-color:#ccc}
+  .chap>header .xref a{color:inherit}
   .wrap{max-width:none;padding:0}
   .layout{display:block;margin-top:10px}
   .main{gap:10px}
-  .card{box-shadow:none;border-color:#bbb;break-inside:avoid;padding:12px 14px}
-  .card.long{break-inside:auto}
+  .card{box-shadow:none;border-color:#bbb;break-inside:auto;padding:12px 14px}
+  .chap>header{break-after:avoid}
+  .chap h3,.chap h4{break-after:avoid}
+  .tile,.note,.q,.stage,table.tb tr,.qr .tile{break-inside:avoid}
   .chap>header h2{font-size:22px}
   .npc{break-inside:avoid;box-shadow:none}
-  .npcs{grid-template-columns:1fr 1fr}
+  .npcs{grid-template-columns:1fr}
+  .npc{grid-template-columns:120px 1fr}
   .npc.wide .por{aspect-ratio:21/9}
   .grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}
   .stages{grid-template-columns:repeat(4,1fr)}
@@ -226,8 +238,6 @@ details.qa .a{padding:10px 14px 4px 44px}
   </div>
   <div class="tog">
     <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
-    <a id="lnkPlans" href="meridian-spire-plaene.html"></a>
-    <a id="lnkRunner" href="feuerprobe-runner.html"></a>
     <button type="button" id="btnPrint"></button>
   </div>
 </header>
@@ -263,7 +273,7 @@ const PORTRAITS = {
 /* ---------- SL-Leitfaden: deutsche Daten ---------- */
 const GUIDE_DE={
  ui:{title:'SL-Leitfaden',subtitle:'Der Run „Feuerprobe“ Schritt für Schritt · Seattle 2080 · Meridian Spire',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
-  plans:'Pläne des Meridian Spire',runner:'Runner & Bögen',print:'Drucken',nav:'Ablauf',navDone:'erledigt',doneLbl:'Abschnitt erledigt',
+  print:'Drucken',nav:'Ablauf',navDone:'erledigt',doneLbl:'Abschnitt erledigt',
   alert:'Alert Clock',alertSub:'Segmente anklicken',alertReset:'zurück',alertNames:['Routine','Routine','Verdacht','Verdacht','Aktiver Alarm','Aktiver Alarm','Lockdown'],
   alertDesc:['Systeme werten Auffälligkeiten als Event-Abweichung. Drohnen patrouillieren nach Muster.','Systeme werten Auffälligkeiten als Event-Abweichung. Drohnen patrouillieren nach Muster.','Kameras gleichen gezielter ab, Türen verlangen erneut Berechtigung, Personal wird diskret befragt.','Kameras gleichen gezielter ab, Türen verlangen erneut Berechtigung, Personal wird diskret befragt.','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge umgeleitet, erfasste Runner werden verfolgt.','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge umgeleitet, erfasste Runner werden verfolgt.','Fluchtwege verriegelt, externe Response verständigt. Eskalation, kein Scheitern.'],
   calc:'Payoff-Rechner',calcChecks:[['open','Koffer wurde geöffnet (auch fachgerecht)'],['loot','Zusätzliche Beute oder Schaden an der Sammlung'],['venn','Dr. Venn verletzt'],['harm','Gäste oder Personal verletzt oder getötet'],['gore','Wahllose Tötungen trotz Anweisung']],
@@ -530,7 +540,7 @@ const GUIDE_DE={
 /* ---------- GM guide: English data ---------- */
 const GUIDE_EN={
  ui:{title:'GM Guide',subtitle:'The run “Trial by Fire” step by step · Seattle 2080 · Meridian Spire',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
-  plans:'Meridian Spire plans',runner:'Runners & sheets',print:'Print',nav:'Flow',navDone:'done',doneLbl:'Section done',
+  print:'Print',nav:'Flow',navDone:'done',doneLbl:'Section done',
   alert:'Alert clock',alertSub:'click segments',alertReset:'reset',alertNames:['Routine','Routine','Suspicion','Suspicion','Active alarm','Active alarm','Lockdown'],
   alertDesc:['Systems treat anomalies as normal event deviations. Drones patrol on standard patterns.','Systems treat anomalies as normal event deviations. Drones patrol on standard patterns.','Cameras cross-check more closely, doors ask for credentials again, staff are quietly questioned.','Cameras cross-check more closely, doors ask for credentials again, staff are quietly questioned.','Drones search actively, service routes are closed, elevators rerouted, identified runners are pursued.','Drones search actively, service routes are closed, elevators rerouted, identified runners are pursued.','Escape routes locked, external response called. Escalation, not failure.'],
   calc:'Payoff calculator',calcChecks:[['open','Case was opened (even expertly)'],['loot','Extra loot or damage to the collection'],['venn','Dr. Venn harmed'],['harm','Guests or staff injured or killed'],['gore','Indiscriminate killing despite orders']],
@@ -797,9 +807,11 @@ const GUIDE_EN={
 /* ---------- SL-Leitfaden: Renderer, Alert Clock, Payoff-Rechner, Porträts ---------- */
 let lang='de';
 const state={alert:0,done:{},calc:{}};
+let printMode=false; // ?print=1: Druckfassung für tools/make-pdf.js (alle Antworten aufgeklappt)
 (function(){try{
   const q=new URLSearchParams(location.search).get('lang');
-  if(q==='en'||q==='de')lang=q;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}
+  if(q==='en'||q==='de')lang=q;
+  if(new URLSearchParams(location.search).get('print')==='1')printMode=true;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}
   const s=JSON.parse(localStorage.getItem('fp-guide')||'{}');if(s&&typeof s==='object')Object.assign(state,s);
 }catch(e){}})();
 function save(){try{localStorage.setItem('fp-guide',JSON.stringify(state));localStorage.setItem('fp-lang',lang);}catch(e){}}
@@ -874,13 +886,47 @@ function bindPortraits(){
   });
 }
 
+/* ---- Querverweise: Kapitel → Planebenen, Cheat-Sheets, Personen (sprachneutral) ---- */
+const XREF={
+  blick:{plans:['schnitt']},
+  einstieg:{sheets:['grundregeln','sl-wuerfe'],runner:true},
+  johnson:{npcs:['johnson','johnson-rookie']},
+  info:{plans:['schnitt'],sheets:['heist'],npcs:['venn','kade']},
+  plan:{plans:['schnitt','garage','111'],sheets:['actions']},
+  party:{plans:['111','112'],sheets:['sl-kampf'],npcs:['kade','kade-troll','venn']},
+  ebene110:{plans:['110'],sheets:['sl-alert','sl-magie']},
+  tresor:{plans:['110'],sheets:['sl-magie'],npcs:['veyrath']},
+  flucht:{plans:['dach','schnitt','garage'],sheets:['sl-kampf','kampf'],npcs:['kade']},
+  enthuellung:{npcs:['veyrath','johnson']},
+  payoff:{sheets:['sl-alert'],npcs:['johnson']},
+  werkzeuge:{sheets:['sl-wuerfe','sl-alert']},
+  referenz:{sheets:['grundregeln','actions']},
+};
+const XL={
+  de:{see:'Dazu',plan:'Plan',sheet:'Cheat-Sheet',runner:'Runner-Dossiers',sheets:'Bögen',
+    lv:{schnitt:'Schnitt',garage:'Tiefgarage',111:'Ebene 111',112:'Ebene 112',dach:'Dach',110:'Ebene 110'},
+    sh:{grundregeln:'Grundregeln',actions:'Welche Action?',kampf:'Kampf',magie:'Magie',heist:'Matrix, Technik & Alert','sl-wuerfe':'Würfe leiten','sl-kampf':'Kampf & Gegner','sl-magie':'Magie im Turm','sl-alert':'Alert, Matrix & Payoff'}},
+  en:{see:'See also',plan:'Plan',sheet:'Cheat sheet',runner:'Runner dossiers',sheets:'Sheets',
+    lv:{schnitt:'Section',garage:'Parking garage',111:'Level 111',112:'Level 112',dach:'Roof',110:'Level 110'},
+    sh:{grundregeln:'Core rules',actions:'Which action?',kampf:'Combat',magie:'Magic',heist:'Matrix, tech & alert','sl-wuerfe':'Running rolls','sl-kampf':'Combat & opposition','sl-magie':'Magic in the tower','sl-alert':'Alert, Matrix & payoff'}},
+};
+const NPCL={johnson:'Johnson (A)','johnson-rookie':'Johnson (B)',kade:'Kade (A)','kade-troll':'Kade (B)',venn:'Dr. Venn',veyrath:'Veyrath'};
+function xref(id){
+  const x=XREF[id];if(!x)return '';const t=XL[lang],q='?lang='+lang;const out=[];
+  (x.plans||[]).forEach(l=>out.push(`<span class="xp">${t.plan} ${t.lv[l]}: <a href="meridian-spire-plaene.html${q}&level=${l}">2D</a>${l!=='schnitt'?` · <a href="meridian-spire-3d.html${q}&level=${l}">3D</a>`:''}</span>`));
+  (x.sheets||[]).forEach(s=>out.push(`<a href="feuerprobe-regeln.html${q}&aud=all#${s}">${t.sheet} ${t.sh[s]}</a>`));
+  if(x.runner)out.push(`<a href="feuerprobe-runner.html${q}">${t.runner}</a>`,`<a href="feuerprobe-runner-bogen.html${q}">${t.sheets}</a>`);
+  (x.npcs||[]).forEach(n=>out.push(`<a href="#npc-${n}">${NPCL[n]}</a>`));
+  return out.length?`<nav class="xref" aria-label="${t.see}"><b>${t.see}</b>${out.join('')}</nav>`:'';
+}
+
 /* ---- Kapitel ---- */
 function chapter(ch){
   const on=!!state.done[ch.id];
   return `<article class="card chap${ch.long?' long':''}" id="${ch.id}" data-id="${ch.id}"><header>
   <div class="num">${ch.num}</div>
   <div class="meta"><span class="time">${ch.time}</span><label class="done${on?' on':''}"><input type="checkbox" data-done="${ch.id}"${on?' checked':''}>${T().doneLbl}</label></div>
-  <h2>${ch.title}</h2><p class="lead">${ch.lead}</p></header>${ch.blocks.map(block).join('')}</article>`;
+  <h2>${ch.title}</h2><p class="lead">${ch.lead}</p>${xref(ch.id)}</header>${ch.blocks.map(block).join('')}</article>`;
 }
 function renderNav(){
   const chs=G().chapters;
@@ -924,8 +970,7 @@ function renderAll(){
   const U=T();document.documentElement.lang=lang;
   document.title=lang==='en'?'Feuerprobe GM Guide':'Feuerprobe SL-Leitfaden';
   $('title').textContent=U.title;$('subtitle').textContent=U.subtitle;$('eyebrow').textContent=U.eyebrow;
-  $('lnkPlans').textContent=U.plans;$('lnkRunner').textContent=U.runner;$('btnPrint').textContent=U.print;
-  ['lnkPlans','lnkRunner'].forEach(id=>{const a=$(id);a.href=a.getAttribute('href').split('?')[0]+'?lang='+lang;});
+  $('btnPrint').textContent=U.print;
   $('navH').innerHTML=`${U.nav}<span id="navCount"></span>`;$('alertH').innerHTML=`${U.alert}<span>${U.alertSub}</span>`;$('calcH').textContent=U.calc;$('alertReset').textContent=U.alertReset;
   $('main').innerHTML=G().chapters.map(chapter).join('');
   $('fine').innerHTML=U.fine;
@@ -933,6 +978,7 @@ function renderAll(){
   renderNav();renderClock();renderCalc();bindPortraits();
   document.querySelectorAll('[data-done]').forEach(cb=>cb.addEventListener('change',()=>{state.done[cb.dataset.done]=cb.checked;cb.closest('.done').classList.toggle('on',cb.checked);save();renderNav();}));
   observe();
+  if(printMode)document.querySelectorAll('details.qa').forEach(d=>{d.open=true;});
 }
 let io;
 function observe(){
@@ -955,5 +1001,7 @@ window.addEventListener('afterprint',()=>{document.querySelectorAll('details.qa'
 window.addEventListener('scroll',()=>{$('toplink').classList.toggle('show',window.scrollY>600);},{passive:true});
 $('toplink').addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});
 renderAll();
+// Deep Link (#kapitel, #npc-…, #alertPanel): nach dem Rendern und dem Laden der Schriften hinscrollen
+if(location.hash&&!printMode){const go=()=>{const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el)el.scrollIntoView({block:'start',behavior:'instant'});};go();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);}
 
 </script>

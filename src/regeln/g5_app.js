@@ -45,8 +45,6 @@ function render(){
   document.title=(lang==='en'?'Feuerprobe Cheat Sheets':'Feuerprobe Cheat-Sheets');
   $('eyebrow').textContent=U.eyebrow;$('title').textContent=U.title;$('subtitle').textContent=U.subtitle;
   $('audAll').textContent=U.all;$('audPlayer').textContent=U.player;$('audGm').textContent=U.gm;
-  $('lnkHome').textContent=U.home;$('lnkHome').href='index.html?lang='+lang;
-  $('lnkGuide').textContent=U.guide;$('lnkGuide').href='feuerprobe-leitfaden.html?lang='+lang;
   $('btnPrint').textContent=U.print;$('fine').innerHTML=U.fine;
   $('langDE').setAttribute('aria-pressed',lang==='de');$('langEN').setAttribute('aria-pressed',lang==='en');
   document.querySelectorAll('#audGroup button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.aud===aud));
@@ -60,3 +58,5 @@ document.querySelectorAll('#audGroup button').forEach(b=>b.addEventListener('cli
 $('btnPrint').addEventListener('click',()=>window.print());
 addEventListener('scroll',()=>$('toplink').classList.toggle('show',scrollY>600),{passive:true});
 render();
+// Deep Link #sheet-id (aus Leitfaden, Startseite, Suche): nach dem Laden der Schriften erneut hinscrollen
+if(location.hash){const go=()=>{const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el)el.scrollIntoView({block:'start',behavior:'instant'});};go();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);}

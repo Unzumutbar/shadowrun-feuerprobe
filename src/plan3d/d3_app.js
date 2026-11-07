@@ -60,10 +60,11 @@ const UI={
 const state={gm:true,routes:true,walls:'low',labels:true,guests:true,patrol:false,night:false,open:[],cur:'111'};
 try{const s=JSON.parse(localStorage.getItem('ms-3d')||'{}');if(s&&typeof s==='object'){if('full' in s){s.walls=s.full?'full':'low';delete s.full;}Object.assign(state,s);}if(!['low','mid','full'].includes(state.walls))state.walls='low';const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}catch(e){}
 // Geteilte Position: ?level=111&pos=520,540&dir=90&walk=1&view=player
-let startAt=null;
+let startAt=null,startSpot=null; // ?spot=<n>: diesen Ort beim Laden auswählen (Deep Link aus 2D, Suche, Leitfaden)
 try{const q=new URLSearchParams(location.search),l=q.get('lang'),lv=q.get('level');if(l==='en'||l==='de')lang=l;if(lv&&LEVELS3D.some(L=>L.id===lv))state.cur=lv;
   const pos=(q.get('pos')||'').split(',').map(Number);if(pos.length===2&&pos.every(Number.isFinite))startAt={x:pos[0],z:pos[1],dir:+q.get('dir')||0};
-  if(q.get('walk')==='1'&&!startAt)startAt={};if(q.get('view')==='player')state.gm=false;}catch(e){}
+  if(q.get('walk')==='1'&&!startAt)startAt={};if(q.get('view')==='player')state.gm=false;
+  const sp=+q.get('spot');if(sp)startSpot=sp;}catch(e){}
 const openDoors=new Set(Array.isArray(state.open)?state.open:[]);
 function save(){try{localStorage.setItem('ms-3d',JSON.stringify(state));localStorage.setItem('fp-lang',lang);}catch(e){}}
 const level=()=>LEVELS3D.find(L=>L.id===state.cur)||LEVELS3D[0];
@@ -725,7 +726,10 @@ function select(n,scroll){
   selected=selected===n?null:n;rebuild();
   document.querySelectorAll('#spots li').forEach(li=>li.classList.toggle('hl',+li.dataset.n===selected));
   if(scroll&&selected){const li=document.querySelector(`#spots li[data-n="${selected}"]`);if(li)li.scrollIntoView({block:'nearest',behavior:'smooth'});}
+  link2d();
 }
+// Zurück nach 2D: gleiche Ebene, gewählter Ort
+function link2d(){const a=document.getElementById('lnk2d');if(a)a.href='meridian-spire-plaene.html?lang='+lang+'&level='+state.cur+(selected?'&spot='+selected:'');}
 function renderUI(){
   const t=UI[lang],L=level();document.documentElement.lang=lang;document.body.classList.toggle('gm',state.gm);
   document.getElementById('subtitle').textContent=t.subtitle;
@@ -733,7 +737,7 @@ function renderUI(){
   const setT=(id,on,txt)=>{const b=document.getElementById(id);b.setAttribute('aria-pressed',on?'true':'false');b.lastChild.textContent=txt;};
   setT('btnGM',state.gm,state.gm?t.gmOn:t.gmOff);setT('btnRoutes',state.routes,t.routes);setT('btnGuests',state.guests,t.guests);document.getElementById('wallsLbl').textContent=t.walls;document.querySelectorAll('#walls button').forEach(b=>{b.textContent=t.wallSteps[b.dataset.w];b.setAttribute('aria-pressed',b.dataset.w===state.walls?'true':'false');});setT('btnLabels',state.labels,t.labels);
   document.getElementById('langDE').setAttribute('aria-pressed',lang==='de'?'true':'false');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en'?'true':'false');
-  const back=document.getElementById('lnk2d');back.textContent=t.back;back.href='meridian-spire-plaene.html?lang='+lang;
+  const back=document.getElementById('lnk2d');back.textContent=t.back;link2d();
   document.getElementById('vReset').textContent=t.reset;document.getElementById('vTop').textContent=t.top;document.getElementById('hint').textContent=(walk.on?t.walkHint:t.hint)+(state.gm?t.doorHint:'');
   setT('btnPatrol',state.patrol,t.patrol);setT('btnNight',state.night,t.night);document.getElementById('vShare').textContent=t.share;
   const vw=document.getElementById('vWalk');vw.textContent=walk.on?t.walkExit:t.walk;vw.setAttribute('aria-pressed',walk.on?'true':'false');
@@ -769,5 +773,7 @@ document.getElementById('vFull').addEventListener('click',()=>setFull(!isFull())
 window.addEventListener('keydown',e=>{if(e.code==='Escape'&&document.getElementById('stage').classList.contains('max')&&!walk.on)setMax(false);});
 document.getElementById('spots').addEventListener('click',e=>{const li=e.target.closest('li');if(li)select(+li.dataset.n,false);});
 document.getElementById('spots').addEventListener('keydown',e=>{const li=e.target.closest('li');if(li&&(e.key==='Enter'||e.key===' ')){e.preventDefault();select(+li.dataset.n,false);}});
+if(startSpot&&(level().spots||[]).some(s=>s.n===startSpot))selected=startSpot;
 renderUI();
+if(selected){const li=document.querySelector(`#spots li[data-n="${selected}"]`);if(li)setTimeout(()=>li.scrollIntoView({block:'nearest'}),50);}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{initGL();});else initGL();

@@ -1,6 +1,6 @@
 /* ---------- Spielerbögen / player sheets: ein Runner pro A4, DE + EN ---------- */
 const UI={
- de:{sub:'ein Runner pro A4',selAll:'Alle acht',chkStreet:'Straßennamen vorausfüllen',chkShine:'Spieltipps „So glänzt du“',btnClear:'Eingaben leeren',btnPrint:'Drucken',
+ de:{sub:'ein Runner pro A4',selAll:'Alle acht',chkStreet:'Straßennamen vorausfüllen',chkShine:'Spieltipps „So glänzt du“',btnClear:'Eingaben leeren',btnPrint:'Drucken',dossier:'Dossier mit Werten →',
   hint:'Straßenname, Name und Pronomen lassen sich hier eintippen und werden mitgedruckt; leer gelassen bleiben Schreiblinien für den Tisch. Drucken funktioniert aus der Datei im Repo oder den fertigen PDFs, nicht aus der claude.ai-Ansicht.',
   street:'Straßenname',suggest:'Vorschlag',name:'Name',pron:'Pronomen',meta:'Feuerprobe · Runners in the Shadows',
   profile:'Profil',look:'Aussehen',heritage:'Herkunft',background:'Hintergrund',vice:'Laster',idn:'IDN (SIN)',contacts:'Kontakte',metatype:'Metatyp',implants:'Implantate & Körper',
@@ -14,7 +14,7 @@ const UI={
   dice:'<b>Würfeln:</b> nur der höchste W6 zählt · 6 Erfolg · 4/5 Erfolg mit Consequence · 1–3 Fehlschlag · zwei 6en Critical · Position tauschen gegen Effect',sheet:'Bogen',
   glosses:{engineer:'Technik, Basteln',interface:'Matrix, Hacken',stalk:'Aufspüren, Zielen',survey:'Beobachten, Lage',fight:'Kämpfen',finesse:'Geschick, Fahrzeuge',prowl:'Schleichen, Klettern',wreck:'Zerstören, Gewalt',command:'Befehlen, Drohen',consort:'Umgang, Kontakte',influence:'Überzeugen, Täuschen',study:'Analysieren, Zaubern'},
   attrDe:{Intuition:'Intuition',Body:'Körper',Willpower:'Wille'}},
- en:{sub:'one runner per A4 page',selAll:'All eight',chkStreet:'Prefill street names',chkShine:'Play tips “How you shine”',btnClear:'Clear entries',btnPrint:'Print',
+ en:{sub:'one runner per A4 page',selAll:'All eight',chkStreet:'Prefill street names',chkShine:'Play tips “How you shine”',btnClear:'Clear entries',btnPrint:'Print',dossier:'Dossier with stats →',
   hint:'Street name, name and pronouns can be typed here and are printed with the sheet; left empty they remain writing lines for the table. Printing works from the file in the repo or the ready-made PDFs, not from the claude.ai view.',
   street:'Street name',suggest:'Suggestion',name:'Name',pron:'Pronouns',meta:'Feuerprobe · Runners in the Shadows',
   profile:'Profile',look:'Look',heritage:'Heritage',background:'Background',vice:'Vice',idn:'IDN (SIN)',contacts:'Contacts',metatype:'Metatype',implants:'Implants & body',
@@ -111,6 +111,7 @@ function applyHash(){
   document.body.classList.toggle('only',ok);
   document.querySelectorAll('.sheet').forEach(s=>s.classList.toggle('show',s.id===id));
   const sel=document.getElementById('selRunner');if(sel)sel.value=ok?id:'';
+  const d=document.getElementById('lnkDossier');if(d){d.textContent=UI[lang].dossier;d.href='feuerprobe-runner.html?lang='+lang+(ok?'#'+id:'');}
 }
 function fillStreets(on){
   document.querySelectorAll('.sheet').forEach(sh=>{const inp=sh.querySelector('input[data-k="street"]');if(!inp)return;

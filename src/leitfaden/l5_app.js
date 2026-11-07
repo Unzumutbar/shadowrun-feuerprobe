@@ -1,9 +1,11 @@
 /* ---------- SL-Leitfaden: Renderer, Alert Clock, Payoff-Rechner, Porträts ---------- */
 let lang='de';
 const state={alert:0,done:{},calc:{}};
+let printMode=false; // ?print=1: Druckfassung für tools/make-pdf.js (alle Antworten aufgeklappt)
 (function(){try{
   const q=new URLSearchParams(location.search).get('lang');
-  if(q==='en'||q==='de')lang=q;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}
+  if(q==='en'||q==='de')lang=q;
+  if(new URLSearchParams(location.search).get('print')==='1')printMode=true;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}
   const s=JSON.parse(localStorage.getItem('fp-guide')||'{}');if(s&&typeof s==='object')Object.assign(state,s);
 }catch(e){}})();
 function save(){try{localStorage.setItem('fp-guide',JSON.stringify(state));localStorage.setItem('fp-lang',lang);}catch(e){}}
@@ -78,13 +80,47 @@ function bindPortraits(){
   });
 }
 
+/* ---- Querverweise: Kapitel → Planebenen, Cheat-Sheets, Personen (sprachneutral) ---- */
+const XREF={
+  blick:{plans:['schnitt']},
+  einstieg:{sheets:['grundregeln','sl-wuerfe'],runner:true},
+  johnson:{npcs:['johnson','johnson-rookie']},
+  info:{plans:['schnitt'],sheets:['heist'],npcs:['venn','kade']},
+  plan:{plans:['schnitt','garage','111'],sheets:['actions']},
+  party:{plans:['111','112'],sheets:['sl-kampf'],npcs:['kade','kade-troll','venn']},
+  ebene110:{plans:['110'],sheets:['sl-alert','sl-magie']},
+  tresor:{plans:['110'],sheets:['sl-magie'],npcs:['veyrath']},
+  flucht:{plans:['dach','schnitt','garage'],sheets:['sl-kampf','kampf'],npcs:['kade']},
+  enthuellung:{npcs:['veyrath','johnson']},
+  payoff:{sheets:['sl-alert'],npcs:['johnson']},
+  werkzeuge:{sheets:['sl-wuerfe','sl-alert']},
+  referenz:{sheets:['grundregeln','actions']},
+};
+const XL={
+  de:{see:'Dazu',plan:'Plan',sheet:'Cheat-Sheet',runner:'Runner-Dossiers',sheets:'Bögen',
+    lv:{schnitt:'Schnitt',garage:'Tiefgarage',111:'Ebene 111',112:'Ebene 112',dach:'Dach',110:'Ebene 110'},
+    sh:{grundregeln:'Grundregeln',actions:'Welche Action?',kampf:'Kampf',magie:'Magie',heist:'Matrix, Technik & Alert','sl-wuerfe':'Würfe leiten','sl-kampf':'Kampf & Gegner','sl-magie':'Magie im Turm','sl-alert':'Alert, Matrix & Payoff'}},
+  en:{see:'See also',plan:'Plan',sheet:'Cheat sheet',runner:'Runner dossiers',sheets:'Sheets',
+    lv:{schnitt:'Section',garage:'Parking garage',111:'Level 111',112:'Level 112',dach:'Roof',110:'Level 110'},
+    sh:{grundregeln:'Core rules',actions:'Which action?',kampf:'Combat',magie:'Magic',heist:'Matrix, tech & alert','sl-wuerfe':'Running rolls','sl-kampf':'Combat & opposition','sl-magie':'Magic in the tower','sl-alert':'Alert, Matrix & payoff'}},
+};
+const NPCL={johnson:'Johnson (A)','johnson-rookie':'Johnson (B)',kade:'Kade (A)','kade-troll':'Kade (B)',venn:'Dr. Venn',veyrath:'Veyrath'};
+function xref(id){
+  const x=XREF[id];if(!x)return '';const t=XL[lang],q='?lang='+lang;const out=[];
+  (x.plans||[]).forEach(l=>out.push(`<span class="xp">${t.plan} ${t.lv[l]}: <a href="meridian-spire-plaene.html${q}&level=${l}">2D</a>${l!=='schnitt'?` · <a href="meridian-spire-3d.html${q}&level=${l}">3D</a>`:''}</span>`));
+  (x.sheets||[]).forEach(s=>out.push(`<a href="feuerprobe-regeln.html${q}&aud=all#${s}">${t.sheet} ${t.sh[s]}</a>`));
+  if(x.runner)out.push(`<a href="feuerprobe-runner.html${q}">${t.runner}</a>`,`<a href="feuerprobe-runner-bogen.html${q}">${t.sheets}</a>`);
+  (x.npcs||[]).forEach(n=>out.push(`<a href="#npc-${n}">${NPCL[n]}</a>`));
+  return out.length?`<nav class="xref" aria-label="${t.see}"><b>${t.see}</b>${out.join('')}</nav>`:'';
+}
+
 /* ---- Kapitel ---- */
 function chapter(ch){
   const on=!!state.done[ch.id];
   return `<article class="card chap${ch.long?' long':''}" id="${ch.id}" data-id="${ch.id}"><header>
   <div class="num">${ch.num}</div>
   <div class="meta"><span class="time">${ch.time}</span><label class="done${on?' on':''}"><input type="checkbox" data-done="${ch.id}"${on?' checked':''}>${T().doneLbl}</label></div>
-  <h2>${ch.title}</h2><p class="lead">${ch.lead}</p></header>${ch.blocks.map(block).join('')}</article>`;
+  <h2>${ch.title}</h2><p class="lead">${ch.lead}</p>${xref(ch.id)}</header>${ch.blocks.map(block).join('')}</article>`;
 }
 function renderNav(){
   const chs=G().chapters;
@@ -128,8 +164,7 @@ function renderAll(){
   const U=T();document.documentElement.lang=lang;
   document.title=lang==='en'?'Feuerprobe GM Guide':'Feuerprobe SL-Leitfaden';
   $('title').textContent=U.title;$('subtitle').textContent=U.subtitle;$('eyebrow').textContent=U.eyebrow;
-  $('lnkPlans').textContent=U.plans;$('lnkRunner').textContent=U.runner;$('btnPrint').textContent=U.print;
-  ['lnkPlans','lnkRunner'].forEach(id=>{const a=$(id);a.href=a.getAttribute('href').split('?')[0]+'?lang='+lang;});
+  $('btnPrint').textContent=U.print;
   $('navH').innerHTML=`${U.nav}<span id="navCount"></span>`;$('alertH').innerHTML=`${U.alert}<span>${U.alertSub}</span>`;$('calcH').textContent=U.calc;$('alertReset').textContent=U.alertReset;
   $('main').innerHTML=G().chapters.map(chapter).join('');
   $('fine').innerHTML=U.fine;
@@ -137,6 +172,7 @@ function renderAll(){
   renderNav();renderClock();renderCalc();bindPortraits();
   document.querySelectorAll('[data-done]').forEach(cb=>cb.addEventListener('change',()=>{state.done[cb.dataset.done]=cb.checked;cb.closest('.done').classList.toggle('on',cb.checked);save();renderNav();}));
   observe();
+  if(printMode)document.querySelectorAll('details.qa').forEach(d=>{d.open=true;});
 }
 let io;
 function observe(){
@@ -159,3 +195,5 @@ window.addEventListener('afterprint',()=>{document.querySelectorAll('details.qa'
 window.addEventListener('scroll',()=>{$('toplink').classList.toggle('show',window.scrollY>600);},{passive:true});
 $('toplink').addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});
 renderAll();
+// Deep Link (#kapitel, #npc-…, #alertPanel): nach dem Rendern und dem Laden der Schriften hinscrollen
+if(location.hash&&!printMode){const go=()=>{const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el)el.scrollIntoView({block:'start',behavior:'instant'});};go();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);}

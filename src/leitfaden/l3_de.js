@@ -1,7 +1,7 @@
 /* ---------- SL-Leitfaden: deutsche Daten ---------- */
 const GUIDE_DE={
  ui:{title:'SL-Leitfaden',subtitle:'Der Run „Feuerprobe“ Schritt für Schritt · Seattle 2080 · Meridian Spire',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
-  plans:'Pläne des Meridian Spire',runner:'Runner & Bögen',print:'Drucken',nav:'Ablauf',navDone:'erledigt',doneLbl:'Abschnitt erledigt',
+  print:'Drucken',nav:'Ablauf',navDone:'erledigt',doneLbl:'Abschnitt erledigt',
   alert:'Alert Clock',alertSub:'Segmente anklicken',alertReset:'zurück',alertNames:['Routine','Routine','Verdacht','Verdacht','Aktiver Alarm','Aktiver Alarm','Lockdown'],
   alertDesc:['Systeme werten Auffälligkeiten als Event-Abweichung. Drohnen patrouillieren nach Muster.','Systeme werten Auffälligkeiten als Event-Abweichung. Drohnen patrouillieren nach Muster.','Kameras gleichen gezielter ab, Türen verlangen erneut Berechtigung, Personal wird diskret befragt.','Kameras gleichen gezielter ab, Türen verlangen erneut Berechtigung, Personal wird diskret befragt.','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge umgeleitet, erfasste Runner werden verfolgt.','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge umgeleitet, erfasste Runner werden verfolgt.','Fluchtwege verriegelt, externe Response verständigt. Eskalation, kein Scheitern.'],
   calc:'Payoff-Rechner',calcChecks:[['open','Koffer wurde geöffnet (auch fachgerecht)'],['loot','Zusätzliche Beute oder Schaden an der Sammlung'],['venn','Dr. Venn verletzt'],['harm','Gäste oder Personal verletzt oder getötet'],['gore','Wahllose Tötungen trotz Anweisung']],

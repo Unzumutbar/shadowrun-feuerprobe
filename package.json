@@ -1,0 +1,13 @@
+{
+  "name": "shadowrun-feuerprobe",
+  "private": true,
+  "description": "Spielmaterial für den Oneshot „Feuerprobe“ (Shadowrun, Runners in the Shadows)",
+  "scripts": {
+    "build": "node build.js",
+    "pdf": "node tools/make-pdf.js",
+    "serve": "node tools/serve.js"
+  },
+  "devDependencies": {
+    "pdf-lib": "1.17.1"
+  }
+}

@@ -102,6 +102,12 @@ nav.steps li.sep{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)
 .chap>header h2{font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1.02}
 .chap>header .lead{grid-column:1;color:var(--ink-2);max-width:78ch;margin-top:6px;font-size:14.5px}
 .chap>header .meta{display:flex;flex-direction:column;gap:6px;align-items:flex-end;grid-row:1/3}
+.chap>header .xref{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:8px;font-size:13px}
+.chap>header .xref b{font:600 10.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.chap>header .xref>a,.chap>header .xref .xp{border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--surface);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chap>header .xref a{color:var(--accent);text-decoration:none}
+.chap>header .xref>a:hover{border-color:var(--accent)}
+.chap>header .xref a:hover{text-decoration:underline}
 .chap .time{font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
 .done{display:inline-flex;align-items:center;gap:6px;font:500 12.5px "IBM Plex Sans",sans-serif;border:1px solid var(--line-2);border-radius:999px;padding:5px 10px;cursor:pointer;background:var(--box);color:var(--ink)}
 .done input{margin:0;accent-color:var(--accent)}
@@ -204,15 +210,21 @@ details.qa .a{padding:10px 14px 4px 44px}
 @media print{
   @page{size:A4;margin:11mm}
   body{background:#fff;font-size:11.5px}
-  .tog,.side,.toplink,.done,.npc .por .rm{display:none!important}
+  .tog,.side,.toplink,.done,.npc .por .rm,.npc .por .lbl,.npc .por .pick{display:none!important}
+  .chap>header .xref{font-size:10px;gap:3px 6px}
+  .chap>header .xref>a,.chap>header .xref .xp{padding:1px 6px;border-color:#ccc}
+  .chap>header .xref a{color:inherit}
   .wrap{max-width:none;padding:0}
   .layout{display:block;margin-top:10px}
   .main{gap:10px}
-  .card{box-shadow:none;border-color:#bbb;break-inside:avoid;padding:12px 14px}
-  .card.long{break-inside:auto}
+  .card{box-shadow:none;border-color:#bbb;break-inside:auto;padding:12px 14px}
+  .chap>header{break-after:avoid}
+  .chap h3,.chap h4{break-after:avoid}
+  .tile,.note,.q,.stage,table.tb tr,.qr .tile{break-inside:avoid}
   .chap>header h2{font-size:22px}
   .npc{break-inside:avoid;box-shadow:none}
-  .npcs{grid-template-columns:1fr 1fr}
+  .npcs{grid-template-columns:1fr}
+  .npc{grid-template-columns:120px 1fr}
   .npc.wide .por{aspect-ratio:21/9}
   .grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}
   .stages{grid-template-columns:repeat(4,1fr)}
@@ -222,8 +234,177 @@ details.qa .a{padding:10px 14px 4px 44px}
   a{color:inherit;text-decoration:none}
 }
 </style>
+<style>
+/* ---------- Gemeinsame Navigationsleiste (alle Seiten in docs/) ---------- */
+.fpnav{--n-bg:#0F151D;--n-bg2:#18212C;--n-ink:#E7EBF0;--n-muted:#93A0AF;--n-line:#2A3542;--n-acc:#3FC1CC;--n-gm:#CD85FF;
+  position:relative;z-index:900;background:var(--n-bg);color:var(--n-ink);border-bottom:1px solid var(--n-line);
+  font:500 14px/1.2 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.fpnav *{box-sizing:border-box}
+.fpnav .fn-in{max-width:1480px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:6px;min-height:46px}
+.fpnav a{color:inherit;text-decoration:none}
+.fpnav .fn-brand{font:700 19px/1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.02em;white-space:nowrap;margin-right:8px;display:flex;align-items:center;gap:7px}
+.fpnav .fn-brand i{width:9px;height:9px;border-radius:2px;background:var(--n-acc);transform:rotate(45deg);display:inline-block}
+.fpnav .fn-links{display:flex;align-items:center;gap:2px;flex-wrap:wrap;flex:1;min-width:0}
+.fpnav .fn-a{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:7px;color:var(--n-ink);white-space:nowrap}
+.fpnav .fn-a:hover{background:var(--n-bg2)}
+.fpnav .fn-a[aria-current="page"]{background:var(--n-bg2);box-shadow:inset 0 -2px 0 var(--n-acc)}
+.fpnav .fn-grp{display:inline-flex;align-items:center;gap:2px;padding:3px 3px 3px 10px;border-radius:8px;white-space:nowrap}
+.fpnav .fn-grp>span{color:var(--n-muted);margin-right:4px}
+.fpnav .fn-grp .fn-a{padding:5px 9px;border:1px solid var(--n-line)}
+.fpnav .fn-grp .fn-a+.fn-a{margin-left:-1px}
+.fpnav .fn-gm{font:600 9.5px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--n-gm);border:1px solid currentColor;border-radius:4px;padding:2px 4px}
+.fpnav .fn-search{position:relative;flex:0 1 260px;min-width:150px}
+.fpnav .fn-search input{width:100%;appearance:none;background:var(--n-bg2);color:var(--n-ink);border:1px solid var(--n-line);border-radius:8px;padding:8px 10px 8px 30px;font:inherit;font-size:13.5px}
+.fpnav .fn-search input::placeholder{color:var(--n-muted)}
+.fpnav .fn-search input:focus{outline:2px solid var(--n-acc);outline-offset:0;border-color:transparent}
+.fpnav .fn-search svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--n-muted);fill:none;stroke-width:2;pointer-events:none}
+.fpnav .fn-res{position:absolute;right:0;top:calc(100% + 6px);width:min(520px,calc(100vw - 24px));max-height:min(70vh,560px);overflow:auto;background:var(--n-bg);border:1px solid var(--n-line);border-radius:10px;box-shadow:0 14px 40px rgba(0,0,0,.45);padding:6px}
+.fpnav .fn-res[hidden]{display:none}
+.fpnav .fn-res h4{margin:8px 8px 4px;font:600 10.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--n-muted)}
+.fpnav .fn-res a{display:block;padding:7px 9px;border-radius:7px}
+.fpnav .fn-res a b{display:flex;gap:7px;align-items:center;font-weight:600}
+.fpnav .fn-res a small{display:block;color:var(--n-muted);font-size:12.5px;line-height:1.35;margin-top:2px}
+.fpnav .fn-res a mark{background:transparent;color:var(--n-acc)}
+.fpnav .fn-res a.sel,.fpnav .fn-res a:hover{background:var(--n-bg2)}
+.fpnav .fn-res p{margin:10px;color:var(--n-muted);font-size:13px}
+.fpnav .fn-menu{display:none;appearance:none;background:transparent;border:1px solid var(--n-line);color:var(--n-ink);border-radius:8px;padding:7px 10px;font:inherit;cursor:pointer;margin-left:auto}
+@media (max-width:980px){
+  .fpnav .fn-in{flex-wrap:wrap;padding-block:6px}
+  .fpnav .fn-menu{display:inline-flex}
+  .fpnav .fn-search{order:3;flex:1 1 100%;margin-bottom:2px}
+  .fpnav .fn-links{order:4;flex:1 1 100%;display:none;flex-direction:column;align-items:stretch;padding:4px 0 8px}
+  .fpnav.open .fn-links{display:flex}
+  .fpnav .fn-grp{padding-left:10px}
+}
+@media print{.fpnav{display:none!important}}
+</style>
 </head>
 <body>
+<nav class="fpnav" id="fpnav" data-page="guide" aria-label="Feuerprobe"></nav>
+<script>
+/* ---------- Gemeinsame Navigationsleiste mit Suche (von build.js in jede Seite in docs/ eingesetzt) ----------
+   Sprache: ?lang=, sonst localStorage 'fp-lang', sonst <html lang>; folgt danach jeder Änderung von <html lang>.
+   Suche: lädt search-index.js (von build.js erzeugt) beim ersten Fokus aufs Suchfeld; Strg+K oder / fokussiert. */
+(function(){
+  const nav=document.getElementById('fpnav');if(!nav)return;
+  const page=nav.dataset.page||'';
+  const L={
+    de:{home:'Start',run:'Der Run',guide:'SL-Leitfaden',plans:'Pläne',runner:'Runner',dossiers:'Dossiers',sheets:'Bögen',rules:'Cheat-Sheets',print:'Drucken',
+      search:'Suchen …  (Strg+K)',menu:'Menü',none:'Nichts gefunden.',loading:'Suche wird geladen …',gm:'SL',failed:'Suchindex nicht gefunden (search-index.js).',
+      k:{plan:'Orte auf den Plänen',route:'Wege',chapter:'SL-Leitfaden',npc:'Personen',runner:'Runner',rule:'Cheat-Sheets',run:'Der Run (Text)',page:'Seiten'}},
+    en:{home:'Home',run:'The run',guide:'GM guide',plans:'Plans',runner:'Runners',dossiers:'Dossiers',sheets:'Sheets',rules:'Cheat sheets',print:'Print',
+      search:'Search …  (Ctrl+K)',menu:'Menu',none:'No results.',loading:'Loading search …',gm:'GM',failed:'Search index not found (search-index.js).',
+      k:{plan:'Places on the plans',route:'Routes',chapter:'GM guide',npc:'People',runner:'Runners',rule:'Cheat sheets',run:'The run (text)',page:'Pages'}},
+  };
+  let lang='de';
+  try{const q=new URLSearchParams(location.search).get('lang');const v=localStorage.getItem('fp-lang');const h=document.documentElement.lang;
+    lang=(q==='en'||q==='de')?q:((v==='en'||v==='de')?v:(h==='en'?'en':'de'));}catch(e){}
+  const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+  function withLang(u){
+    if(!u||/^(https?:|mailto:)/.test(u)||/\.pdf(#|$)/.test(u))return u;
+    const h=u.indexOf('#');const hash=h>=0?u.slice(h):'';let base=h>=0?u.slice(0,h):u;
+    if(!base)return u;
+    base=base.replace(/([?&])lang=[a-z]+&?/,'$1').replace(/[?&]$/,'');
+    return base+(base.includes('?')?'&':'?')+'lang='+lang+hash;
+  }
+  const a=(id,href,label,gm)=>`<a class="fn-a" data-href="${href}" href="${href}"${page===id?' aria-current="page"':''}>${label}${gm?` <span class="fn-gm">${L[lang].gm}</span>`:''}</a>`;
+  function render(){
+    const t=L[lang];
+    const q=nav.querySelector('.fn-search input');const keep=q?q.value:'';
+    nav.innerHTML=`<div class="fn-in">
+      <a class="fn-brand" data-href="index.html" href="index.html"><i></i>Feuerprobe</a>
+      <button type="button" class="fn-menu" aria-expanded="false">☰ ${t.menu}</button>
+      <div class="fn-links">
+        ${a('run','feuerprobe-oneshot.html',t.run,true)}
+        ${a('guide','feuerprobe-leitfaden.html',t.guide,true)}
+        <span class="fn-grp"><span>${t.plans}</span>${a('plans','meridian-spire-plaene.html','2D')}${a('plans3d','meridian-spire-3d.html','3D')}</span>
+        <span class="fn-grp"><span>${t.runner}</span>${a('runner','feuerprobe-runner.html',t.dossiers)}${a('sheets','feuerprobe-runner-bogen.html',t.sheets)}</span>
+        ${a('rules','feuerprobe-regeln.html',t.rules)}
+        ${a('print','drucken.html','🖨 '+t.print)}
+      </div>
+      <div class="fn-search" role="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input type="search" placeholder="${esc(t.search)}" aria-label="${esc(t.search)}" autocomplete="off" spellcheck="false">
+        <div class="fn-res" hidden role="listbox"></div></div>
+    </div>`;
+    nav.querySelectorAll('[data-href]').forEach(el=>{el.href=withLang(el.dataset.href);});
+    const inp=nav.querySelector('.fn-search input');inp.value=keep;
+    nav.querySelector('.fn-menu').addEventListener('click',e=>{const o=nav.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',o);});
+    bindSearch(inp,nav.querySelector('.fn-res'));
+  }
+
+  /* ---------- Suche ---------- */
+  const norm=s=>String(s||'').toLowerCase().replace(/ß/g,'ss').normalize('NFD').replace(/[̀-ͯ]/g,'');
+  let idx=null,loading=false,failed=false;
+  function load(cb){
+    if(idx||failed){cb();return;}
+    if(window.FP_INDEX){prep();cb();return;}
+    if(loading)return;loading=true;
+    const s=document.createElement('script');s.src='search-index.js';
+    s.onload=()=>{prep();cb();};s.onerror=()=>{failed=true;cb();};document.head.appendChild(s);
+  }
+  function prep(){idx=(window.FP_INDEX||[]).map(e=>Object.assign({},e,{nt:norm(e.t),ns:norm(e.s),nx:norm(e.x||'')}));}
+  function score(e,toks){
+    let sc=0;
+    for(const tk of toks){
+      const wb=new RegExp('(^|[^a-z0-9])'+tk.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+      if(e.nt===tk)sc+=30;
+      else if(wb.test(e.nt))sc+=12;else if(e.nt.includes(tk))sc+=7;
+      else if(wb.test(e.ns))sc+=4;else if(e.ns.includes(tk))sc+=2;
+      else if(wb.test(e.nx))sc+=2;else if(tk.length>3&&e.nx.includes(tk))sc+=1;
+      else return 0;
+    }
+    return sc+(e.w||0);
+  }
+  function hl(s,toks){
+    let out=esc(s);
+    toks.forEach(tk=>{if(tk.length<2)return;const n=norm(out);const i=n.indexOf(tk);if(i>=0&&n.length===out.length)out=out.slice(0,i)+'<mark>'+out.slice(i,i+tk.length)+'</mark>'+out.slice(i+tk.length);});
+    return out;
+  }
+  function bindSearch(inp,res){
+    let sel=-1;
+    const run=()=>{
+      const t=L[lang];const q=norm(inp.value).trim();
+      if(!q){res.hidden=true;res.innerHTML='';return;}
+      if(failed){res.hidden=false;res.innerHTML=`<p>${t.failed}</p>`;return;}
+      if(!idx){res.hidden=false;res.innerHTML=`<p>${t.loading}</p>`;load(run);return;}
+      const toks=q.split(/\s+/).filter(Boolean);
+      const hits=idx.filter(e=>e.l===lang||e.l==='*').map(e=>[score(e,toks),e]).filter(x=>x[0]>0).sort((x,y)=>y[0]-x[0]).slice(0,40);
+      if(!hits.length){res.hidden=false;res.innerHTML=`<p>${t.none}</p>`;return;}
+      const order=[];const groups={};
+      hits.forEach(([,e])=>{if(!groups[e.k]){groups[e.k]=[];order.push(e.k);}groups[e.k].push(e);});
+      res.innerHTML=order.map(k=>`<h4>${t.k[k]||k}</h4>`+groups[k].map(e=>`<a href="${esc(withLang(e.u))}" role="option"><b><span>${hl(e.t,toks)}</span>${e.gm?` <span class="fn-gm">${t.gm}</span>`:''}</b>${e.s?`<small>${hl(e.s,toks)}</small>`:''}</a>`).join('')).join('');
+      res.hidden=false;sel=-1;
+    };
+    inp.addEventListener('focus',()=>load(()=>{if(inp.value)run();}));
+    inp.addEventListener('input',run);
+    inp.addEventListener('keydown',e=>{
+      const items=[...res.querySelectorAll('a')];
+      if(e.key==='ArrowDown'||e.key==='ArrowUp'){if(!items.length)return;e.preventDefault();sel=(sel+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;
+        items.forEach((x,i)=>x.classList.toggle('sel',i===sel));items[sel].scrollIntoView({block:'nearest'});}
+      else if(e.key==='Enter'){const it=items[sel>=0?sel:0];if(it){e.preventDefault();go(it.href);}}
+      else if(e.key==='Escape'){inp.value='';res.hidden=true;inp.blur();}
+    });
+    res.addEventListener('click',e=>{const it=e.target.closest('a');if(it){e.preventDefault();go(it.href);}});
+    document.addEventListener('click',e=>{if(!nav.contains(e.target))res.hidden=true;});
+  }
+  // Treffer auf derselben Seite: Hash/Query wechseln und neu laden, damit die Seiten-App den Deep Link auswertet.
+  function go(href){
+    const u=new URL(href,location.href);
+    if(u.pathname===location.pathname&&u.search===location.search&&u.hash){location.hash=u.hash;
+      const el=document.getElementById(decodeURIComponent(u.hash.slice(1)));if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+      nav.querySelector('.fn-res').hidden=true;return;}
+    location.href=href;
+  }
+  document.addEventListener('keydown',e=>{
+    const tag=(e.target.tagName||'').toLowerCase();const typing=tag==='input'||tag==='textarea'||tag==='select'||e.target.isContentEditable;
+    if(((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')||(!typing&&e.key==='/')){e.preventDefault();const i=nav.querySelector('.fn-search input');i.focus();i.select();}
+  });
+  render();
+  // Sprachwechsel der Seite übernehmen
+  new MutationObserver(()=>{const h=document.documentElement.lang==='en'?'en':'de';if(h!==lang){lang=h;render();}})
+    .observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+})();
+</script>
 
 
 <div class="wrap">
@@ -234,8 +415,6 @@ details.qa .a{padding:10px 14px 4px 44px}
   </div>
   <div class="tog">
     <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE" aria-pressed="true">DE</button><button type="button" id="langEN" aria-pressed="false">EN</button></span>
-    <a id="lnkPlans" href="meridian-spire-plaene.html"></a>
-    <a id="lnkRunner" href="feuerprobe-runner.html"></a>
     <button type="button" id="btnPrint"></button>
   </div>
 </header>
@@ -271,7 +450,7 @@ const PORTRAITS = {
 /* ---------- SL-Leitfaden: deutsche Daten ---------- */
 const GUIDE_DE={
  ui:{title:'SL-Leitfaden',subtitle:'Der Run „Feuerprobe“ Schritt für Schritt · Seattle 2080 · Meridian Spire',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
-  plans:'Pläne des Meridian Spire',runner:'Runner & Bögen',print:'Drucken',nav:'Ablauf',navDone:'erledigt',doneLbl:'Abschnitt erledigt',
+  print:'Drucken',nav:'Ablauf',navDone:'erledigt',doneLbl:'Abschnitt erledigt',
   alert:'Alert Clock',alertSub:'Segmente anklicken',alertReset:'zurück',alertNames:['Routine','Routine','Verdacht','Verdacht','Aktiver Alarm','Aktiver Alarm','Lockdown'],
   alertDesc:['Systeme werten Auffälligkeiten als Event-Abweichung. Drohnen patrouillieren nach Muster.','Systeme werten Auffälligkeiten als Event-Abweichung. Drohnen patrouillieren nach Muster.','Kameras gleichen gezielter ab, Türen verlangen erneut Berechtigung, Personal wird diskret befragt.','Kameras gleichen gezielter ab, Türen verlangen erneut Berechtigung, Personal wird diskret befragt.','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge umgeleitet, erfasste Runner werden verfolgt.','Drohnen suchen gezielt, Servicewege gesperrt, Aufzüge umgeleitet, erfasste Runner werden verfolgt.','Fluchtwege verriegelt, externe Response verständigt. Eskalation, kein Scheitern.'],
   calc:'Payoff-Rechner',calcChecks:[['open','Koffer wurde geöffnet (auch fachgerecht)'],['loot','Zusätzliche Beute oder Schaden an der Sammlung'],['venn','Dr. Venn verletzt'],['harm','Gäste oder Personal verletzt oder getötet'],['gore','Wahllose Tötungen trotz Anweisung']],
@@ -538,7 +717,7 @@ const GUIDE_DE={
 /* ---------- GM guide: English data ---------- */
 const GUIDE_EN={
  ui:{title:'GM Guide',subtitle:'The run “Trial by Fire” step by step · Seattle 2080 · Meridian Spire',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
-  plans:'Meridian Spire plans',runner:'Runners & sheets',print:'Print',nav:'Flow',navDone:'done',doneLbl:'Section done',
+  print:'Print',nav:'Flow',navDone:'done',doneLbl:'Section done',
   alert:'Alert clock',alertSub:'click segments',alertReset:'reset',alertNames:['Routine','Routine','Suspicion','Suspicion','Active alarm','Active alarm','Lockdown'],
   alertDesc:['Systems treat anomalies as normal event deviations. Drones patrol on standard patterns.','Systems treat anomalies as normal event deviations. Drones patrol on standard patterns.','Cameras cross-check more closely, doors ask for credentials again, staff are quietly questioned.','Cameras cross-check more closely, doors ask for credentials again, staff are quietly questioned.','Drones search actively, service routes are closed, elevators rerouted, identified runners are pursued.','Drones search actively, service routes are closed, elevators rerouted, identified runners are pursued.','Escape routes locked, external response called. Escalation, not failure.'],
   calc:'Payoff calculator',calcChecks:[['open','Case was opened (even expertly)'],['loot','Extra loot or damage to the collection'],['venn','Dr. Venn harmed'],['harm','Guests or staff injured or killed'],['gore','Indiscriminate killing despite orders']],
@@ -805,9 +984,11 @@ const GUIDE_EN={
 /* ---------- SL-Leitfaden: Renderer, Alert Clock, Payoff-Rechner, Porträts ---------- */
 let lang='de';
 const state={alert:0,done:{},calc:{}};
+let printMode=false; // ?print=1: Druckfassung für tools/make-pdf.js (alle Antworten aufgeklappt)
 (function(){try{
   const q=new URLSearchParams(location.search).get('lang');
-  if(q==='en'||q==='de')lang=q;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}
+  if(q==='en'||q==='de')lang=q;
+  if(new URLSearchParams(location.search).get('print')==='1')printMode=true;else{const v=localStorage.getItem('fp-lang');if(v==='en'||v==='de')lang=v;}
   const s=JSON.parse(localStorage.getItem('fp-guide')||'{}');if(s&&typeof s==='object')Object.assign(state,s);
 }catch(e){}})();
 function save(){try{localStorage.setItem('fp-guide',JSON.stringify(state));localStorage.setItem('fp-lang',lang);}catch(e){}}
@@ -882,13 +1063,47 @@ function bindPortraits(){
   });
 }
 
+/* ---- Querverweise: Kapitel → Planebenen, Cheat-Sheets, Personen (sprachneutral) ---- */
+const XREF={
+  blick:{plans:['schnitt']},
+  einstieg:{sheets:['grundregeln','sl-wuerfe'],runner:true},
+  johnson:{npcs:['johnson','johnson-rookie']},
+  info:{plans:['schnitt'],sheets:['heist'],npcs:['venn','kade']},
+  plan:{plans:['schnitt','garage','111'],sheets:['actions']},
+  party:{plans:['111','112'],sheets:['sl-kampf'],npcs:['kade','kade-troll','venn']},
+  ebene110:{plans:['110'],sheets:['sl-alert','sl-magie']},
+  tresor:{plans:['110'],sheets:['sl-magie'],npcs:['veyrath']},
+  flucht:{plans:['dach','schnitt','garage'],sheets:['sl-kampf','kampf'],npcs:['kade']},
+  enthuellung:{npcs:['veyrath','johnson']},
+  payoff:{sheets:['sl-alert'],npcs:['johnson']},
+  werkzeuge:{sheets:['sl-wuerfe','sl-alert']},
+  referenz:{sheets:['grundregeln','actions']},
+};
+const XL={
+  de:{see:'Dazu',plan:'Plan',sheet:'Cheat-Sheet',runner:'Runner-Dossiers',sheets:'Bögen',
+    lv:{schnitt:'Schnitt',garage:'Tiefgarage',111:'Ebene 111',112:'Ebene 112',dach:'Dach',110:'Ebene 110'},
+    sh:{grundregeln:'Grundregeln',actions:'Welche Action?',kampf:'Kampf',magie:'Magie',heist:'Matrix, Technik & Alert','sl-wuerfe':'Würfe leiten','sl-kampf':'Kampf & Gegner','sl-magie':'Magie im Turm','sl-alert':'Alert, Matrix & Payoff'}},
+  en:{see:'See also',plan:'Plan',sheet:'Cheat sheet',runner:'Runner dossiers',sheets:'Sheets',
+    lv:{schnitt:'Section',garage:'Parking garage',111:'Level 111',112:'Level 112',dach:'Roof',110:'Level 110'},
+    sh:{grundregeln:'Core rules',actions:'Which action?',kampf:'Combat',magie:'Magic',heist:'Matrix, tech & alert','sl-wuerfe':'Running rolls','sl-kampf':'Combat & opposition','sl-magie':'Magic in the tower','sl-alert':'Alert, Matrix & payoff'}},
+};
+const NPCL={johnson:'Johnson (A)','johnson-rookie':'Johnson (B)',kade:'Kade (A)','kade-troll':'Kade (B)',venn:'Dr. Venn',veyrath:'Veyrath'};
+function xref(id){
+  const x=XREF[id];if(!x)return '';const t=XL[lang],q='?lang='+lang;const out=[];
+  (x.plans||[]).forEach(l=>out.push(`<span class="xp">${t.plan} ${t.lv[l]}: <a href="meridian-spire-plaene.html${q}&level=${l}">2D</a>${l!=='schnitt'?` · <a href="meridian-spire-3d.html${q}&level=${l}">3D</a>`:''}</span>`));
+  (x.sheets||[]).forEach(s=>out.push(`<a href="feuerprobe-regeln.html${q}&aud=all#${s}">${t.sheet} ${t.sh[s]}</a>`));
+  if(x.runner)out.push(`<a href="feuerprobe-runner.html${q}">${t.runner}</a>`,`<a href="feuerprobe-runner-bogen.html${q}">${t.sheets}</a>`);
+  (x.npcs||[]).forEach(n=>out.push(`<a href="#npc-${n}">${NPCL[n]}</a>`));
+  return out.length?`<nav class="xref" aria-label="${t.see}"><b>${t.see}</b>${out.join('')}</nav>`:'';
+}
+
 /* ---- Kapitel ---- */
 function chapter(ch){
   const on=!!state.done[ch.id];
   return `<article class="card chap${ch.long?' long':''}" id="${ch.id}" data-id="${ch.id}"><header>
   <div class="num">${ch.num}</div>
   <div class="meta"><span class="time">${ch.time}</span><label class="done${on?' on':''}"><input type="checkbox" data-done="${ch.id}"${on?' checked':''}>${T().doneLbl}</label></div>
-  <h2>${ch.title}</h2><p class="lead">${ch.lead}</p></header>${ch.blocks.map(block).join('')}</article>`;
+  <h2>${ch.title}</h2><p class="lead">${ch.lead}</p>${xref(ch.id)}</header>${ch.blocks.map(block).join('')}</article>`;
 }
 function renderNav(){
   const chs=G().chapters;
@@ -932,8 +1147,7 @@ function renderAll(){
   const U=T();document.documentElement.lang=lang;
   document.title=lang==='en'?'Feuerprobe GM Guide':'Feuerprobe SL-Leitfaden';
   $('title').textContent=U.title;$('subtitle').textContent=U.subtitle;$('eyebrow').textContent=U.eyebrow;
-  $('lnkPlans').textContent=U.plans;$('lnkRunner').textContent=U.runner;$('btnPrint').textContent=U.print;
-  ['lnkPlans','lnkRunner'].forEach(id=>{const a=$(id);a.href=a.getAttribute('href').split('?')[0]+'?lang='+lang;});
+  $('btnPrint').textContent=U.print;
   $('navH').innerHTML=`${U.nav}<span id="navCount"></span>`;$('alertH').innerHTML=`${U.alert}<span>${U.alertSub}</span>`;$('calcH').textContent=U.calc;$('alertReset').textContent=U.alertReset;
   $('main').innerHTML=G().chapters.map(chapter).join('');
   $('fine').innerHTML=U.fine;
@@ -941,6 +1155,7 @@ function renderAll(){
   renderNav();renderClock();renderCalc();bindPortraits();
   document.querySelectorAll('[data-done]').forEach(cb=>cb.addEventListener('change',()=>{state.done[cb.dataset.done]=cb.checked;cb.closest('.done').classList.toggle('on',cb.checked);save();renderNav();}));
   observe();
+  if(printMode)document.querySelectorAll('details.qa').forEach(d=>{d.open=true;});
 }
 let io;
 function observe(){
@@ -963,6 +1178,8 @@ window.addEventListener('afterprint',()=>{document.querySelectorAll('details.qa'
 window.addEventListener('scroll',()=>{$('toplink').classList.toggle('show',window.scrollY>600);},{passive:true});
 $('toplink').addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});
 renderAll();
+// Deep Link (#kapitel, #npc-…, #alertPanel): nach dem Rendern und dem Laden der Schriften hinscrollen
+if(location.hash&&!printMode){const go=()=>{const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el)el.scrollIntoView({block:'start',behavior:'instant'});};go();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);}
 
 </script>
 

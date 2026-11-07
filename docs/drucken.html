@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Feuerprobe drucken</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#E4E8EC;--surface:#FBFBFC;--surface-2:#F0F2F5;--ink:#161C26;--ink-2:#3C4756;--muted:#66717F;--line:#CBD1D8;--line-2:#AEB7C1;--accent:#0F7B86;--accent-soft:rgba(15,123,134,.12);--gm:#8A3FB3;--gm-soft:rgba(138,63,179,.10)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1218;--surface:#151B23;--surface-2:#1B222C;--ink:#E7EBF0;--ink-2:#C4CCD6;--muted:#8E9AA9;--line:#293441;--line-2:#3B4756;--accent:#3FC1CC;--accent-soft:rgba(63,193,204,.16);--gm:#CD85FF;--gm-soft:rgba(205,133,255,.12)}}
+:root[data-theme="dark"]{--bg:#0D1218;--surface:#151B23;--surface-2:#1B222C;--ink:#E7EBF0;--ink-2:#C4CCD6;--muted:#8E9AA9;--line:#293441;--line-2:#3B4756;--accent:#3FC1CC;--accent-soft:rgba(63,193,204,.16);--gm:#CD85FF;--gm-soft:rgba(205,133,255,.12)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:1180px;margin:0 auto;padding:30px 16px 56px}
+a{color:var(--accent)}
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px 28px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.eyebrow{font:500 11.5px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+h1{font:700 44px/1 "Barlow Condensed",sans-serif;margin:0 0 6px}
+p.sub{margin:0;color:var(--ink-2);max-width:70ch}
+.langs{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden;flex:none}
+.langs button{appearance:none;border:0;background:transparent;color:var(--ink);font:600 13px "IBM Plex Sans",sans-serif;padding:8px 13px;cursor:pointer;letter-spacing:.04em}
+.langs button+button{border-left:1px solid var(--line-2)}
+.langs button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.binders{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px;margin-top:24px}
+.binder{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px 14px;display:flex;flex-direction:column;gap:10px}
+.binder.gm{border-top:5px solid var(--gm)}
+.binder.player{border-top:5px solid var(--accent)}
+.binder h2{font:700 30px/1 "Barlow Condensed",sans-serif;margin:0;display:flex;align-items:center;gap:10px}
+.binder>p{margin:0;color:var(--ink-2);font-size:14.5px}
+.big{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--accent);color:#fff;text-decoration:none;border-radius:10px;padding:12px 16px;font-weight:600}
+.binder.gm .big{background:var(--gm)}
+.big small{font:500 12.5px "IBM Plex Mono",monospace;opacity:.9}
+.big.missing{background:var(--surface-2);color:var(--muted);pointer-events:none}
+ol.parts{list-style:none;margin:4px 0 0;padding:0;display:grid}
+ol.parts li{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:start;padding:10px 0;border-top:1px solid var(--line)}
+ol.parts input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent)}
+ol.parts b{display:block}
+ol.parts .n{color:var(--muted);font-size:13.5px}
+ol.parts .meta{font:500 12px "IBM Plex Mono",monospace;color:var(--muted);text-align:right;white-space:nowrap}
+ol.parts .meta .cp{display:block;color:var(--ink-2)}
+ol.parts .lk{grid-column:2/4;display:flex;gap:14px;font-size:13.5px}
+ol.parts li.done b{text-decoration:line-through;color:var(--muted)}
+.gmb{font:600 10px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--gm);border:1px solid currentColor;border-radius:4px;padding:3px 5px;background:var(--gm-soft)}
+section.box{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+section.box h3{font:700 22px/1 "Barlow Condensed",sans-serif;margin:0 0 10px}
+section.box ul{margin:0;padding-left:20px;display:grid;gap:5px;color:var(--ink-2)}
+.singles{display:flex;flex-wrap:wrap;gap:8px}
+.singles a{border:1px solid var(--line-2);border-radius:999px;padding:5px 12px;text-decoration:none;font-weight:500;font-size:14px;color:var(--ink);background:var(--surface-2)}
+.singles a:hover{border-color:var(--accent);color:var(--accent)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.cols section.box{margin-top:22px}
+button.reset{appearance:none;border:1px solid var(--line-2);background:transparent;color:var(--muted);border-radius:999px;padding:5px 12px;font:500 12.5px "IBM Plex Sans",sans-serif;cursor:pointer;align-self:flex-start}
+p.fine{font-size:12.5px;color:var(--muted);margin-top:30px;max-width:90ch}
+</style>
+<style>
+/* ---------- Gemeinsame Navigationsleiste (alle Seiten in docs/) ---------- */
+.fpnav{--n-bg:#0F151D;--n-bg2:#18212C;--n-ink:#E7EBF0;--n-muted:#93A0AF;--n-line:#2A3542;--n-acc:#3FC1CC;--n-gm:#CD85FF;
+  position:relative;z-index:900;background:var(--n-bg);color:var(--n-ink);border-bottom:1px solid var(--n-line);
+  font:500 14px/1.2 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.fpnav *{box-sizing:border-box}
+.fpnav .fn-in{max-width:1480px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:6px;min-height:46px}
+.fpnav a{color:inherit;text-decoration:none}
+.fpnav .fn-brand{font:700 19px/1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.02em;white-space:nowrap;margin-right:8px;display:flex;align-items:center;gap:7px}
+.fpnav .fn-brand i{width:9px;height:9px;border-radius:2px;background:var(--n-acc);transform:rotate(45deg);display:inline-block}
+.fpnav .fn-links{display:flex;align-items:center;gap:2px;flex-wrap:wrap;flex:1;min-width:0}
+.fpnav .fn-a{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:7px;color:var(--n-ink);white-space:nowrap}
+.fpnav .fn-a:hover{background:var(--n-bg2)}
+.fpnav .fn-a[aria-current="page"]{background:var(--n-bg2);box-shadow:inset 0 -2px 0 var(--n-acc)}
+.fpnav .fn-grp{display:inline-flex;align-items:center;gap:2px;padding:3px 3px 3px 10px;border-radius:8px;white-space:nowrap}
+.fpnav .fn-grp>span{color:var(--n-muted);margin-right:4px}
+.fpnav .fn-grp .fn-a{padding:5px 9px;border:1px solid var(--n-line)}
+.fpnav .fn-grp .fn-a+.fn-a{margin-left:-1px}
+.fpnav .fn-gm{font:600 9.5px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;color:var(--n-gm);border:1px solid currentColor;border-radius:4px;padding:2px 4px}
+.fpnav .fn-search{position:relative;flex:0 1 260px;min-width:150px}
+.fpnav .fn-search input{width:100%;appearance:none;background:var(--n-bg2);color:var(--n-ink);border:1px solid var(--n-line);border-radius:8px;padding:8px 10px 8px 30px;font:inherit;font-size:13.5px}
+.fpnav .fn-search input::placeholder{color:var(--n-muted)}
+.fpnav .fn-search input:focus{outline:2px solid var(--n-acc);outline-offset:0;border-color:transparent}
+.fpnav .fn-search svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--n-muted);fill:none;stroke-width:2;pointer-events:none}
+.fpnav .fn-res{position:absolute;right:0;top:calc(100% + 6px);width:min(520px,calc(100vw - 24px));max-height:min(70vh,560px);overflow:auto;background:var(--n-bg);border:1px solid var(--n-line);border-radius:10px;box-shadow:0 14px 40px rgba(0,0,0,.45);padding:6px}
+.fpnav .fn-res[hidden]{display:none}
+.fpnav .fn-res h4{margin:8px 8px 4px;font:600 10.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--n-muted)}
+.fpnav .fn-res a{display:block;padding:7px 9px;border-radius:7px}
+.fpnav .fn-res a b{display:flex;gap:7px;align-items:center;font-weight:600}
+.fpnav .fn-res a small{display:block;color:var(--n-muted);font-size:12.5px;line-height:1.35;margin-top:2px}
+.fpnav .fn-res a mark{background:transparent;color:var(--n-acc)}
+.fpnav .fn-res a.sel,.fpnav .fn-res a:hover{background:var(--n-bg2)}
+.fpnav .fn-res p{margin:10px;color:var(--n-muted);font-size:13px}
+.fpnav .fn-menu{display:none;appearance:none;background:transparent;border:1px solid var(--n-line);color:var(--n-ink);border-radius:8px;padding:7px 10px;font:inherit;cursor:pointer;margin-left:auto}
+@media (max-width:980px){
+  .fpnav .fn-in{flex-wrap:wrap;padding-block:6px}
+  .fpnav .fn-menu{display:inline-flex}
+  .fpnav .fn-search{order:3;flex:1 1 100%;margin-bottom:2px}
+  .fpnav .fn-links{order:4;flex:1 1 100%;display:none;flex-direction:column;align-items:stretch;padding:4px 0 8px}
+  .fpnav.open .fn-links{display:flex}
+  .fpnav .fn-grp{padding-left:10px}
+}
+@media print{.fpnav{display:none!important}}
+</style>
+</head>
+<body>
+<nav class="fpnav" id="fpnav" data-page="print" aria-label="Feuerprobe"></nav>
+<script>
+/* ---------- Gemeinsame Navigationsleiste mit Suche (von build.js in jede Seite in docs/ eingesetzt) ----------
+   Sprache: ?lang=, sonst localStorage 'fp-lang', sonst <html lang>; folgt danach jeder Änderung von <html lang>.
+   Suche: lädt search-index.js (von build.js erzeugt) beim ersten Fokus aufs Suchfeld; Strg+K oder / fokussiert. */
+(function(){
+  const nav=document.getElementById('fpnav');if(!nav)return;
+  const page=nav.dataset.page||'';
+  const L={
+    de:{home:'Start',run:'Der Run',guide:'SL-Leitfaden',plans:'Pläne',runner:'Runner',dossiers:'Dossiers',sheets:'Bögen',rules:'Cheat-Sheets',print:'Drucken',
+      search:'Suchen …  (Strg+K)',menu:'Menü',none:'Nichts gefunden.',loading:'Suche wird geladen …',gm:'SL',failed:'Suchindex nicht gefunden (search-index.js).',
+      k:{plan:'Orte auf den Plänen',route:'Wege',chapter:'SL-Leitfaden',npc:'Personen',runner:'Runner',rule:'Cheat-Sheets',run:'Der Run (Text)',page:'Seiten'}},
+    en:{home:'Home',run:'The run',guide:'GM guide',plans:'Plans',runner:'Runners',dossiers:'Dossiers',sheets:'Sheets',rules:'Cheat sheets',print:'Print',
+      search:'Search …  (Ctrl+K)',menu:'Menu',none:'No results.',loading:'Loading search …',gm:'GM',failed:'Search index not found (search-index.js).',
+      k:{plan:'Places on the plans',route:'Routes',chapter:'GM guide',npc:'People',runner:'Runners',rule:'Cheat sheets',run:'The run (text)',page:'Pages'}},
+  };
+  let lang='de';
+  try{const q=new URLSearchParams(location.search).get('lang');const v=localStorage.getItem('fp-lang');const h=document.documentElement.lang;
+    lang=(q==='en'||q==='de')?q:((v==='en'||v==='de')?v:(h==='en'?'en':'de'));}catch(e){}
+  const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+  function withLang(u){
+    if(!u||/^(https?:|mailto:)/.test(u)||/\.pdf(#|$)/.test(u))return u;
+    const h=u.indexOf('#');const hash=h>=0?u.slice(h):'';let base=h>=0?u.slice(0,h):u;
+    if(!base)return u;
+    base=base.replace(/([?&])lang=[a-z]+&?/,'$1').replace(/[?&]$/,'');
+    return base+(base.includes('?')?'&':'?')+'lang='+lang+hash;
+  }
+  const a=(id,href,label,gm)=>`<a class="fn-a" data-href="${href}" href="${href}"${page===id?' aria-current="page"':''}>${label}${gm?` <span class="fn-gm">${L[lang].gm}</span>`:''}</a>`;
+  function render(){
+    const t=L[lang];
+    const q=nav.querySelector('.fn-search input');const keep=q?q.value:'';
+    nav.innerHTML=`<div class="fn-in">
+      <a class="fn-brand" data-href="index.html" href="index.html"><i></i>Feuerprobe</a>
+      <button type="button" class="fn-menu" aria-expanded="false">☰ ${t.menu}</button>
+      <div class="fn-links">
+        ${a('run','feuerprobe-oneshot.html',t.run,true)}
+        ${a('guide','feuerprobe-leitfaden.html',t.guide,true)}
+        <span class="fn-grp"><span>${t.plans}</span>${a('plans','meridian-spire-plaene.html','2D')}${a('plans3d','meridian-spire-3d.html','3D')}</span>
+        <span class="fn-grp"><span>${t.runner}</span>${a('runner','feuerprobe-runner.html',t.dossiers)}${a('sheets','feuerprobe-runner-bogen.html',t.sheets)}</span>
+        ${a('rules','feuerprobe-regeln.html',t.rules)}
+        ${a('print','drucken.html','🖨 '+t.print)}
+      </div>
+      <div class="fn-search" role="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input type="search" placeholder="${esc(t.search)}" aria-label="${esc(t.search)}" autocomplete="off" spellcheck="false">
+        <div class="fn-res" hidden role="listbox"></div></div>
+    </div>`;
+    nav.querySelectorAll('[data-href]').forEach(el=>{el.href=withLang(el.dataset.href);});
+    const inp=nav.querySelector('.fn-search input');inp.value=keep;
+    nav.querySelector('.fn-menu').addEventListener('click',e=>{const o=nav.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',o);});
+    bindSearch(inp,nav.querySelector('.fn-res'));
+  }
+
+  /* ---------- Suche ---------- */
+  const norm=s=>String(s||'').toLowerCase().replace(/ß/g,'ss').normalize('NFD').replace(/[̀-ͯ]/g,'');
+  let idx=null,loading=false,failed=false;
+  function load(cb){
+    if(idx||failed){cb();return;}
+    if(window.FP_INDEX){prep();cb();return;}
+    if(loading)return;loading=true;
+    const s=document.createElement('script');s.src='search-index.js';
+    s.onload=()=>{prep();cb();};s.onerror=()=>{failed=true;cb();};document.head.appendChild(s);
+  }
+  function prep(){idx=(window.FP_INDEX||[]).map(e=>Object.assign({},e,{nt:norm(e.t),ns:norm(e.s),nx:norm(e.x||'')}));}
+  function score(e,toks){
+    let sc=0;
+    for(const tk of toks){
+      const wb=new RegExp('(^|[^a-z0-9])'+tk.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+      if(e.nt===tk)sc+=30;
+      else if(wb.test(e.nt))sc+=12;else if(e.nt.includes(tk))sc+=7;
+      else if(wb.test(e.ns))sc+=4;else if(e.ns.includes(tk))sc+=2;
+      else if(wb.test(e.nx))sc+=2;else if(tk.length>3&&e.nx.includes(tk))sc+=1;
+      else return 0;
+    }
+    return sc+(e.w||0);
+  }
+  function hl(s,toks){
+    let out=esc(s);
+    toks.forEach(tk=>{if(tk.length<2)return;const n=norm(out);const i=n.indexOf(tk);if(i>=0&&n.length===out.length)out=out.slice(0,i)+'<mark>'+out.slice(i,i+tk.length)+'</mark>'+out.slice(i+tk.length);});
+    return out;
+  }
+  function bindSearch(inp,res){
+    let sel=-1;
+    const run=()=>{
+      const t=L[lang];const q=norm(inp.value).trim();
+      if(!q){res.hidden=true;res.innerHTML='';return;}
+      if(failed){res.hidden=false;res.innerHTML=`<p>${t.failed}</p>`;return;}
+      if(!idx){res.hidden=false;res.innerHTML=`<p>${t.loading}</p>`;load(run);return;}
+      const toks=q.split(/\s+/).filter(Boolean);
+      const hits=idx.filter(e=>e.l===lang||e.l==='*').map(e=>[score(e,toks),e]).filter(x=>x[0]>0).sort((x,y)=>y[0]-x[0]).slice(0,40);
+      if(!hits.length){res.hidden=false;res.innerHTML=`<p>${t.none}</p>`;return;}
+      const order=[];const groups={};
+      hits.forEach(([,e])=>{if(!groups[e.k]){groups[e.k]=[];order.push(e.k);}groups[e.k].push(e);});
+      res.innerHTML=order.map(k=>`<h4>${t.k[k]||k}</h4>`+groups[k].map(e=>`<a href="${esc(withLang(e.u))}" role="option"><b><span>${hl(e.t,toks)}</span>${e.gm?` <span class="fn-gm">${t.gm}</span>`:''}</b>${e.s?`<small>${hl(e.s,toks)}</small>`:''}</a>`).join('')).join('');
+      res.hidden=false;sel=-1;
+    };
+    inp.addEventListener('focus',()=>load(()=>{if(inp.value)run();}));
+    inp.addEventListener('input',run);
+    inp.addEventListener('keydown',e=>{
+      const items=[...res.querySelectorAll('a')];
+      if(e.key==='ArrowDown'||e.key==='ArrowUp'){if(!items.length)return;e.preventDefault();sel=(sel+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;
+        items.forEach((x,i)=>x.classList.toggle('sel',i===sel));items[sel].scrollIntoView({block:'nearest'});}
+      else if(e.key==='Enter'){const it=items[sel>=0?sel:0];if(it){e.preventDefault();go(it.href);}}
+      else if(e.key==='Escape'){inp.value='';res.hidden=true;inp.blur();}
+    });
+    res.addEventListener('click',e=>{const it=e.target.closest('a');if(it){e.preventDefault();go(it.href);}});
+    document.addEventListener('click',e=>{if(!nav.contains(e.target))res.hidden=true;});
+  }
+  // Treffer auf derselben Seite: Hash/Query wechseln und neu laden, damit die Seiten-App den Deep Link auswertet.
+  function go(href){
+    const u=new URL(href,location.href);
+    if(u.pathname===location.pathname&&u.search===location.search&&u.hash){location.hash=u.hash;
+      const el=document.getElementById(decodeURIComponent(u.hash.slice(1)));if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+      nav.querySelector('.fn-res').hidden=true;return;}
+    location.href=href;
+  }
+  document.addEventListener('keydown',e=>{
+    const tag=(e.target.tagName||'').toLowerCase();const typing=tag==='input'||tag==='textarea'||tag==='select'||e.target.isContentEditable;
+    if(((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')||(!typing&&e.key==='/')){e.preventDefault();const i=nav.querySelector('.fn-search input');i.focus();i.select();}
+  });
+  render();
+  // Sprachwechsel der Seite übernehmen
+  new MutationObserver(()=>{const h=document.documentElement.lang==='en'?'en':'de';if(h!==lang){lang=h;render();}})
+    .observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+})();
+</script>
+
+
+<main>
+<header class="top">
+  <div>
+    <div class="eyebrow">Shadowrun · Feuerprobe · Runners in the Shadows</div>
+    <h1 data-t="title"></h1>
+    <p class="sub" data-t="sub"></p>
+  </div>
+  <span class="langs" role="group" aria-label="Sprache / Language"><button type="button" id="langDE">DE</button><button type="button" id="langEN">EN</button></span>
+</header>
+<div class="binders" id="binders"></div>
+<section class="box"><h3 data-t="singlesH"></h3><div class="singles" id="singles"></div></section>
+<div class="cols">
+  <section class="box"><h3 data-t="tipsH"></h3><ul id="tips"></ul></section>
+  <section class="box"><h3 data-t="selfH"></h3><ul id="self"></ul></section>
+</div>
+<p class="fine" data-t="fine"></p>
+</main>
+<script src="pdf/manifest.js"></script>
+
+<script>
+/* ---------- Druckmappen: was in SL-Mappe und Spielerpaket steckt ----------
+   Einzige Quelle für die Druckseite (k3_app.js) und für tools/make-pdf.js (Gesamt-PDFs).
+   file: Dateiname in docs/pdf/<lang>/ · src: Webseite, aus der die PDF entsteht · land: A4 quer
+   Teile ohne Datei für eine Sprache (z. B. Run-Text auf Englisch) werden dort ausgelassen. */
+const MAPPEN={
+ gm:{file:{de:'sl-mappe.pdf',en:'gm-binder.pdf'},t:{de:'SL-Mappe',en:'GM binder'},
+  d:{de:'Alles, was die Spielleitung braucht, in Spielreihenfolge. Enthält die Auflösung: nicht an Spieler:innen weitergeben.',en:'Everything the GM needs, in order of play. Contains the reveal: do not hand to players.'},
+  parts:[
+   {id:'guide',file:{de:'leitfaden.pdf',en:'gm-guide.pdf'},t:{de:'SL-Leitfaden',en:'GM guide'},src:'feuerprobe-leitfaden.html',copies:{de:'1×',en:'1×'},
+    n:{de:'Ablauf des Runs, NPCs mit Porträts, Alert-Stufen und Payoff-Tabelle.',en:'Run outline, NPCs with portraits, alert levels and payoff table.'}},
+   {id:'plans-gm',file:{de:'plaene-sl.pdf',en:'plans-gm.pdf'},t:{de:'Pläne, SL-Version',en:'Plans, GM version'},src:'meridian-spire-plaene.html?print=gm',land:true,copies:{de:'1×',en:'1×'},
+    n:{de:'Je Ebene ein Kartenblatt und ein Notizblatt, A4 quer.',en:'Per level one map sheet and one notes sheet, A4 landscape.'}},
+   {id:'rules-gm',file:{de:'cheatsheets-sl.pdf',en:'cheatsheets-gm.pdf'},t:{de:'Cheat-Sheets SL',en:'GM cheat sheets'},src:'feuerprobe-regeln.html?aud=gm',copies:{de:'1×',en:'1×'},
+    n:{de:'Würfe leiten, Kampf & Gegner, Magie im Turm, Alert/Matrix/Payoff.',en:'Running rolls, combat & opposition, magic in the tower, alert/Matrix/payoff.'}},
+   {id:'dossiers',file:{de:'runner-dossiers.pdf',en:'runner-dossiers.pdf'},t:{de:'Runner-Dossiers mit SL-Notizen',en:'Runner dossiers with GM notes'},src:'feuerprobe-runner.html',land:true,copies:{de:'1×',en:'1×'},
+    n:{de:'Alle acht Runner mit Werten, Spieltipps und SL-Notizen.',en:'All eight runners with stats, play tips and GM notes.'}},
+   {id:'run',file:{de:'feuerprobe-run.pdf'},t:{de:'Der Run (Oneshot-Text)',en:'The run (one-shot text)'},src:'feuerprobe-oneshot.html',copies:{de:'optional',en:'optional'},
+    n:{de:'Der vollständige Abenteuertext zum Nachlesen.',en:'The complete adventure text (German only).'}}]},
+ player:{file:{de:'spielerpaket.pdf',en:'player-pack.pdf'},t:{de:'Spielerpaket',en:'Player pack'},
+  d:{de:'Für den Tisch: ohne SL-Notizen und ohne Auflösung.',en:'For the table: no GM notes, no reveal.'},
+  parts:[
+   {id:'rules-player',file:{de:'cheatsheets-spieler.pdf',en:'cheatsheets-players.pdf'},t:{de:'Cheat-Sheets Spieler:innen',en:'Player cheat sheets'},src:'feuerprobe-regeln.html?aud=player',copies:{de:'1× je Person',en:'1× per person'},
+    n:{de:'Grundregeln, Welche Action?, Kampf, Magie, Matrix/Technik/Alert.',en:'Core rules, which action?, combat, magic, Matrix/tech/alert.'}},
+   {id:'plans-player',file:{de:'plaene-spieler.pdf',en:'plans-players.pdf'},t:{de:'Pläne, Spielerversion',en:'Plans, player version'},src:'meridian-spire-plaene.html?print=player',land:true,copies:{de:'1–2× für den Tisch',en:'1–2× for the table'},
+    n:{de:'Nur, was die Crew wissen kann. A4 quer.',en:'Only what the crew can know. A4 landscape.'}},
+   {id:'runners-all',file:{de:'feuerprobe-runner-alle.pdf',en:'feuerprobe-runners-all.pdf'},t:{de:'Alle acht Runnerbögen',en:'All eight runner sheets'},src:'feuerprobe-runner-bogen.html',copies:{de:'1 Bogen je Person',en:'1 sheet per person'},
+    n:{de:'Ein Runner pro A4. Wer nur einzelne braucht: Einzelbögen unten.',en:'One runner per A4 page. Need only some? Single sheets below.'}}]},
+};
+const SINGLE_SHEETS=[['mercer','Mercer','Mercer'],['chamaeleon','Chamäleon','Chameleon'],['kessel','Kessel','Kessel'],['zephyr','Zephyr','Zephyr'],['bastion','Bastion','Bastion'],['fizz','Fizz','Fizz'],['stille','Stille','Hush'],['ravn','Ravn','Ravn']];
+
+/* ---------- Druckseite: Mappen, Teile-Checkliste, Einzelbögen, Drucktipps ----------
+   Seitenzahlen und Größen kommen aus docs/pdf/manifest.js (window.FP_PDFS), geschrieben von tools/make-pdf.js. */
+const PUI={
+ de:{title:'Drucken',sub:'Zwei fertige Mappen als je eine PDF: die SL-Mappe für die Spielleitung und das Spielerpaket für den Tisch. Darunter jedes Teil einzeln, zum Abhaken beim Drucken.',
+  whole:'Gesamt-PDF öffnen',pages:'S.',missing:'noch nicht erzeugt: node tools/make-pdf.js',pdf:'PDF',web:'Webseite',land:'quer',port:'hoch',gm:'SL',reset:'Häkchen zurücksetzen',
+  singlesH:'Einzelne Runnerbögen',tipsH:'Drucktipps',selfH:'Aus der Webseite selbst drucken',
+  tips:['A4, Skalierung „Tatsächliche Größe“ bzw. 100 %, Kopf- und Fußzeilen des Browsers aus.','Die Gesamt-PDFs mischen Hoch- und Querformat (Pläne quer). Die meisten PDF-Betrachter drehen automatisch; sonst die Pläne einzeln drucken.','Runnerbögen und Cheat-Sheets einseitig drucken, damit sie am Tisch nebeneinander liegen können.','Die Spielerpläne zeigen keine SL-Notizen, versteckten Wege oder Sensoren und können offen auf dem Tisch liegen.','Die SL-Mappe enthält die Auflösung des Runs: nicht mit dem Spielerpaket verwechseln.'],
+  self:[['Pläne: oben „Druckansicht“, dann SL- oder Spielerpläne.','meridian-spire-plaene.html'],['Runnerbögen: Runner wählen, Straßennamen vorausfüllen oder nicht, „Drucken“.','feuerprobe-runner-bogen.html'],['Cheat-Sheets: Alle, Spieler oder SL wählen, dann „Drucken“.','feuerprobe-regeln.html'],['SL-Leitfaden: „Drucken“ oben rechts; gedruckt wird der ganze Ablauf.','feuerprobe-leitfaden.html']],
+  fine:'Die PDFs entstehen mit node tools/make-pdf.js aus denselben Seiten (Edge oder Chrome im Headless-Modus); die Gesamt-PDFs fügt pdf-lib zusammen.'},
+ en:{title:'Print',sub:'Two ready-made binders as one PDF each: the GM binder for the game master and the player pack for the table. Below, every part on its own, to tick off while printing.',
+  whole:'Open complete PDF',pages:'p.',missing:'not generated yet: node tools/make-pdf.js',pdf:'PDF',web:'Web page',land:'landscape',port:'portrait',gm:'GM',reset:'Reset ticks',
+  singlesH:'Single runner sheets',tipsH:'Print tips',selfH:'Printing from the web pages',
+  tips:['A4, scale “actual size” or 100 %, browser headers and footers off.','The complete PDFs mix portrait and landscape (plans are landscape). Most PDF viewers rotate automatically; otherwise print the plans separately.','Print runner sheets and cheat sheets single-sided so they can lie side by side at the table.','The player plans show no GM notes, hidden routes or sensors and can lie openly on the table.','The GM binder contains the reveal of the run: don’t mix it up with the player pack.'],
+  self:[['Plans: “Print view” at the top, then GM or player plans.','meridian-spire-plaene.html'],['Runner sheets: pick a runner, prefill the street name or not, “Print”.','feuerprobe-runner-bogen.html'],['Cheat sheets: pick All, Players or GM, then “Print”.','feuerprobe-regeln.html'],['GM guide: “Print” at the top right; the whole outline is printed.','feuerprobe-leitfaden.html']],
+  fine:'The PDFs are made with node tools/make-pdf.js from the same pages (Edge or Chrome in headless mode); pdf-lib joins the complete PDFs.'},
+};
+let lang='de';
+try{const q=new URLSearchParams(location.search).get('lang');const v=localStorage.getItem('fp-lang');lang=(q==='en'||q==='de')?q:((v==='en'||v==='de')?v:'de');}catch(e){}
+const PDFS=(typeof window.FP_PDFS==='object'&&window.FP_PDFS)||{};
+let ticks={};try{ticks=JSON.parse(localStorage.getItem('fp-print-ticks')||'{}')||{};}catch(e){}
+function saveTicks(){try{localStorage.setItem('fp-print-ticks',JSON.stringify(ticks));}catch(e){}}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+function L(u){const h=u.indexOf('#');const hash=h>=0?u.slice(h):'';const b=h>=0?u.slice(0,h):u;return b+(b.includes('?')?'&':'?')+'lang='+lang+hash;}
+function info(f){const m=PDFS[lang+'/'+f];if(!m)return '';const t=PUI[lang];return `${m.pages} ${t.pages} · ${m.kb>=1024?(m.kb/1024).toFixed(1).replace('.',lang==='de'?',':'.')+' MB':m.kb+' KB'}`;}
+function render(){
+  const t=PUI[lang];document.documentElement.lang=lang;
+  document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=t[el.dataset.t]||'';});
+  document.getElementById('binders').innerHTML=Object.entries(MAPPEN).map(([key,M])=>{
+    const f=M.file[lang];const have=!!PDFS[lang+'/'+f];
+    const parts=M.parts.filter(p=>p.file[lang]);
+    return `<section class="binder ${key}"><h2>${esc(M.t[lang])}${key==='gm'?`<span class="gmb">${t.gm}</span>`:''}</h2><p>${esc(M.d[lang])}</p>
+      <a class="big${have?'':' missing'}" href="pdf/${lang}/${f}" target="_blank" rel="noopener"><span>${t.whole}</span><small>${have?info(f):t.missing}</small></a>
+      <ol class="parts">${parts.map(p=>{const id=lang+':'+p.id;const on=!!ticks[id];return `<li${on?' class="done"':''}>
+        <input type="checkbox" data-id="${id}"${on?' checked':''} aria-label="${esc(p.t[lang])}">
+        <div><b>${esc(p.t[lang])}</b><span class="n">${esc(p.n[lang])}</span></div>
+        <div class="meta"><span class="cp">${esc(p.copies[lang])}</span>${p.land?t.land:t.port}${info(p.file[lang])?' · '+info(p.file[lang]):''}</div>
+        <div class="lk"><a href="pdf/${lang}/${p.file[lang]}" target="_blank" rel="noopener">${t.pdf}</a><a href="${esc(L(p.src))}">${t.web}</a></div></li>`;}).join('')}</ol>
+      <button type="button" class="reset" data-reset="${key}">${t.reset}</button></section>`;}).join('');
+  document.getElementById('singles').innerHTML=SINGLE_SHEETS.map(([id,de,en])=>{const f=(lang==='de'?'bogen-':'sheet-')+id+'.pdf';return `<a href="pdf/${lang}/${f}" target="_blank" rel="noopener">${esc(lang==='de'?de:en)}</a>`;}).join('');
+  document.getElementById('tips').innerHTML=t.tips.map(x=>`<li>${esc(x)}</li>`).join('');
+  document.getElementById('self').innerHTML=t.self.map(([x,u])=>`<li><a href="${esc(L(u))}">${esc(x.split(':')[0])}</a>:${esc(x.slice(x.indexOf(':')+1))}</li>`).join('');
+  document.getElementById('langDE').setAttribute('aria-pressed',lang==='de');document.getElementById('langEN').setAttribute('aria-pressed',lang==='en');
+}
+document.getElementById('binders').addEventListener('change',e=>{const c=e.target.closest('input[data-id]');if(!c)return;if(c.checked)ticks[c.dataset.id]=1;else delete ticks[c.dataset.id];saveTicks();c.closest('li').classList.toggle('done',c.checked);});
+document.getElementById('binders').addEventListener('click',e=>{const b=e.target.closest('[data-reset]');if(!b)return;MAPPEN[b.dataset.reset].parts.forEach(p=>{delete ticks[lang+':'+p.id];});saveTicks();render();});
+document.getElementById('langDE').addEventListener('click',()=>{lang='de';try{localStorage.setItem('fp-lang','de');}catch(e){}render();});
+document.getElementById('langEN').addEventListener('click',()=>{lang='en';try{localStorage.setItem('fp-lang','en');}catch(e){}render();});
+render();
+
+</script>
+
+</body>
+</html>

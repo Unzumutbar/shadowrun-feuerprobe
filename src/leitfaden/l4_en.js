@@ -1,7 +1,7 @@
 /* ---------- GM guide: English data ---------- */
 const GUIDE_EN={
  ui:{title:'GM Guide',subtitle:'The run “Trial by Fire” step by step · Seattle 2080 · Meridian Spire',eyebrow:'Shadowrun · Feuerprobe · Runners in the Shadows',
-  plans:'Meridian Spire plans',runner:'Runners & sheets',print:'Print',nav:'Flow',navDone:'done',doneLbl:'Section done',
+  print:'Print',nav:'Flow',navDone:'done',doneLbl:'Section done',
   alert:'Alert clock',alertSub:'click segments',alertReset:'reset',alertNames:['Routine','Routine','Suspicion','Suspicion','Active alarm','Active alarm','Lockdown'],
   alertDesc:['Systems treat anomalies as normal event deviations. Drones patrol on standard patterns.','Systems treat anomalies as normal event deviations. Drones patrol on standard patterns.','Cameras cross-check more closely, doors ask for credentials again, staff are quietly questioned.','Cameras cross-check more closely, doors ask for credentials again, staff are quietly questioned.','Drones search actively, service routes are closed, elevators rerouted, identified runners are pursued.','Drones search actively, service routes are closed, elevators rerouted, identified runners are pursued.','Escape routes locked, external response called. Escalation, not failure.'],
   calc:'Payoff calculator',calcChecks:[['open','Case was opened (even expertly)'],['loot','Extra loot or damage to the collection'],['venn','Dr. Venn harmed'],['harm','Guests or staff injured or killed'],['gore','Indiscriminate killing despite orders']],
