@@ -45,10 +45,14 @@ const SIL={
   dragon:`<svg viewBox="0 0 132 176" aria-hidden="true"><path d="M20 118c10-40 34-64 70-70-16 12-24 26-26 40 18-14 40-18 62-10-22 4-36 16-44 34 10-2 20 0 30 6-16 4-28 12-36 26-6-10-16-18-30-22 4 14 2 26-6 36-6-16-12-28-20-40z" fill="currentColor" opacity=".45"/><circle cx="84" cy="70" r="3" fill="currentColor"/></svg>`,
 };
 function porKey(id){return 'fp-guide-por-'+id;}
+/* Feste Porträts kommen aus PORTRAITS (von build.js aus src/leitfaden/img eingebettet); ein eigenes Bild per Klick ersetzt sie im Browser. */
+const PORS=typeof PORTRAITS==='object'?PORTRAITS:{};
+const WIDE={veyrath:1};
 function npc(n){
-  let img='';try{img=localStorage.getItem(porKey(n.id))||'';}catch(e){}
-  return `<article class="npc" id="npc-${n.id}">
-  <div class="por${img?' has':''}" data-id="${n.id}">${SIL[n.kind]||SIL.person}${img?`<img src="${img}" alt="">`:''}<span class="lbl">${T().portrait}</span><input type="file" accept="image/*" class="pick" title="${T().portrait}"><button type="button" class="rm">${T().portraitRm}</button></div>
+  let own='';try{own=localStorage.getItem(porKey(n.id))||'';}catch(e){}
+  const img=own||PORS[n.id]||'';
+  return `<article class="npc${WIDE[n.id]?' wide':''}" id="npc-${n.id}">
+  <div class="por${img?' has':''}${own?' own':''}" data-id="${n.id}">${SIL[n.kind]||SIL.person}${img?`<img src="${img}" alt="${n.name}">`:''}<span class="lbl">${T().portrait}</span><input type="file" accept="image/*" class="pick" title="${T().portrait}"><button type="button" class="rm">${T().portraitRm}</button></div>
   <div class="info"><div class="nm">${n.name}</div><div class="rl">${n.role}</div>
   <div class="tags">${n.tags.map((t,i)=>`<span${n.key&&i===n.tags.length-1?' class="k"':''}>${t}</span>`).join('')}</div>
   <p>${n.bio}</p>
@@ -67,10 +71,10 @@ function bindPortraits(){
         const s=Math.max(W/im.width,H/im.height),w=im.width*s,h=im.height*s;cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);
         const url=cv.toDataURL('image/jpeg',.82);
         try{localStorage.setItem(porKey(id),url);}catch(err){alert(lang==='en'?'Could not store the image (browser storage full).':'Bild konnte nicht gespeichert werden (Browserspeicher voll).');return;}
-        let img=p.querySelector('img');if(!img){img=document.createElement('img');img.alt='';p.insertBefore(img,p.querySelector('.lbl'));}img.src=url;p.classList.add('has');
+        let img=p.querySelector('img');if(!img){img=document.createElement('img');img.alt='';p.insertBefore(img,p.querySelector('.lbl'));}img.src=url;p.classList.add('has','own');
       };im.src=r.result;};r.readAsDataURL(f);e.target.value='';
     });
-    p.querySelector('.rm').addEventListener('click',()=>{try{localStorage.removeItem(porKey(id));}catch(e){}const img=p.querySelector('img');if(img)img.remove();p.classList.remove('has');});
+    p.querySelector('.rm').addEventListener('click',()=>{try{localStorage.removeItem(porKey(id));}catch(e){}p.classList.remove('own');const img=p.querySelector('img');if(PORS[id]){if(img)img.src=PORS[id];}else{if(img)img.remove();p.classList.remove('has');}});
   });
 }
 

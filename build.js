@@ -40,11 +40,13 @@ const pages = [
     js: ['../runner/r3_data_a.js', '../runner/r4_data_b.js', '../runner/r3b_en_a.js', '../runner/r4b_en_b.js', 'b3_app.js'],
   },
   {
-    // SL-Leitfaden: Ablauf des Runs, NPCs mit Porträt-Platzhaltern, Alert Clock, Payoff-Rechner
+    // SL-Leitfaden: Ablauf des Runs, NPCs mit Porträts, Alert Clock, Payoff-Rechner
     name: 'feuerprobe-leitfaden',
     dir: 'src/leitfaden',
     html: ['l1_head.html', 'l2_body.html'],
     js: ['l3_de.js', 'l4_en.js', 'l5_app.js'],
+    // Feste NPC-Porträts: jede Datei in img/ wird als data:-URI eingebettet (Schlüssel = Dateiname = NPC-id)
+    portraits: 'img',
   },
   {
     // Cheat-Sheets: Grundregeln, Kampf, Magie, Matrix/Alert für Spieler und SL, je Sheet eine A4-Seite
@@ -56,12 +58,24 @@ const pages = [
 ];
 
 const read = (dir, file) => fs.readFileSync(path.join(__dirname, dir, file), 'utf8');
+const portraitsJs = (dir) => {
+  const mime = { '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png' };
+  const entries = fs.readdirSync(path.join(__dirname, dir))
+    .filter((f) => mime[path.extname(f).toLowerCase()])
+    .map((f) => {
+      const ext = path.extname(f).toLowerCase();
+      const b64 = fs.readFileSync(path.join(__dirname, dir, f)).toString('base64');
+      return `  ${JSON.stringify(path.basename(f, ext))}: 'data:${mime[ext]};base64,${b64}'`;
+    });
+  return 'const PORTRAITS = {\n' + entries.join(',\n') + '\n};\n';
+};
 fs.mkdirSync(path.join(__dirname, 'docs', 'artifact'), { recursive: true });
 
 for (const p of pages) {
   const fragment =
     p.html.map((f) => read(p.dir, f)).join('\n') +
     '\n<script>\n' +
+    (p.portraits ? portraitsJs(path.join(p.dir, p.portraits)) : '') +
     p.js.map((f) => read(p.dir, f)).join('\n') +
     '\n</script>\n';
   fs.writeFileSync(path.join(__dirname, 'docs', 'artifact', p.name + '.html'), fragment);
