@@ -51,19 +51,19 @@ header.top h1 small{display:block;font-size:.42em;font-weight:500;color:var(--in
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* layout: sidebar + content */
-.layout{display:grid;gap:24px;margin-top:22px;align-items:start}
-@media (min-width:1040px){.layout{grid-template-columns:272px minmax(0,1fr)}.side{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto;padding-right:4px}}
-.side{display:grid;gap:14px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;margin-top:22px;align-items:start}
+@media (min-width:1040px){.layout{grid-template-columns:272px minmax(0,1fr)}.side{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;padding-right:4px}}
+.side{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px}
 .panel h3{font:600 11.5px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .panel h3 span{font-weight:400;letter-spacing:.02em;text-transform:none}
 nav.steps ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
-nav.steps a{display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink-2);font-size:13.5px}
+nav.steps a{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink-2);font-size:13.5px}
 nav.steps a:hover{background:var(--surface-2)}
 nav.steps a.cur{background:var(--accent-soft);color:var(--ink)}
 nav.steps .n{font:700 13px "Barlow Condensed",sans-serif;letter-spacing:.04em;color:var(--accent);text-align:center;border:1px solid var(--line-2);border-radius:6px;padding:1px 0;width:24px}
 nav.steps a.done .n{background:var(--accent);color:#fff;border-color:var(--accent)}
-nav.steps .t{font:500 10.5px "IBM Plex Mono",monospace;color:var(--muted);white-space:nowrap}
+nav.steps .t{font:500 10.5px/1.25 "IBM Plex Mono",monospace;color:var(--muted);text-align:right;max-width:72px}
 nav.steps li.sep{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
 .prog{height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden;margin-top:10px}
 .prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
@@ -94,7 +94,7 @@ nav.steps li.sep{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)
 .calc .verdict.bad{background:var(--warn-soft)}
 
 /* content */
-.main{display:grid;gap:22px;min-width:0}
+.main{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;min-width:0}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px 22px}
 .chap{scroll-margin-top:16px}
 .chap>header{display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:start;margin-bottom:14px}
@@ -146,6 +146,7 @@ table.tb th{text-align:left;font:600 11px "IBM Plex Mono",monospace;letter-spaci
 table.tb td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
 table.tb td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
 table.tb td.r{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:12.5px;white-space:nowrap}
+@media (max-width:600px){table.tb{display:block;overflow-x:auto}table.tb td:first-child{white-space:normal;min-width:110px}}
 details.qa{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--surface)}
 details.qa summary{cursor:pointer;padding:10px 14px;font:600 15px "IBM Plex Sans",sans-serif;color:var(--ink);list-style:none;display:flex;gap:10px;align-items:baseline}
 details.qa summary::before{content:"?";font:700 13px "Barlow Condensed",sans-serif;color:var(--accent);border:1px solid var(--accent);border-radius:6px;width:20px;height:20px;display:inline-grid;place-items:center;flex:none}
@@ -167,23 +168,24 @@ details.qa .a{padding:10px 14px 4px 44px}
 /* NPCs */
 .npcs{display:grid;gap:14px;margin:6px 0 4px}
 @media (min-width:760px){.npcs{grid-template-columns:1fr 1fr}}
-.npc{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;display:grid;grid-template-columns:156px 1fr;box-shadow:var(--shadow)}
-@media (max-width:480px){.npc{grid-template-columns:1fr}}
-.npc .por{position:relative;background:var(--surface-2);border-right:1px solid var(--line);min-height:176px;display:grid;place-items:center;overflow:hidden}
-@media (max-width:480px){.npc .por{border-right:0;border-bottom:1px solid var(--line);min-height:200px}}
+.npc{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.npc .por{position:relative;background:var(--surface-2);border-bottom:1px solid var(--line);aspect-ratio:1/1;display:grid;place-items:center;overflow:hidden}
 .npc .por svg{width:100%;height:100%;position:absolute;inset:0;color:var(--line-2)}
 .npc .por img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .npc .por .lbl{position:absolute;left:0;right:0;bottom:0;text-align:center;font:500 10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px 4px;background:linear-gradient(transparent,var(--surface-2))}
 .npc .por .pick{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .npc .por .rm{position:absolute;top:6px;right:6px;border:0;background:rgba(0,0,0,.55);color:#fff;font:600 11px/1 "IBM Plex Sans",sans-serif;padding:4px 7px;border-radius:999px;cursor:pointer;display:none}
 .npc .por.own .rm{display:block}
-.npc .por{aspect-ratio:1/1;min-height:0;align-self:start;border-bottom:1px solid var(--line)}
-.npc.wide{grid-column:1/-1;grid-template-columns:1fr}
-.npc.wide .por{border-right:0;border-bottom:1px solid var(--line)}
 .npc.wide .por{aspect-ratio:16/9}
+.npc.var:not(.on){display:none}
+.npc .vsw{position:absolute;top:8px;left:8px;z-index:2;display:inline-flex;border-radius:999px;overflow:hidden;background:rgba(10,14,20,.72);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(4px)}
+.npc .vsw button{appearance:none;border:0;background:transparent;color:#fff;font:600 12px/1 "IBM Plex Sans",sans-serif;padding:7px 11px;cursor:pointer;white-space:nowrap}
+.npc .vsw button+button{border-left:1px solid rgba(255,255,255,.25)}
+.npc .vsw button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.npc .vsw button:focus-visible{outline:2px solid #fff;outline-offset:-2px}
 .npc .por.has .lbl{display:none}
 .npc .por.has svg{display:none}
-.npc .info{padding:14px 16px 16px;min-width:0}
+.npc .info{padding:16px 18px 18px;min-width:0}
 .npc .nm{font:700 26px/1 "Barlow Condensed",sans-serif;letter-spacing:.01em}
 .npc .rl{font-size:13px;color:var(--ink-2);margin:4px 0 8px}
 .npc .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
@@ -223,8 +225,17 @@ details.qa .a{padding:10px 14px 4px 44px}
   .tile,.note,.q,.stage,table.tb tr,.qr .tile{break-inside:avoid}
   .chap>header h2{font-size:22px}
   .npc{break-inside:avoid;box-shadow:none}
-  .npcs{grid-template-columns:1fr}
-  .npc{grid-template-columns:120px 1fr}
+  .npcs{grid-template-columns:1fr;gap:10px}
+  .npc.var:not(.on){display:grid}
+  .npc .vsw{display:none}
+  .npc{display:grid;grid-template-columns:200px 1fr}
+  .npc .por{border-bottom:0;border-right:1px solid var(--line);align-self:start}
+  .npc .info{padding:10px 14px 12px}
+  .npc.wide{grid-template-columns:1fr}
+  .npc.wide .por{border-right:0;border-bottom:1px solid var(--line)}
+  .npc.wide .info{columns:2;column-gap:24px}
+  .npc.wide .nm,.npc.wide .rl,.npc.wide .tags{column-span:all}
+  .npc.wide ul,.npc.wide .sec,.npc.wide .say{break-inside:avoid}
   .npc.wide .por{aspect-ratio:21/9}
   .grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}
   .stages{grid-template-columns:repeat(4,1fr)}
@@ -490,8 +501,8 @@ const GUIDE_DE={
    play:['Hält sich meist in der Galerie auf, zieht sich gelegentlich in den Wintergarten zurück.','Kann Gäste zu einer privaten Besichtigung anmelden und bis zur Schleuse begleiten.','Besitzt die Vault-Keycard nicht und kann den Tresor nicht allein öffnen.','Darf laut Auftrag nicht verletzt werden. Entführung ist möglich, aber auffällig.'],
    secret:'Weiß nichts von der Feuerprobe. Ihr Misstrauen ist eine gute Consequence: Sie stellt Rückfragen, holt Kade dazu oder kündigt ihren Aufbruch an, wenn die Party zu lange dauert.',
    say:'„Sie sehen das Stück tatsächlich an, nicht das Preisschild. Das ist heute Abend selten. Kommen Sie, ich zeige Ihnen, warum es hier hängt.“'},
-  {id:'veyrath',name:'Veyrath',role:'Erwachsener Drache · Eigentümer und eigentlicher Auftraggeber',tags:['Drache','Sammler','Kein Gegner'],kind:'dragon',
-   bio:'Ein zurückhaltender, außerordentlich vermögender Sammler, der lieber durch Mittelsleute handelt, als öffentlich aufzutreten. Ihm gehören Penthouse, Tresor, Sammlung und Aktenkoffer; hinter Vesperline Collections und mehreren Briefkastenfirmen steht er. Veyrath betrachtet Runner als potenziell wertvolle Spezialisten und sucht eine kleine Crew für spätere Aufgaben. Was ihn interessiert, ist Verlässlichkeit, wenn Gier, Angst und Improvisation kollidieren.',
+  {id:'veyrath',name:'Veyrath',role:'Ehrgeiziger Jungdrache · Eigentümer und eigentlicher Auftraggeber',tags:['Drache','Aufsteiger','Kein Gegner'],kind:'dragon',
+   bio:'Ein Jungdrache mit großem Ehrgeiz: an Jahren und Ansehen weit hinter den Großdrachen, aber fest entschlossen, in der Hierarchie der Sechsten Welt weiter aufzusteigen. Die alten Drachen fürchtet er keineswegs; er hält sie für träge und in ihren alten Fehden festgefahren und will Boden gewinnen, wo sie nicht hinsehen. Er handelt durch Mittelsleute, nicht aus Scheu, sondern weil er seine Züge erst zeigt, wenn sie sitzen. Ihm gehören Penthouse, Tresor, Sammlung und Aktenkoffer; hinter Vesperline Collections und mehreren Briefkastenfirmen steht er. Veyrath betrachtet Runner als potenziell wertvolle Spezialisten und sucht eine kleine Crew für spätere Aufgaben, die ihn weiter nach oben bringen sollen: Werkzeuge, die nicht schon einem anderen Drachen gehören. Was ihn interessiert, ist Verlässlichkeit, wenn Gier, Angst und Improvisation kollidieren.',
    look:['Erscheint erst bei der Enthüllung: ein gewaltiger Schatten, Flügel im Regen','Spricht direkt in die Gedanken der Runner','Bleibt außer Reichweite, blockiert nichts, greift nicht an'],
    play:['Rettet die Crew nicht und behindert sie nicht. Das Gebäude ist das Hindernis, nicht er.','Bewertet am Ende: Disziplin, Kreativität, Teamwork, Eskalationskontrolle.','Misst seinem Eigentum mehr Wert bei als metamenschlichem Leben. Das ist bewusst unangenehm.','Wird nie zur Kampfbegegnung. Schießt jemand auf ihn, beendet er den Kontakt.'],
    secret:'Hat für diese Nacht eine schwierige, aber realistisch nutzbare Schwachstelle im Event Mode zugelassen. Sammlung, Gäste, Personal und Sicherheit sind echt. Gelingt der Crew eine außergewöhnliche Recherche, darf sie das vorher erfahren; die Enthüllung wird dann zur Bestätigung.',
@@ -664,7 +675,7 @@ const GUIDE_DE={
       {h:'Zusätzliche Beute',p:'„Ich bat euch um einen Gegenstand. Ihr habt entschieden, dass mein Eigentum eure Bezahlung erhöhen sollte. Das merke ich mir.“'},
       {h:'Geöffneter Koffer',p:'„Neugier ist wertvoll. Disziplin ebenfalls. Heute habt ihr mir gezeigt, welche von beiden bei euch gewinnt.“'},
       {h:'Sprengsatz sauber neutralisiert',p:'„Den Sicherungsmechanismus zu erkennen war gute Arbeit. Ihn überwinden zu müssen, war eure eigene Entscheidung.“'}]],
-    ['note','warn','Kein Kampf','Veyrath bleibt außer Reichweite, bedroht die Crew nicht und blockiert ihre Flucht nicht. Schießen die Runner auf ihn, beendet er den Kontakt und zieht sich zurück, statt aus dem Epilog einen Kampf gegen einen erwachsenen Drachen zu machen.']]},
+    ['note','warn','Kein Kampf','Veyrath bleibt außer Reichweite, bedroht die Crew nicht und blockiert ihre Flucht nicht. Schießen die Runner auf ihn, beendet er den Kontakt und zieht sich zurück, statt aus dem Epilog einen Kampf gegen einen Drachen zu machen.']]},
 
   {id:'payoff',num:'Schritt 10',title:'Payoff und Bewertung',time:'Abschluss',
    lead:'Die Grundbezahlung beträgt 6 Nuyen. Veyrath koppelt die Auszahlung an die Professionalität der Crew. Der Rechner links übernimmt die Regel.',
@@ -708,7 +719,7 @@ const GUIDE_DE={
       {h:'Penthouse 111/112',items:['Großer Salon · Ausstellungsgalerie · Wintergarten','Servicebereich mit Eventbüro','Sammlerlift hinter den Ausstellungsräumen','Privates Arbeitszimmer mit Privatlift','Glasdach und Dachzugang']},
       {h:'Vault-Ebene 110',items:['Gemeinsame Zugangsschleuse','Sensorkorridor','Drohnenknoten: Aufklärer und Wächter','Tresortür: Keycard + Augenscan, Reihenfolge egal','Lebende Vault-Hülle mit dualer Manabarriere, optional astraler Watcher','Moderner Drachenhort mit Versuchung']},
       {h:'Alert Clock ○○○○○○',items:['<b>0–1</b> Routine','<b>2–3</b> Verdacht','<b>4–5</b> aktiver Alarm','<b>6</b> Lockdown + externe Response']},
-      {h:'NPCs',items:['<b>Mr. Johnson:</b> professioneller Vermittler Veyraths','<b>Dr. Amara Venn:</b> orkische Kuratorin, linkes Auge = Biometrie, hat keine Keycard','<b>Dorian Kade:</b> Sicherheitschef, Cyberarme, kennt Verwahrung und Ausgabe der Keycard','<b>Veyrath:</b> erwachsener Drache, Eigentümer und Auftraggeber, prüft die Crew, kämpft nie']},
+      {h:'NPCs',items:['<b>Mr. Johnson:</b> professioneller Vermittler Veyraths','<b>Dr. Amara Venn:</b> orkische Kuratorin, linkes Auge = Biometrie, hat keine Keycard','<b>Dorian Kade:</b> Sicherheitschef, Cyberarme, kennt Verwahrung und Ausgabe der Keycard','<b>Veyrath:</b> ehrgeiziger Jungdrache, Eigentümer und Auftraggeber, prüft die Crew, kämpft nie']},
       {h:'Die Wahrheit',items:['Veyrath besitzt Penthouse, Vault, Sammlung und Koffer und hat den Einbruch in seinen eigenen Tresor beauftragt','Kein rivalisierender Drache','Die Gala schafft absichtlich ein realistisches Zeitfenster','Geprüft werden Disziplin, Kreativität, Teamwork und Eskalationskontrolle']},
       {h:'Würfel',items:['<b>6</b> Erfolg · <b>4/5</b> mit Consequence · <b>1–3</b> schlecht · mehrere 6en Critical','Position: Controlled / Risky / Desperate · Effect: Limited / Standard / Great','2 Edge pushen, 1 Edge assistieren, Resistance kostet Edge','Flashback 0–2 Edge je nach Aufwand']}]]]},
  ],
@@ -757,8 +768,8 @@ const GUIDE_EN={
    play:['Mostly in the gallery; occasionally retreats to the winter garden.','Can register guests for a private viewing and escort them to the airlock.','Does not have the vault keycard and cannot open the vault alone.','Must not be harmed, per the contract. Abduction is possible but conspicuous.'],
    secret:'Knows nothing of the trial. Her suspicion is a good consequence: she asks follow-up questions, calls Kade over, or announces her departure when the party drags on.',
    say:'“You are actually looking at the piece, not the price tag. That is rare tonight. Come, let me show you why it hangs here.”'},
-  {id:'veyrath',name:'Veyrath',role:'Adult dragon · owner and true employer',tags:['Dragon','Collector','Not an antagonist'],kind:'dragon',
-   bio:'A reserved, exceptionally wealthy collector who prefers to act through intermediaries rather than appear in public. The penthouse, vault, collection and briefcase are his; he stands behind Vesperline Collections and several shell companies. Veyrath regards runners as potentially valuable specialists and is looking for a small crew for later tasks. What interests him is reliability when greed, fear and improvisation collide.',
+  {id:'veyrath',name:'Veyrath',role:'Ambitious young dragon · owner and true employer',tags:['Dragon','Climber','Not an antagonist'],kind:'dragon',
+   bio:'A young dragon of great ambition: far behind the great dragons in age and standing, but determined to keep rising in the hierarchy of the Sixth World. He does not fear the old dragons in the least; he considers them sluggish and stuck in their ancient feuds, and means to gain ground where they are not looking. He acts through intermediaries, not out of shyness, but because he only shows his moves once they are in place. The penthouse, vault, collection and briefcase are his; he stands behind Vesperline Collections and several shell companies. Veyrath regards runners as potentially valuable specialists and is looking for a small crew for later tasks meant to carry him further up: tools that do not already belong to another dragon. What interests him is reliability when greed, fear and improvisation collide.',
    look:['Appears only at the reveal: a vast shadow, wings in the rain','Speaks directly into the runners’ minds','Stays out of reach, blocks nothing, never attacks'],
    play:['Neither rescues nor hinders the crew. The building is the obstacle, not him.','Judges at the end: discipline, creativity, teamwork, control of escalation.','Values his property above metahuman life. That is deliberately uncomfortable.','Is never a combat encounter. If someone shoots at him, he ends the contact.'],
    secret:'Has allowed a difficult but realistically exploitable weakness in event mode for this one night. Collection, guests, staff and security are real. If the crew pulls off exceptional research, they may learn this beforehand; the reveal then becomes confirmation.',
@@ -931,7 +942,7 @@ const GUIDE_EN={
       {h:'Extra loot',p:'“I asked you for one object. You decided my property should raise your pay. I will remember that.”'},
       {h:'Opened case',p:'“Curiosity is valuable. So is discipline. Tonight you showed me which of the two wins with you.”'},
       {h:'Charge neutralised cleanly',p:'“Recognising the safeguard was good work. Having to overcome it was your own decision.”'}]],
-    ['note','warn','No fight','Veyrath stays out of reach, does not threaten the crew and does not block their escape. If the runners shoot at him, he ends the contact and withdraws rather than turning the epilogue into a fight against an adult dragon.']]},
+    ['note','warn','No fight','Veyrath stays out of reach, does not threaten the crew and does not block their escape. If the runners shoot at him, he ends the contact and withdraws rather than turning the epilogue into a fight against a dragon.']]},
 
   {id:'payoff',num:'Step 10',title:'Payoff and assessment',time:'wrap-up',
    lead:'The base pay is 6 nuyen. Veyrath ties the actual payout to the crew’s professionalism. The calculator on the left applies the rule.',
@@ -975,7 +986,7 @@ const GUIDE_EN={
       {h:'Penthouse 111/112',items:['Grand salon · exhibition gallery · winter garden','Service area with event office','Collector’s lift behind the exhibition rooms','Private study with private lift','Glass roof and roof access']},
       {h:'Vault level 110',items:['Shared access airlock','Sensor corridor','Drone node: recon and guardians','Vault door: keycard + eye scan, any order','Living vault shell with dual mana barrier, optional astral watcher','Modern dragon hoard with temptation']},
       {h:'Alert clock ○○○○○○',items:['<b>0–1</b> routine','<b>2–3</b> suspicion','<b>4–5</b> active alarm','<b>6</b> lockdown + external response']},
-      {h:'NPCs',items:['<b>Mr. Johnson:</b> Veyrath’s professional fixer','<b>Dr. Amara Venn:</b> ork curator, left eye = biometrics, has no keycard','<b>Dorian Kade:</b> head of security, cyberarms, knows storage and release of the keycard','<b>Veyrath:</b> adult dragon, owner and employer, tests the crew, never fights']},
+      {h:'NPCs',items:['<b>Mr. Johnson:</b> Veyrath’s professional fixer','<b>Dr. Amara Venn:</b> ork curator, left eye = biometrics, has no keycard','<b>Dorian Kade:</b> head of security, cyberarms, knows storage and release of the keycard','<b>Veyrath:</b> ambitious young dragon, owner and employer, tests the crew, never fights']},
       {h:'The truth',items:['Veyrath owns penthouse, vault, collection and case and commissioned the break-in into his own vault','No rival dragon','The gala deliberately creates a realistic window','Tested: discipline, creativity, teamwork and control of escalation']},
       {h:'Dice',items:['<b>6</b> success · <b>4/5</b> with consequence · <b>1–3</b> bad · several 6s critical','Position: controlled / risky / desperate · effect: limited / standard / great','2 edge push, 1 edge assist, resistance costs edge','Flashback 0–2 edge depending on effort']}]]]},
  ],
@@ -1033,11 +1044,27 @@ function porKey(id){return 'fp-guide-por-'+id;}
 /* Feste Porträts kommen aus PORTRAITS (von build.js aus src/leitfaden/img eingebettet); ein eigenes Bild per Klick ersetzt sie im Browser. */
 const PORS=typeof PORTRAITS==='object'?PORTRAITS:{};
 const WIDE={veyrath:1};
+/* Personen in zwei Varianten: online zeigt eine Karte mit Umschalter (Wahl bleibt gespeichert), der Druck beide */
+const VARS={johnson:['johnson','johnson-rookie'],kade:['kade','kade-troll']};
+const VAR_OF={};Object.entries(VARS).forEach(([g,ids])=>ids.forEach(i=>{VAR_OF[i]=g;}));
+let varSel={};try{varSel=JSON.parse(localStorage.getItem('fp-npc-var')||'{}')||{};}catch(e){}
+function curVar(g){return VARS[g].includes(varSel[g])?varSel[g]:VARS[g][0];}
+function varLabel(m){const v=(m.role.match(/^Varia\w*\s+(\w)/)||[])[1]||'';return `${v} · ${m.tags[0]}`;}
+function varSwitch(n){
+  const g=VAR_OF[n.id];if(!g)return '';
+  return `<div class="vsw" role="group" aria-label="${lang==='en'?'Variant':'Variante'}">${VARS[g].map(id=>{const m=G().npcs.find(x=>x.id===id);return m?`<button type="button" data-var="${id}" aria-pressed="${id===n.id}" title="${m.role}">${varLabel(m)}</button>`:'';}).join('')}</div>`;
+}
+function setVar(id,scroll){
+  const g=VAR_OF[id];if(!g)return;varSel[g]=id;try{localStorage.setItem('fp-npc-var',JSON.stringify(varSel));}catch(e){}
+  document.querySelectorAll(`.npc[data-grp="${g}"]`).forEach(a=>a.classList.toggle('on',a.id==='npc-'+id));
+  if(scroll){const el=document.getElementById('npc-'+id);if(el)el.scrollIntoView({block:'start',behavior:'instant'});}
+}
 function npc(n){
   let own='';try{own=localStorage.getItem(porKey(n.id))||'';}catch(e){}
   const img=own||PORS[n.id]||'';
-  return `<article class="npc${WIDE[n.id]?' wide':''}" id="npc-${n.id}">
-  <div class="por${img?' has':''}${own?' own':''}" data-id="${n.id}">${SIL[n.kind]||SIL.person}${img?`<img src="${img}" alt="${n.name}">`:''}<span class="lbl">${T().portrait}</span><input type="file" accept="image/*" class="pick" title="${T().portrait}"><button type="button" class="rm">${T().portraitRm}</button></div>
+  const g=VAR_OF[n.id];
+  return `<article class="npc${WIDE[n.id]?' wide':''}${g?' var'+(curVar(g)===n.id?' on':''):''}" id="npc-${n.id}"${g?` data-grp="${g}"`:''}>
+  <div class="por${img?' has':''}${own?' own':''}" data-id="${n.id}">${SIL[n.kind]||SIL.person}${img?`<img src="${img}" alt="${n.name}">`:''}<span class="lbl">${T().portrait}</span><input type="file" accept="image/*" class="pick" title="${T().portrait}"><button type="button" class="rm">${T().portraitRm}</button>${varSwitch(n)}</div>
   <div class="info"><div class="nm">${n.name}</div><div class="rl">${n.role}</div>
   <div class="tags">${n.tags.map((t,i)=>`<span${n.key&&i===n.tags.length-1?' class="k"':''}>${t}</span>`).join('')}</div>
   <p>${n.bio}</p>
@@ -1052,7 +1079,7 @@ function bindPortraits(){
     p.querySelector('.pick').addEventListener('change',e=>{
       const f=e.target.files&&e.target.files[0];if(!f)return;
       const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{
-        const W=480,H=640,cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d');
+        const W=600,H=600,cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d');
         const s=Math.max(W/im.width,H/im.height),w=im.width*s,h=im.height*s;cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);
         const url=cv.toDataURL('image/jpeg',.82);
         try{localStorage.setItem(porKey(id),url);}catch(err){alert(lang==='en'?'Could not store the image (browser storage full).':'Bild konnte nicht gespeichert werden (Browserspeicher voll).');return;}
@@ -1177,6 +1204,12 @@ window.addEventListener('beforeprint',()=>{document.querySelectorAll('details.qa
 window.addEventListener('afterprint',()=>{document.querySelectorAll('details.qa').forEach(d=>{d.open=d.dataset.was==='1';});});
 window.addEventListener('scroll',()=>{$('toplink').classList.toggle('show',window.scrollY>600);},{passive:true});
 $('toplink').addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});
+$('main').addEventListener('click',e=>{
+  const b=e.target.closest('[data-var]');if(b){e.preventDefault();setVar(b.dataset.var,false);return;}
+  const a=e.target.closest('a[href^="#npc-"]');if(a){const id=a.getAttribute('href').slice(5);if(VAR_OF[id])setVar(id,false);}
+});
+window.addEventListener('hashchange',()=>{const id=decodeURIComponent(location.hash.slice(1)).replace(/^npc-/,'');if(VAR_OF[id])setVar(id,true);});
+if(/^#npc-/.test(location.hash)){const id=decodeURIComponent(location.hash.slice(5));if(VAR_OF[id])setVar(id,false);}
 renderAll();
 // Deep Link (#kapitel, #npc-…, #alertPanel): nach dem Rendern und dem Laden der Schriften hinscrollen
 if(location.hash&&!printMode){const go=()=>{const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el)el.scrollIntoView({block:'start',behavior:'instant'});};go();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);}

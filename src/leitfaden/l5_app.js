@@ -50,11 +50,27 @@ function porKey(id){return 'fp-guide-por-'+id;}
 /* Feste Porträts kommen aus PORTRAITS (von build.js aus src/leitfaden/img eingebettet); ein eigenes Bild per Klick ersetzt sie im Browser. */
 const PORS=typeof PORTRAITS==='object'?PORTRAITS:{};
 const WIDE={veyrath:1};
+/* Personen in zwei Varianten: online zeigt eine Karte mit Umschalter (Wahl bleibt gespeichert), der Druck beide */
+const VARS={johnson:['johnson','johnson-rookie'],kade:['kade','kade-troll']};
+const VAR_OF={};Object.entries(VARS).forEach(([g,ids])=>ids.forEach(i=>{VAR_OF[i]=g;}));
+let varSel={};try{varSel=JSON.parse(localStorage.getItem('fp-npc-var')||'{}')||{};}catch(e){}
+function curVar(g){return VARS[g].includes(varSel[g])?varSel[g]:VARS[g][0];}
+function varLabel(m){const v=(m.role.match(/^Varia\w*\s+(\w)/)||[])[1]||'';return `${v} · ${m.tags[0]}`;}
+function varSwitch(n){
+  const g=VAR_OF[n.id];if(!g)return '';
+  return `<div class="vsw" role="group" aria-label="${lang==='en'?'Variant':'Variante'}">${VARS[g].map(id=>{const m=G().npcs.find(x=>x.id===id);return m?`<button type="button" data-var="${id}" aria-pressed="${id===n.id}" title="${m.role}">${varLabel(m)}</button>`:'';}).join('')}</div>`;
+}
+function setVar(id,scroll){
+  const g=VAR_OF[id];if(!g)return;varSel[g]=id;try{localStorage.setItem('fp-npc-var',JSON.stringify(varSel));}catch(e){}
+  document.querySelectorAll(`.npc[data-grp="${g}"]`).forEach(a=>a.classList.toggle('on',a.id==='npc-'+id));
+  if(scroll){const el=document.getElementById('npc-'+id);if(el)el.scrollIntoView({block:'start',behavior:'instant'});}
+}
 function npc(n){
   let own='';try{own=localStorage.getItem(porKey(n.id))||'';}catch(e){}
   const img=own||PORS[n.id]||'';
-  return `<article class="npc${WIDE[n.id]?' wide':''}" id="npc-${n.id}">
-  <div class="por${img?' has':''}${own?' own':''}" data-id="${n.id}">${SIL[n.kind]||SIL.person}${img?`<img src="${img}" alt="${n.name}">`:''}<span class="lbl">${T().portrait}</span><input type="file" accept="image/*" class="pick" title="${T().portrait}"><button type="button" class="rm">${T().portraitRm}</button></div>
+  const g=VAR_OF[n.id];
+  return `<article class="npc${WIDE[n.id]?' wide':''}${g?' var'+(curVar(g)===n.id?' on':''):''}" id="npc-${n.id}"${g?` data-grp="${g}"`:''}>
+  <div class="por${img?' has':''}${own?' own':''}" data-id="${n.id}">${SIL[n.kind]||SIL.person}${img?`<img src="${img}" alt="${n.name}">`:''}<span class="lbl">${T().portrait}</span><input type="file" accept="image/*" class="pick" title="${T().portrait}"><button type="button" class="rm">${T().portraitRm}</button>${varSwitch(n)}</div>
   <div class="info"><div class="nm">${n.name}</div><div class="rl">${n.role}</div>
   <div class="tags">${n.tags.map((t,i)=>`<span${n.key&&i===n.tags.length-1?' class="k"':''}>${t}</span>`).join('')}</div>
   <p>${n.bio}</p>
@@ -69,7 +85,7 @@ function bindPortraits(){
     p.querySelector('.pick').addEventListener('change',e=>{
       const f=e.target.files&&e.target.files[0];if(!f)return;
       const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{
-        const W=480,H=640,cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d');
+        const W=600,H=600,cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d');
         const s=Math.max(W/im.width,H/im.height),w=im.width*s,h=im.height*s;cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);
         const url=cv.toDataURL('image/jpeg',.82);
         try{localStorage.setItem(porKey(id),url);}catch(err){alert(lang==='en'?'Could not store the image (browser storage full).':'Bild konnte nicht gespeichert werden (Browserspeicher voll).');return;}
@@ -194,6 +210,12 @@ window.addEventListener('beforeprint',()=>{document.querySelectorAll('details.qa
 window.addEventListener('afterprint',()=>{document.querySelectorAll('details.qa').forEach(d=>{d.open=d.dataset.was==='1';});});
 window.addEventListener('scroll',()=>{$('toplink').classList.toggle('show',window.scrollY>600);},{passive:true});
 $('toplink').addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});
+$('main').addEventListener('click',e=>{
+  const b=e.target.closest('[data-var]');if(b){e.preventDefault();setVar(b.dataset.var,false);return;}
+  const a=e.target.closest('a[href^="#npc-"]');if(a){const id=a.getAttribute('href').slice(5);if(VAR_OF[id])setVar(id,false);}
+});
+window.addEventListener('hashchange',()=>{const id=decodeURIComponent(location.hash.slice(1)).replace(/^npc-/,'');if(VAR_OF[id])setVar(id,true);});
+if(/^#npc-/.test(location.hash)){const id=decodeURIComponent(location.hash.slice(5));if(VAR_OF[id])setVar(id,false);}
 renderAll();
 // Deep Link (#kapitel, #npc-…, #alertPanel): nach dem Rendern und dem Laden der Schriften hinscrollen
 if(location.hash&&!printMode){const go=()=>{const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el)el.scrollIntoView({block:'start',behavior:'instant'});};go();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);}
