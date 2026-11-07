@@ -10,7 +10,7 @@
 
 Die Runner sollen während einer exklusiven Gala in einem über hundert Stockwerke hohen Wohnturm einen bestimmten Aktenkoffer aus einem privaten Tresorgeschoss stehlen. Für den Zugang benötigen sie eine physische Zugangskarte aus dem Penthouse und den biometrischen Augenscan einer anwesenden Kuratorin. Der Koffer muss ungeöffnet bleiben, andere Wertgegenstände sind tabu und die Zielperson darf nicht verletzt werden. Tödliche Gewalt soll nach Möglichkeit vermieden werden.
 
-Was die Runner nicht wissen: Penthouse, Tresor und dessen Inhalt gehören dem erwachsenen Drachen **Veyrath**. Auch der Auftrag selbst stammt von ihm. Die Runner brechen also **in Veyraths eigenen Tresor ein und stehlen Veyraths eigenen Aktenkoffer**. Es gibt keinen rivalisierenden Drachen und keinen fremden Besitzer hinter dem Ziel. Der Auftrag ist eine **Feuerprobe**: Veyrath sucht eine kleine, vielseitige Runnercrew für spätere Aufgaben und will sehen, wie sie unter Druck arbeitet: kreativ oder plump, diszipliniert oder gierig, kontrolliert oder mörderisch.
+Was die Runner nicht wissen: Penthouse, Tresor und dessen Inhalt gehören dem Jungdrachen **Veyrath**. Auch der Auftrag selbst stammt von ihm. Die Runner brechen also **in Veyraths eigenen Tresor ein und stehlen Veyraths eigenen Aktenkoffer**. Es gibt keinen rivalisierenden Drachen und keinen fremden Besitzer hinter dem Ziel. Der Auftrag ist eine **Feuerprobe**: Veyrath will in der Hierarchie der Sechsten Welt weiter aufsteigen, sucht dafür eine kleine, vielseitige Runnercrew für spätere Aufgaben und will sehen, wie sie unter Druck arbeitet: kreativ oder plump, diszipliniert oder gierig, kontrolliert oder mörderisch.
 
 Der Run ist bewusst offen gebaut. Einladung, Täuschung, Fassadeninfiltration, Luftweg, Matrixmanipulation, Magie, Gewalt gegen Drohnen oder völlig eigene Ideen können funktionieren. Kein bestimmtes Playbook ist notwendig.
 
@@ -101,15 +101,17 @@ Wenn die Charaktere bereits vorher gewählt wurden, bleibt deutlich mehr Zeit f�
 
 Der **Meridian Spire** ist eine **Eigenkreation**: ein 112-stöckiger Luxusturm in Seattle. Die obersten beiden Geschosse, 111 und 112, bilden ein doppelstöckiges Penthouse mit Glasatrium. Geschoss 110 ist offiziell lediglich als technische Ebene ausgewiesen. Tatsächlich enthält es einen privaten Tresor und einen Teil einer außerordentlich wertvollen Sammlung.
 
-Der Besitz wird über mehrere Briefkastenfirmen und die ebenfalls erfundene **Vesperline Collections LLC** verwaltet. Hinter den Gesellschaften steht **Veyrath**, ein erwachsener Drache. Veyrath ist keine kanonische Shadowrun-Figur, sondern eine **Eigenkreation für diesen Run**.
+Der Besitz wird über mehrere Briefkastenfirmen und die ebenfalls erfundene **Vesperline Collections LLC** verwaltet. Hinter den Gesellschaften steht **Veyrath**, ein junger Drache. Veyrath ist keine kanonische Shadowrun-Figur, sondern eine **Eigenkreation für diesen Run**.
 
 ## Veyrath – Eigentümer und eigentlicher Auftraggeber
 
-Veyrath ist ein zurückhaltender, äußerst vermögender Sammler, der lieber durch Mittelsleute handelt, als selbst öffentlich aufzutreten. Er betrachtet professionelle Runner nicht als Freunde oder Spielfiguren, sondern als potenziell wertvolle Spezialisten. Was ihn interessiert, ist Verlässlichkeit unter Bedingungen, in denen Gier, Angst und Improvisation miteinander kollidieren.
+Veyrath ist ein Jungdrache: an Jahren und Ansehen weit hinter den Großdrachen, an Ehrgeiz keinem von ihnen unterlegen. Turm, Sammlung und Briefkastenfirmen sind keine Altersruhe, sondern das Fundament, auf dem er weiter aufsteigen will, bis man ihn in der Hierarchie der Sechsten Welt nicht mehr übergehen kann. Die alten Drachen fürchtet er keineswegs. Er hält sie für mächtig, aber auch für träge, in ihren Jahrhunderte alten Fehden und Gewohnheiten festgefahren, und gedenkt, genau dort Boden zu gewinnen, wo sie nicht hinsehen. Öffentlich tritt er trotzdem kaum auf und handelt lieber durch Mittelsleute; nicht aus Scheu, sondern weil er seine Züge erst zeigt, wenn sie sitzen.
+
+Er betrachtet professionelle Runner nicht als Freunde oder Spielfiguren, sondern als potenziell wertvolle Spezialisten. Ein aufsteigender Drache braucht Werkzeuge, die nicht schon einem anderen gehören. Was ihn interessiert, ist Verlässlichkeit unter Bedingungen, in denen Gier, Angst und Improvisation miteinander kollidieren.
 
 **Wichtig für die Spielleitung:** Veyrath ist **kein Antagonist dieses Runs**. Es gibt keinen rivalisierenden Drachen, keinen Drachenkonflikt und keinen versteckten Auftrag, bei dem die Crew unwissentlich einen anderen Drachen bestiehlt. **Penthouse, Tresor, Sammlung und Aktenkoffer gehören Veyrath selbst; Mr. Johnson arbeitet für Veyrath.** Die Feuerprobe besteht gerade darin, dass Veyrath eine echte Sicherheitsarchitektur gegen eine von ihm ausgewählte Crew testen lässt.
 
-Veyrath sucht eine kleine Crew für spätere, wesentlich wichtigere Aufträge. Er will keine perfekten Einbrecher, sondern Runner, die:
+Veyrath sucht eine kleine Crew für spätere, wesentlich wichtigere Aufträge, die ihn seinem Aufstieg näher bringen sollen. Er will keine perfekten Einbrecher, sondern Runner, die:
 
 - Anweisungen verstehen und ernst nehmen,
 - ungewöhnliche Probleme selbstständig lösen,
@@ -1039,7 +1041,7 @@ Hat die Crew den Sprengsatz entdeckt und sauber neutralisiert, kann Veyrath erg�
 
 > „Den Sicherungsmechanismus zu erkennen war gute Arbeit. Ihn überwinden zu müssen, war eure eigene Entscheidung.“
 
-Veyraths Auftauchen ist **ausschließlich die Bewertung des Tests**, kein Endbosskampf und keine neue Konfrontation. Er ist nicht der Gegner der Runner. Er bleibt außer Reichweite, bedroht die Crew nicht und blockiert ihre Flucht nicht. Sollten die Runner ausgerechnet auf ihn schießen, beendet er den Kontakt und zieht sich zurück, statt aus dem Epilog einen Kampf gegen einen erwachsenen Drachen zu machen.
+Veyraths Auftauchen ist **ausschließlich die Bewertung des Tests**, kein Endbosskampf und keine neue Konfrontation. Er ist nicht der Gegner der Runner. Er bleibt außer Reichweite, bedroht die Crew nicht und blockiert ihre Flucht nicht. Sollten die Runner ausgerechnet auf ihn schießen, beendet er den Kontakt und zieht sich zurück, statt aus dem Epilog einen Kampf gegen einen Drachen zu machen.
 
 ---
 
@@ -1231,7 +1233,7 @@ Die übrigen Elemente können Teil von Consequences oder Beschreibung werden.
 **Mr. Johnson:** professioneller Vermittler Veyraths.  
 **Dr. Amara Venn:** orkische Kuratorin, linkes bernsteinfarbenes Auge = Biometrie.  
 **Dorian Kade:** Sicherheitschef; eleganter Maßanzug, zwei verchromte Cyberarme, kleine reflexartige Zuckungen, diskrete Pistole; kennt Verwahrung und Ausgabe der Keycard.  
-**Veyrath:** erwachsener Drache, Eigentümer und eigentlicher Auftraggeber; prüft die Crew.
+**Veyrath:** ehrgeiziger Jungdrache, Eigentümer und eigentlicher Auftraggeber; prüft die Crew für seinen weiteren Aufstieg.
 
 ## Die Wahrheit
 
