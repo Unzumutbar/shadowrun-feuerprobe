@@ -11,9 +11,9 @@ const GUIDE_EN={
   fine:'Fan material for the private gaming table. <i>Runners in the Shadows</i> is a Forged in the Dark game by Mark Cleveland Massengale; <i>Shadowrun</i> is a trademark of The Topps Company / Catalyst Game Labs. Meridian Spire, Vesperline Collections, Dr. Amara Venn, Dorian Kade, Veyrath and the living vault tissue are original creations for this one-shot. Portraits you insert here are stored only in your browser.'},
 
  npcs:[
-  {id:'johnson',name:'Mr. Johnson',role:'Variant A · seasoned fixer, the face of the job',tags:['Elf','Decades in the business','Paper notebook'],kind:'person',
-   bio:'A calm professional who keeps Veyrath’s contacts into the shadows. He arrives early, is already seated in the privacy booth when the crew shows up, and writes with a pen in a real paper notebook throughout the whole conversation. No visible commlink, no threats, no theatre. Johnson keeps agreements and expects the same.',
-   look:['Older elf, silver-grey hair combed severely back, fine lines around the eyes','Charcoal-grey tailored suit, no insignia','Polite, factual, never hurried','Actually finishes his soykaf'],
+  {id:'johnson',name:'Mr. Johnson',role:'Variant A · seasoned fixer, the face of the job',tags:['Elf','Decades in the business','Tablet & AR glasses'],kind:'person',
+   bio:'A calm professional who keeps Veyrath’s contacts into the shadows. He arrives early, is already seated in the privacy booth when the crew shows up, and holds a glass tablet he barely glances at during the whole conversation: whatever he needs to know, his rimless AR glasses show him. No threats, no theatre. Johnson keeps agreements and expects the same.',
+   look:['Older elf, silver-grey hair combed back and tied at the nape, fine lines around the eyes','Rimless AR glasses, a thin cable running to his ear; glass tablet','Charcoal-grey tailored suit, no insignia','Polite, factual, never hurried','Actually finishes his soykaf'],
    play:['States “unopened” matter-of-factly as one condition among several, without stressing it.','Does not haggle over agreed terms after the run.','Answers questions about his client with “My client values discretion.”'],
    secret:'Works directly for Veyrath and knows the run is a trial. He does not reveal it, but he does not lie clumsily either: anyone watching closely notices that he studies the crew like applicants.',
    say:'“The case is handed over closed. Nothing else in that room interests my client, and it should not interest you either.”'},
@@ -84,8 +84,8 @@ const GUIDE_EN={
    lead:'Calm, professional, no trap. The job is stated clearly, the conditions named plainly. This is where you set the yardstick the crew will later be measured against.',
    blocks:[
     ['h3','Recommended venue: “Raincheck”'],
-    ['p','A 24-hour soykaf diner on a middle floor of a mixed-use high-rise. Rain runs in broad sheets down the panoramic windows. Most tables are empty; delivery drones wait outside on a charging rail. Johnson is already seated in a semi-transparent privacy booth, charcoal tailored suit, real paper notebook instead of a commlink.'],
-    ['note','gm','Two Johnsons to choose from','Under “Key people” there are two variants: the seasoned elven professional with a paper notebook (as described here) and a young rookie fixer with a tablet and datajacks whom Veyrath is testing too. Job, conditions and pay are the same either way; the rookie makes the briefing looser and gives the crew someone to root for.'],
+    ['p','A 24-hour soykaf diner on a middle floor of a mixed-use high-rise. Rain runs in broad sheets down the panoramic windows. Most tables are empty; delivery drones wait outside on a charging rail. Johnson is already seated in a semi-transparent privacy booth, charcoal tailored suit, rimless AR glasses, a glass tablet in front of him and a steaming soykaf beside it.'],
+    ['note','gm','Two Johnsons to choose from','Under “Key people” there are two variants: the seasoned elven professional who barely needs his tablet (as described here) and a young rookie fixer with datajacks who clings to his tablet and whom Veyrath is testing too. Job, conditions and pay are the same either way; the rookie makes the briefing looser and gives the crew someone to root for.'],
     ['tiles',3,[
       {h:'Late ferry',sub:'alternative',p:'Johnson boards at a stop, sits next to the crew for ten minutes and vanishes into the crowd at the next landing.'},
       {h:'Parking deck above the clouds',sub:'alternative',p:'An almost empty automated car park in the upper floors of an office tower. Wind and rain whip through open sides while autonomous vehicles roll in and out without a word.'},
